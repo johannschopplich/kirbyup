@@ -18,6 +18,7 @@ export type NormalizedOptions = MarkRequired<Options, 'entry'>
 
 export async function runViteBuild(options: NormalizedOptions) {
   let result: RollupOutput | RollupOutput[] | RollupWatcher | undefined
+  const fileName = 'index'
 
   try {
     result = await viteBuild({
@@ -26,15 +27,15 @@ export async function runViteBuild(options: NormalizedOptions) {
         lib: {
           entry: resolve(process.cwd(), options.entry),
           formats: ['es'],
-          // Required, if no `name` inside the local `package.json` given
-          fileName: 'index'
+          // Required if key `name` in `package.json` is missing
+          fileName
         },
         outDir: '.',
         rollupOptions: {
           external: ['vue'],
           output: {
             entryFileNames: '[name].js',
-            assetFileNames: 'index.[ext]',
+            assetFileNames: `${fileName}.[ext]`,
             globals: {
               vue: 'Vue'
             }
@@ -48,10 +49,7 @@ export async function runViteBuild(options: NormalizedOptions) {
     throw error
   }
 
-  if (result) {
-    log('Build success', 'success')
-  }
-
+  log('Build success', 'success')
   return result
 }
 
