@@ -4,9 +4,7 @@ export function debouncePromise<T extends unknown[]>(
   onError: (err: unknown) => void
 ) {
   let timeout: ReturnType<typeof setTimeout> | undefined
-
   let promiseInFly: Promise<void> | undefined
-
   let callbackPending: (() => void) | undefined
 
   return function debounced(...args: Parameters<typeof fn>) {

@@ -1,10 +1,9 @@
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import { cac } from 'cac'
 import { Options } from '.'
+import { name, version } from '../package.json'
 
 export async function main(options: Options = {}) {
-  const cli = cac('kirbyup')
+  const cli = cac(name)
 
   cli
     .command('[file]', 'Panel input file', {
@@ -30,8 +29,7 @@ export async function main(options: Options = {}) {
 
   cli.help()
 
-  const pkgPath = join(__dirname, '../package.json')
-  cli.version(JSON.parse(readFileSync(pkgPath, 'utf8')).version)
+  cli.version(version)
 
   cli.parse(process.argv, { run: false })
   await cli.runMatchedCommand()

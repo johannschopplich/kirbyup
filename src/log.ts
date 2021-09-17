@@ -1,6 +1,7 @@
 import colors from 'chalk'
+import { name } from '../package.json'
 
-const label = colors.gray('[kirbyup]')
+const label = colors.gray(`[${name}]`)
 
 export const makeMessage = (
   input: string,

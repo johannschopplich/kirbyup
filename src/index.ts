@@ -1,11 +1,11 @@
-import fs from 'fs'
-import path from 'path'
+import { resolve, dirname } from 'path'
+import { existsSync } from 'fs'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
-import { version } from '../package.json'
+import { name, version } from '../package.json'
 import type { RollupOutput, RollupWatcher } from 'rollup'
 import type { MarkRequired } from 'ts-essentials'
 
@@ -24,8 +24,9 @@ export async function runViteBuild(options: NormalizedOptions) {
       plugins: [createVuePlugin()],
       build: {
         lib: {
-          entry: path.resolve(process.cwd(), options.entry),
+          entry: resolve(process.cwd(), options.entry),
           formats: ['es'],
+          // Required, if no `name` inside the local `package.json` given
           fileName: 'index'
         },
         outDir: '.',
@@ -56,11 +57,11 @@ export async function runViteBuild(options: NormalizedOptions) {
 
 const normalizeOptions = async (options: Options) => {
   if (!options.entry) {
-    throw new PrettyError(`No input file, try "kirbyup <path/to/file.js>"`)
+    throw new PrettyError(`No input file, try "${name} <path/to/file.js>"`)
   }
 
   // Ensure entry exists
-  if (!fs.existsSync(options.entry)) {
+  if (!existsSync(options.entry)) {
     throw new PrettyError(`Cannot find ${options.entry}`)
   }
 
@@ -70,7 +71,7 @@ const normalizeOptions = async (options: Options) => {
 export async function build(_options: Options) {
   const options = await normalizeOptions(_options)
 
-  log('info', `kirbyup v${version}`)
+  log('info', `#{name} v${version}`)
   log('info', `Building: ${options.entry}`)
 
   if (options.watch) {
@@ -94,7 +95,7 @@ export async function build(_options: Options) {
 
     const watchPaths =
       typeof options.watch === 'boolean'
-        ? path.dirname(options.entry)
+        ? dirname(options.entry)
         : Array.isArray(options.watch)
         ? options.watch.filter(
             (path): path is string => typeof path === 'string'
