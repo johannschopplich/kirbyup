@@ -1,6 +1,6 @@
 {
   "name": "kirbyup",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Bundle your Kirby Panel plugins with ease",
   "files": [
     "dist"
@@ -36,7 +36,6 @@
     "cac": "^6.7.3",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.2",
-    "prettier": "^2.4.1",
     "sass": "^1.41.1",
     "ts-essentials": "^8.1.0",
     "tsup": "^5.1.0",
@@ -46,6 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.9.1",
+    "prettier": "^2.4.1",
     "typescript": "^4.4.3"
   }
 }

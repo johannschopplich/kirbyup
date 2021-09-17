@@ -25,14 +25,15 @@ export async function runViteBuild(options: NormalizedOptions) {
       build: {
         lib: {
           entry: path.resolve(process.cwd(), options.entry),
-          formats: ['es']
+          formats: ['es'],
+          fileName: 'index.js'
         },
         outDir: '.',
         rollupOptions: {
           external: ['vue'],
           output: {
-            entryFileNames: `[name].js`,
-            assetFileNames: `index.[ext]`,
+            entryFileNames: '[name].js',
+            assetFileNames: 'index.[ext]',
             globals: {
               vue: 'Vue'
             }
