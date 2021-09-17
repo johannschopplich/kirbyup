@@ -26,7 +26,7 @@ export async function runViteBuild(options: NormalizedOptions) {
         lib: {
           entry: path.resolve(process.cwd(), options.entry),
           formats: ['es'],
-          fileName: 'index.js'
+          fileName: 'index'
         },
         outDir: '.',
         rollupOptions: {
