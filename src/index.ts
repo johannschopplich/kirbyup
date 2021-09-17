@@ -24,7 +24,7 @@ export async function runViteBuild(options: NormalizedOptions) {
       plugins: [createVuePlugin()],
       build: {
         lib: {
-          entry: path.resolve(__dirname, options.entry),
+          entry: path.resolve(process.cwd(), options.entry),
           formats: ['es']
         },
         outDir: '.',
