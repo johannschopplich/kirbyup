@@ -91,7 +91,11 @@ export async function build(_options: Options) {
 
     const { watch } = await import('chokidar')
 
-    const ignored = ['**/{.git,node_modules}/**']
+    const ignored = [
+      '**/{.git,node_modules}/**',
+      // Always ignore out file
+      'index.js'
+    ]
 
     const watchPaths =
       typeof options.watch === 'boolean'
