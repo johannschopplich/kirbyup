@@ -7,17 +7,10 @@ import { debouncePromise } from './utils'
 import { log } from './log'
 import { name, version } from '../package.json'
 import type { RollupOutput, RollupWatcher } from 'rollup'
-import type { MarkRequired } from 'ts-essentials'
-
-export type Options = {
-  entry?: string
-  watch?: boolean | string | (string | boolean)[]
-}
-
-export type NormalizedOptions = MarkRequired<Options, 'entry'>
+import type { Options, NormalizedOptions, Arrayable } from './types'
 
 export async function runViteBuild(options: NormalizedOptions) {
-  let result: RollupOutput | RollupOutput[] | RollupWatcher | undefined
+  let result: Arrayable<RollupOutput> | RollupWatcher | undefined
 
   const fileName = 'index'
   const currentDir = process.cwd()

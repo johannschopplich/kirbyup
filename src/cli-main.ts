@@ -1,6 +1,6 @@
 import { cac } from 'cac'
-import { Options } from '.'
 import { name, version } from '../package.json'
+import type { Options } from './types'
 
 export async function main(options: Options = {}) {
   const cli = cac(name)

@@ -47,7 +47,6 @@
   "devDependencies": {
     "@types/node": "^16.9.2",
     "prettier": "^2.4.1",
-    "ts-essentials": "^8.1.0",
     "tsup": "^5.1.0",
     "typescript": "^4.4.3"
   }
