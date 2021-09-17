@@ -18,19 +18,22 @@ export type NormalizedOptions = MarkRequired<Options, 'entry'>
 
 export async function runViteBuild(options: NormalizedOptions) {
   let result: RollupOutput | RollupOutput[] | RollupWatcher | undefined
+
   const fileName = 'index'
+  const currentDir = process.cwd()
 
   try {
     result = await viteBuild({
       plugins: [createVuePlugin()],
       build: {
         lib: {
-          entry: resolve(process.cwd(), options.entry),
+          entry: resolve(currentDir, options.entry),
           formats: ['es'],
           // Required if key `name` in `package.json` is missing
           fileName
         },
-        outDir: '.',
+        outDir: currentDir,
+        emptyOutDir: false,
         rollupOptions: {
           external: ['vue'],
           output: {
@@ -42,14 +45,14 @@ export async function runViteBuild(options: NormalizedOptions) {
           }
         }
       },
-      logLevel: 'error'
+      logLevel: 'warn'
     })
   } catch (error) {
     log('Build failed', 'error')
     throw error
   }
 
-  log('Build success', 'success')
+  log('Build successful', 'success')
   return result
 }
 
