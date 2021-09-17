@@ -12,35 +12,37 @@ Install it locally in your project folder:
 npm i kirbyup --save-dev
 ```
 
-You can also install it globally but it's not recommended.
+You can also install it globally.
 
 ## Usage
 
 ```json
 {
   "scripts": {
-    "dev": "kirbyup src/index.js --watch src",
+    "dev": "kirbyup src/index.js --watch",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.4.0"
+    "kirbyup": "^0.5.0"
   }
 }
 ```
 
 ### Development
 
+Rebuild the Panel plugin on any file changes:
+
 ```bash
 kirbyup src/index.js --watch
 ```
 
-You can also specify the directories to be watched. By default, if no path is specified, it watches the current directory.
+You can also specify the directories to be watched. By default, if no path is specified, kirbyup watches the directory specified by the input file (`src` for the example above).
 
 ```bash
 kirbyup src/index.js --watch src
 ```
 
-You can specify more than a single directory
+You can specify more than a single directory:
 
 ```bash
 kirbyup src/index.js --watch src --watch libs
