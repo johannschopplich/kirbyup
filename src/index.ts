@@ -6,11 +6,10 @@ import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
 import { name, version } from '../package.json'
-import type { RollupOutput, RollupWatcher } from 'rollup'
-import type { Options, NormalizedOptions, Arrayable } from './types'
+import type { Options, NormalizedOptions, Awaited } from './types'
 
 export async function runViteBuild(options: NormalizedOptions) {
-  let result: Arrayable<RollupOutput> | RollupWatcher | undefined
+  let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const fileName = 'index'
   const currentDir = process.cwd()
@@ -72,7 +71,7 @@ export async function build(_options: Options) {
     log('Running in watch mode')
   }
 
-  const debouncedBuildAll = debouncePromise(
+  const debouncedBuild = debouncePromise(
     async () => {
       runViteBuild(options)
     },
@@ -118,7 +117,7 @@ export async function build(_options: Options) {
 
     watcher.on('all', async (type, file) => {
       log(`Change detected: ${type} ${file}`)
-      debouncedBuildAll()
+      debouncedBuild()
     })
   }
 
