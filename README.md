@@ -56,6 +56,10 @@ kirbyup src/index.js
 
 The final panel plugin will be bundled, minified, and written into the current directory as `./index.js`.
 
+## TODO
+
+- [ ] HMR with Vite in lib mode
+
 ## Credits
 
 - [Vite](https://vitejs.dev) by Evan You and all of its contributors.

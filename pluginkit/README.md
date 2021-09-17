@@ -24,7 +24,7 @@ You can start the dev process with:
 npm run dev
 ```
 
-This will automatically update the `index.js` and `index.css` of your plugin as soon as you make changes. Reload the panel once and afterwards you should see changes immediately without further reloading.
+This will automatically update the `index.js` and `index.css` of your plugin as soon as you make changes. Reload the Panel to see changes reflected.
 
 ### Production
 
