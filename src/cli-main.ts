@@ -11,7 +11,7 @@ export async function main(options: Options = {}) {
     })
     .option(
       '--watch [path]',
-      'Watch mode, if path is not specified, it watches the current folder ".". Repeat "--watch" for more than one path'
+      'Watch mode, if path is not specified, it watches the folder of the input file. Repeat "--watch" for more than one path'
     )
     .action(async (file: string, flags) => {
       const { build } = await import('.')

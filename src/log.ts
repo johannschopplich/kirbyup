@@ -10,7 +10,7 @@ const colorMap = new Map<MessageType, typeof Color>([
   ['error', 'red']
 ])
 
-export function log(type: MessageType, message: string) {
+export function log(message: string, type: MessageType = 'info') {
   const content = [
     colors.gray(`[${name}]`),
     colors[colorMap.get(type)!](message)

@@ -44,12 +44,12 @@ export async function runViteBuild(options: NormalizedOptions) {
       logLevel: 'error'
     })
   } catch (error) {
-    log('error', 'Build failed')
+    log('Build failed', 'error')
     throw error
   }
 
   if (result) {
-    log('success', `Build success`)
+    log('Build success', 'success')
   }
 
   return result
@@ -71,11 +71,11 @@ const normalizeOptions = async (options: Options) => {
 export async function build(_options: Options) {
   const options = await normalizeOptions(_options)
 
-  log('info', `#{name} v${version}`)
-  log('info', `Building: ${options.entry}`)
+  log(`${name} v${version}`)
+  log(`Building: ${options.entry}`)
 
   if (options.watch) {
-    log('info', 'Running in watch mode')
+    log('Running in watch mode')
   }
 
   const debouncedBuildAll = debouncePromise(
@@ -103,17 +103,14 @@ export async function build(_options: Options) {
         : options.watch
 
     log(
-      'info',
       `Watching for changes in ${
         Array.isArray(watchPaths)
           ? watchPaths.map((v) => '"' + v + '"').join(' | ')
           : '"' + watchPaths + '"'
       }`
     )
-    // log(
-    //   'info',
-    //   `Ignoring changes in ${ignored.map((v) => '"' + v + '"').join(' | ')}`
-    // )
+
+    // log(`Ignoring changes in ${ignored.map((v) => '"' + v + '"').join(' | ')}`)
 
     const watcher = watch(watchPaths, {
       ignoreInitial: true,
@@ -122,7 +119,7 @@ export async function build(_options: Options) {
     })
 
     watcher.on('all', async (type, file) => {
-      log('info', `Change detected: ${type} ${file}`)
+      log(`Change detected: ${type} ${file}`)
       debouncedBuildAll()
     })
   }
