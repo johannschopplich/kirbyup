@@ -23,7 +23,7 @@ You can also install it globally but it's not recommended.
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.3.0"
+    "kirbyup": "^0.4.0"
   }
 }
 ```
