@@ -1,20 +1,24 @@
 import colors from 'chalk'
 import { name } from '../package.json'
+import type { Color } from 'chalk'
 
-const label = colors.gray(`[${name}]`)
+type MessageType = 'info' | 'success' | 'error'
 
-export const makeMessage = (
-  input: string,
-  type: 'info' | 'success' | 'error'
-) =>
-  colors[type === 'info' ? 'yellow' : type === 'error' ? 'red' : 'green'](input)
+const colorMap = new Map<MessageType, typeof Color>([
+  ['info', 'yellow'],
+  ['success', 'green'],
+  ['error', 'red']
+])
 
-export function log(type: 'info' | 'success' | 'error', message: string) {
-  switch (type) {
-    case 'error': {
-      return console.error(label, makeMessage(message, type))
-    }
-    default:
-      console.log(label, makeMessage(message, type))
+export function log(type: MessageType, message: string) {
+  const content = [
+    colors.gray(`[${name}]`),
+    colors[colorMap.get(type)!](message)
+  ]
+
+  if (type === 'error') {
+    console.error(...content)
+  } else {
+    console.log(...content)
   }
 }
