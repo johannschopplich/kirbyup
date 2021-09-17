@@ -63,7 +63,7 @@ The final panel plugin will be bundled, minified, and written into the current d
 ## Credits
 
 - [Vite](https://vitejs.dev) by Evan You and all of its contributors.
-- [EGOIST](https://github.com/egoist) for his work on [tsup](https://github.com/egoist/tsup), on which the CLI was built.
+- [EGOIST](https://github.com/egoist) for his work on [tsup](https://github.com/egoist/tsup), which this CLI was forked from.
 
 ## License
 
