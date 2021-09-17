@@ -1,6 +1,6 @@
 # kirbyup
 
-> Take a lool into the [plainkit](./plainkit) folder for an example setup.
+> Take a lool into the [pluginkit](./pluginkit) folder for an example setup.
 
 The fastest and leanest way to bundle your Kirby Panel plugins. No configuration necessary.
 
