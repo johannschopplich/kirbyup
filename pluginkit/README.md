@@ -10,7 +10,7 @@
 
 ### Installation
 
-We use [kirbyupi](https://github.com/johannschopplich/kirbyup) for the development and build setup.
+We use [kirbyup](https://github.com/johannschopplich/kirbyup) for the development and build setup.
 
 ```bash
 npm install
