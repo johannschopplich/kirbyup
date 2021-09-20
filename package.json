@@ -7,7 +7,7 @@
   ],
   "main": "dist/index.js",
   "bin": {
-    "kirbyup": "dist/cli-default.js"
+    "kirbyup": "dist/cli.js"
   },
   "types": "dist/index.d.ts",
   "repository": {
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/johannschopplich/kirbyup#readme",
   "scripts": {
-    "build": "tsup src/cli-*.ts src/index.ts --target node14 --clean --dts",
+    "build": "tsup src/cli.ts src/index.ts --target node14 --clean --dts",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

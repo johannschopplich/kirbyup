@@ -1,8 +1,9 @@
 import { cac } from 'cac'
 import { name, version } from '../package.json'
+import { handleError } from './errors'
 import type { Options } from './types'
 
-export async function main(options: Options = {}) {
+async function main(options: Options = {}) {
   const cli = cac(name)
 
   cli
@@ -34,3 +35,5 @@ export async function main(options: Options = {}) {
   cli.parse(process.argv, { run: false })
   await cli.runMatchedCommand()
 }
+
+main().catch(handleError)

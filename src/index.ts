@@ -22,7 +22,7 @@ export async function runViteBuild(options: NormalizedOptions) {
         lib: {
           entry: resolve(currentDir, options.entry),
           formats: ['es'],
-          // Required if key `name` in `package.json` is missing
+          // Required if `name` in `package.json` is missing
           fileName
         },
         outDir: currentDir,
