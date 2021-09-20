@@ -6,7 +6,8 @@ import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
 import { name, version } from '../package.json'
-import type { Options, NormalizedOptions, Awaited } from './types'
+import type { Awaited } from 'ts-essentials'
+import type { Options, NormalizedOptions } from './types'
 
 export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined

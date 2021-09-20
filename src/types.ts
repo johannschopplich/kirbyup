@@ -1,4 +1,4 @@
-import { Awaited, MarkRequired } from 'ts-essentials'
+import { MarkRequired } from 'ts-essentials'
 
 /** Array, or not yet an array */
 export type Arrayable<T> = T | Array<T>
@@ -9,5 +9,3 @@ export type Options = {
 }
 
 export type NormalizedOptions = MarkRequired<Options, 'entry'>
-
-export { Awaited }
