@@ -6,6 +6,7 @@ import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
 import { name, version } from '../package.json'
+import colors from 'chalk'
 import type { Awaited } from 'ts-essentials'
 import type { Options, NormalizedOptions } from './types'
 
@@ -115,7 +116,7 @@ export async function build(_options: Options) {
     })
 
     watcher.on('all', async (type, file) => {
-      log(`Change detected: ${type} ${file}`)
+      log(`${type} ${colors.gray(file)}`)
       debouncedBuild()
     })
   }
