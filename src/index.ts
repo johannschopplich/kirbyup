@@ -12,8 +12,8 @@ import type { Options, NormalizedOptions } from './types'
 export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
-  const fileName = 'index'
   const currentDir = process.cwd()
+  const baseName = 'index'
 
   try {
     result = await viteBuild({
@@ -22,16 +22,14 @@ export async function runViteBuild(options: NormalizedOptions) {
         lib: {
           entry: resolve(currentDir, options.entry),
           formats: ['es'],
-          // Required if `name` in `package.json` is missing
-          fileName
+          fileName: () => `${baseName}.js`
         },
         outDir: currentDir,
         emptyOutDir: false,
         rollupOptions: {
           external: ['vue'],
           output: {
-            entryFileNames: '[name].js',
-            assetFileNames: `${fileName}.[ext]`,
+            assetFileNames: `${baseName}.[ext]`,
             globals: {
               vue: 'Vue'
             }
