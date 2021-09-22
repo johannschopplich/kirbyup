@@ -1,3 +1,9 @@
+## [0.9.3](https://github.com/johannschopplich/kirbyup/compare/v0.9.2...v0.9.3) (2021-09-22)
+
+### Bug Fixes
+
+- **build:** prevent polluting global scope ([1db8f14](https://github.com/johannschopplich/kirbyup/commit/1db8f145fade406f3f7401d46909945866a14ac4))
+
 ## [0.9.2](https://github.com/johannschopplich/kirbyup/compare/v0.9.1...v0.9.2) (2021-09-22)
 
 ### Features
