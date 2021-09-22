@@ -1,8 +1,5 @@
-import { resolve } from 'path'
 import { remove } from 'fs-extra'
-import { run } from './utils'
-
-const cacheDir = resolve(__dirname, '.cache')
+import { run, cacheDir } from './utils'
 
 beforeAll(async () => {
   await remove(cacheDir)
