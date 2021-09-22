@@ -1,3 +1,9 @@
+## [0.9.4](https://github.com/johannschopplich/kirbyup/compare/v0.9.3...v0.9.4) (2021-09-22)
+
+### Performance Improvements
+
+- replace chalk with nanocolors (2x faster) ([2ac4096](https://github.com/johannschopplich/kirbyup/commit/2ac40969f746e7c54df164e3721a33e4353d63d3))
+
 ## [0.9.3](https://github.com/johannschopplich/kirbyup/compare/v0.9.2...v0.9.3) (2021-09-22)
 
 ### Bug Fixes
