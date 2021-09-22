@@ -1,11 +1,7 @@
-import View from './components/View.vue'
+import DemoSection from './components/DemoSection.vue'
 
 panel.plugin('getkirby/pluginkit', {
-  views: {
-    example: {
-      component: View,
-      icon: 'preview',
-      label: 'Example'
-    }
+  sections: {
+    demo: DemoSection
   }
 })
