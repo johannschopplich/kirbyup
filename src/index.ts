@@ -25,6 +25,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           formats: ['es'],
           fileName: () => `${baseName}.js`
         },
+        minify: !options.watch,
         outDir: currentDir,
         emptyOutDir: false,
         rollupOptions: {
