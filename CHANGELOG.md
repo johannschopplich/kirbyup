@@ -1,3 +1,9 @@
+## [0.9.5](https://github.com/johannschopplich/kirbyup/compare/v0.9.4...v0.9.5) (2021-09-22)
+
+### Bug Fixes
+
+- **watch:** skip on build index.css changes ([411e87c](https://github.com/johannschopplich/kirbyup/commit/411e87cadbeee03c48ffc35b677cfd4c2edcd13b))
+
 ## [0.9.4](https://github.com/johannschopplich/kirbyup/compare/v0.9.3...v0.9.4) (2021-09-22)
 
 ### Performance Improvements
