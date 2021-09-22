@@ -34,6 +34,8 @@ async function main(options: Options = {}) {
 
   cli.version(version)
 
+  // Parse CLI args without running the command to
+  // handle command errors globally
   cli.parse(process.argv, { run: false })
   await cli.runMatchedCommand()
 }
