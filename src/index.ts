@@ -10,8 +10,6 @@ import { name, version } from '../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { Options, NormalizedOptions } from './types'
 
-const outFile = 'index.js'
-
 export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
@@ -25,7 +23,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           entry: resolve(currentDir, options.entry),
           formats: ['iife'],
           name: 'kirbyupExport',
-          fileName: () => outFile
+          fileName: () => 'index.js'
         },
         minify: !options.watch,
         outDir: currentDir,
@@ -89,8 +87,8 @@ export async function build(_options: Options) {
 
     const ignored = [
       '**/{.git,node_modules}/**',
-      // Always ignore out file
-      outFile
+      // Always ignore out files
+      'index.{css,js}'
     ]
 
     const watchPaths =
