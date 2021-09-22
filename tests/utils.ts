@@ -14,8 +14,8 @@ export async function run(files: Record<string, string>) {
 
   // Write entry files on disk
   await Promise.all(
-    Object.keys(files).map((name) =>
-      fs.outputFile(resolve(testDir, name), files[name], 'utf8')
+    Object.entries(files).map(([path, content]) =>
+      fs.outputFile(resolve(testDir, path), content, 'utf8')
     )
   )
 
