@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "cac": "^6.7.3",
-    "chalk": "^4.1.2",
     "chokidar": "^3.5.2",
+    "nanocolors": "^0.1.6",
     "sass": "^1.42.1",
     "vite": "^2.5.10",
     "vite-plugin-vue2": "^1.8.2",

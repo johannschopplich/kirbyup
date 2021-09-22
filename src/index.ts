@@ -1,12 +1,12 @@
 import { resolve, dirname } from 'path'
 import { existsSync } from 'fs'
+import colors from 'nanocolors'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
 import { name, version } from '../package.json'
-import colors from 'chalk'
 import type { Awaited } from 'ts-essentials'
 import type { Options, NormalizedOptions } from './types'
 

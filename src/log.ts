@@ -1,10 +1,11 @@
-import colors from 'chalk'
+import colors from 'nanocolors'
 import { name } from '../package.json'
-import type { Color } from 'chalk'
+import type { Colors as NanoColors } from 'nanocolors'
 
 type LogLevel = 'info' | 'success' | 'error'
+type Colors = Exclude<keyof NanoColors, 'isColorSupported'>
 
-const colorMap = new Map<LogLevel, typeof Color>([
+const colorMap = new Map<LogLevel, Colors>([
   ['info', 'yellow'],
   ['success', 'green'],
   ['error', 'red']

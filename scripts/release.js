@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
+const colors = require('nanocolors')
 const semver = require('semver')
 const { prompt } = require('enquirer')
 const execa = require('execa')
@@ -12,7 +12,7 @@ const versionIncrements = ['patch', 'minor', 'major']
 const inc = (i) => semver.inc(currentVersion, i)
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: 'inherit', ...opts })
-const step = (msg) => console.log(chalk.cyan(msg))
+const step = (msg) => console.log(colors.cyan(msg))
 
 async function main() {
   let targetVersion
@@ -83,11 +83,7 @@ async function main() {
 
   // Publish the package.
   step('\nPublishing the package...')
-  await run('npm', [
-    'publish',
-    '--no-commit-hooks',
-    '--no-git-tag-version'
-  ])
+  await run('npm', ['publish', '--no-commit-hooks', '--no-git-tag-version'])
 
   // Push to GitHub.
   step('\nPushing to GitHub...')
