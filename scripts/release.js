@@ -21,7 +21,7 @@ async function main() {
     type: 'select',
     name: 'release',
     message: 'Select release type',
-    choices: versionIncrements.map((i) => `${i} (${inc(i)})`).concat(['custom'])
+    choices: [...versionIncrements.map((i) => `${i} (${inc(i)})`), 'custom']
   })
 
   if (release === 'custom') {
