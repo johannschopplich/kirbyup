@@ -103,12 +103,12 @@ export async function build(_options: Options) {
     log(
       `Watching for changes in ${
         Array.isArray(watchPaths)
-          ? watchPaths.map((v) => '"' + v + '"').join(' | ')
-          : '"' + watchPaths + '"'
+          ? watchPaths.map((i) => `"${i}"`).join(' | ')
+          : `"${watchPaths}"`
       }`
     )
 
-    // log(`Ignoring changes in ${ignored.map((v) => '"' + v + '"').join(' | ')}`)
+    // log(`Ignoring changes in ${ignored.map((i) => `"${i}"`).join(' | ')}`)
 
     const watcher = watch(watchPaths, {
       ignoreInitial: true,
