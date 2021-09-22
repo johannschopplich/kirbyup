@@ -5,14 +5,14 @@ beforeAll(async () => {
   await remove(cacheDir)
 })
 
-test('simple', async () => {
+test('module', async () => {
   const { output, outFiles } = await run({
     'src/input.js': `import foo from './foo'\nexport default foo`,
     'src/foo.js': `export default 'foo'`
   })
 
   expect(output).toMatchInlineSnapshot(`
-"var a=\\"foo\\";export{a as default};
+"var kirbyupExport=function(){\\"use strict\\";return\\"foo\\"}();
 "
 `)
 
@@ -30,7 +30,7 @@ test('css', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"
+"!function(){\\"use strict\\"}();
 "
 `)
 
@@ -62,7 +62,7 @@ test('panel-plugin', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:{extends:\\"k-info-field\\"}}});
+"!function(){\\"use strict\\";window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:{extends:\\"k-info-field\\"}}})}();
 "
 `)
 

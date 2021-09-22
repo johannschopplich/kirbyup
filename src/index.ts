@@ -10,11 +10,12 @@ import colors from 'chalk'
 import type { Awaited } from 'ts-essentials'
 import type { Options, NormalizedOptions } from './types'
 
+const outFile = 'index.js'
+
 export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const currentDir = process.cwd()
-  const baseName = 'index'
 
   try {
     result = await viteBuild({
@@ -22,8 +23,9 @@ export async function runViteBuild(options: NormalizedOptions) {
       build: {
         lib: {
           entry: resolve(currentDir, options.entry),
-          formats: ['es'],
-          fileName: () => `${baseName}.js`
+          formats: ['iife'],
+          name: 'kirbyupExport',
+          fileName: () => outFile
         },
         minify: !options.watch,
         outDir: currentDir,
@@ -31,7 +33,7 @@ export async function runViteBuild(options: NormalizedOptions) {
         rollupOptions: {
           external: ['vue'],
           output: {
-            assetFileNames: `${baseName}.[ext]`,
+            assetFileNames: 'index.[ext]',
             globals: {
               vue: 'Vue'
             }
@@ -88,7 +90,7 @@ export async function build(_options: Options) {
     const ignored = [
       '**/{.git,node_modules}/**',
       // Always ignore out file
-      'index.js'
+      outFile
     ]
 
     const watchPaths =
