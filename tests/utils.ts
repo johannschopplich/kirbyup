@@ -34,7 +34,6 @@ export async function run(files: Record<string, string>) {
   const outFiles = await fg('**/*', { cwd: testDir, ignore: ['src'] })
 
   return {
-    testDir,
     output,
     outFiles,
     logs,

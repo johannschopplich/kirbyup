@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { readFile, remove } from 'fs-extra'
+import { remove } from 'fs-extra'
 import { run } from './utils'
 
 const cacheDir = resolve(__dirname, '.cache')
@@ -27,17 +27,17 @@ Array [
 })
 
 test('css', async () => {
-  const { testDir, output, outFiles } = await run({
+  const { output, outFiles, getFileContent } = await run({
     'src/input.js': `import './input.css'`,
     'src/input.css': `body { margin: 0; }`
   })
-  const css = await readFile(resolve(testDir, 'index.css'), 'utf8')
 
   expect(output).toMatchInlineSnapshot(`
 "
 "
 `)
 
+  const css = await getFileContent('index.css')
   expect(css).toMatchInlineSnapshot(`
 "body{margin:0}
 "
