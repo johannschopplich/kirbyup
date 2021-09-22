@@ -1,3 +1,9 @@
+## [0.9.2](https://github.com/johannschopplich/kirbyup/compare/v0.9.1...v0.9.2) (2021-09-22)
+
+### Features
+
+- don't minify in dev env ([d206f9d](https://github.com/johannschopplich/kirbyup/commit/d206f9df741354f3dda911e22377d234eaa22bab))
+
 ## [0.9.1](https://github.com/johannschopplich/kirbyup/compare/v0.9.0...v0.9.1) (2021-09-21)
 
 ### Bug Fixes
