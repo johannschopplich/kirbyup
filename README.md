@@ -19,11 +19,8 @@ You can also install it globally.
 ```json
 {
   "scripts": {
-    "dev": "kirbyup src/index.js --watch",
-    "build": "kirbyup src/index.js"
-  },
-  "devDependencies": {
-    "kirbyup": "^0.9.1"
+    "dev": "npx -y kirbyup src/index.js --watch",
+    "build": "npx -y kirbyup src/index.js"
   }
 }
 ```
