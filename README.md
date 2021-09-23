@@ -25,6 +25,20 @@ You can also install it globally.
 }
 ```
 
+While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend to target a specific package version, rather than using npx:
+
+```json
+{
+  "scripts": {
+    "dev": "kirbyup src/index.js --watch",
+    "build": "kirbyup src/index.js"
+  },
+  "devDependencies": {
+    "kirbyup": "^0.9.5"
+  }
+}
+```
+
 ### Development
 
 Rebuild the Panel plugin on any file changes:
