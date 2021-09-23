@@ -1,38 +1,66 @@
+// @ts-check
+
+/*
+ * Modified from https://github.com/vuejs/vue-next/blob/master/scripts/release.js
+ */
 const fs = require('fs')
 const path = require('path')
 const colors = require('nanocolors')
 const semver = require('semver')
-const { prompt } = require('enquirer')
+const prompts = require('prompts')
 const execa = require('execa')
 const { version: currentVersion } = require('../package.json')
 
+/**
+ * @type {import('semver').ReleaseType[]}
+ */
 const versionIncrements = ['patch', 'minor', 'major']
 
-// Inspired from: https://github.com/vuejs/vue-next/blob/master/scripts/release.js
+/**
+ * @param {import('semver').ReleaseType} i
+ */
 const inc = (i) => semver.inc(currentVersion, i)
+
+/**
+ * @param {string} bin
+ * @param {string[]} args
+ * @param {object} opts
+ */
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: 'inherit', ...opts })
+
+/**
+ * @param {string} msg
+ */
 const step = (msg) => console.log(colors.cyan(msg))
 
 async function main() {
   let targetVersion
 
-  const { release } = await prompt({
+  /**
+   * @type {{ release: string }}
+   */
+  const { release } = await prompts({
     type: 'select',
     name: 'release',
     message: 'Select release type',
-    choices: [...versionIncrements.map((i) => `${i} (${inc(i)})`), 'custom']
+    choices: versionIncrements
+      .map((i) => `${i} (${inc(i)})`)
+      .concat(['custom'])
+      .map((i) => ({ value: i, title: i }))
   })
 
   if (release === 'custom') {
-    targetVersion = (
-      await prompt({
-        type: 'input',
-        name: 'version',
-        message: 'Input custom version',
-        initial: currentVersion
-      })
-    ).version
+    /**
+     * @type {{ version: string }}
+     */
+    const res = await prompts({
+      type: 'text',
+      name: 'version',
+      message: 'Input custom version',
+      initial: currentVersion
+    })
+    targetVersion = res.version
   } else {
     targetVersion = release.match(/\((.*)\)/)[1]
   }
@@ -41,7 +69,7 @@ async function main() {
     throw new Error(`Invalid target version: ${targetVersion}`)
   }
 
-  const { yes: tagOk } = await prompt({
+  const { yes: tagOk } = await prompts({
     type: 'confirm',
     name: 'yes',
     message: `Releasing v${targetVersion}. Confirm?`
@@ -65,7 +93,7 @@ async function main() {
   await run('npm', ['run', 'changelog'])
   await run('npx', ['prettier', '--write', 'CHANGELOG.md'])
 
-  const { yes: changelogOk } = await prompt({
+  const { yes: changelogOk } = await prompts({
     type: 'confirm',
     name: 'yes',
     message: `Changelog generated. Does it look good?`
@@ -92,7 +120,7 @@ async function main() {
 }
 
 function updatePackage(version) {
-  const pkgPath = path.resolve(path.resolve(__dirname, '..'), 'package.json')
+  const pkgPath = path.resolve(__dirname, '..', 'package.json')
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
 
   pkg.version = version
