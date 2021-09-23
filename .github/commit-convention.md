@@ -1,8 +1,8 @@
-## Git Commit Message Convention
+# Git Commit Message Convention
 
 > This is adapted from [Angular's commit convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular).
 
-#### TL;DR:
+**TL;DR:**
 
 Messages must be matched by the following regex:
 
@@ -11,7 +11,7 @@ Messages must be matched by the following regex:
 /^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps)(\(.+\))?: .{1,50}/
 ```
 
-#### Examples
+## Examples
 
 Appears under "Features" header, `dev` subheader:
 
@@ -43,7 +43,7 @@ revert: feat(compiler): add 'comments' option
 This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
 ```
 
-### Full Message Format
+## Full Message Format
 
 A commit message consists of a **header**, **body** and **footer**. The header has a **type**, **scope** and **subject**:
 
