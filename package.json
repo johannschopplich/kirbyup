@@ -35,7 +35,8 @@
     "build": "tsup src/cli.ts src/index.ts --target node14 --clean --dts",
     "test": "jest",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "node scripts/release.js"
+    "release": "node scripts/release.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "cac": "^6.7.3",
@@ -60,6 +61,7 @@
     "ts-essentials": "^8.1.0",
     "ts-jest": "^27.0.5",
     "tsup": "^5.1.0",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "husky": "^7.0.2"
   }
 }
