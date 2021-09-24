@@ -5,7 +5,7 @@ beforeAll(async () => {
   await remove(cacheDir)
 })
 
-test('module', async () => {
+it('handles modules', async () => {
   const { output, outFiles } = await run({
     'src/input.js': `import foo from './foo'\nexport default foo`,
     'src/foo.js': `export default 'foo'`
@@ -23,7 +23,7 @@ Array [
 `)
 })
 
-test('css', async () => {
+it('handles css', async () => {
   const { output, outFiles, getFileContent } = await run({
     'src/input.js': `import './input.css'`,
     'src/input.css': `body { margin: 0; }`
@@ -48,7 +48,7 @@ Array [
 `)
 })
 
-test('panel-plugin', async () => {
+it('builds panel plugins', async () => {
   const { output, outFiles } = await run({
     'src/input.js': `
       import Demo from './fields/demo.js'
