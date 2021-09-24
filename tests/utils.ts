@@ -12,6 +12,10 @@ export const getTestName = () => expect.getState().currentTestName
 export async function run(files: Record<string, string>) {
   const testDir = resolve(cacheDir, getTestName())
 
+  // Retrieve any file's content
+  const getFileContent = (filename: string) =>
+    fs.readFile(resolve(testDir, filename), 'utf8')
+
   // Write entry files on disk
   await Promise.all(
     Object.entries(files).map(([path, content]) =>
@@ -30,15 +34,13 @@ export async function run(files: Record<string, string>) {
   }
 
   // Get main output and all associated files
-  const output = await fs.readFile(resolve(testDir, 'index.js'), 'utf8')
+  const output = await getFileContent('index.js')
   const outFiles = await fg('**/*', { cwd: testDir, ignore: ['src'] })
 
   return {
     output,
     outFiles,
     logs,
-    getFileContent(filename: string) {
-      return fs.readFile(resolve(testDir, filename), 'utf8')
-    }
+    getFileContent
   }
 }
