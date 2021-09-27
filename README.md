@@ -4,17 +4,9 @@
 
 The fastest and leanest way to bundle your Kirby Panel plugins. No configuration necessary.
 
-## Install
+## Installation
 
-Install it locally in your project folder:
-
-```bash
-npm i kirbyup --save-dev
-```
-
-You can also install it globally.
-
-## Usage
+If you want to use kirbyup right away, there is no need to install it. Simply call it with `npx`:
 
 ```json
 {
@@ -25,7 +17,13 @@ You can also install it globally.
 }
 ```
 
-While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend to target a specific package version, rather than using npx:
+While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend to target a specific package version, rather than using `npx`. Install kirbyup with a package manager of your choice locally to your project:
+
+```bash
+npm i kirbyup --save-dev
+```
+
+Example package configuration:
 
 ```json
 {
@@ -38,6 +36,10 @@ While kirbyup will stay backwards compatible, exact build reproducibility may be
   }
 }
 ```
+
+Global installation is supported as well, but not recommended.
+
+## Usage
 
 ### Development
 
