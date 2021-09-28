@@ -14,6 +14,7 @@ export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const currentDir = process.cwd()
+  const isDev = !!options.watch
 
   try {
     result = await viteBuild({
@@ -25,7 +26,8 @@ export async function runViteBuild(options: NormalizedOptions) {
           name: 'kirbyupExport',
           fileName: () => 'index.js'
         },
-        minify: !options.watch,
+        sourcemap: isDev ? 'inline' : false,
+        minify: !isDev,
         outDir: currentDir,
         emptyOutDir: false,
         rollupOptions: {
