@@ -1,3 +1,9 @@
+## [0.10.1](https://github.com/johannschopplich/kirbyup/compare/v0.10.0...v0.10.1) (2021-09-28)
+
+### Bug Fixes
+
+- remove source map in dev mode ([1c24b52](https://github.com/johannschopplich/kirbyup/commit/1c24b524eac3476f04173bdf22dbc85ff19e1616))
+
 # [0.10.0](https://github.com/johannschopplich/kirbyup/compare/v0.9.5...v0.10.0) (2021-09-28)
 
 ### Features
