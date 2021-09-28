@@ -26,7 +26,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           name: 'kirbyupExport',
           fileName: () => 'index.js'
         },
-        sourcemap: isDev ? 'inline' : false,
+        // sourcemap: isDev ? 'inline' : false,
         minify: !isDev,
         outDir: currentDir,
         emptyOutDir: false,
