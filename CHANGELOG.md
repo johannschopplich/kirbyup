@@ -1,3 +1,9 @@
+# [0.10.0](https://github.com/johannschopplich/kirbyup/compare/v0.9.5...v0.10.0) (2021-09-28)
+
+### Features
+
+- inlined source map in dev mode ([ec0e3ee](https://github.com/johannschopplich/kirbyup/commit/ec0e3eee9ce9fa2fd4a626c188964cca1c382515))
+
 ## [0.9.5](https://github.com/johannschopplich/kirbyup/compare/v0.9.4...v0.9.5) (2021-09-22)
 
 ### Bug Fixes
