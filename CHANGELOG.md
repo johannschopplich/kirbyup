@@ -1,3 +1,9 @@
+# [0.11.0](https://github.com/johannschopplich/kirbyup/compare/v0.10.1...v0.11.0) (2021-09-28)
+
+### Features
+
+- env variables support ([a65c0df](https://github.com/johannschopplich/kirbyup/commit/a65c0df9ee9c4f8c137a30b127a13e6076bcbd26))
+
 ## [0.10.1](https://github.com/johannschopplich/kirbyup/compare/v0.10.0...v0.10.1) (2021-09-28)
 
 ### Bug Fixes
