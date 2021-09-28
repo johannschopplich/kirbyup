@@ -48,6 +48,41 @@ Array [
 `)
 })
 
+it('supports built-in env variables', async () => {
+  const { output, outFiles } = await run({
+    'src/input.js': `export const mode = import.meta.env.MODE`
+  })
+
+  expect(output).toMatchInlineSnapshot(`
+"var kirbyupExport=function(e){\\"use strict\\";return e.mode=\\"production\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+"
+`)
+
+  expect(outFiles).toMatchInlineSnapshot(`
+Array [
+  "index.js",
+]
+`)
+})
+
+it('supports custom env variables', async () => {
+  const { output, outFiles } = await run({
+    '.env': `KIRBYUP_FOO=bar`,
+    'src/input.js': `export const foo = import.meta.env.KIRBYUP_FOO`
+  })
+
+  expect(output).toMatchInlineSnapshot(`
+"var kirbyupExport=function(e){\\"use strict\\";return e.foo=\\"bar\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+"
+`)
+
+  expect(outFiles).toMatchInlineSnapshot(`
+Array [
+  "index.js",
+]
+`)
+})
+
 it('builds panel plugins', async () => {
   const { output, outFiles } = await run({
     'src/input.js': `

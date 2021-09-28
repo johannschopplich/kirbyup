@@ -14,10 +14,11 @@ export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const currentDir = process.cwd()
-  const isDev = !!options.watch
+  const mode = options.watch ? 'development' : 'production'
 
   try {
     result = await viteBuild({
+      mode,
       plugins: [createVuePlugin()],
       build: {
         lib: {
@@ -26,8 +27,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           name: 'kirbyupExport',
           fileName: () => 'index.js'
         },
-        // sourcemap: isDev ? 'inline' : false,
-        minify: !isDev,
+        minify: mode === 'production',
         outDir: currentDir,
         emptyOutDir: false,
         rollupOptions: {
@@ -40,6 +40,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           }
         }
       },
+      envPrefix: ['VITE_', 'KIRBYUP_'],
       logLevel: 'warn'
     })
   } catch (error) {
