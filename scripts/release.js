@@ -120,7 +120,7 @@ async function main() {
 }
 
 function updatePackage(version) {
-  const pkgPath = path.resolve(__dirname, '../package.json')
+  const pkgPath = path.resolve(__dirname, '..', 'package.json')
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
 
   pkg.version = version
