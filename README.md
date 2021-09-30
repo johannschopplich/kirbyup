@@ -11,6 +11,12 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 - 🔌 [Supports env variables](#env-variables)
 - 🔍 Watch mode
 
+## Requirements
+
+- Node 14+ (Node 16 recommended)
+
+> ℹ️ When using kirbyup with `npx`, **npm 7+** is required. Previous versions don't pass cli arguments to the package invoked. npm 7 is bundled from Node 16 onwards.
+
 ## Installation
 
 If you want to use kirbyup right away, there is no need to install it. Simply call it with `npx`:
