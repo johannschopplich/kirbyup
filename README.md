@@ -88,7 +88,7 @@ During production, these env variables are **statically replaced**. It is theref
 
 #### `.env` Files
 
-kirbyup (thanks to Vite) uses [dotenv](https://github.com/motdotla/dotenv) to load additional environment variables from the following files in your [environment directory](/config/#envdir):
+kirbyup (thanks to Vite) uses [dotenv](https://github.com/motdotla/dotenv) to load additional environment variables from the following files in your plugin's root directory:
 
 ```
 .env                # loaded in all cases
