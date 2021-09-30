@@ -27,7 +27,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           name: 'kirbyupExport',
           fileName: () => 'index.js'
         },
-        minify: mode === 'production',
+        minify: mode === 'production' && 'terser',
         outDir: currentDir,
         emptyOutDir: false,
         rollupOptions: {

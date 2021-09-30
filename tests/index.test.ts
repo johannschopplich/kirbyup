@@ -12,15 +12,15 @@ it('handles modules', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"var kirbyupExport=function(){\\"use strict\\";return\\"foo\\"}();
-"
-`)
+    "var kirbyupExport=function(){\\"use strict\\";return\\"foo\\"}();
+    "
+  `)
 
   expect(outFiles).toMatchInlineSnapshot(`
-Array [
-  "index.js",
-]
-`)
+    Array [
+      "index.js",
+    ]
+  `)
 })
 
 it('handles css', async () => {
@@ -30,22 +30,22 @@ it('handles css', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"!function(){\\"use strict\\"}();
-"
-`)
+    "!function(){\\"use strict\\"}();
+    "
+  `)
 
   const css = await getFileContent('index.css')
   expect(css).toMatchInlineSnapshot(`
-"body{margin:0}
-"
-`)
+    "body{margin:0}
+    "
+  `)
 
   expect(outFiles).toMatchInlineSnapshot(`
-Array [
-  "index.css",
-  "index.js",
-]
-`)
+    Array [
+      "index.css",
+      "index.js",
+    ]
+  `)
 })
 
 it('supports built-in env variables', async () => {
@@ -54,15 +54,15 @@ it('supports built-in env variables', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"var kirbyupExport=function(e){\\"use strict\\";return e.mode=\\"production\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
-"
-`)
+    "var kirbyupExport=function(e){\\"use strict\\";return e.mode=\\"production\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+    "
+  `)
 
   expect(outFiles).toMatchInlineSnapshot(`
-Array [
-  "index.js",
-]
-`)
+    Array [
+      "index.js",
+    ]
+  `)
 })
 
 it('supports custom env variables', async () => {
@@ -72,15 +72,15 @@ it('supports custom env variables', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"var kirbyupExport=function(e){\\"use strict\\";return e.foo=\\"bar\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
-"
-`)
+    "var kirbyupExport=function(e){\\"use strict\\";return e.foo=\\"bar\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+    "
+  `)
 
   expect(outFiles).toMatchInlineSnapshot(`
-Array [
-  "index.js",
-]
-`)
+    Array [
+      "index.js",
+    ]
+  `)
 })
 
 it('builds panel plugins', async () => {
@@ -97,13 +97,13 @@ it('builds panel plugins', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-"!function(){\\"use strict\\";window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:{extends:\\"k-info-field\\"}}})}();
-"
-`)
+    "!function(){\\"use strict\\";window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:{extends:\\"k-info-field\\"}}})}();
+    "
+  `)
 
   expect(outFiles).toMatchInlineSnapshot(`
-Array [
-  "index.js",
-]
-`)
+    Array [
+      "index.js",
+    ]
+  `)
 })
