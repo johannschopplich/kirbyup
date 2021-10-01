@@ -114,6 +114,18 @@ KIRBYUP_SOME_KEY=123
 
 Only `KIRBYUP_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to your plugin's source code, but `DB_PASSWORD` will not.
 
+## Options
+
+> Inspect all available options with `kirbyup --help`.
+
+### `--out-dir`
+
+The output directory to save the processed code into. Defaults to the current working directory.
+
+### `--watch`
+
+Sets the watch mode. If no path is specified, kirbyup watches the folder of the input file. Repeat `--watch` for multiple paths.
+
 ## Credits
 
 - [Vite](https://vitejs.dev) by Evan You and all of its contributors.

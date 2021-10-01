@@ -12,9 +12,12 @@ async function main(options: Options = {}) {
     .command('[file]', 'Panel input file', {
       ignoreOptionDefaultValue: true
     })
+    .option('-d, --out-dir <dir>', 'Output directory', {
+      default: process.cwd()
+    })
     .option(
       '--watch [path]',
-      'Watch mode, if path is not specified, it watches the folder of the input file. Repeat "--watch" for more than one path'
+      'Watch mode, if path is not specified, it watches the folder of the input file. Repeat "--watch" for multiple paths'
     )
     .action(async (file: string, flags) => {
       const { build } = await import('.')
