@@ -5,7 +5,7 @@
  */
 const fs = require('fs')
 const path = require('path')
-const colors = require('nanocolors')
+const colors = require('colorette')
 const semver = require('semver')
 const prompts = require('prompts')
 const execa = require('execa')

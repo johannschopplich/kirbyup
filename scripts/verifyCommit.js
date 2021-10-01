@@ -4,7 +4,7 @@
  * Modified from https://github.com/vitejs/vite/blob/main/scripts/verifyCommit.js
  */
 const fs = require('fs')
-const colors = require('nanocolors')
+const colors = require('colorette')
 const msgPath = process.argv[2]
 const msg = fs.readFileSync(msgPath, 'utf-8').trim()
 

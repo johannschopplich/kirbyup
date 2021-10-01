@@ -1,6 +1,6 @@
 import { resolve, dirname } from 'path'
 import { existsSync } from 'fs'
-import colors from 'nanocolors'
+import colors from 'colorette'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import { handleError, PrettyError } from './errors'

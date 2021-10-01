@@ -1,9 +1,9 @@
-import colors from 'nanocolors'
+import colors from 'colorette'
 import { name } from '../package.json'
-import type { Colors as NanoColors } from 'nanocolors'
+import type { Colorette } from 'colorette'
 
 type LogLevel = 'info' | 'success' | 'error'
-type Colors = Exclude<keyof NanoColors, 'isColorSupported'>
+type Colors = Exclude<keyof Colorette, 'isColorSupported'>
 
 const colorMap = new Map<LogLevel, Colors>([
   ['info', 'yellow'],
