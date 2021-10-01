@@ -14,7 +14,6 @@ export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const mode = options.watch ? 'development' : 'production'
-  const outDir = options.outDir ?? process.cwd()
 
   try {
     result = await viteBuild({
@@ -22,13 +21,13 @@ export async function runViteBuild(options: NormalizedOptions) {
       plugins: [createVuePlugin()],
       build: {
         lib: {
-          entry: resolve(outDir, options.entry),
+          entry: resolve(process.cwd(), options.entry),
           formats: ['iife'],
           name: 'kirbyupExport',
           fileName: () => 'index.js'
         },
         minify: mode === 'production' && 'terser',
-        outDir,
+        outDir: options.outDir ?? process.cwd(),
         emptyOutDir: false,
         rollupOptions: {
           external: ['vue'],
