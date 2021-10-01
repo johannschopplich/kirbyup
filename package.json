@@ -10,6 +10,10 @@
     "kirbyup": "dist/cli.js"
   },
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/johannschopplich/kirbyup.git"
