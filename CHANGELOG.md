@@ -1,3 +1,9 @@
+# [0.12.0](https://github.com/johannschopplich/kirbyup/compare/v0.11.1...v0.12.0) (2021-10-01)
+
+### Features
+
+- `--out-dir` option ([1fa4854](https://github.com/johannschopplich/kirbyup/commit/1fa4854fb6220a752578065731433b458b605c65))
+
 ## [0.11.1](https://github.com/johannschopplich/kirbyup/compare/v0.11.0...v0.11.1) (2021-09-29)
 
 ### Bug Fixes
