@@ -46,7 +46,9 @@
   "dependencies": {
     "cac": "^6.7.3",
     "chokidar": "^3.5.2",
-    "colorette": "^2.0.13",
+    "colorette": "^2.0.14",
+    "postcss-dir-pseudo-class": "^6.0.0",
+    "postcss-logical": "^5.0.0",
     "sass": "^1.42.1",
     "vite": "^2.6.2",
     "vite-plugin-vue2": "^1.8.2",

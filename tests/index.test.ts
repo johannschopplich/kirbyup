@@ -26,7 +26,7 @@ it('handles modules', async () => {
 it('handles css', async () => {
   const { output, outFiles, getFileContent } = await run({
     'src/input.js': `import './input.css'`,
-    'src/input.css': `body { margin: 0; }`
+    'src/input.css': `.foo { content: "bar"; }`
   })
 
   expect(output).toMatchInlineSnapshot(`
@@ -36,7 +36,7 @@ it('handles css', async () => {
 
   const css = await getFileContent('index.css')
   expect(css).toMatchInlineSnapshot(`
-    "body{margin:0}
+    ".foo{content:\\"bar\\"}
     "
   `)
 
@@ -78,6 +78,34 @@ it('supports custom env variables', async () => {
 
   expect(outFiles).toMatchInlineSnapshot(`
     Array [
+      "index.js",
+    ]
+  `)
+})
+
+it('supports postcss plugins', async () => {
+  const { output, outFiles, getFileContent } = await run({
+    'src/input.js': `import './input.css'`,
+    'src/input.css': `
+      .foo { inset: logical 0 5px 10px; }
+      .bar:dir(rtl) { margin-right: 10px; }
+    `
+  })
+
+  expect(output).toMatchInlineSnapshot(`
+    "!function(){\\"use strict\\"}();
+    "
+  `)
+
+  const css = await getFileContent('index.css')
+  expect(css).toMatchInlineSnapshot(`
+    ".foo{top:0;left:5px;bottom:10px;right:5px}[dir=rtl] .bar{margin-right:10px}
+    "
+  `)
+
+  expect(outFiles).toMatchInlineSnapshot(`
+    Array [
+      "index.css",
       "index.js",
     ]
   `)

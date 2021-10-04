@@ -3,6 +3,8 @@ import { existsSync } from 'fs'
 import colors from 'colorette'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
+import postcssLogical from 'postcss-logical'
+import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
@@ -38,6 +40,11 @@ export async function runViteBuild(options: NormalizedOptions) {
               vue: 'Vue'
             }
           }
+        }
+      },
+      css: {
+        postcss: {
+          plugins: [postcssLogical(), postcssDirPseudoClass()]
         }
       },
       envPrefix: ['VITE_', 'KIRBYUP_'],
