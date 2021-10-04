@@ -1,3 +1,9 @@
+# [0.13.0](https://github.com/johannschopplich/kirbyup/compare/v0.12.1...v0.13.0) (2021-10-04)
+
+### Features
+
+- integrate two PostCSS plugins by default ([3691286](https://github.com/johannschopplich/kirbyup/commit/369128688f6b174f4c55ca8fb9f626a682da970a))
+
 ## [0.12.1](https://github.com/johannschopplich/kirbyup/compare/v0.12.0...v0.12.1) (2021-10-01)
 
 ### Bug Fixes
