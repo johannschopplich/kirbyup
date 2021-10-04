@@ -8,11 +8,11 @@ beforeAll(async () => {
 it('handles modules', async () => {
   const { output, outFiles } = await run({
     'src/input.js': `import foo from './foo'\nexport default foo`,
-    'src/foo.js': `export default 'foo'`
+    'src/foo.js': `export default 'bar'`
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "var kirbyupExport=function(){\\"use strict\\";return\\"foo\\"}();
+    "var kirbyupExport=function(){\\"use strict\\";return\\"bar\\"}();
     "
   `)
 
@@ -55,6 +55,24 @@ it('supports built-in env variables', async () => {
 
   expect(output).toMatchInlineSnapshot(`
     "var kirbyupExport=function(e){\\"use strict\\";return e.mode=\\"production\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+    "
+  `)
+
+  expect(outFiles).toMatchInlineSnapshot(`
+    Array [
+      "index.js",
+    ]
+  `)
+})
+
+it('supports resolve aliases', async () => {
+  const { output, outFiles } = await run({
+    'src/input.js': `import foo from '~/foo'\nexport default foo`,
+    'src/foo.js': `export default 'bar'`
+  })
+
+  expect(output).toMatchInlineSnapshot(`
+    "var kirbyupExport=function(){\\"use strict\\";return\\"bar\\"}();
     "
   `)
 

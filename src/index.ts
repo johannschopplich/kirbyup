@@ -42,6 +42,11 @@ export async function runViteBuild(options: NormalizedOptions) {
           }
         }
       },
+      resolve: {
+        alias: {
+          '~/': `${resolve(currentDir, dirname(options.entry))}/`
+        }
+      },
       css: {
         postcss: {
           plugins: [postcssLogical(), postcssDirPseudoClass()]

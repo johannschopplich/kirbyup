@@ -9,6 +9,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
 - 🎒 [PostCSS transforms](#postcss-transforms) for RTL support & more
+- 🧭 [`~/` Path resolve alias](#path-resolve-alias)
 - 🔌 [Supports env variables](#env-variables)
 - 🔍 Watch mode
 
@@ -91,6 +92,22 @@ The Kirby Panel uses PostCSS plugins to transform CSS syntax related logical pro
 
 - [postcss-logical](https://github.com/csstools/postcss-logical) lets you use logical, rather than physical, direction and dimension mappings in CSS, following the [CSS Logical Properties and Values](https://drafts.csswg.org/css-logical/) specification.
 - [postcss-dir-pseudo-class](https://github.com/csstools/postcss-dir-pseudo-class) lets you style by directionality using the `:dir()` pseudo-class in CSS, following the [Selectors](https://www.w3.org/TR/selectors-4/#the-dir-pseudo) specification. It gives you the same syntax Kirby uses for full compatibility with RTL localizations of the Panel.
+
+### Path Resolve Alias
+
+Import certain modules more easily by using the `~/` path alias. It will resolve to the directory of your input file, for example `src` when building `kirbyup src/index.js`.
+
+Now, given a deeply nested component, instead of using relative paths when importing like so:
+
+```js
+import someUtility from '../../utils';
+```
+
+You can use the alias:
+
+```js
+import someUtility from '~/utils';
+```
 
 ### Env Variables
 
