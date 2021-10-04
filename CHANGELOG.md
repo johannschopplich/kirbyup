@@ -1,3 +1,9 @@
+# [0.14.0](https://github.com/johannschopplich/kirbyup/compare/v0.13.0...v0.14.0) (2021-10-04)
+
+### Features
+
+- `~/` path resolve alias ([5200014](https://github.com/johannschopplich/kirbyup/commit/52000148550c2096dec59cbff5ab84ab2f118e17))
+
 # [0.13.0](https://github.com/johannschopplich/kirbyup/compare/v0.12.1...v0.13.0) (2021-10-04)
 
 ### Features
