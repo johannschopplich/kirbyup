@@ -1,3 +1,9 @@
+## [0.14.1](https://github.com/johannschopplich/kirbyup/compare/v0.14.0...v0.14.1) (2021-10-04)
+
+### Bug Fixes
+
+- peer dependency install for < npm 7 ([b821a41](https://github.com/johannschopplich/kirbyup/commit/b821a41fd5b187775a83f4dc1dda3c8d0ed3f824))
+
 # [0.14.0](https://github.com/johannschopplich/kirbyup/compare/v0.13.0...v0.14.0) (2021-10-04)
 
 ### Features
