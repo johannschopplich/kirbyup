@@ -1,3 +1,9 @@
+## [0.15.2](https://github.com/johannschopplich/kirbyup/compare/v0.15.1...v0.15.2) (2021-10-05)
+
+### Features
+
+- export `/dist/plugin` as `/plugin` ([d01c08a](https://github.com/johannschopplich/kirbyup/commit/d01c08abecd5bd3de847569e3b806368b8558d64))
+
 ## [0.15.1](https://github.com/johannschopplich/kirbyup/compare/v0.15.0...v0.15.1) (2021-10-05)
 
 ### Bug Fixes
