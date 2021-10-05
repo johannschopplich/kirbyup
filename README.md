@@ -9,7 +9,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
 - 🧭 [`~/` Path resolve alias](#path-resolve-alias)
-- *️⃣ [Auto-import blocks](#auto-import-blocks) and fields
+- \*️⃣ [Auto-import blocks](#auto-import-blocks) and fields
 - 🎒 [PostCSS transforms](#postcss-transforms) for RTL support & more
 - 🔌 [Supports env variables](#env-variables)
 - 🔍 Watch mode
@@ -33,6 +33,8 @@ If you want to use kirbyup right away, there is no need to install it. Simply ca
 }
 ```
 
+> If `npx` doesn't use the latest kirbyup version, although it is available, run `npx -y kirbyup@latest` instead or delete the `~/.npm/_npx` cache folder.
+
 While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend to target a specific package version, rather than using `npx`. Install kirbyup with a package manager of your choice locally to your project:
 
 ```bash
@@ -48,7 +50,7 @@ Example package configuration:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.12.0"
+    "kirbyup": "^0.15.1"
   }
 }
 ```
@@ -113,7 +115,9 @@ import someUtility from '~/utils'
 
 ### Auto-Import Blocks
 
-If you find yourself in the situation of needing to import multiple blocks or fields into your Panel plugin, you can use the kirbyup `autoImport` function to ease the process:
+If you find yourself in the situation of needing to import multiple blocks or fields into your Panel plugin, you can use the kirbyup `autoImport` function to ease the process.
+
+Before:
 
 ```js
 import Foo from './components/blocks/Foo.vue'
@@ -132,10 +136,10 @@ window.panel.plugin('kirbyup/example', {
 After:
 
 ```js
-import { autoImport } from 'kirbyup/plugin'
+import { autoImport } from 'kirbyup/dist/plugin'
 
 window.panel.plugin('kirbyup/example', {
-  blocks: autoImport('./components/blocks/*.vue')
+  blocks: autoImport(import.meta.globEager('./components/blocks/*.vue'))
 })
 ```
 
