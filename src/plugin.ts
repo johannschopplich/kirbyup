@@ -3,6 +3,9 @@
  * but importable when writing a Kirby Panel plugin
  */
 
+/** Single entry of Vite's `import.meta.globEager()` */
+type Module = Record<string, any>
+
 const getComponentName = (path: string) =>
   path
     .split('/')
@@ -16,11 +19,8 @@ const getComponentName = (path: string) =>
  * @example
  * autoImport(import.meta.globEager('./components/blocks/*.vue'))
  */
-export const autoImport = (modules: Record<string, Record<string, any>>) =>
-  Object.entries(modules).reduce(
-    (acc: Record<string, any>, [path, component]) => {
-      acc[getComponentName(path)] = (component as any).default
-      return acc
-    },
-    {}
-  )
+export const autoImport = (modules: Record<string, Module>) =>
+  Object.entries(modules).reduce((acc: Module, [path, component]) => {
+    acc[getComponentName(path)] = component.default
+    return acc
+  }, {})
