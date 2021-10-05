@@ -1,3 +1,9 @@
+## [0.15.1](https://github.com/johannschopplich/kirbyup/compare/v0.15.0...v0.15.1) (2021-10-05)
+
+### Bug Fixes
+
+- auto import globbing ([09ef30f](https://github.com/johannschopplich/kirbyup/commit/09ef30fa5aa8b9098b39617f54c8bb398d955bb6))
+
 # [0.15.0](https://github.com/johannschopplich/kirbyup/compare/v0.14.1...v0.15.0) (2021-10-05)
 
 ### Features
