@@ -8,8 +8,9 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
-- 🎒 [PostCSS transforms](#postcss-transforms) for RTL support & more
 - 🧭 [`~/` Path resolve alias](#path-resolve-alias)
+- *️⃣ [Auto-import blocks](#auto-import-blocks) and fields
+- 🎒 [PostCSS transforms](#postcss-transforms) for RTL support & more
 - 🔌 [Supports env variables](#env-variables)
 - 🔍 Watch mode
 
@@ -100,13 +101,42 @@ Import certain modules more easily by using the `~/` path alias. It will resolve
 Now, given a deeply nested component, instead of using relative paths when importing like so:
 
 ```js
-import someUtility from '../../utils';
+// Inside deeply nested module
+import someUtility from '../../utils'
 ```
 
 You can use the alias:
 
 ```js
-import someUtility from '~/utils';
+import someUtility from '~/utils'
+```
+
+### Auto-Import Blocks
+
+If you find yourself in the situation of needing to import multiple blocks or fields into your Panel plugin, you can use the kirbyup `autoImport` function to ease the process:
+
+```js
+import Foo from './components/blocks/Foo.vue'
+import Bar from './components/blocks/Bar.vue'
+import Maps from './components/blocks/Maps.vue'
+
+window.panel.plugin('kirbyup/example', {
+  blocks: {
+    foo: Foo,
+    bar: Bar,
+    maps: Maps
+  }
+})
+```
+
+After:
+
+```js
+import { autoImport } from 'kirbyup/plugin'
+
+window.panel.plugin('kirbyup/example', {
+  blocks: autoImport('./components/blocks/*.vue')
+})
 ```
 
 ### Env Variables
