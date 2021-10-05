@@ -5,14 +5,21 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js"
+    },
+    "./plugin": {
+      "import": "./dist/plugin.mjs"
+    }
+  },
   "main": "dist/index.js",
   "bin": {
     "kirbyup": "dist/cli.js"
   },
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=14"
   },
   "repository": {
     "type": "git",

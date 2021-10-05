@@ -50,7 +50,7 @@ Example package configuration:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.15.1"
+    "kirbyup": "^0.15.2"
   }
 }
 ```
@@ -136,7 +136,7 @@ window.panel.plugin('kirbyup/example', {
 After:
 
 ```js
-import { autoImport } from 'kirbyup/dist/plugin'
+import { autoImport } from 'kirbyup/plugin'
 
 window.panel.plugin('kirbyup/example', {
   blocks: autoImport(import.meta.globEager('./components/blocks/*.vue'))
