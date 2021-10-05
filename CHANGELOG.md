@@ -1,3 +1,9 @@
+# [0.15.0](https://github.com/johannschopplich/kirbyup/compare/v0.14.1...v0.15.0) (2021-10-05)
+
+### Features
+
+- auto import blocks and fields ([71ea655](https://github.com/johannschopplich/kirbyup/commit/71ea6555c5fa9cab6377193f487f6ca6835b7dec))
+
 ## [0.14.1](https://github.com/johannschopplich/kirbyup/compare/v0.14.0...v0.14.1) (2021-10-04)
 
 ### Bug Fixes
