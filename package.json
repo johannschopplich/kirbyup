@@ -52,7 +52,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "cac": "^6.7.3",
+    "cac": "^6.7.7",
     "chokidar": "^3.5.2",
     "colorette": "^2.0.14",
     "postcss-dir-pseudo-class": "^6.0.0",
@@ -66,7 +66,7 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.10.2",
+    "@types/node": "^16.10.3",
     "conventional-changelog-cli": "^2.1.1",
     "execa": "^5.1.1",
     "fast-glob": "^3.2.7",
