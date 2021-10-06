@@ -153,3 +153,27 @@ it('builds panel plugins', async () => {
     ]
   `)
 })
+
+it('imports components automatically', async () => {
+  const { output, outFiles } = await run({
+    'src/input.js': `
+      import { kirbyup } from '${process.cwd()}/dist/client/plugin.js'
+
+      window.panel.plugin('kirbyup/example', {
+        blocks: kirbyup.import('./components/blocks/*.vue')
+      })
+    `,
+    'src/components/blocks/Foo.vue': `<template><k-header>Bar</k-header></template>`
+  })
+
+  expect(output).toMatchInlineSnapshot(`
+    "!function(){\\"use strict\\";function e(e,t,n,o,r,i,s,a){var c,l=\\"function\\"==typeof e?e.options:e;if(t&&(l.render=t,l.staticRenderFns=n,l._compiled=!0),o&&(l.functional=!0),i&&(l._scopeId=\\"data-v-\\"+i),s?(c=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||\\"undefined\\"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),r&&r.call(this,e),e&&e._registeredComponents&&e._registeredComponents.add(s)},l._ssrRegister=c):r&&(c=a?function(){r.call(this,(l.functional?this.parent:this).$root.$options.shadowRoot)}:r),c)if(l.functional){l._injectStyles=c;var u=l.render;l.render=function(e,t){return c.call(t),u(e,t)}}else{var p=l.beforeCreate;l.beforeCreate=p?[].concat(p,c):[c]}return{exports:e,options:l}}const t={};var n=e({},(function(){var e=this,t=e.$createElement;return(e._self._c||t)(\\"k-header\\",[e._v(\\"Bar\\")])}),[],!1,o,null,null,null);function o(e){for(let n in t)this[n]=t[n]}var r=function(){return n.exports}(),i=Object.freeze({__proto__:null,[Symbol.toStringTag]:\\"Module\\",default:r});const s=Object.freeze({import:e=>Object.entries(e).reduce(((e,[t,n])=>(e[(e=>e.split(\\"/\\").pop().replace(/\\\\.vue$/,\\"\\").toLowerCase())(t)]=n.default,e)),{})});window.panel.plugin(\\"kirbyup/example\\",{blocks:s.import({\\"./components/blocks/Foo.vue\\":i})})}();
+    "
+  `)
+
+  expect(outFiles).toMatchInlineSnapshot(`
+    Array [
+      "index.js",
+    ]
+  `)
+})

@@ -10,7 +10,7 @@
       "require": "./dist/index.js"
     },
     "./plugin": {
-      "import": "./dist/plugin.mjs"
+      "import": "./dist/client/plugin.js"
     }
   },
   "main": "dist/index.js",
@@ -43,8 +43,8 @@
   },
   "homepage": "https://github.com/johannschopplich/kirbyup#readme",
   "scripts": {
-    "build": "tsup src/cli.ts src/index.ts --clean --dts && npm run plugin",
-    "plugin": "esbuild src/plugin.ts --format=esm --outfile=dist/plugin.mjs && tsc src/plugin.ts --declaration --emitDeclarationOnly --outDir dist",
+    "build": "tsup src/cli.ts src/index.ts --clean --dts && npm run build:client",
+    "build:client": "esbuild src/client/plugin.ts --format=esm --outdir=dist/client && tsc src/client/plugin.ts --declaration --emitDeclarationOnly --outDir dist/client",
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",

@@ -3,6 +3,7 @@ import { existsSync } from 'fs'
 import colors from 'colorette'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
+import kirbyupAutoImportPlugin from './plugins/autoImport'
 import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import { handleError, PrettyError } from './errors'
@@ -21,7 +22,7 @@ export async function runViteBuild(options: NormalizedOptions) {
   try {
     result = await viteBuild({
       mode,
-      plugins: [createVuePlugin()],
+      plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
       build: {
         lib: {
           entry: resolve(currentDir, options.entry),

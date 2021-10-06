@@ -8,11 +8,11 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
-- 🧭 [`~/` Path resolve alias](#path-resolve-alias)
-- \*️⃣ [Auto-import blocks](#auto-import-blocks) and fields
+- 🔍 Watch mode
+- \*️⃣ `kirbyup.import` to [auto-import blocks & fields](#auto-import-blocks-and-fields)
+- 🧭 [`~/` path resolve alias](#path-resolve-alias)
 - 🎒 [PostCSS transforms](#postcss-transforms) for RTL support & more
 - 🔌 [Supports env variables](#env-variables)
-- 🔍 Watch mode
 
 ## Requirements
 
@@ -113,9 +113,9 @@ You can use the alias:
 import someUtility from '~/utils'
 ```
 
-### Auto-Import Blocks
+### Auto-Import Blocks and Fields
 
-If you find yourself in the situation of needing to import multiple blocks or fields into your Panel plugin, you can use the kirbyup `autoImport` function to ease the process.
+If you find yourself in the situation of needing to import multiple **blocks** or **fields** into your Panel plugin, you can use the kirbyup `kirbyup.import` function to ease the process.
 
 Before:
 
@@ -136,10 +136,10 @@ window.panel.plugin('kirbyup/example', {
 After:
 
 ```js
-import { autoImport } from 'kirbyup/plugin'
+import { kirbyup } from 'kirbyup/plugin'
 
 window.panel.plugin('kirbyup/example', {
-  blocks: autoImport(import.meta.globEager('./components/blocks/*.vue'))
+  blocks: kirbyup.import('./components/blocks/*.vue')
 })
 ```
 
