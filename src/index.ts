@@ -61,7 +61,10 @@ export async function runViteBuild(options: NormalizedOptions) {
     throw error
   }
 
-  log('Build successful', 'success')
+  if (result) {
+    log('Build successful', 'success')
+  }
+
   return result
 }
 
