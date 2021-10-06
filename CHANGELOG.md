@@ -1,3 +1,9 @@
+# [0.16.0](https://github.com/johannschopplich/kirbyup/compare/v0.15.2...v0.16.0) (2021-10-06)
+
+### Features
+
+- transform `kirbyup.import` with Vite plugin ([2307b67](https://github.com/johannschopplich/kirbyup/commit/2307b673a04eceec3631ed4e8dc7e56c7379da27))
+
 ## [0.15.2](https://github.com/johannschopplich/kirbyup/compare/v0.15.1...v0.15.2) (2021-10-05)
 
 ### Features
