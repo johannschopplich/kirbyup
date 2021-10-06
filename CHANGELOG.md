@@ -1,3 +1,9 @@
+# [0.17.0](https://github.com/johannschopplich/kirbyup/compare/v0.16.0...v0.17.0) (2021-10-06)
+
+### Features
+
+- don't exit on failed build in watch mode ([450dcb9](https://github.com/johannschopplich/kirbyup/commit/450dcb9a17291b07fe2d70738b365cc26d6d49f8))
+
 # [0.16.0](https://github.com/johannschopplich/kirbyup/compare/v0.15.2...v0.16.0) (2021-10-06)
 
 ### Features
