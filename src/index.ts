@@ -58,7 +58,10 @@ export async function runViteBuild(options: NormalizedOptions) {
     })
   } catch (error) {
     log('Build failed', 'error')
-    throw error
+
+    if (mode === 'production') {
+      throw error
+    }
   }
 
   if (result) {
