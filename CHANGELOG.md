@@ -1,3 +1,9 @@
+## [0.17.1](https://github.com/johannschopplich/kirbyup/compare/v0.17.0...v0.17.1) (2021-10-06)
+
+### Bug Fixes
+
+- build error in watch mode ([dc7afd2](https://github.com/johannschopplich/kirbyup/commit/dc7afd297522ba15a25be3c31ee51e9d791cda14))
+
 # [0.17.0](https://github.com/johannschopplich/kirbyup/compare/v0.16.0...v0.17.0) (2021-10-06)
 
 ### Features
