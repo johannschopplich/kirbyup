@@ -50,7 +50,7 @@ Example package configuration:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.17.1"
+    "kirbyup": "^0.17.2"
   }
 }
 ```
