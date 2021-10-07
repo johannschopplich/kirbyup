@@ -16,7 +16,7 @@ const getComponentName = (path: string) =>
   path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')).toLowerCase()
 
 /*
- * Set of Utils for Kirby Plugins
+ * Set of utils for Kirby Panel plugins
  */
 export const kirbyup = Object.freeze({
   /**
