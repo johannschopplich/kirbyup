@@ -1,3 +1,5 @@
+## [0.17.2](https://github.com/johannschopplich/kirbyup/compare/v0.17.1...v0.17.2) (2021-10-07)
+
 ## [0.17.1](https://github.com/johannschopplich/kirbyup/compare/v0.17.0...v0.17.1) (2021-10-06)
 
 ### Bug Fixes
