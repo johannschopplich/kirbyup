@@ -12,11 +12,8 @@ type GlobEagerResult = Record<
 >
 
 const getComponentName = (path: string) =>
-  path
-    .split('/')
-    .pop()!
-    .replace(/\.vue$/, '')
-    .toLowerCase()
+  // path.match(/([^\/]+)(?=\.\w+$)/)![0].toLowerCase()
+  path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')).toLowerCase()
 
 /*
  * Set of Utils for Kirby Plugins
@@ -30,9 +27,12 @@ export const kirbyup = Object.freeze({
    * kirbyup.import('./components/blocks/*.vue')
    */
   import(modules: GlobEagerResult) {
-    return Object.entries(modules).reduce((acc, [path, component]) => {
-      acc[getComponentName(path)] = component.default
-      return acc
-    }, {} as Record<string, any>)
+    return Object.entries(modules).reduce<Record<string, any>>(
+      (accumulator, [path, component]) => {
+        accumulator[getComponentName(path)] = component.default
+        return accumulator
+      },
+      {}
+    )
   }
 })
