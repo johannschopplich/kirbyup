@@ -31,7 +31,6 @@ export default function kirbyupAutoImportPlugin(): Plugin {
 
           if (!s) s = new MagicString(code)
 
-          // const path = rawPath.slice(1, -1)
           s.overwrite(
             index,
             index + exp.length,
