@@ -1,3 +1,9 @@
+## [0.17.3](https://github.com/johannschopplich/kirbyup/compare/v0.17.2...v0.17.3) (2021-10-12)
+
+### Bug Fixes
+
+- global scope var in some scenarios ([0ac3ff9](https://github.com/johannschopplich/kirbyup/commit/0ac3ff9c696d8f3ca581c264f0a29c3b3c973097))
+
 ## [0.17.2](https://github.com/johannschopplich/kirbyup/compare/v0.17.1...v0.17.2) (2021-10-07)
 
 ## [0.17.1](https://github.com/johannschopplich/kirbyup/compare/v0.17.0...v0.17.1) (2021-10-06)
