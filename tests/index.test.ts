@@ -12,7 +12,7 @@ it('handles modules', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "var kirbyupExport=function(){\\"use strict\\";return\\"bar\\"}();
+    "(()=>{var t=function(){\\"use strict\\";var r=\\"bar\\";return r}();})();
     "
   `)
 
@@ -30,7 +30,7 @@ it('handles css', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "!function(){\\"use strict\\"}();
+    "(()=>{(function(){\\"use strict\\";var t=\\"\\"})();})();
     "
   `)
 
@@ -54,7 +54,7 @@ it('supports built-in env variables', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "var kirbyupExport=function(e){\\"use strict\\";return e.mode=\\"production\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+    "(()=>{var t=function(e){\\"use strict\\";const o=\\"production\\";return e.mode=o,Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});})();
     "
   `)
 
@@ -72,7 +72,7 @@ it('supports resolve aliases', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "var kirbyupExport=function(){\\"use strict\\";return\\"bar\\"}();
+    "(()=>{var t=function(){\\"use strict\\";var r=\\"bar\\";return r}();})();
     "
   `)
 
@@ -90,7 +90,7 @@ it('supports custom env variables', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "var kirbyupExport=function(e){\\"use strict\\";return e.foo=\\"bar\\",Object.defineProperty(e,\\"__esModule\\",{value:!0}),e[Symbol.toStringTag]=\\"Module\\",e}({});
+    "(()=>{var r=function(o){\\"use strict\\";const e=\\"bar\\";return o.foo=e,Object.defineProperty(o,\\"__esModule\\",{value:!0}),o[Symbol.toStringTag]=\\"Module\\",o}({});})();
     "
   `)
 
@@ -111,7 +111,7 @@ it('supports postcss plugins', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "!function(){\\"use strict\\"}();
+    "(()=>{(function(){\\"use strict\\";var t=\\"\\"})();})();
     "
   `)
 
@@ -143,7 +143,7 @@ it('builds panel plugins', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "!function(){\\"use strict\\";window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:{extends:\\"k-info-field\\"}}})}();
+    "(()=>{(function(){\\"use strict\\";var e={extends:\\"k-info-field\\"};window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:e}})})();})();
     "
   `)
 
@@ -167,7 +167,7 @@ it('imports components automatically', async () => {
   })
 
   expect(output).toMatchInlineSnapshot(`
-    "!function(){\\"use strict\\";function e(e,t,n,o,r,s,i,a){var l,c=\\"function\\"==typeof e?e.options:e;if(t&&(c.render=t,c.staticRenderFns=n,c._compiled=!0),o&&(c.functional=!0),s&&(c._scopeId=\\"data-v-\\"+s),i?(l=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||\\"undefined\\"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),r&&r.call(this,e),e&&e._registeredComponents&&e._registeredComponents.add(i)},c._ssrRegister=l):r&&(l=a?function(){r.call(this,(c.functional?this.parent:this).$root.$options.shadowRoot)}:r),l)if(c.functional){c._injectStyles=l;var u=c.render;c.render=function(e,t){return l.call(t),u(e,t)}}else{var f=c.beforeCreate;c.beforeCreate=f?[].concat(f,l):[l]}return{exports:e,options:c}}const t={};var n=e({},(function(){var e=this,t=e.$createElement;return(e._self._c||t)(\\"k-header\\",[e._v(\\"Bar\\")])}),[],!1,o,null,null,null);function o(e){for(let n in t)this[n]=t[n]}var r=function(){return n.exports}(),s=Object.freeze({__proto__:null,[Symbol.toStringTag]:\\"Module\\",default:r});const i=Object.freeze({import:e=>Object.entries(e).reduce(((e,[t,n])=>(e[(e=>e.substring(e.lastIndexOf(\\"/\\")+1,e.lastIndexOf(\\".\\")).toLowerCase())(t)]=n.default,e)),{})});window.panel.plugin(\\"kirbyup/example\\",{blocks:i.import({\\"./components/blocks/Foo.vue\\":s})})}();
+    "(()=>{(function(){\\"use strict\\";var c=function(){var e=this,o=e.$createElement,i=e._self._c||o;return i(\\"k-header\\",[e._v(\\"Bar\\")])},p=[];function v(e,o,i,a,s,f,l,k){var n=typeof e==\\"function\\"?e.options:e;o&&(n.render=o,n.staticRenderFns=i,n._compiled=!0),a&&(n.functional=!0),f&&(n._scopeId=\\"data-v-\\"+f);var t;if(l?(t=function(r){r=r||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!r&&typeof __VUE_SSR_CONTEXT__!=\\"undefined\\"&&(r=__VUE_SSR_CONTEXT__),s&&s.call(this,r),r&&r._registeredComponents&&r._registeredComponents.add(l)},n._ssrRegister=t):s&&(t=k?function(){s.call(this,(n.functional?this.parent:this).$root.$options.shadowRoot)}:s),t)if(n.functional){n._injectStyles=t;var R=n.render;n.render=function(S,d){return t.call(d),R(S,d)}}else{var u=n.beforeCreate;n.beforeCreate=u?[].concat(u,t):[t]}return{exports:e,options:n}}const h={},_={};var m=v(h,c,p,!1,b,null,null,null);function b(e){for(let o in _)this[o]=_[o]}var C=function(){return m.exports}(),g=Object.freeze({__proto__:null,[Symbol.toStringTag]:\\"Module\\",default:C});const O=e=>e.substring(e.lastIndexOf(\\"/\\")+1,e.lastIndexOf(\\".\\")).toLowerCase(),$=Object.freeze({import(e){return Object.entries(e).reduce((o,[i,a])=>(o[O(i)]=a.default,o),{})}});window.panel.plugin(\\"kirbyup/example\\",{blocks:$.import({\\"./components/blocks/Foo.vue\\":g})})})();})();
     "
   `)
 
