@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "kirbyup src/index.js --watch",
+    "build": "kirbyup src/index.js"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.7",
+    "kirbyup": "^0.18.0",
+    "tailwindcss": "^2.2.17"
+  }
+}
