@@ -1,3 +1,9 @@
+# [0.18.0](https://github.com/johannschopplich/kirbyup/compare/v0.17.3...v0.18.0) (2021-10-13)
+
+### Features
+
+- resolve PostCSS config files ([91c6165](https://github.com/johannschopplich/kirbyup/commit/91c6165467486bef1a3e80c6efdefc9690372afb))
+
 ## [0.17.3](https://github.com/johannschopplich/kirbyup/compare/v0.17.2...v0.17.3) (2021-10-12)
 
 ### Bug Fixes
