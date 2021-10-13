@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { cac } from 'cac'
-import { name, version } from '../package.json'
+import { name, version } from '../../package.json'
 import { handleError } from './errors'
 import type { Options } from './types'
 

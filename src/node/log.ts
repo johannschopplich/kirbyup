@@ -1,5 +1,5 @@
 import colors from 'colorette'
-import { name } from '../package.json'
+import { name } from '../../package.json'
 import type { Colorette } from 'colorette'
 
 type LogLevel = 'info' | 'success' | 'error'

@@ -9,7 +9,7 @@ import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
-import { name, version } from '../package.json'
+import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { Options, NormalizedOptions } from './types'
 
