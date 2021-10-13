@@ -4,6 +4,7 @@ import colors from 'colorette'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
+import postcssrc from 'postcss-load-config'
 import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import { handleError, PrettyError } from './errors'
@@ -11,13 +12,40 @@ import { debouncePromise } from './utils'
 import { log } from './log'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
-import type { Options, NormalizedOptions } from './types'
+import type { Options, NormalizedOptions, PostCSSConfigResult } from './types'
+
+let postcssConfigCache: PostCSSConfigResult
+
+export async function resolvePostcssConfig(
+  root: string
+): Promise<PostCSSConfigResult> {
+  let result = postcssConfigCache
+  if (result) {
+    return result
+  }
+
+  try {
+    // @ts-ignore
+    result = await postcssrc({}, root)
+  } catch (err: any) {
+    if (!/No PostCSS Config found/.test(err.message)) {
+      throw err
+    }
+
+    result = {
+      plugins: [postcssLogical(), postcssDirPseudoClass()]
+    }
+  }
+
+  postcssConfigCache = result
+  return result
+}
 
 export async function runViteBuild(options: NormalizedOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const mode = options.watch ? 'development' : 'production'
-  const currentDir = process.cwd()
+  const root = process.cwd()
 
   try {
     result = await viteBuild({
@@ -25,13 +53,13 @@ export async function runViteBuild(options: NormalizedOptions) {
       plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
       build: {
         lib: {
-          entry: resolve(currentDir, options.entry),
+          entry: resolve(root, options.entry),
           formats: ['iife'],
           name: 'kirbyupExport',
           fileName: () => 'index.js'
         },
         minify: mode === 'production',
-        outDir: options.outDir ?? currentDir,
+        outDir: options.outDir ?? root,
         emptyOutDir: false,
         rollupOptions: {
           external: ['vue'],
@@ -45,13 +73,11 @@ export async function runViteBuild(options: NormalizedOptions) {
       },
       resolve: {
         alias: {
-          '~/': `${resolve(currentDir, dirname(options.entry))}/`
+          '~/': `${resolve(root, dirname(options.entry))}/`
         }
       },
       css: {
-        postcss: {
-          plugins: [postcssLogical(), postcssDirPseudoClass()]
-        }
+        postcss: await resolvePostcssConfig(root)
       },
       envPrefix: ['VITE_', 'KIRBYUP_'],
       logLevel: 'warn'

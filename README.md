@@ -10,9 +10,9 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 - ⚡️ Fast compilation with Vite/esbuild
 - 🔍 Watch mode
 - \*️⃣ `kirbyup.import` to [auto-import blocks & fields](#auto-import-blocks-and-fields)
+- 🎒 [PostCSS support](#postcss)
 - 🧭 [`~/` path resolve alias](#path-resolve-alias)
-- 🎒 [PostCSS transforms](#postcss-transforms) for RTL support & more
-- 🔌 [Supports env variables](#env-variables)
+- 🔌 [Env variables support](#env-variables)
 
 ## Requirements
 
@@ -50,7 +50,7 @@ Example package configuration:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.17.3"
+    "kirbyup": "^0.18.0"
   }
 }
 ```
@@ -89,9 +89,11 @@ The final panel plugin will be bundled, minified, and written into the current d
 
 ## Built-in Features
 
-### PostCSS Transforms
+### PostCSS
 
-The Kirby Panel uses PostCSS plugins to transform CSS syntax related logical properties and RTL language support. You can embrace the same functionality within your Panel plugins. The following PostCSS plugins are integrated into kirbyup as well:
+If the project contains a valid PostCSS config (any format supported by [postcss-load-config](https://github.com/postcss/postcss-load-config), e.g. `postcss.config.js`), it will be automatically applied to all imported CSS.
+
+If no configuration file is found, kirbyup will apply two PostCSS plugins which the Kirby Panel uses as well to let you embrace the same functionality within your Panel plugins. The following PostCSS transforms are applied by kirbyup:
 
 - [postcss-logical](https://github.com/csstools/postcss-logical) lets you use logical, rather than physical, direction and dimension mappings in CSS, following the [CSS Logical Properties and Values](https://drafts.csswg.org/css-logical/) specification.
 - [postcss-dir-pseudo-class](https://github.com/csstools/postcss-dir-pseudo-class) lets you style by directionality using the `:dir()` pseudo-class in CSS, following the [Selectors](https://www.w3.org/TR/selectors-4/#the-dir-pseudo) specification. It gives you the same syntax Kirby uses for full compatibility with RTL localizations of the Panel.
@@ -147,7 +149,7 @@ window.panel.plugin('kirbyup/example', {
 
 kirbyup exposes env variables on the special `import.meta.env` object. Some built-in variables are available in all cases:
 
-- **`import.meta.env.MODE`**: {"development" | "production"} the mode kirbyup is running in.
+- **`import.meta.env.MODE`**: {`development` | `production`} the mode kirbyup is running in.
 - **`import.meta.env.PROD`**: {boolean} whether kirbyup is running in production.
 - **`import.meta.env.DEV`**: {boolean} whether kirbyup is running in development (always the opposite of `import.meta.env.PROD`)
 
