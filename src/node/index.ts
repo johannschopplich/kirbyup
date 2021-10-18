@@ -1,6 +1,6 @@
 import { resolve, dirname } from 'path'
 import { existsSync } from 'fs'
-import colors from 'colorette'
+import * as colors from 'colorette'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'

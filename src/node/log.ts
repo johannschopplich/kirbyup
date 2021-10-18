@@ -1,4 +1,4 @@
-import colors from 'colorette'
+import * as colors from 'colorette'
 import { name } from '../../package.json'
 import type { Colorette } from 'colorette'
 
