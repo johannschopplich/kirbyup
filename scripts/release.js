@@ -5,10 +5,10 @@
  */
 const fs = require('fs')
 const path = require('path')
-const colors = require('colorette')
 const semver = require('semver')
 const prompts = require('prompts')
 const execa = require('execa')
+const { cyan } = require('colorette')
 const { version: currentVersion } = require('../package.json')
 
 /**
@@ -32,7 +32,7 @@ const run = (bin, args, opts = {}) =>
 /**
  * @param {string} msg
  */
-const step = (msg) => console.log(colors.cyan(msg))
+const step = (msg) => console.log(cyan(msg))
 
 async function main() {
   let targetVersion

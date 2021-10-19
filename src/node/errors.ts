@@ -1,4 +1,4 @@
-import * as colors from 'colorette'
+import { red } from 'colorette'
 
 export class PrettyError extends Error {
   constructor(message: string) {
@@ -15,7 +15,7 @@ export class PrettyError extends Error {
 
 export function handleError(error: unknown) {
   if (error instanceof PrettyError) {
-    console.error(colors.red(error.message))
+    console.error(red(error.message))
   }
 
   process.exitCode = 1

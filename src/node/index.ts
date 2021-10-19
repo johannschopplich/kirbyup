@@ -1,12 +1,12 @@
 import { resolve, dirname } from 'path'
 import { existsSync } from 'fs'
-import * as colors from 'colorette'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
 import postcssrc from 'postcss-load-config'
 import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
+import { gray } from 'colorette'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise } from './utils'
 import { log } from './log'
@@ -165,7 +165,7 @@ export async function build(_options: Options) {
     })
 
     watcher.on('all', async (type, file) => {
-      log(`${type} ${colors.gray(file)}`)
+      log(`${type} ${gray(file)}`)
       debouncedBuild()
     })
   }
