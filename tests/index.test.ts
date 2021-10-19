@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { remove } from 'fs-extra'
 import { run, cacheDir } from './utils'
 
@@ -157,7 +158,10 @@ it('builds panel plugins', async () => {
 it('imports components automatically', async () => {
   const { output, outFiles } = await run({
     'src/input.js': `
-      import { kirbyup } from '${process.cwd()}/dist/client/plugin.js'
+      import { kirbyup } from '${resolve(
+        __dirname,
+        '../dist/client/plugin.js'
+      )}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')

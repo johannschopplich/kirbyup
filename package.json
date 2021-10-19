@@ -45,7 +45,7 @@
   "scripts": {
     "build": "tsup src/node/cli.ts src/node/index.ts --clean --dts && npm run build:client",
     "build:client": "esbuild src/client/plugin.ts --format=esm --outdir=dist/client && tsc src/client/plugin.ts --declaration --emitDeclarationOnly --outDir dist/client",
-    "test": "jest",
+    "test": "npm run build && jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
@@ -58,7 +58,7 @@
     "postcss-dir-pseudo-class": "^6.0.0",
     "postcss-logical": "^5.0.0",
     "sass": "^1.43.2",
-    "vite": "^2.6.9",
+    "vite": "^2.6.10",
     "vite-plugin-vue2": "^1.9.0",
     "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.14"
@@ -72,7 +72,7 @@
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0",
     "husky": "^7.0.2",
-    "jest": "^27.3.0",
+    "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "prompts": "^2.4.2",
     "ts-essentials": "^9.0.0",
