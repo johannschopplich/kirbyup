@@ -20,6 +20,14 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 > ℹ️ When using kirbyup with `npx`, **npm 7+** is required. Previous versions don't pass cli arguments to the package invoked. npm 7 is bundled from Node 16 onwards.
 
+## Get Started Right Away
+
+… With one of the following Panel plugin kits:
+
+- [`eslint-and-prettier`](./examples/eslint-and-prettier) (recommended)
+- [`tailwindcss`](./examples/tailwindcss)
+- [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel)
+
 ## Installation
 
 If you want to use kirbyup right away, there is no need to install it. Simply call it with `npx`:
