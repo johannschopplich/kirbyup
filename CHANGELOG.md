@@ -1,3 +1,9 @@
+## [0.19.1](https://github.com/johannschopplich/kirbyup/compare/v0.19.0...v0.19.1) (2021-10-25)
+
+### Bug Fixes
+
+- print size of all built assets ([9905444](https://github.com/johannschopplich/kirbyup/commit/9905444081455b130b337b2dfa80efef6103d096))
+
 # [0.19.0](https://github.com/johannschopplich/kirbyup/compare/v0.18.0...v0.19.0) (2021-10-25)
 
 ### Bug Fixes
