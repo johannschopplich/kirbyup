@@ -8,10 +8,11 @@ import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import { white, dim, green, yellow } from 'colorette'
 import { handleError, PrettyError } from './errors'
-import { debouncePromise, printFileInfo } from './utils'
+import { arraify, debouncePromise, printFileInfo } from './utils'
 import { log, LogLevel } from './log'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
+import type { RollupOutput, OutputChunk } from 'rollup'
 import type { Options, NormalizedOptions, PostCSSConfigResult } from './types'
 
 let postcssConfigCache: PostCSSConfigResult
@@ -95,10 +96,9 @@ export async function runViteBuild(options: NormalizedOptions) {
     log(`${green('✓')} Build successful`)
 
     if (!options.watch) {
-      printFileInfo(root, outDir, 'index.js')
-
-      if (existsSync(resolve(outDir, 'index.css'))) {
-        printFileInfo(root, outDir, 'index.css')
+      const { output } = arraify(result as RollupOutput[])[0]
+      for (const { fileName, type, code } of output as OutputChunk[]) {
+        printFileInfo(root, outDir, fileName, type, code)
       }
     }
   }

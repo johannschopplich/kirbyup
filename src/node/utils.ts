@@ -9,6 +9,10 @@ import { white, dim, cyan, magenta } from 'colorette'
 const isWindows = os.platform() === 'win32'
 const compress = promisify(gzip)
 
+export function arraify<T>(target: T | T[]): T[] {
+  return Array.isArray(target) ? target : [target]
+}
+
 export function slash(p: string) {
   return p.replace(/\\/g, '/')
 }
@@ -27,14 +31,16 @@ export async function getCompressedSize(code: string | Uint8Array) {
 export async function printFileInfo(
   root: string,
   outDir: string,
-  filePath: string
+  filePath: string,
+  type: string,
+  content?: string
 ) {
-  const content = await fs.readFile(path.resolve(outDir, filePath), 'utf8')
+  content ??= await fs.readFile(path.resolve(outDir, filePath), 'utf8')
   const prettyOutDir =
     normalizePath(path.relative(root, path.resolve(root, outDir))) + '/'
   const kibs = content.length / 1024
   const compressedSize = await getCompressedSize(content)
-  const writeColor = filePath.endsWith('js') ? cyan : magenta
+  const writeColor = type === 'chunk' ? cyan : magenta
 
   log(
     white(dim(prettyOutDir)) +
