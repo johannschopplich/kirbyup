@@ -164,10 +164,7 @@ export async function build(_options: Options) {
         )
     )
 
-    // log(
-    //   yellow('Ignoring changes in ') + white(dim(ignored.join(', '))),
-    //   LogLevel.INFO
-    // )
+    // log(yellow('Ignoring changes in ') + white(dim(ignored.join(', '))))
 
     const watcher = watch(watchPaths, {
       ignoreInitial: true,
