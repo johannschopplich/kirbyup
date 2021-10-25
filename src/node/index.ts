@@ -9,7 +9,7 @@ import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import { white, dim, green, yellow } from 'colorette'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise, printFileInfo } from './utils'
-import { log } from './log'
+import { log, LogLevel } from './log'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { Options, NormalizedOptions, PostCSSConfigResult } from './types'
@@ -84,7 +84,7 @@ export async function runViteBuild(options: NormalizedOptions) {
       logLevel: 'warn'
     })
   } catch (error) {
-    log('Build failed', 'error')
+    log('Build failed', LogLevel.ERROR)
 
     if (mode === 'production') {
       throw error
@@ -126,7 +126,7 @@ export async function build(_options: Options) {
   log(yellow('Building') + ' ' + white(dim(options.entry)))
 
   if (options.watch) {
-    log('Running in watch mode', 'info')
+    log('Running in watch mode', LogLevel.INFO)
   }
 
   const debouncedBuild = debouncePromise(
@@ -165,8 +165,8 @@ export async function build(_options: Options) {
     )
 
     // log(
-    //   `Ignoring changes in ${ignored.map((i) => `"${i}"`).join(' | ')}`,
-    //   'info'
+    //   yellow('Ignoring changes in ') + white(dim(ignored.join(', '))),
+    //   LogLevel.INFO
     // )
 
     const watcher = watch(watchPaths, {
