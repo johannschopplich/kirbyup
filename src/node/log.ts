@@ -10,8 +10,11 @@ const colorMap = new Map<LogLevel, Color>([
   ['error', red]
 ])
 
-export function log(message: string, type: LogLevel = 'info') {
-  const content = [gray(`[${name}]`), (colorMap.get(type) ?? white)(message)]
+export function log(message: string, type?: LogLevel) {
+  const content = [
+    gray(`[${name}]`),
+    type ? (colorMap.get(type) ?? white)(message) : message
+  ]
 
   if (type === 'error') {
     console.error(...content)

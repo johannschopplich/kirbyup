@@ -6,9 +6,9 @@ import kirbyupAutoImportPlugin from './plugins/autoImport'
 import postcssrc from 'postcss-load-config'
 import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
-import { gray } from 'colorette'
+import { white, dim, green, yellow } from 'colorette'
 import { handleError, PrettyError } from './errors'
-import { debouncePromise } from './utils'
+import { debouncePromise, printFileInfo } from './utils'
 import { log } from './log'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
@@ -16,7 +16,7 @@ import type { Options, NormalizedOptions, PostCSSConfigResult } from './types'
 
 let postcssConfigCache: PostCSSConfigResult
 
-export async function resolvePostcssConfig(
+async function resolvePostcssConfig(
   root: string
 ): Promise<PostCSSConfigResult> {
   let result = postcssConfigCache
@@ -46,6 +46,7 @@ export async function runViteBuild(options: NormalizedOptions) {
 
   const mode = options.watch ? 'development' : 'production'
   const root = process.cwd()
+  const outDir = options.outDir ?? root
 
   try {
     result = await viteBuild({
@@ -59,7 +60,7 @@ export async function runViteBuild(options: NormalizedOptions) {
           fileName: () => 'index.js'
         },
         minify: mode === 'production',
-        outDir: options.outDir ?? root,
+        outDir,
         emptyOutDir: false,
         rollupOptions: {
           external: ['vue'],
@@ -91,7 +92,15 @@ export async function runViteBuild(options: NormalizedOptions) {
   }
 
   if (result) {
-    log('Build successful', 'success')
+    log(`${green('✓')} Build successful`)
+
+    if (!options.watch) {
+      printFileInfo(root, outDir, 'index.js')
+
+      if (existsSync(resolve(outDir, 'index.css'))) {
+        printFileInfo(root, outDir, 'index.css')
+      }
+    }
   }
 
   return result
@@ -114,10 +123,10 @@ export async function build(_options: Options) {
   const options = await normalizeOptions(_options)
 
   log(`${name} v${version}`)
-  log(`Building: ${options.entry}`)
+  log(yellow('Building') + ' ' + white(dim(options.entry)))
 
   if (options.watch) {
-    log('Running in watch mode')
+    log('Running in watch mode', 'info')
   }
 
   const debouncedBuild = debouncePromise(
@@ -149,14 +158,16 @@ export async function build(_options: Options) {
         : options.watch
 
     log(
-      `Watching for changes in ${
-        Array.isArray(watchPaths)
-          ? watchPaths.map((i) => `"${i}"`).join(' | ')
-          : `"${watchPaths}"`
-      }`
+      yellow('Watching for changes in ') +
+        white(
+          dim(Array.isArray(watchPaths) ? watchPaths.join(', ') : watchPaths)
+        )
     )
 
-    // log(`Ignoring changes in ${ignored.map((i) => `"${i}"`).join(' | ')}`)
+    // log(
+    //   `Ignoring changes in ${ignored.map((i) => `"${i}"`).join(' | ')}`,
+    //   'info'
+    // )
 
     const watcher = watch(watchPaths, {
       ignoreInitial: true,
@@ -165,7 +176,7 @@ export async function build(_options: Options) {
     })
 
     watcher.on('all', async (type, file) => {
-      log(`${type} ${gray(file)}`)
+      log(yellow(`${type}:`) + ' ' + white(dim(file)))
       debouncedBuild()
     })
   }

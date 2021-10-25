@@ -1,3 +1,49 @@
+import fs from 'fs-extra'
+import path from 'path'
+import os from 'os'
+import { gzip } from 'zlib'
+import { promisify } from 'util'
+import { log } from './log'
+import { white, dim, cyan, magenta } from 'colorette'
+
+const isWindows = os.platform() === 'win32'
+const compress = promisify(gzip)
+
+export function slash(p: string) {
+  return p.replace(/\\/g, '/')
+}
+
+export function normalizePath(id: string) {
+  return path.posix.normalize(isWindows ? slash(id) : id)
+}
+
+export async function getCompressedSize(code: string | Uint8Array) {
+  return ` / gzip: ${(
+    (await compress(typeof code === 'string' ? code : Buffer.from(code)))
+      .length / 1024
+  ).toFixed(2)} KiB`
+}
+
+export async function printFileInfo(
+  root: string,
+  outDir: string,
+  filePath: string
+) {
+  const content = await fs.readFile(path.resolve(outDir, filePath), 'utf8')
+  const prettyOutDir =
+    normalizePath(path.relative(root, path.resolve(root, outDir))) + '/'
+  const kibs = content.length / 1024
+  const compressedSize = await getCompressedSize(content)
+  const writeColor = filePath.endsWith('js') ? cyan : magenta
+
+  log(
+    white(dim(prettyOutDir)) +
+      writeColor(filePath) +
+      '   ' +
+      dim(`${kibs.toFixed(2)} KiB${compressedSize}`)
+  )
+}
+
 export function debouncePromise<T extends unknown[]>(
   fn: (...args: T) => Promise<void>,
   delay: number,
