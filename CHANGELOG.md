@@ -1,3 +1,13 @@
+# [0.19.0](https://github.com/johannschopplich/kirbyup/compare/v0.18.0...v0.19.0) (2021-10-25)
+
+### Bug Fixes
+
+- imports from colorette package ([0833223](https://github.com/johannschopplich/kirbyup/commit/0833223f1a2c7080fb46e8ba2b66567d2c820425))
+
+### Features
+
+- print bundle sizes ([51c8128](https://github.com/johannschopplich/kirbyup/commit/51c81286efe32e5fd0d8c78b061cb06a85f0f575))
+
 # [0.18.0](https://github.com/johannschopplich/kirbyup/compare/v0.17.3...v0.18.0) (2021-10-13)
 
 ### Features
