@@ -22,10 +22,10 @@ export function normalizePath(id: string) {
 }
 
 export async function getCompressedSize(code: string | Uint8Array) {
-  return ` / gzip: ${(
+  const size =
     (await compress(typeof code === 'string' ? code : Buffer.from(code)))
       .length / 1024
-  ).toFixed(2)} KiB`
+  return ` / gzip: ${size.toFixed(2)} KiB`
 }
 
 export async function printFileInfo(

@@ -58,7 +58,7 @@ Example package configuration:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.19.1"
+    "kirbyup": "^0.20.0"
   }
 }
 ```
@@ -122,6 +122,8 @@ You can use the alias:
 ```js
 import someUtility from '~/utils'
 ```
+
+> ℹ️ You can use `@/` as path alias as well.
 
 ### Auto-Import Blocks and Fields
 

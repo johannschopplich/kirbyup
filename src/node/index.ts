@@ -48,6 +48,7 @@ export async function runViteBuild(options: NormalizedOptions) {
   const mode = options.watch ? 'development' : 'production'
   const root = process.cwd()
   const outDir = options.outDir ?? root
+  const aliasDir = resolve(root, dirname(options.entry))
 
   try {
     result = await viteBuild({
@@ -75,7 +76,8 @@ export async function runViteBuild(options: NormalizedOptions) {
       },
       resolve: {
         alias: {
-          '~/': `${resolve(root, dirname(options.entry))}/`
+          '~/': `${aliasDir}/`,
+          '@/': `${aliasDir}/`
         }
       },
       css: {
@@ -123,7 +125,7 @@ export async function build(_options: Options) {
   const options = await normalizeOptions(_options)
 
   log(`${name} v${version}`)
-  log(yellow('Building') + ' ' + white(dim(options.entry)))
+  log(green('Building') + ' ' + white(dim(options.entry)))
 
   if (options.watch) {
     log('Running in watch mode', LogLevel.INFO)
