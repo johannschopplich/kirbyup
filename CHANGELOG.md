@@ -1,3 +1,9 @@
+# [0.20.0](https://github.com/johannschopplich/kirbyup/compare/v0.19.1...v0.20.0) (2021-10-28)
+
+### Features
+
+- add `@/` as path alias as well ([d4c479c](https://github.com/johannschopplich/kirbyup/commit/d4c479c25242d16d0b2d5fed15130cf1b8bb28f8))
+
 ## [0.19.1](https://github.com/johannschopplich/kirbyup/compare/v0.19.0...v0.19.1) (2021-10-25)
 
 ### Bug Fixes
