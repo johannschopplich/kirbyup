@@ -1,24 +1,14 @@
 import fs from 'fs-extra'
-import path from 'path'
-import os from 'os'
+import path from 'pathe'
 import { gzip } from 'zlib'
 import { promisify } from 'util'
-import { log } from './log'
-import { white, dim, cyan, magenta } from 'colorette'
+import consola from 'consola'
+import { cyan, dim, magenta, white } from 'colorette'
 
-const isWindows = os.platform() === 'win32'
 const compress = promisify(gzip)
 
 export function arraify<T>(target: T | T[]): T[] {
   return Array.isArray(target) ? target : [target]
-}
-
-export function slash(p: string) {
-  return p.replace(/\\/g, '/')
-}
-
-export function normalizePath(id: string) {
-  return path.posix.normalize(isWindows ? slash(id) : id)
 }
 
 export async function getCompressedSize(code: string | Uint8Array) {
@@ -37,12 +27,12 @@ export async function printFileInfo(
 ) {
   content ??= await fs.readFile(path.resolve(outDir, filePath), 'utf8')
   const prettyOutDir =
-    normalizePath(path.relative(root, path.resolve(root, outDir))) + '/'
+    path.normalize(path.relative(root, path.resolve(root, outDir))) + '/'
   const kibs = content.length / 1024
   const compressedSize = await getCompressedSize(content)
   const writeColor = type === 'chunk' ? cyan : magenta
 
-  log(
+  consola.log(
     white(dim(prettyOutDir)) +
       writeColor(filePath) +
       '   ' +

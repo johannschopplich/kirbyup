@@ -1,4 +1,4 @@
-import { resolve, dirname } from 'path'
+import { resolve, dirname } from 'pathe'
 import { existsSync } from 'fs'
 import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
@@ -6,10 +6,10 @@ import kirbyupAutoImportPlugin from './plugins/autoImport'
 import postcssrc from 'postcss-load-config'
 import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
-import { white, dim, green, yellow } from 'colorette'
+import consola from 'consola'
+import { cyan, dim, green, white } from 'colorette'
 import { handleError, PrettyError } from './errors'
 import { arraify, debouncePromise, printFileInfo } from './utils'
-import { log, LogLevel } from './log'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { RollupOutput, OutputChunk } from 'rollup'
@@ -87,21 +87,17 @@ export async function runViteBuild(options: NormalizedOptions) {
       logLevel: 'warn'
     })
   } catch (error) {
-    log('Build failed', LogLevel.ERROR)
+    consola.error('Build failed')
 
     if (mode === 'production') {
       throw error
     }
   }
 
-  if (result) {
-    log(`${green('✓')} Build successful`)
-
-    if (!options.watch) {
-      const { output } = arraify(result as RollupOutput[])[0]
-      for (const { fileName, type, code } of output as OutputChunk[]) {
-        printFileInfo(root, outDir, fileName, type, code)
-      }
+  if (result && !options.watch) {
+    const { output } = arraify(result as RollupOutput[])[0]
+    for (const { fileName, type, code } of output as OutputChunk[]) {
+      printFileInfo(root, outDir, fileName, type, code)
     }
   }
 
@@ -110,7 +106,9 @@ export async function runViteBuild(options: NormalizedOptions) {
 
 const normalizeOptions = async (options: Options) => {
   if (!options.entry) {
-    throw new PrettyError(`No input file, try "${name} <path/to/file.js>"`)
+    throw new PrettyError(
+      'No input file, try ' + cyan(`${name} <path/to/file.js>`)
+    )
   }
 
   // Ensure entry exists
@@ -124,11 +122,11 @@ const normalizeOptions = async (options: Options) => {
 export async function build(_options: Options) {
   const options = await normalizeOptions(_options)
 
-  log(`${name} v${version}`)
-  log(green('Building') + ' ' + white(dim(options.entry)))
+  consola.log(green(`${name} v${version}`))
+  consola.start('Building ' + cyan(options.entry))
 
   if (options.watch) {
-    log('Running in watch mode', LogLevel.INFO)
+    consola.info('Running in watch mode')
   }
 
   const debouncedBuild = debouncePromise(
@@ -159,14 +157,12 @@ export async function build(_options: Options) {
           )
         : options.watch
 
-    log(
-      yellow('Watching for changes in ') +
-        white(
-          dim(Array.isArray(watchPaths) ? watchPaths.join(', ') : watchPaths)
+    consola.info(
+      'Watching for changes in ' +
+        cyan(
+          Array.isArray(watchPaths) ? watchPaths.join(white(', ')) : watchPaths
         )
     )
-
-    // log(yellow('Ignoring changes in ') + white(dim(ignored.join(', '))))
 
     const watcher = watch(watchPaths, {
       ignoreInitial: true,
@@ -175,12 +171,13 @@ export async function build(_options: Options) {
     })
 
     watcher.on('all', async (type, file) => {
-      log(yellow(`${type}:`) + ' ' + white(dim(file)))
+      consola.log(green(`${type}`) + ' ' + white(dim(file)))
       debouncedBuild()
     })
   }
 
   await runViteBuild(options)
+  consola.success('Build successful')
 
   startWatcher()
 }
