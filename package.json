@@ -3,6 +3,7 @@
   "version": "0.21.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "files": [
+    "bin",
     "dist"
   ],
   "exports": {
