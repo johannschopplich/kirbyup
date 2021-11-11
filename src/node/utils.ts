@@ -56,7 +56,7 @@ export function debouncePromise<T extends unknown[]>(
         callbackPending = undefined
       }
     } else {
-      if (timeout != null) clearTimeout(timeout)
+      if (timeout) clearTimeout(timeout)
 
       timeout = setTimeout(() => {
         timeout = undefined

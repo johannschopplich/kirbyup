@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'pathe'
 import { remove } from 'fs-extra'
 import { run, cacheDir } from './utils'
 
