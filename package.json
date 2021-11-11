@@ -1,6 +1,6 @@
 {
   "name": "kirbyup",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "files": [
     "dist"
