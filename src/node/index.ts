@@ -4,7 +4,9 @@ import { build as viteBuild } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
 import postcssrc from 'postcss-load-config'
+// @ts-expect-error: types are not available
 import postcssLogical from 'postcss-logical'
+// @ts-expect-error: types are not available
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
 import { cyan, dim, green, white } from 'colorette'
