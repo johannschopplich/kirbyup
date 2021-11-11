@@ -1,3 +1,5 @@
+## [0.21.1](https://github.com/johannschopplich/kirbyup/compare/v0.21.0...v0.21.1) (2021-11-11)
+
 # [0.21.0](https://github.com/johannschopplich/kirbyup/compare/v0.20.1...v0.21.0) (2021-11-11)
 
 ## [0.20.1](https://github.com/johannschopplich/kirbyup/compare/v0.20.0...v0.20.1) (2021-11-11)
