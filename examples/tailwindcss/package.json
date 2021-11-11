@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",
-    "kirbyup": "^0.20.1",
+    "kirbyup": "^0.21.0",
     "tailwindcss": "^2.2.19"
   }
 }
