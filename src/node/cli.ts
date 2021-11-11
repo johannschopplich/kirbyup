@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { cac } from 'cac'
+import { build } from './index'
 import { name, version } from '../../package.json'
 import { handleError } from './errors'
 import type { Options } from './types'
@@ -20,8 +21,6 @@ async function main(options: Options = {}) {
       'Watch mode, if path is not specified, it watches the folder of the input file. Repeat "--watch" for multiple paths'
     )
     .action(async (file: string, flags) => {
-      const { build } = await import('.')
-
       Object.assign(options, {
         ...flags
       })

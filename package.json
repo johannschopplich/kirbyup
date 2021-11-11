@@ -13,11 +13,11 @@
       "import": "./dist/client/plugin.js"
     }
   },
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "bin": {
-    "kirbyup": "dist/cli.js"
+    "kirbyup": "./bin/kirbyup.js"
   },
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=14"
   },
@@ -43,7 +43,8 @@
   },
   "homepage": "https://github.com/johannschopplich/kirbyup#readme",
   "scripts": {
-    "build": "tsup src/node/cli.ts src/node/index.ts --clean --dts && npm run build:client",
+    "dev": "tsup --watch src",
+    "build": "tsup && npm run build:client",
     "build:client": "esbuild src/client/plugin.ts --format=esm --outdir=dist/client && tsc src/client/plugin.ts --declaration --emitDeclarationOnly --outDir dist/client",
     "test": "npm run build && jest",
     "format": "prettier --write \"src/**/*.ts\"",

@@ -4,7 +4,7 @@ import fg from 'fast-glob'
 import execa from 'execa'
 
 export const cacheDir = resolve(__dirname, '.cache')
-export const bin = resolve(__dirname, '../dist/cli.js')
+export const bin = resolve(__dirname, '../bin/kirbyup.js')
 
 // https://stackoverflow.com/questions/52788380/get-the-current-test-spec-name-in-jest
 export const getTestName = () => expect.getState().currentTestName
