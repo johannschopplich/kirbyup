@@ -1,13 +1,13 @@
 import { resolve } from 'pathe'
 import { remove } from 'fs-extra'
-import { run, cacheDir } from './utils'
+import { runCli, cacheDir } from './utils'
 
 beforeAll(async () => {
   await remove(cacheDir)
 })
 
 it('handles modules', async () => {
-  const { output } = await run({
+  const { output } = await runCli({
     'src/input.js': `import foo from './foo'\nexport default foo`,
     'src/foo.js': `export default 'bar'`
   })
@@ -16,7 +16,7 @@ it('handles modules', async () => {
 })
 
 it('handles css', async () => {
-  const { output, getFileContent } = await run({
+  const { output, getFileContent } = await runCli({
     'src/input.js': `import './input.css'`,
     'src/input.css': `.foo { content: "bar"; }`
   })
@@ -28,7 +28,7 @@ it('handles css', async () => {
 })
 
 it('supports built-in env variables', async () => {
-  const { output } = await run({
+  const { output } = await runCli({
     'src/input.js': `export const mode = import.meta.env.MODE`
   })
 
@@ -36,7 +36,7 @@ it('supports built-in env variables', async () => {
 })
 
 it('supports resolve aliases', async () => {
-  const { output } = await run({
+  const { output } = await runCli({
     'src/input.js': `import foo from '~/foo'\nexport default foo`,
     'src/foo.js': `export default 'bar'`
   })
@@ -45,7 +45,7 @@ it('supports resolve aliases', async () => {
 })
 
 it('supports custom env variables', async () => {
-  const { output } = await run({
+  const { output } = await runCli({
     '.env': `KIRBYUP_FOO=bar`,
     'src/input.js': `export const foo = import.meta.env.KIRBYUP_FOO`
   })
@@ -54,7 +54,7 @@ it('supports custom env variables', async () => {
 })
 
 it('supports postcss plugins', async () => {
-  const { output, getFileContent } = await run({
+  const { output, getFileContent } = await runCli({
     'src/input.js': `import './input.css'`,
     'src/input.css': `
       .foo { inset: logical 0 5px 10px; }
@@ -69,7 +69,7 @@ it('supports postcss plugins', async () => {
 })
 
 it('builds panel plugins', async () => {
-  const { output } = await run({
+  const { output } = await runCli({
     'src/input.js': `
       import Demo from './fields/demo.js'
       window.panel.plugin('kirbyup/test', {
@@ -85,7 +85,7 @@ it('builds panel plugins', async () => {
 })
 
 it('imports components automatically', async () => {
-  const { output } = await run({
+  const { output } = await runCli({
     'src/input.js': `
       import { kirbyup } from '${resolve(
         __dirname,

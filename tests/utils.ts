@@ -4,12 +4,12 @@ import fg from 'fast-glob'
 import execa from 'execa'
 
 export const cacheDir = resolve(__dirname, '.cache')
-export const bin = resolve(__dirname, '../bin/kirbyup.js')
+export const cli = resolve(__dirname, '../src/node/cli.ts')
 
 // https://stackoverflow.com/questions/52788380/get-the-current-test-spec-name-in-jest
 export const getTestName = () => expect.getState().currentTestName
 
-export async function run(files: Record<string, string>) {
+export async function runCli(files: Record<string, string>) {
   const testDir = resolve(cacheDir, getTestName())
 
   // Retrieve any file's content
@@ -24,9 +24,11 @@ export async function run(files: Record<string, string>) {
   )
 
   // Run kirbyup cli
-  const { exitCode, stdout, stderr } = await execa(bin, ['src/input.js'], {
-    cwd: testDir
-  })
+  const { exitCode, stdout, stderr } = await execa(
+    'npx',
+    ['esno', cli, 'src/input.js'],
+    { cwd: testDir }
+  )
 
   const logs = stdout + stderr
   if (exitCode !== 0) {

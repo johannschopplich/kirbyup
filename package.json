@@ -47,14 +47,14 @@
     "dev": "tsup --watch src",
     "build": "tsup && npm run build:client",
     "build:client": "esbuild src/client/plugin.ts --format=esm --outdir=dist/client && tsc src/client/plugin.ts --declaration --emitDeclarationOnly --outDir dist/client",
-    "test": "npm run build && jest",
+    "test": "jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
     "prepare": "husky install"
   },
   "dependencies": {
-    "cac": "^6.7.11",
+    "cac": "^6.7.12",
     "chokidar": "^3.5.2",
     "colorette": "^2.0.16",
     "consola": "^2.15.3",
@@ -72,6 +72,7 @@
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.7",
     "conventional-changelog-cli": "^2.1.1",
+    "esno": "^0.12.0",
     "execa": "^5.1.1",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0",
@@ -81,7 +82,7 @@
     "prompts": "^2.4.2",
     "ts-essentials": "^9.0.0",
     "ts-jest": "^27.0.7",
-    "tsup": "^5.6.0",
+    "tsup": "^5.7.0",
     "typescript": "^4.4.4"
   }
 }
