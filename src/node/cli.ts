@@ -4,9 +4,9 @@ import { cac } from 'cac'
 import { build } from './index'
 import { name, version } from '../../package.json'
 import { handleError } from './errors'
-import type { Options } from './types'
+import type { CliOptions } from './types'
 
-async function main(options: Options = {}) {
+async function main(options: CliOptions = {}) {
   const cli = cac(name)
 
   cli

@@ -15,7 +15,11 @@ import { arraify, debouncePromise, printFileInfo } from './utils'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { RollupOutput, OutputChunk } from 'rollup'
-import type { Options, NormalizedOptions, PostCSSConfigResult } from './types'
+import type {
+  CliOptions,
+  ResolvedCliOptions,
+  PostCSSConfigResult
+} from './types'
 
 let postcssConfigCache: PostCSSConfigResult
 
@@ -44,7 +48,7 @@ async function resolvePostcssConfig(
   return result
 }
 
-export async function runViteBuild(options: NormalizedOptions) {
+export async function runViteBuild(options: ResolvedCliOptions) {
   let result: Awaited<ReturnType<typeof viteBuild>> | undefined
 
   const mode = options.watch ? 'development' : 'production'
@@ -106,7 +110,7 @@ export async function runViteBuild(options: NormalizedOptions) {
   return result
 }
 
-const normalizeOptions = async (options: Options) => {
+export async function resolveOptions(options: CliOptions) {
   if (!options.entry) {
     throw new PrettyError(
       'No input file, try ' + cyan(`${name} <path/to/file.js>`)
@@ -118,11 +122,11 @@ const normalizeOptions = async (options: Options) => {
     throw new PrettyError(`Cannot find ${options.entry}`)
   }
 
-  return options as NormalizedOptions
+  return options as ResolvedCliOptions
 }
 
-export async function build(_options: Options) {
-  const options = await normalizeOptions(_options)
+export async function build(_options: CliOptions) {
+  const options = await resolveOptions(_options)
 
   consola.log(green(`${name} v${version}`))
   consola.start('Building ' + cyan(options.entry))
