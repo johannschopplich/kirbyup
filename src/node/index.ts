@@ -177,7 +177,7 @@ export async function build(_options: CliOptions) {
     })
 
     watcher.on('all', async (type, file) => {
-      consola.log(green(`${type}`) + ' ' + white(dim(file)))
+      consola.log(green(type) + ' ' + white(dim(file)))
       debouncedBuild()
     })
   }
