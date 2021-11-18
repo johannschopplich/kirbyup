@@ -6,18 +6,16 @@
 const fs = require('fs')
 const msgPath = process.argv[2]
 const msg = fs.readFileSync(msgPath, 'utf-8').trim()
-const { bgRed, white, green, red } = require('colorette')
+const consola = require('consola')
+const { green, red } = require('colorette')
 
 const RELEASE_RE = /^v\d/
 const COMMIT_RE =
   /^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps)(\(.+\))?: .{1,50}/
 
 if (!RELEASE_RE.test(msg) && !COMMIT_RE.test(msg)) {
-  console.log()
-  console.error(
-    `  ${bgRed(white(' ERROR '))} ${red(
-      'invalid commit message format.'
-    )}\n\n` +
+  consola.error(
+    `${red('Invalid commit message format.')}\n\n` +
       red(
         `  Proper commit message format is required for automated changelog generation. Examples:\n\n`
       ) +
