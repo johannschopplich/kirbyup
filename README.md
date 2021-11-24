@@ -206,4 +206,4 @@ Sets the watch mode. If no path is specified, kirbyup watches the folder of the 
 
 ## License
 
-MIT
+[MIT](./LICENSE) License © 2021 [Johann Schopplich](https://github.com/johannschopplich)
