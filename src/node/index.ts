@@ -165,9 +165,9 @@ export async function build(_options: CliOptions) {
 
     consola.info(
       'Watching for changes in ' +
-        cyan(
-          Array.isArray(watchPaths) ? watchPaths.join(white(', ')) : watchPaths
-        )
+        arraify(watchPaths)
+          .map((i) => cyan(i))
+          .join(', ')
     )
 
     const watcher = watch(watchPaths, {
