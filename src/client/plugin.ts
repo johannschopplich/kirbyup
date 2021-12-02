@@ -12,7 +12,6 @@ type GlobEagerResult = Record<
 >
 
 const getComponentName = (path: string) =>
-  // path.match(/([^\/]+)(?=\.\w+$)/)![0].toLowerCase()
   path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')).toLowerCase()
 
 /*
