@@ -87,10 +87,7 @@ it('builds panel plugins', async () => {
 it('imports components automatically', async () => {
   const { output } = await runCli({
     'src/input.js': `
-      import { kirbyup } from '${resolve(
-        __dirname,
-        '../dist/client/plugin.js'
-      )}'
+      import { kirbyup } from '${resolve(__dirname, '../dist/plugin.mjs')}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')

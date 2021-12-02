@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
 import path from 'pathe'
+import { readFile } from 'fs/promises'
 import { gzip } from 'zlib'
 import { promisify } from 'util'
 import consola from 'consola'
@@ -25,7 +25,7 @@ export async function printFileInfo(
   type: string,
   content?: string
 ) {
-  content ??= await fs.readFile(path.resolve(outDir, filePath), 'utf8')
+  content ??= await readFile(path.resolve(outDir, filePath), 'utf8')
   const prettyOutDir =
     path.normalize(path.relative(root, path.resolve(root, outDir))) + '/'
   const kibs = content.length / 1024

@@ -1,12 +1,10 @@
 import type { MarkRequired } from 'ts-essentials'
 import type * as Postcss from 'postcss'
 
-export type MaybeArray<T> = T | Array<T>
-
 export type CliOptions = {
   entry?: string
   outDir?: string
-  watch?: MaybeArray<boolean | string>
+  watch?: boolean | string | Array<boolean | string>
 }
 
 export type ResolvedCliOptions = MarkRequired<CliOptions, 'entry'>

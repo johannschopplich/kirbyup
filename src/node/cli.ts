@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { cac } from 'cac'
 import { build } from './index'
 import { name, version } from '../../package.json'
