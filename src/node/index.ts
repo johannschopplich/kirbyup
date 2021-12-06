@@ -1,8 +1,9 @@
-import { resolve, dirname } from 'pathe'
+import { resolve, dirname, basename } from 'pathe'
 import { existsSync } from 'fs'
-import { build as viteBuild } from 'vite'
+import { build as _build } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
+import { createConfigLoader } from './config'
 import postcssrc from 'postcss-load-config'
 // @ts-expect-error: types are not available
 import postcssLogical from 'postcss-logical'
@@ -18,9 +19,11 @@ import type { RollupOutput, OutputChunk } from 'rollup'
 import type {
   CliOptions,
   ResolvedCliOptions,
-  PostCSSConfigResult
+  PostCSSConfigResult,
+  UserConfig
 } from './types'
 
+let kirbyupConfigCache: UserConfig
 let postcssConfigCache: PostCSSConfigResult
 
 async function resolvePostcssConfig(
@@ -48,16 +51,18 @@ async function resolvePostcssConfig(
   return result
 }
 
-export async function runViteBuild(options: ResolvedCliOptions) {
-  let result: Awaited<ReturnType<typeof viteBuild>> | undefined
+export async function viteBuild(options: ResolvedCliOptions) {
+  let result: Awaited<ReturnType<typeof _build>> | undefined
 
   const mode = options.watch ? 'development' : 'production'
   const root = process.cwd()
   const outDir = options.outDir ?? root
   const aliasDir = resolve(root, dirname(options.entry))
 
+  const { alias } = kirbyupConfigCache
+
   try {
-    result = await viteBuild({
+    result = await _build({
       mode,
       plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
       build: {
@@ -83,7 +88,8 @@ export async function runViteBuild(options: ResolvedCliOptions) {
       resolve: {
         alias: {
           '~/': `${aliasDir}/`,
-          '@/': `${aliasDir}/`
+          '@/': `${aliasDir}/`,
+          ...(alias ?? {})
         }
       },
       css: {
@@ -128,6 +134,10 @@ export async function resolveOptions(options: CliOptions) {
 export async function build(_options: CliOptions) {
   const options = await resolveOptions(_options)
 
+  const loadConfig = createConfigLoader()
+  const { config, sources: configSources } = await loadConfig()
+  kirbyupConfigCache = config
+
   consola.log(green(`${name} v${version}`))
   consola.start('Building ' + cyan(options.entry))
 
@@ -137,7 +147,7 @@ export async function build(_options: CliOptions) {
 
   const debouncedBuild = debouncePromise(
     async () => {
-      runViteBuild(options)
+      viteBuild(options)
     },
     100,
     handleError
@@ -176,13 +186,22 @@ export async function build(_options: CliOptions) {
       ignored
     })
 
+    if (configSources.length) {
+      watcher.add(configSources)
+    }
+
     watcher.on('all', async (type, file) => {
-      consola.log(green(type) + ' ' + white(dim(file)))
+      if (configSources.includes(file)) {
+        kirbyupConfigCache = (await loadConfig()).config
+        consola.info(`${cyan(basename(file))} changed, setting new config`)
+      } else {
+        consola.log(green(type) + ' ' + white(dim(file)))
+      }
       debouncedBuild()
     })
   }
 
-  await runViteBuild(options)
+  await viteBuild(options)
   consola.success('Build successful')
 
   startWatcher()
