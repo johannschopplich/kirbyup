@@ -6,11 +6,8 @@ import execa from 'execa'
 export const cacheDir = resolve(__dirname, '.cache')
 export const cli = resolve(__dirname, '../src/node/cli.ts')
 
-// https://stackoverflow.com/questions/52788380/get-the-current-test-spec-name-in-jest
-export const getTestName = () => expect.getState().currentTestName
-
 export async function runCli(files: Record<string, string>) {
-  const testDir = resolve(cacheDir, getTestName())
+  const testDir = resolve(cacheDir, Date.now().toString())
 
   // Retrieve any file's content
   const getFileContent = (filename: string) =>

@@ -9,6 +9,10 @@ import {
 
 export type { LoadConfigResult, LoadConfigSource }
 
+export function defineConfig(config: UserConfig) {
+  return config
+}
+
 export function createConfigLoader<U extends UserConfig>(
   configOrPath: string | U = process.cwd(),
   extraConfigSources: LoadConfigSource[] = []

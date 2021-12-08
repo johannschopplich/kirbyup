@@ -6,7 +6,11 @@ beforeAll(async () => {
   await remove(cacheDir)
 })
 
-it('handles modules', async () => {
+afterAll(async () => {
+  await remove(cacheDir)
+})
+
+it('builds index.js', async () => {
   const { output } = await runCli({
     'src/input.js': `import foo from './foo'\nexport default foo`,
     'src/foo.js': `export default 'bar'`
@@ -15,7 +19,7 @@ it('handles modules', async () => {
   expect(output).toMatchSnapshot()
 })
 
-it('handles css', async () => {
+it('builds index.css', async () => {
   const { output, getFileContent } = await runCli({
     'src/input.js': `import './input.css'`,
     'src/input.css': `.foo { content: "bar"; }`
@@ -84,7 +88,7 @@ it('builds panel plugins', async () => {
   expect(output).toMatchSnapshot()
 })
 
-it('imports components automatically', async () => {
+it('supports auto-importing components', async () => {
   const { output } = await runCli({
     'src/input.js': `
       import { kirbyup } from '${resolve(__dirname, '../dist/plugin.mjs')}'
@@ -94,6 +98,24 @@ it('imports components automatically', async () => {
       })
     `,
     'src/components/blocks/Foo.vue': `<template><k-header>Bar</k-header></template>`
+  })
+
+  expect(output).toMatchSnapshot()
+})
+
+it('supports kirbyup.config.js', async () => {
+  const { output } = await runCli({
+    'src/input.js': `import foo from '__ALIAS__/foo.js'\nexport default foo`,
+    'src/foo.js': `export default 'bar'`,
+    'kirbyup.config.js': `
+      import path from 'path'
+      import { defineConfig } from '${resolve(__dirname, '../dist/index.mjs')}'
+      export default defineConfig({
+        alias: {
+          '__ALIAS__/': 'src/'
+        }
+      })
+    `
   })
 
   expect(output).toMatchSnapshot()

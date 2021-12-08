@@ -23,13 +23,13 @@ import type {
   UserConfig
 } from './types'
 
-let kirbyupConfigCache: UserConfig
-let postcssConfigCache: PostCSSConfigResult
+let resolvedKirbyupConfig: UserConfig
+let resolvedPostCssConfig: PostCSSConfigResult
 
 async function resolvePostcssConfig(
   root: string
 ): Promise<PostCSSConfigResult> {
-  let result = postcssConfigCache
+  let result = resolvedPostCssConfig
   if (result) {
     return result
   }
@@ -47,7 +47,7 @@ async function resolvePostcssConfig(
     }
   }
 
-  postcssConfigCache = result
+  resolvedPostCssConfig = result
   return result
 }
 
@@ -59,7 +59,7 @@ export async function viteBuild(options: ResolvedCliOptions) {
   const outDir = options.outDir ?? root
   const aliasDir = resolve(root, dirname(options.entry))
 
-  const { alias } = kirbyupConfigCache
+  const { alias = {} } = resolvedKirbyupConfig
 
   try {
     result = await _build({
@@ -89,7 +89,7 @@ export async function viteBuild(options: ResolvedCliOptions) {
         alias: {
           '~/': `${aliasDir}/`,
           '@/': `${aliasDir}/`,
-          ...(alias ?? {})
+          ...alias
         }
       },
       css: {
@@ -136,7 +136,7 @@ export async function build(_options: CliOptions) {
 
   const loadConfig = createConfigLoader()
   const { config, sources: configSources } = await loadConfig()
-  kirbyupConfigCache = config
+  resolvedKirbyupConfig = config
 
   consola.log(green(`${name} v${version}`))
   consola.start('Building ' + cyan(options.entry))
@@ -192,7 +192,7 @@ export async function build(_options: CliOptions) {
 
     watcher.on('all', async (type, file) => {
       if (configSources.includes(file)) {
-        kirbyupConfigCache = (await loadConfig()).config
+        resolvedKirbyupConfig = (await loadConfig()).config
         consola.info(`${cyan(basename(file))} changed, setting new config`)
       } else {
         consola.log(green(type) + ' ' + white(dim(file)))
@@ -206,3 +206,5 @@ export async function build(_options: CliOptions) {
 
   startWatcher()
 }
+
+export { defineConfig } from './config'
