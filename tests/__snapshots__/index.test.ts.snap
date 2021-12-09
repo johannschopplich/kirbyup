@@ -36,7 +36,7 @@ exports[`supports custom env variables 1`] = `
 `;
 
 exports[`supports kirbyup.config.js 1`] = `
-"var kirbyupExport=function(){\\"use strict\\";var r=\\"bar\\";return r}();
+"var test=function(){\\"use strict\\";var r=\\"bar\\";return r}();
 "
 `;
 

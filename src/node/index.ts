@@ -13,9 +13,11 @@ import consola from 'consola'
 import { cyan, dim, green, white } from 'colorette'
 import { handleError, PrettyError } from './errors'
 import { arraify, debouncePromise, printFileInfo } from './utils'
+import { deepMerge } from '@antfu/utils'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { RollupOutput, OutputChunk } from 'rollup'
+import type { InlineConfig } from 'vite'
 import type {
   CliOptions,
   ResolvedCliOptions,
@@ -35,7 +37,7 @@ async function resolvePostcssConfig(
   }
 
   try {
-    // @ts-ignore
+    // @ts-expect-error: types won't match
     result = await postcssrc({}, root)
   } catch (err: any) {
     if (!/No PostCSS Config found/.test(err.message)) {
@@ -58,46 +60,47 @@ export async function viteBuild(options: ResolvedCliOptions) {
   const root = process.cwd()
   const outDir = options.outDir ?? root
   const aliasDir = resolve(root, dirname(options.entry))
+  const { alias = {}, extendVite = {} } = resolvedKirbyupConfig
 
-  const { alias = {} } = resolvedKirbyupConfig
-
-  try {
-    result = await _build({
-      mode,
-      plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
-      build: {
-        lib: {
-          entry: resolve(root, options.entry),
-          formats: ['iife'],
-          name: 'kirbyupExport',
-          fileName: () => 'index.js'
-        },
-        minify: mode === 'production',
-        outDir,
-        emptyOutDir: false,
-        rollupOptions: {
-          external: ['vue'],
-          output: {
-            assetFileNames: 'index.[ext]',
-            globals: {
-              vue: 'Vue'
-            }
+  const defaultConfig: InlineConfig = {
+    mode,
+    plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
+    build: {
+      lib: {
+        entry: resolve(root, options.entry),
+        formats: ['iife'],
+        name: 'kirbyupExport',
+        fileName: () => 'index.js'
+      },
+      minify: mode === 'production',
+      outDir,
+      emptyOutDir: false,
+      rollupOptions: {
+        external: ['vue'],
+        output: {
+          assetFileNames: 'index.[ext]',
+          globals: {
+            vue: 'Vue'
           }
         }
-      },
-      resolve: {
-        alias: {
-          '~/': `${aliasDir}/`,
-          '@/': `${aliasDir}/`,
-          ...alias
-        }
-      },
-      css: {
-        postcss: await resolvePostcssConfig(root)
-      },
-      envPrefix: ['VITE_', 'KIRBYUP_'],
-      logLevel: 'warn'
-    })
+      }
+    },
+    resolve: {
+      alias: {
+        '~/': `${aliasDir}/`,
+        '@/': `${aliasDir}/`,
+        ...alias
+      }
+    },
+    css: {
+      postcss: await resolvePostcssConfig(root)
+    },
+    envPrefix: ['VITE_', 'KIRBYUP_'],
+    logLevel: 'warn'
+  }
+
+  try {
+    result = await _build(deepMerge(defaultConfig, extendVite) as InlineConfig)
   } catch (error) {
     consola.error('Build failed')
 
