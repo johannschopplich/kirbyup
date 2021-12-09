@@ -1,3 +1,14 @@
+# [0.22.0](https://github.com/johannschopplich/kirbyup/compare/v0.21.1...v0.22.0) (2021-12-09)
+
+### Bug Fixes
+
+- support TS 4.5 exports ([78be67e](https://github.com/johannschopplich/kirbyup/commit/78be67e445a262997aeb7ade2668fff5eec0e4bc))
+
+### Features
+
+- extend Vite config in `kirbyup.config.js` ([547df8d](https://github.com/johannschopplich/kirbyup/commit/547df8d9201d558243cd9293947df4814636a4f2))
+- support for kirbyup.config.js ([2934c20](https://github.com/johannschopplich/kirbyup/commit/2934c20632dd06e7649afe6780f2ce2824fdab01))
+
 ## [0.21.1](https://github.com/johannschopplich/kirbyup/compare/v0.21.0...v0.21.1) (2021-11-11)
 
 # [0.21.0](https://github.com/johannschopplich/kirbyup/compare/v0.20.1...v0.21.0) (2021-11-11)
