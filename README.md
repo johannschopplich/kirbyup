@@ -218,7 +218,7 @@ When aliasing to file system paths, always use absolute paths. Relative alias va
 
 You can build upon the defaults kirbup uses and extend the Vite configuration with custom plugins etc.
 
-For a complete list of options, take a look at the [Vite](https://vitejs.dev/config/).
+For a complete list of options, take a look at the [Vite configuration options](https://vitejs.dev/config/).
 
 ## Options
 
