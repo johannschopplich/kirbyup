@@ -22,7 +22,7 @@ export interface UserConfig {
    * Extends Vite's configuration. Will be merged with kirbyup's
    * default configuration. Be careful what to extend.
    */
-  extendVite?: InlineConfig
+  extendViteConfig?: InlineConfig
 }
 
 export interface PostCSSConfigResult {

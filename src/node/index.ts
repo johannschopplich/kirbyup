@@ -60,7 +60,7 @@ export async function viteBuild(options: ResolvedCliOptions) {
   const root = process.cwd()
   const outDir = options.outDir ?? root
   const aliasDir = resolve(root, dirname(options.entry))
-  const { alias = {}, extendVite = {} } = resolvedKirbyupConfig
+  const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
 
   const defaultConfig: InlineConfig = {
     mode,
@@ -100,7 +100,9 @@ export async function viteBuild(options: ResolvedCliOptions) {
   }
 
   try {
-    result = await _build(deepMerge(defaultConfig, extendVite) as InlineConfig)
+    result = await _build(
+      deepMerge(defaultConfig, extendViteConfig) as InlineConfig
+    )
   } catch (error) {
     consola.error('Build failed')
 
@@ -200,6 +202,7 @@ export async function build(_options: CliOptions) {
       } else {
         consola.log(green(type) + ' ' + white(dim(file)))
       }
+
       debouncedBuild()
     })
   }

@@ -11,8 +11,9 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 - 🔍 Watch mode
 - \*️⃣ `kirbyup.import` to [auto-import blocks & fields](#auto-import-blocks-and-fields)
 - 🎒 [PostCSS support](#postcss)
-- 🧭 [`~/` path resolve alias](#path-resolve-alias)
+- 🧭 [Path resolve aliases](#path-resolve-aliases)
 - 🔌 [Env variables support](#env-variables)
+- 🦔 [Extendable configuration with `kirbyup.config.js`](#extendable-configuration-with-kirbyup.config.js)
 
 ## Requirements
 
@@ -58,7 +59,7 @@ Example package configuration:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^0.21.0"
+    "kirbyup": "latest"
   }
 }
 ```
@@ -106,7 +107,7 @@ If no configuration file is found, kirbyup will apply two PostCSS plugins which 
 - [postcss-logical](https://github.com/csstools/postcss-logical) lets you use logical, rather than physical, direction and dimension mappings in CSS, following the [CSS Logical Properties and Values](https://drafts.csswg.org/css-logical/) specification.
 - [postcss-dir-pseudo-class](https://github.com/csstools/postcss-dir-pseudo-class) lets you style by directionality using the `:dir()` pseudo-class in CSS, following the [Selectors](https://www.w3.org/TR/selectors-4/#the-dir-pseudo) specification. It gives you the same syntax Kirby uses for full compatibility with RTL localizations of the Panel.
 
-### Path Resolve Alias
+### Path Resolve Aliases
 
 Import certain modules more easily by using the `~/` path alias. It will resolve to the directory of your input file, for example `src` when building `kirbyup src/index.js`.
 
@@ -186,6 +187,38 @@ KIRBYUP_SOME_KEY=123
 ```
 
 Only `KIRBYUP_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to your plugin's source code, but `DB_PASSWORD` will not.
+
+### Extendable Configuration With `kirbyup.config.js`
+
+Create a `kirbyup.config.js` or `kirbyup.config.ts` configuration file the root-level of your project to customize kirbyup.
+
+```js
+import { resolve } from 'path'
+import { defineConfig } from 'kirbyup'
+
+export default defineConfig({
+  alias: {
+    '#deep/': `${resolve(__dirname, 'src/deep')}/`
+  },
+  extendViteConfig: {
+    build: {
+      lib: {
+        name: 'myPlugin'
+      }
+    }
+  }
+})
+```
+
+#### `alias`
+
+When aliasing to file system paths, always use absolute paths. Relative alias values will be used as-is and will not be resolved into file system paths.
+
+#### `extendViteConfig`
+
+You can build upon the defaults kirbup uses and extend the Vite configuration with custom plugins etc.
+
+For a complete list of options, take a look at the [Vite](https://vitejs.dev/config/).
 
 ## Options
 
