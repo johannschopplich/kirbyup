@@ -13,7 +13,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 - 🎒 [PostCSS support](#postcss)
 - 🧭 [Path resolve aliases](#path-resolve-aliases)
 - 🔌 [Env variables support](#env-variables)
-- 🦔 [Extendable configuration with `kirbyup.config.js`](#extendable-configuration-with-kirbyup.config.js)
+- 🦔 [Extendable configuration with `kirbyup.config.js`](#extendable-configuration-with-kirbyupconfigjs)
 
 ## Requirements
 
