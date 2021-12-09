@@ -105,14 +105,14 @@ it('supports auto-importing components', async () => {
 
 it('supports kirbyup.config.js', async () => {
   const { output } = await runCli({
-    'src/input.js': `import foo from '__ALIAS__/foo.js'\nexport default foo`,
+    'src/input.js': `import foo from '__ALIAS__/foo'\nexport default foo`,
     'src/foo.js': `export default 'bar'`,
     'kirbyup.config.js': `
-      import path from 'path'
+      import { resolve } from 'path'
       import { defineConfig } from '${resolve(__dirname, '../dist/index.mjs')}'
       export default defineConfig({
         alias: {
-          '__ALIAS__/': 'src/'
+          '__ALIAS__/': resolve(__dirname, 'src') + '/'
         }
       })
     `
