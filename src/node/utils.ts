@@ -1,4 +1,4 @@
-import path from 'pathe'
+import { normalize, relative, resolve } from 'pathe'
 import { readFile } from 'fs/promises'
 import { gzip } from 'zlib'
 import { promisify } from 'util'
@@ -6,10 +6,6 @@ import consola from 'consola'
 import { cyan, dim, magenta, white } from 'colorette'
 
 const compress = promisify(gzip)
-
-export function arraify<T>(target: T | T[]): T[] {
-  return Array.isArray(target) ? target : [target]
-}
 
 export async function getCompressedSize(code: string | Uint8Array) {
   const size =
@@ -25,9 +21,8 @@ export async function printFileInfo(
   type: string,
   content?: string
 ) {
-  content ??= await readFile(path.resolve(outDir, filePath), 'utf8')
-  const prettyOutDir =
-    path.normalize(path.relative(root, path.resolve(root, outDir))) + '/'
+  content ??= await readFile(resolve(outDir, filePath), 'utf8')
+  const prettyOutDir = normalize(relative(root, resolve(root, outDir))) + '/'
   const kibs = content.length / 1024
   const compressedSize = await getCompressedSize(content)
   const writeColor = type === 'chunk' ? cyan : magenta

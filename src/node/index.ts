@@ -12,8 +12,8 @@ import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
 import { cyan, dim, green, white } from 'colorette'
 import { handleError, PrettyError } from './errors'
-import { arraify, debouncePromise, printFileInfo } from './utils'
-import { deepMerge } from '@antfu/utils'
+import { debouncePromise, printFileInfo } from './utils'
+import { deepMerge, toArray } from '@antfu/utils'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { RollupOutput, OutputChunk } from 'rollup'
@@ -28,32 +28,7 @@ import type {
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-async function resolvePostcssConfig(
-  root: string
-): Promise<PostCSSConfigResult> {
-  let result = resolvedPostCssConfig
-  if (result) {
-    return result
-  }
-
-  try {
-    // @ts-expect-error: types won't match
-    result = await postcssrc({}, root)
-  } catch (err: any) {
-    if (!/No PostCSS Config found/.test(err.message)) {
-      throw err
-    }
-
-    result = {
-      plugins: [postcssLogical(), postcssDirPseudoClass()]
-    }
-  }
-
-  resolvedPostCssConfig = result
-  return result
-}
-
-export async function viteBuild(options: ResolvedCliOptions) {
+async function viteBuild(options: ResolvedCliOptions) {
   let result: Awaited<ReturnType<typeof _build>> | undefined
 
   const mode = options.watch ? 'development' : 'production'
@@ -93,7 +68,7 @@ export async function viteBuild(options: ResolvedCliOptions) {
       }
     },
     css: {
-      postcss: await resolvePostcssConfig(root)
+      postcss: resolvedPostCssConfig
     },
     envPrefix: ['VITE_', 'KIRBYUP_'],
     logLevel: 'warn'
@@ -112,7 +87,7 @@ export async function viteBuild(options: ResolvedCliOptions) {
   }
 
   if (result && !options.watch) {
-    const { output } = arraify(result as RollupOutput[])[0]
+    const { output } = toArray(result as RollupOutput[])[0]
     for (const { fileName, type, code } of output as OutputChunk[]) {
       printFileInfo(root, outDir, fileName, type, code)
     }
@@ -139,10 +114,26 @@ export async function resolveOptions(options: CliOptions) {
 export async function build(_options: CliOptions) {
   const options = await resolveOptions(_options)
 
+  // Resolve kirbyup config
   const loadConfig = createConfigLoader()
   const { config, sources: configSources } = await loadConfig()
   resolvedKirbyupConfig = config
 
+  // Resolve postcss config
+  try {
+    // @ts-expect-error: types won't match
+    resolvedPostCssConfig = await postcssrc({})
+  } catch (err: any) {
+    if (!/No PostCSS Config found/.test(err.message)) {
+      throw err
+    }
+
+    resolvedPostCssConfig = {
+      plugins: [postcssLogical(), postcssDirPseudoClass()]
+    }
+  }
+
+  // Start kirbyup
   consola.log(green(`${name} v${version}`))
   consola.start('Building ' + cyan(options.entry))
 
@@ -180,7 +171,7 @@ export async function build(_options: CliOptions) {
 
     consola.info(
       'Watching for changes in ' +
-        arraify(watchPaths)
+        toArray(watchPaths)
           .map((i) => cyan(i))
           .join(', ')
     )
