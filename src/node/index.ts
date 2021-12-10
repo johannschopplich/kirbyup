@@ -1,6 +1,6 @@
 import { resolve, dirname, basename } from 'pathe'
 import { existsSync } from 'fs'
-import { build as _build } from 'vite'
+import { build as _build, mergeConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
 import { createConfigLoader } from './config'
@@ -13,7 +13,7 @@ import consola from 'consola'
 import { cyan, dim, green, white } from 'colorette'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise, printFileInfo } from './utils'
-import { deepMerge, toArray } from '@antfu/utils'
+import { toArray } from '@antfu/utils'
 import { name, version } from '../../package.json'
 import type { Awaited } from 'ts-essentials'
 import type { RollupOutput, OutputChunk } from 'rollup'
@@ -75,9 +75,7 @@ async function viteBuild(options: ResolvedCliOptions) {
   }
 
   try {
-    result = await _build(
-      deepMerge(defaultConfig, extendViteConfig) as InlineConfig
-    )
+    result = await _build(mergeConfig(defaultConfig, extendViteConfig))
   } catch (error) {
     consola.error('Build failed')
 

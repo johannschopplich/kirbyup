@@ -1,5 +1,5 @@
 import type { MarkRequired } from 'ts-essentials'
-import type { InlineConfig } from 'vite'
+import type { InlineConfig, AliasOptions } from 'vite'
 import type * as Postcss from 'postcss'
 
 export type CliOptions = {
@@ -12,11 +12,12 @@ export type ResolvedCliOptions = MarkRequired<CliOptions, 'entry'>
 
 export interface UserConfig {
   /**
-   * Defines aliases used to replace values in `import` statements.
-   * The order of the entries is important, in that the first
-   * defined rules are applied first.
+   * Specifies an `Object`, or an `Array` of `Object`,
+   * which defines aliases used to replace values in `import` statements.
+   * With either format, the order of the entries is important,
+   * in that the first defined rules are applied first.
    */
-  alias?: { [find: string]: string }
+  alias?: AliasOptions
 
   /**
    * Extends Vite's configuration. Will be merged with kirbyup's
