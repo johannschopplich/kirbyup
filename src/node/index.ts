@@ -15,10 +15,10 @@ import { handleError, PrettyError } from './errors'
 import { debouncePromise, printFileInfo } from './utils'
 import { toArray } from '@antfu/utils'
 import { name, version } from '../../package.json'
-import type { Awaited } from 'ts-essentials'
 import type { RollupOutput, OutputChunk } from 'rollup'
 import type { InlineConfig } from 'vite'
 import type {
+  Awaited,
   CliOptions,
   ResolvedCliOptions,
   PostCSSConfigResult,

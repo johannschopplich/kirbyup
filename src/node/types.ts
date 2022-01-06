@@ -1,6 +1,10 @@
-import type { MarkRequired } from 'ts-essentials'
 import type { InlineConfig, AliasOptions } from 'vite'
 import type * as Postcss from 'postcss'
+
+export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
+  Required<Pick<T, RK>>
+
+export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 
 export type CliOptions = {
   entry?: string
