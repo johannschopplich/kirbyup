@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`builds index.css 1`] = `
 "(function(){\\"use strict\\";var t=\\"\\"})();

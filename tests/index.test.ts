@@ -1,6 +1,7 @@
 import { resolve } from 'pathe'
 import { remove } from 'fs-extra'
 import { runCli, cacheDir } from './utils'
+import { expect, it, beforeAll, afterAll } from 'vitest'
 
 beforeAll(async () => {
   await remove(cacheDir)
