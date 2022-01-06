@@ -1,3 +1,9 @@
+## [0.22.1](https://github.com/johannschopplich/kirbyup/compare/v0.22.0...v0.22.1) (2022-01-06)
+
+### Bug Fixes
+
+- pnpm missing peer deps messages ([4c31b44](https://github.com/johannschopplich/kirbyup/commit/4c31b444d853584bdb894a35579fda2254f09122))
+
 # [0.22.0](https://github.com/johannschopplich/kirbyup/compare/v0.21.1...v0.22.0) (2021-12-09)
 
 ### Bug Fixes
