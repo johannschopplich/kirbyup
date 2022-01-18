@@ -1,13 +1,16 @@
-// @ts-check
-
 /*
  * Modified from https://github.com/vitejs/vite/blob/main/scripts/verifyCommit.js
  */
-const fs = require('fs')
+
+// Invoked on the `commit-msg` git hook by simple-git-hooks.
+
+import { readFileSync } from 'fs'
+import consola from 'consola'
+import { green, red } from 'picocolors'
+
+// get $1 from commit-msg script
 const msgPath = process.argv[2]
-const msg = fs.readFileSync(msgPath, 'utf-8').trim()
-const consola = require('consola')
-const { green, red } = require('colorette')
+const msg = readFileSync(msgPath, 'utf-8').trim()
 
 const RELEASE_RE = /^v\d/
 const COMMIT_RE =
