@@ -49,27 +49,26 @@
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "test": "vitest watch",
+    "test": "vitest --watch",
     "test:update": "vitest --update",
     "format": "prettier --write \"src/**/*.ts\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "vitest run && node scripts/release.cjs",
-    "prepare": "husky install"
+    "release": "vitest run && node scripts/release.cjs"
   },
   "dependencies": {
     "cac": "^6.7.12",
-    "chokidar": "^3.5.2",
-    "colorette": "^2.0.16",
+    "chokidar": "^3.5.3",
     "consola": "^2.15.3",
-    "execa": "5.1.1",
+    "execa": "6.0.0",
     "pathe": "^0.2.0",
+    "picocolors": "^1.0.0",
     "postcss": "^8.4.5",
     "postcss-dir-pseudo-class": "^6.0.3",
     "postcss-load-config": "^3.1.1",
     "postcss-logical": "^5.0.3",
     "sass": "^1.48.0",
     "unconfig": "^0.2.2",
-    "vite": "^2.7.11",
+    "vite": "^2.7.12",
     "vite-plugin-vue2": "^1.9.2",
     "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.14"
@@ -77,17 +76,23 @@
   "devDependencies": {
     "@antfu/utils": "^0.4.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^17.0.8",
+    "@types/node": "^17.0.9",
+    "@types/prompts": "^2.0.14",
+    "@types/semver": "^7.3.9",
     "conventional-changelog-cli": "^2.2.2",
-    "esno": "^0.13.0",
-    "fast-glob": "^3.2.10",
+    "esno": "^0.14.0",
+    "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
-    "husky": "^7.0.4",
+    "minimist": "^1.2.5",
     "prettier": "^2.5.1",
     "prompts": "^2.4.2",
+    "simple-git-hooks": "^2.7.0",
     "ts-essentials": "^9.1.2",
     "typescript": "^4.5.4",
     "unbuild": "^0.6.7",
-    "vitest": "^0.1.12"
+    "vitest": "^0.1.20"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "pnpm exec esno scripts/verifyCommit.ts $1"
   }
 }
