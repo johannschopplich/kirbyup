@@ -10,7 +10,7 @@ import postcssLogical from 'postcss-logical'
 // @ts-expect-error: types are not available
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
-import { cyan, dim, green, white } from 'colorette'
+import { cyan, dim, green, white } from 'picocolors'
 import { handleError, PrettyError } from './errors'
 import { debouncePromise, printFileInfo } from './utils'
 import { toArray } from '@antfu/utils'

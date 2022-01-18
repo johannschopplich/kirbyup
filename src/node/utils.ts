@@ -3,7 +3,7 @@ import { readFile } from 'fs/promises'
 import { gzip } from 'zlib'
 import { promisify } from 'util'
 import consola from 'consola'
-import { cyan, dim, magenta, white } from 'colorette'
+import { cyan, dim, magenta, white } from 'picocolors'
 
 const compress = promisify(gzip)
 
