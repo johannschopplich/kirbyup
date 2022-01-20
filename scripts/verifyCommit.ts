@@ -8,7 +8,7 @@ import { readFileSync } from 'fs'
 import consola from 'consola'
 import { green, red } from 'picocolors'
 
-// get $1 from commit-msg script
+// Get `$1` from `commit-msg` script
 const msgPath = process.argv[2]
 const msg = readFileSync(msgPath, 'utf-8').trim()
 
