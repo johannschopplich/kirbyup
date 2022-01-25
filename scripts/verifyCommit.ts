@@ -1,12 +1,11 @@
 /*
- * Modified from https://github.com/vitejs/vite/blob/main/scripts/verifyCommit.js
+ * Modified from https://github.com/vitejs/vite/blob/main/scripts/verifyCommit.ts
  */
 
 // Invoked on the `commit-msg` git hook by simple-git-hooks.
 
 import { readFileSync } from 'fs'
-import consola from 'consola'
-import { green, red } from 'picocolors'
+import { green, red, white, bgRed } from 'picocolors'
 
 // Get `$1` from `commit-msg` script
 const msgPath = process.argv[2]
@@ -17,8 +16,11 @@ const COMMIT_RE =
   /^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps)(\(.+\))?: .{1,50}/
 
 if (!RELEASE_RE.test(msg) && !COMMIT_RE.test(msg)) {
-  consola.error(
-    `${red('Invalid commit message format.')}\n\n` +
+  console.log()
+  console.error(
+    `  ${bgRed(white(' ERROR '))} ${red(
+      `invalid commit message format.`
+    )}\n\n` +
       red(
         `  Proper commit message format is required for automated changelog generation. Examples:\n\n`
       ) +
