@@ -16,7 +16,11 @@ export async function runCli(files: Record<string, string>) {
   // Write entry files on disk
   await Promise.all(
     Object.entries(files).map(([path, content]) =>
-      fs.outputFile(resolve(testDir, path), content, 'utf8')
+      fs.outputFile(
+        resolve(testDir, path),
+        content.replace(/\{(.+?)\}\?raw/, '$1'),
+        'utf8'
+      )
     )
   )
 

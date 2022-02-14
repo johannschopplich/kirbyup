@@ -32,14 +32,6 @@ it('builds index.css', async () => {
   expect(css).toMatchSnapshot()
 })
 
-it('supports built-in env variables', async () => {
-  const { output } = await runCli({
-    'src/input.js': `export const mode = import.meta.env.MODE`
-  })
-
-  expect(output).toMatchSnapshot()
-})
-
 it('supports resolve aliases', async () => {
   const { output } = await runCli({
     'src/input.js': `import foo from '~/foo'\nexport default foo`,
@@ -49,10 +41,20 @@ it('supports resolve aliases', async () => {
   expect(output).toMatchSnapshot()
 })
 
+it('supports built-in env variables', async () => {
+  const { output } = await runCli({
+    // Skip Vitest transforming `import.meta.env` to `process.env` prior to wrting to file
+    'src/input.js': `export const mode = import.{meta}?raw.env.MODE`
+  })
+
+  expect(output).toMatchSnapshot()
+})
+
 it('supports custom env variables', async () => {
   const { output } = await runCli({
     '.env': `KIRBYUP_FOO=bar`,
-    'src/input.js': `export const foo = import.meta.env.KIRBYUP_FOO`
+    // Skip Vitest transforming `import.meta.env` to `process.env` prior to wrting to file
+    'src/input.js': `export const foo = import.{meta}?raw.env.KIRBYUP_FOO`
   })
 
   expect(output).toMatchSnapshot()
