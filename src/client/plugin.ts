@@ -3,13 +3,9 @@
  * but importable when writing a Kirby Panel plugin
  */
 
-/** Inherits Vite's `import.meta.globEager` result type */
-type GlobEagerResult = Record<
-  string,
-  {
-    [key: string]: any
-  }
->
+type Module = {
+  [key: string]: any
+}
 
 const getComponentName = (path: string) =>
   path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')).toLowerCase()
@@ -25,7 +21,7 @@ export const kirbyup = Object.freeze({
    * @example
    * kirbyup.import('./components/blocks/*.vue')
    */
-  import(modules: GlobEagerResult) {
+  import(modules: Record<string, Module>) {
     return Object.entries(modules).reduce<Record<string, any>>(
       (accumulator, [path, component]) => {
         accumulator[getComponentName(path)] = component.default
