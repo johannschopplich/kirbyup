@@ -5,8 +5,8 @@
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "kirbyup": "^0.21.1",
-    "tailwindcss": "^2.2.19"
+    "autoprefixer": "^10.4.2",
+    "kirbyup": "latest",
+    "tailwindcss": "^3.0.22"
   }
 }
