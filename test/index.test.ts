@@ -44,7 +44,7 @@ it('supports resolve aliases', async () => {
 it('supports built-in env variables', async () => {
   const { output } = await runCli({
     // Skip Vitest transforming `import.meta.env` to `process.env` prior to wrting to file
-    'src/input.js': `export const mode = import.{meta}?raw.env.MODE`
+    'src/input.js': `export const mode = {import.meta}?raw.env.MODE`
   })
 
   expect(output).toMatchSnapshot()
@@ -54,7 +54,7 @@ it('supports custom env variables', async () => {
   const { output } = await runCli({
     '.env': `KIRBYUP_FOO=bar`,
     // Skip Vitest transforming `import.meta.env` to `process.env` prior to wrting to file
-    'src/input.js': `export const foo = import.{meta}?raw.env.KIRBYUP_FOO`
+    'src/input.js': `export const foo = {import.meta}?raw.env.KIRBYUP_FOO`
   })
 
   expect(output).toMatchSnapshot()
