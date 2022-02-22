@@ -1,6 +1,6 @@
 {
   "name": "kirbyup",
-  "version": "0.22.2",
+  "version": "0.22.3",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "keywords": [
     "kirby-cms",

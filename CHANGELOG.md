@@ -1,3 +1,5 @@
+## [0.22.3](https://github.com/johannschopplich/kirbyup/compare/v0.22.2...v0.22.3) (2022-02-22)
+
 ## [0.22.2](https://github.com/johannschopplich/kirbyup/compare/v0.22.1...v0.22.2) (2022-01-06)
 
 ## [0.22.1](https://github.com/johannschopplich/kirbyup/compare/v0.22.0...v0.22.1) (2022-01-06)
