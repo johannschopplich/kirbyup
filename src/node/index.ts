@@ -97,7 +97,7 @@ async function viteBuild(options: ResolvedCliOptions) {
 export async function resolveOptions(options: CliOptions) {
   if (!options.entry) {
     throw new PrettyError(
-      'No input file, try ' + cyan(`${name} <path/to/file.js>`)
+      `No input file, try ${cyan(`${name} <path/to/file.js>`)}`
     )
   }
 
@@ -133,7 +133,7 @@ export async function build(_options: CliOptions) {
 
   // Start kirbyup
   consola.log(green(`${name} v${version}`))
-  consola.start('Building ' + cyan(options.entry))
+  consola.start(`Building ${cyan(options.entry)}`)
 
   if (options.watch) {
     consola.info('Running in watch mode')
