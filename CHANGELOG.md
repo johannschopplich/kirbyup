@@ -1,3 +1,9 @@
+# [0.23.0](https://github.com/johannschopplich/kirbyup/compare/v0.22.3...v0.23.0) (2022-03-18)
+
+### Bug Fixes
+
+- log errors in any case ([6e88bea](https://github.com/johannschopplich/kirbyup/commit/6e88beacf17e65a44ebaa98c064555ee5892e0e7))
+
 ## [0.22.3](https://github.com/johannschopplich/kirbyup/compare/v0.22.2...v0.22.3) (2022-02-22)
 
 ## [0.22.2](https://github.com/johannschopplich/kirbyup/compare/v0.22.1...v0.22.2) (2022-01-06)
