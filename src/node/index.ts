@@ -10,10 +10,10 @@ import postcssLogical from 'postcss-logical'
 // @ts-expect-error: types are not available
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
+import { debounce } from 'perfect-debounce'
 import { cyan, dim, green, white } from 'picocolors'
 import { handleError, PrettyError } from './errors'
-import { debouncePromise, printFileInfo } from './utils'
-import { toArray } from '@antfu/utils'
+import { printFileInfo, toArray } from './utils'
 import { name, version } from '../../package.json'
 import type { RollupOutput, OutputChunk } from 'rollup'
 import type { InlineConfig } from 'vite'
@@ -85,7 +85,7 @@ async function viteBuild(options: ResolvedCliOptions) {
   }
 
   if (result && !options.watch) {
-    const { output } = toArray(result as RollupOutput[])[0]
+    const { output } = toArray(result as RollupOutput)[0]
     for (const { fileName, type, code } of output as OutputChunk[]) {
       printFileInfo(root, outDir, fileName, type, code)
     }
@@ -139,13 +139,9 @@ export async function build(_options: CliOptions) {
     consola.info('Running in watch mode')
   }
 
-  const debouncedBuild = debouncePromise(
-    async () => {
-      viteBuild(options)
-    },
-    100,
-    handleError
-  )
+  const debouncedBuild = debounce(async () => {
+    viteBuild(options).catch(handleError)
+  }, 100)
 
   const startWatcher = async () => {
     if (!options.watch) return

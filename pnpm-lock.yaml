@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@antfu/utils': ^0.5.1
   '@types/fs-extra': ^9.0.13
   '@types/node': ^17.0.24
   '@types/prompts': ^2.4.0
@@ -55,7 +54,6 @@ dependencies:
   vue-template-compiler: 2.6.14
 
 devDependencies:
-  '@antfu/utils': 0.5.1
   '@types/fs-extra': 9.0.13
   '@types/node': 17.0.24
   '@types/prompts': 2.4.0
@@ -82,6 +80,7 @@ packages:
 
   /@antfu/utils/0.5.1:
     resolution: {integrity: sha512-8Afo0+xvYe1K8Wm4xHTymfTkpzy36aaqDvhXIayUwl+mecMG9Xzl3XjXa6swG6Bk8FBeQ646RyvmsYt6+2Be9g==}
+    dev: false
 
   /@babel/code-frame/7.16.7:
     resolution: {integrity: sha512-iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg==}
