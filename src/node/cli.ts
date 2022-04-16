@@ -15,8 +15,8 @@ async function main(options: CliOptions = {}) {
       default: process.cwd()
     })
     .option(
-      '--watch [path]',
-      'Watch mode, if path is not specified, it watches the folder of the input file. Repeat "--watch" for multiple paths'
+      '-w [path], --watch [path]',
+      'Watch mode. If no path is specified, the folder of the input file will be watched. Repeat "--watch" for multiple paths.'
     )
     .action(async (file: string, flags) => {
       Object.assign(options, {
