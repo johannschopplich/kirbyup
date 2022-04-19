@@ -1,7 +1,7 @@
 import { resolve } from 'pathe'
 import fs from 'fs-extra'
 import fg from 'fast-glob'
-import execa from 'execa'
+import { execa } from 'execa'
 
 export const cacheDir = resolve(__dirname, '.cache')
 export const cli = resolve(__dirname, '../src/node/cli.ts')

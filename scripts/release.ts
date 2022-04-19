@@ -7,9 +7,9 @@
 import { readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 import colors from 'picocolors'
-import execa from 'execa'
 import prompts from 'prompts'
 import semver from 'semver'
+import { execa } from 'execa'
 import type { ReleaseType } from 'semver'
 import type { ExecaChildProcess, Options as ExecaOptions } from 'execa'
 
