@@ -1,11 +1,8 @@
-import { resolve, dirname } from 'pathe'
-import { existsSync, statSync } from 'fs'
+import { dirname, resolve } from 'pathe'
+import { statSync, existsSync } from 'fs'
 import { UserConfig } from './types'
-import {
-  createConfigLoader as createLoader,
-  LoadConfigResult,
-  LoadConfigSource
-} from 'unconfig'
+import { createConfigLoader as createLoader } from 'unconfig'
+import type { LoadConfigResult, LoadConfigSource } from 'unconfig'
 
 export type { LoadConfigResult, LoadConfigSource }
 
@@ -13,19 +10,25 @@ export function defineConfig(config: UserConfig) {
   return config
 }
 
-export function createConfigLoader<U extends UserConfig>(
-  configOrPath: string | U = process.cwd(),
+export async function loadConfig<U extends UserConfig>(
+  cwd = process.cwd(),
+  configOrPath: string | U = cwd,
   extraConfigSources: LoadConfigSource[] = []
-): () => Promise<LoadConfigResult<U>> {
+): Promise<LoadConfigResult<U>> {
   let inlineConfig = {} as U
-
   if (typeof configOrPath !== 'string') {
     inlineConfig = configOrPath
-    configOrPath = process.cwd()
+    if (inlineConfig.configFile === false) {
+      return {
+        config: inlineConfig as U,
+        sources: []
+      }
+    } else {
+      configOrPath = inlineConfig.configFile || process.cwd()
+    }
   }
 
   const resolved = resolve(configOrPath)
-  let cwd = resolved
 
   let isFile = false
   if (existsSync(resolved) && statSync(resolved).isFile()) {
@@ -51,13 +54,8 @@ export function createConfigLoader<U extends UserConfig>(
     defaults: inlineConfig
   })
 
-  return async () => {
-    const result = await loader.load()
-    result.config = result.config || inlineConfig
-    return result
-  }
-}
+  const result = await loader.load()
+  result.config = result.config || inlineConfig
 
-export function loadConfig<U extends UserConfig>(dirOrPath: string | U) {
-  return createConfigLoader<U>(dirOrPath)()
+  return result
 }

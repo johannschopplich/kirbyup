@@ -16,6 +16,12 @@ export type ResolvedCliOptions = MarkRequired<CliOptions, 'entry'>
 
 export interface UserConfig {
   /**
+   * Load from config files
+   * Set to `false` to disable
+   */
+  configFile?: string | false
+
+  /**
    * Specifies an `Object`, or an `Array` of `Object`,
    * which defines aliases used to replace values in `import` statements.
    * With either format, the order of the entries is important,

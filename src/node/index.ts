@@ -3,7 +3,7 @@ import { existsSync } from 'fs'
 import { build as _build, mergeConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
-import { createConfigLoader } from './config'
+import { loadConfig } from './config'
 import postcssrc from 'postcss-load-config'
 // @ts-expect-error: types are not available
 import postcssLogical from 'postcss-logical'
@@ -113,7 +113,6 @@ export async function build(_options: CliOptions) {
   const options = await resolveOptions(_options)
 
   // Resolve kirbyup config
-  const loadConfig = createConfigLoader()
   const { config, sources: configSources } = await loadConfig()
   resolvedKirbyupConfig = config
 
