@@ -1,3 +1,9 @@
+## [0.24.1](https://github.com/johannschopplich/kirbyup/compare/v0.24.0...v0.24.1) (2022-06-01)
+
+### Bug Fixes
+
+- `-w, --watch [path]` ([1a1f6b9](https://github.com/johannschopplich/kirbyup/commit/1a1f6b95b5384a2dfae95818cd1bf029d9d89605))
+
 # [0.24.0](https://github.com/johannschopplich/kirbyup/compare/v0.23.0...v0.24.0) (2022-06-01)
 
 ### Features
