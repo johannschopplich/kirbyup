@@ -2,6 +2,20 @@
   "name": "kirbyup",
   "version": "0.23.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
+  "author": {
+    "name": "Johann Schopplich",
+    "email": "pkg@johannschopplich.com",
+    "url": "https://johannschopplich.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/johannschopplich/kirbyup#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johannschopplich/kirbyup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/johannschopplich/kirbyup/issues"
+  },
   "keywords": [
     "kirby-cms",
     "kirby-plugin",
@@ -9,35 +23,21 @@
     "panel",
     "bundle"
   ],
-  "homepage": "https://github.com/johannschopplich/kirbyup#readme",
-  "bugs": {
-    "url": "https://github.com/johannschopplich/kirbyup/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/johannschopplich/kirbyup.git"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Johann Schopplich",
-    "email": "pkg@johannschopplich.com",
-    "url": "https://johannschopplich.com"
-  },
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
     "./plugin": {
-      "require": "./dist/plugin.cjs",
       "import": "./dist/plugin.mjs",
       "types": "./dist/plugin.d.ts"
     }
   },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "bin": {
-    "kirbyup": "./bin/kirbyup.cjs"
+    "kirbyup": "./bin/kirbyup.mjs"
   },
   "files": [
     "bin",
