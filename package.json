@@ -57,7 +57,7 @@
     "prepare": "pnpm exec simple-git-hooks"
   },
   "simple-git-hooks": {
-    "commit-msg": "pnpm exec tsx scripts/verifyCommit.ts $1"
+    "commit-msg": "node scripts/verifyCommit.mjs $1"
   },
   "dependencies": {
     "cac": "^6.7.12",

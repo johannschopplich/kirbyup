@@ -3,7 +3,7 @@ import { readFile } from 'fs/promises'
 import { gzip } from 'zlib'
 import { promisify } from 'util'
 import consola from 'consola'
-import { cyan, dim, magenta, white } from 'picocolors'
+import colors from 'picocolors'
 
 export function toArray<T>(array?: T | T[]): T[] {
   array = array || []
@@ -31,12 +31,12 @@ export async function printFileInfo(
   const prettyOutDir = normalize(relative(root, resolve(root, outDir))) + '/'
   const kibs = content.length / 1024
   const compressedSize = await getCompressedSize(content)
-  const writeColor = type === 'chunk' ? cyan : magenta
+  const writeColor = type === 'chunk' ? colors.cyan : colors.magenta
 
   consola.log(
-    white(dim(prettyOutDir)) +
+    colors.white(colors.dim(prettyOutDir)) +
       writeColor(filePath) +
       '   ' +
-      dim(`${kibs.toFixed(2)} KiB${compressedSize}`)
+      colors.dim(`${kibs.toFixed(2)} KiB${compressedSize}`)
   )
 }

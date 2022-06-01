@@ -11,7 +11,7 @@ import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
 import { debounce } from 'perfect-debounce'
-import { cyan, dim, green, white } from 'picocolors'
+import colors from 'picocolors'
 import { handleError, PrettyError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { name, version } from '../../package.json'
@@ -97,7 +97,7 @@ async function viteBuild(options: ResolvedCliOptions) {
 export async function resolveOptions(options: CliOptions) {
   if (!options.entry) {
     throw new PrettyError(
-      `No input file, try ${cyan(`${name} <path/to/file.js>`)}`
+      `No input file, try ${colors.cyan(`${name} <path/to/file.js>`)}`
     )
   }
 
@@ -131,8 +131,8 @@ export async function build(_options: CliOptions) {
   }
 
   // Start kirbyup
-  consola.log(green(`${name} v${version}`))
-  consola.start(`Building ${cyan(options.entry)}`)
+  consola.log(colors.green(`${name} v${version}`))
+  consola.start(`Building ${colors.cyan(options.entry)}`)
 
   if (options.watch) {
     consola.info('Running in watch mode')
@@ -165,7 +165,7 @@ export async function build(_options: CliOptions) {
     consola.info(
       'Watching for changes in ' +
         toArray(watchPaths)
-          .map((i) => cyan(i))
+          .map((i) => colors.cyan(i))
           .join(', ')
     )
 
@@ -182,9 +182,11 @@ export async function build(_options: CliOptions) {
     watcher.on('all', async (type, file) => {
       if (configSources.includes(file)) {
         resolvedKirbyupConfig = (await loadConfig()).config
-        consola.info(`${cyan(basename(file))} changed, setting new config`)
+        consola.info(
+          `${colors.cyan(basename(file))} changed, setting new config`
+        )
       } else {
-        consola.log(green(type) + ' ' + white(dim(file)))
+        consola.log(colors.green(type) + ' ' + colors.white(colors.dim(file)))
       }
 
       debouncedBuild()
