@@ -8,9 +8,9 @@
     "format": "prettier \"src/**/*.{css,js,vue}\" --write"
   },
   "devDependencies": {
-    "eslint": "^8.13.0",
+    "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-vue": "^8.6.0",
+    "eslint-plugin-vue": "^9.1.0",
     "kirbyup": "latest",
     "prettier": "^2.6.2"
   }
