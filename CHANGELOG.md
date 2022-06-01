@@ -1,3 +1,9 @@
+# [0.24.0](https://github.com/johannschopplich/kirbyup/compare/v0.23.0...v0.24.0) (2022-06-01)
+
+### Features
+
+- support `-w [path]` ([281c310](https://github.com/johannschopplich/kirbyup/commit/281c31087ac3d13129abffa09186d95ea4a21e00))
+
 # [0.23.0](https://github.com/johannschopplich/kirbyup/compare/v0.22.3...v0.23.0) (2022-03-18)
 
 ### Bug Fixes
