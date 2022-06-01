@@ -27,7 +27,7 @@ export async function runCli(files: Record<string, string>) {
   // Run kirbyup cli
   const { exitCode, stdout, stderr } = await execa(
     'npx',
-    ['esno', cli, 'src/input.js'],
+    ['tsx', cli, 'src/input.js'],
     { cwd: testDir }
   )
 
