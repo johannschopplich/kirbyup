@@ -1,7 +1,8 @@
 // Vitest Snapshot v1
 
 exports[`builds index.css 1`] = `
-"(function(){\\"use strict\\";var t=\\"\\"})();
+"(function(){\\"use strict\\";var n=(()=>\`.foo{content:\\"bar\\"}
+\`)()})();
 "
 `;
 
@@ -41,7 +42,8 @@ exports[`supports kirbyup.config.js 1`] = `
 `;
 
 exports[`supports postcss plugins 1`] = `
-"(function(){\\"use strict\\";var t=\\"\\"})();
+"(function(){\\"use strict\\";var t=(()=>\`.foo{top:0;left:5px;bottom:10px;right:5px}[dir=rtl] .bar{margin-right:10px}
+\`)()})();
 "
 `;
 
