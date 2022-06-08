@@ -1,6 +1,6 @@
 {
   "name": "kirbyup",
-  "version": "0.24.1",
+  "version": "1.0.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
