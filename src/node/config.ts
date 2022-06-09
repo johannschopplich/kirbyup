@@ -1,8 +1,8 @@
+import { existsSync, statSync } from 'fs'
 import { dirname, resolve } from 'pathe'
-import { statSync, existsSync } from 'fs'
-import { UserConfig } from './types'
 import { createConfigLoader as createLoader } from 'unconfig'
 import type { LoadConfigResult, LoadConfigSource } from 'unconfig'
+import type { UserConfig } from './types'
 
 export type { LoadConfigResult, LoadConfigSource }
 
@@ -13,7 +13,7 @@ export function defineConfig(config: UserConfig) {
 export async function loadConfig<U extends UserConfig>(
   cwd = process.cwd(),
   configOrPath: string | U = cwd,
-  extraConfigSources: LoadConfigSource[] = []
+  extraConfigSources: LoadConfigSource[] = [],
 ): Promise<LoadConfigResult<U>> {
   let inlineConfig = {} as U
   if (typeof configOrPath !== 'string') {
@@ -21,9 +21,10 @@ export async function loadConfig<U extends UserConfig>(
     if (inlineConfig.configFile === false) {
       return {
         config: inlineConfig as U,
-        sources: []
+        sources: [],
       }
-    } else {
+    }
+    else {
       configOrPath = inlineConfig.configFile || process.cwd()
     }
   }
@@ -41,17 +42,17 @@ export async function loadConfig<U extends UserConfig>(
       ? [
           {
             files: resolved,
-            extensions: []
-          }
+            extensions: [],
+          },
         ]
       : [
           {
-            files: ['kirbyup.config']
+            files: ['kirbyup.config'],
           },
-          ...extraConfigSources
+          ...extraConfigSources,
         ],
     cwd,
-    defaults: inlineConfig
+    defaults: inlineConfig,
   })
 
   const result = await loader.load()

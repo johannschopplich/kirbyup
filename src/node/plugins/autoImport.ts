@@ -1,6 +1,6 @@
 import MagicString from 'magic-string'
-import { multilineCommentsRE, singlelineCommentsRE } from './utils'
 import type { Plugin, ResolvedConfig } from 'vite'
+import { multilineCommentsRE, singlelineCommentsRE } from './utils'
 
 /**
  * Transform `kirbyup.import(<path>)` to
@@ -16,37 +16,39 @@ export default function kirbyupAutoImportPlugin(): Plugin {
       config = resolvedConfig
     },
 
-    async transform(code, id) {
+    async transform(code) {
       if (code.includes('kirbyup.import')) {
-        const kirbyupImportRE =
-          /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/g
+        const kirbyupImportRE
+          = /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/g
         const noCommentsCode = code
-          .replace(multilineCommentsRE, (m) => ' '.repeat(m.length))
-          .replace(singlelineCommentsRE, (m) => ' '.repeat(m.length))
+          .replace(multilineCommentsRE, m => ' '.repeat(m.length))
+          .replace(singlelineCommentsRE, m => ' '.repeat(m.length))
         let s: MagicString | null = null
         let match: RegExpExecArray | null
 
+        // eslint-disable-next-line no-cond-assign
         while ((match = kirbyupImportRE.exec(noCommentsCode))) {
           const { 0: exp, 1: rawPath, index } = match
 
-          if (!s) s = new MagicString(code)
+          if (!s)
+            s = new MagicString(code)
 
           s.overwrite(
             index,
             index + exp.length,
-            `kirbyup.import(import.meta.globEager(${rawPath}))`
+            `kirbyup.import(import.meta.globEager(${rawPath}))`,
           )
         }
 
         if (s) {
           return {
             code: s.toString(),
-            map: config.build.sourcemap ? s.generateMap({ hires: true }) : null
+            map: config.build.sourcemap ? s.generateMap({ hires: true }) : null,
           }
         }
       }
 
       return null
-    }
+    },
   }
 }

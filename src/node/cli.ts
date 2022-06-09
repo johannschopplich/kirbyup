@@ -1,31 +1,30 @@
 import { cac } from 'cac'
-import { build } from './index'
 import { name, version } from '../../package.json'
 import { handleError } from './errors'
 import type { CliOptions } from './types'
+import { build } from './index'
 
 async function main(options: CliOptions = {}) {
   const cli = cac(name)
 
   cli
     .command('[file]', 'Panel input file', {
-      ignoreOptionDefaultValue: true
+      ignoreOptionDefaultValue: true,
     })
     .option('-d, --out-dir <dir>', 'Output directory', {
-      default: process.cwd()
+      default: process.cwd(),
     })
     .option(
       '-w, --watch [path]',
-      'Watch mode. If no path is specified, the folder of the input file will be watched. Repeat "--watch" for multiple paths.'
+      'Watch mode. If no path is specified, the folder of the input file will be watched. Repeat "--watch" for multiple paths.',
     )
     .action(async (file: string, flags) => {
       Object.assign(options, {
-        ...flags
+        ...flags,
       })
 
-      if (file) {
+      if (file)
         options.entry = file
-      }
 
       await build(options)
     })

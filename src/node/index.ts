@@ -1,9 +1,8 @@
-import { resolve, dirname, basename } from 'pathe'
 import { existsSync } from 'fs'
+import { basename, dirname, resolve } from 'pathe'
 import { build as _build, mergeConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
-import kirbyupAutoImportPlugin from './plugins/autoImport'
-import { loadConfig } from './config'
+// eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
 // @ts-expect-error: types are not available
 import postcssLogical from 'postcss-logical'
@@ -12,17 +11,19 @@ import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
 import { debounce } from 'perfect-debounce'
 import colors from 'picocolors'
-import { handleError, PrettyError } from './errors'
-import { printFileInfo, toArray } from './utils'
-import { name, version } from '../../package.json'
-import type { RollupOutput, OutputChunk } from 'rollup'
+import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
+import { name, version } from '../../package.json'
+import { PrettyError, handleError } from './errors'
+import { printFileInfo, toArray } from './utils'
+import { loadConfig } from './config'
+import kirbyupAutoImportPlugin from './plugins/autoImport'
 import type {
   Awaited,
   CliOptions,
-  ResolvedCliOptions,
   PostCSSConfigResult,
-  UserConfig
+  ResolvedCliOptions,
+  UserConfig,
 } from './types'
 
 let resolvedKirbyupConfig: UserConfig
@@ -45,7 +46,7 @@ async function viteBuild(options: ResolvedCliOptions) {
         entry: resolve(root, options.entry),
         formats: ['iife'],
         name: 'kirbyupExport',
-        fileName: () => 'index.js'
+        fileName: () => 'index.js',
       },
       minify: mode === 'production',
       outDir,
@@ -55,40 +56,39 @@ async function viteBuild(options: ResolvedCliOptions) {
         output: {
           assetFileNames: 'index.[ext]',
           globals: {
-            vue: 'Vue'
-          }
-        }
-      }
+            vue: 'Vue',
+          },
+        },
+      },
     },
     resolve: {
       alias: {
         '~/': `${aliasDir}/`,
         '@/': `${aliasDir}/`,
-        ...alias
-      }
+        ...alias,
+      },
     },
     css: {
-      postcss: resolvedPostCssConfig
+      postcss: resolvedPostCssConfig,
     },
     envPrefix: ['VITE_', 'KIRBYUP_'],
-    logLevel: 'warn'
+    logLevel: 'warn',
   }
 
   try {
     result = await _build(mergeConfig(defaultConfig, extendViteConfig))
-  } catch (error) {
+  }
+  catch (error) {
     consola.error('Build failed')
 
-    if (mode === 'production') {
+    if (mode === 'production')
       throw error
-    }
   }
 
   if (result && !options.watch) {
     const { output } = toArray(result as RollupOutput)[0]
-    for (const { fileName, type, code } of output as OutputChunk[]) {
+    for (const { fileName, type, code } of output as OutputChunk[])
       printFileInfo(root, outDir, fileName, type, code)
-    }
   }
 
   return result
@@ -97,14 +97,13 @@ async function viteBuild(options: ResolvedCliOptions) {
 export async function resolveOptions(options: CliOptions) {
   if (!options.entry) {
     throw new PrettyError(
-      `No input file, try ${colors.cyan(`${name} <path/to/file.js>`)}`
+      `No input file, try ${colors.cyan(`${name} <path/to/file.js>`)}`,
     )
   }
 
   // Ensure entry exists
-  if (!existsSync(options.entry)) {
+  if (!existsSync(options.entry))
     throw new PrettyError(`Cannot find ${options.entry}`)
-  }
 
   return options as ResolvedCliOptions
 }
@@ -120,13 +119,13 @@ export async function build(_options: CliOptions) {
   try {
     // @ts-expect-error: types won't match
     resolvedPostCssConfig = await postcssrc({})
-  } catch (err: any) {
-    if (!/No PostCSS Config found/.test(err.message)) {
+  }
+  catch (err: any) {
+    if (!/No PostCSS Config found/.test(err.message))
       throw err
-    }
 
     resolvedPostCssConfig = {
-      plugins: [postcssLogical(), postcssDirPseudoClass()]
+      plugins: [postcssLogical(), postcssDirPseudoClass()],
     }
   }
 
@@ -134,59 +133,59 @@ export async function build(_options: CliOptions) {
   consola.log(colors.green(`${name} v${version}`))
   consola.start(`Building ${colors.cyan(options.entry)}`)
 
-  if (options.watch) {
+  if (options.watch)
     consola.info('Running in watch mode')
-  }
 
   const debouncedBuild = debounce(async () => {
     viteBuild(options).catch(handleError)
   }, 100)
 
   const startWatcher = async () => {
-    if (!options.watch) return
+    if (!options.watch)
+      return
 
     const { watch } = await import('chokidar')
 
     const ignored = [
       '**/{.git,node_modules}/**',
       // Always ignore out files
-      'index.{css,js}'
+      'index.{css,js}',
     ]
 
-    const watchPaths =
-      typeof options.watch === 'boolean'
+    const watchPaths
+      = typeof options.watch === 'boolean'
         ? dirname(options.entry)
         : Array.isArray(options.watch)
-        ? options.watch.filter(
-            (path): path is string => typeof path === 'string'
+          ? options.watch.filter(
+            (path): path is string => typeof path === 'string',
           )
-        : options.watch
+          : options.watch
 
     consola.info(
-      'Watching for changes in ' +
+      `Watching for changes in ${
         toArray(watchPaths)
-          .map((i) => colors.cyan(i))
-          .join(', ')
+          .map(i => colors.cyan(i))
+          .join(', ')}`,
     )
 
     const watcher = watch(watchPaths, {
       ignoreInitial: true,
       ignorePermissionErrors: true,
-      ignored
+      ignored,
     })
 
-    if (configSources.length) {
+    if (configSources.length)
       watcher.add(configSources)
-    }
 
     watcher.on('all', async (type, file) => {
       if (configSources.includes(file)) {
         resolvedKirbyupConfig = (await loadConfig()).config
         consola.info(
-          `${colors.cyan(basename(file))} changed, setting new config`
+          `${colors.cyan(basename(file))} changed, setting new config`,
         )
-      } else {
-        consola.log(colors.green(type) + ' ' + colors.white(colors.dim(file)))
+      }
+      else {
+        consola.log(`${colors.green(type)} ${colors.white(colors.dim(file))}`)
       }
 
       debouncedBuild()

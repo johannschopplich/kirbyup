@@ -1,12 +1,12 @@
-import type { InlineConfig, AliasOptions } from 'vite'
+import type { AliasOptions, InlineConfig } from 'vite'
 import type * as Postcss from 'postcss'
 
 export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
-  Required<Pick<T, RK>>
+Required<Pick<T, RK>>
 
 export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 
-export type CliOptions = {
+export interface CliOptions {
   entry?: string
   outDir?: string
   watch?: boolean | string | Array<boolean | string>

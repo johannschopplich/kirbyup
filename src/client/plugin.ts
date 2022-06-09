@@ -3,7 +3,7 @@
  * but importable when writing a Kirby Panel plugin
  */
 
-type Module = {
+interface Module {
   [key: string]: any
 }
 
@@ -27,7 +27,7 @@ export const kirbyup = Object.freeze({
         accumulator[getComponentName(path)] = component.default
         return accumulator
       },
-      {}
+      {},
     )
-  }
+  },
 })
