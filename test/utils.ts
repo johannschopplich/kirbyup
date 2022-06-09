@@ -19,22 +19,21 @@ export async function runCli(files: Record<string, string>) {
       fs.outputFile(
         resolve(testDir, path),
         content.replace(/\{(.+?)\}\?raw/, '$1'),
-        'utf8'
-      )
-    )
+        'utf8',
+      ),
+    ),
   )
 
   // Run kirbyup cli
   const { exitCode, stdout, stderr } = await execa(
     'npx',
     ['tsx', cli, 'src/input.js'],
-    { cwd: testDir }
+    { cwd: testDir },
   )
 
   const logs = stdout + stderr
-  if (exitCode !== 0) {
+  if (exitCode !== 0)
     throw new Error(logs)
-  }
 
   // Get main output and all associated files
   const output = await getFileContent('index.js')
@@ -44,6 +43,6 @@ export async function runCli(files: Record<string, string>) {
     output,
     outFiles,
     logs,
-    getFileContent
+    getFileContent,
   }
 }

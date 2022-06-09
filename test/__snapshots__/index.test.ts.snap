@@ -1,8 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`builds index.css 1`] = `
-"(function(){\\"use strict\\";var n=(()=>\`.foo{content:\\"bar\\"}
-\`)()})();
+"(function(){\\"use strict\\";var t=\\"\\"})();
 "
 `;
 
@@ -18,6 +17,11 @@ exports[`builds index.js 1`] = `
 
 exports[`builds panel plugins 1`] = `
 "(function(){\\"use strict\\";var e={extends:\\"k-info-field\\"};window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:e}})})();
+"
+`;
+
+exports[`compiles vue templates 1`] = `
+"(function(){\\"use strict\\";var f=function(){var n=this,t=n.$createElement;return n._self._c,n._m(0)},d=[function(){var n=this,t=n.$createElement,i=n._self._c||t;return i(\\"section\\",{staticClass:\\"k-demo-section\\"},[i(\\"header\\",{staticClass:\\"k-section-header\\"},[i(\\"h2\\",{staticClass:\\"k-headline\\"},[n._v(\\"Custom section\\")])])])}],S=\\"\\";function v(n,t,i,$,s,_,c,R){var e=typeof n==\\"function\\"?n.options:n;t&&(e.render=t,e.staticRenderFns=i,e._compiled=!0),$&&(e.functional=!0),_&&(e._scopeId=\\"data-v-\\"+_);var r;if(c?(r=function(o){o=o||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!o&&typeof __VUE_SSR_CONTEXT__!=\\"undefined\\"&&(o=__VUE_SSR_CONTEXT__),s&&s.call(this,o),o&&o._registeredComponents&&o._registeredComponents.add(c)},e._ssrRegister=r):s&&(r=R?function(){s.call(this,(e.functional?this.parent:this).$root.$options.shadowRoot)}:s),r)if(e.functional){e._injectStyles=r;var g=e.render;e.render=function(k,u){return r.call(u),g(k,u)}}else{var l=e.beforeCreate;e.beforeCreate=l?[].concat(l,r):[r]}return{exports:n,options:e}}const h={created(){console.log(\\"created\\")}},a={};var p=v(h,f,d,!1,m,null,null,null);function m(n){for(let t in a)this[t]=a[t]}var C=function(){return p.exports}();window.panel.plugin(\\"kirbyup/test\\",{sections:{demo:C}})})();
 "
 `;
 
@@ -42,8 +46,7 @@ exports[`supports kirbyup.config.js 1`] = `
 `;
 
 exports[`supports postcss plugins 1`] = `
-"(function(){\\"use strict\\";var t=(()=>\`.foo{top:0;left:5px;bottom:10px;right:5px}[dir=rtl] .bar{margin-right:10px}
-\`)()})();
+"(function(){\\"use strict\\";var t=\\"\\"})();
 "
 `;
 
