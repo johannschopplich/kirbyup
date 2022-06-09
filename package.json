@@ -52,8 +52,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp --commit --push --tag",
-    "test": "vitest --watch",
-    "test:update": "vitest --update",
+    "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "pnpm exec simple-git-hooks"
   },
