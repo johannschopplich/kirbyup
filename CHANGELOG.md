@@ -1,5 +1,3 @@
-> ℹ️ Changelog generation is now deprecated. Please refer to the [GitHub Releases](https://github.com/johannschopplich/kirbyup/releases) page for the latest changes.
-
 # [1.0.0](https://github.com/johannschopplich/kirbyup/compare/v0.24.1...v1.0.0) (2022-06-08)
 
 ## [0.24.1](https://github.com/johannschopplich/kirbyup/compare/v0.24.0...v0.24.1) (2022-06-01)
