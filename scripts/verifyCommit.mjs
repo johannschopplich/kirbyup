@@ -12,7 +12,7 @@ const RELEASE_RE = /^v\d/
 const COMMIT_RE = /^(revert: )?(feat|fix|docs|dx|refactor|perf|test|workflow|build|ci|chore|types|wip|release|deps)(\(.+\))?: .{1,50}/
 const COMMIT_RE_RELEASE = /^release .{1,50}/
 
-if (!RELEASE_RE.test(msg) && (!COMMIT_RE.test(msg) || COMMIT_RE_RELEASE.test(msg))) {
+if (!RELEASE_RE.test(msg) && (!COMMIT_RE.test(msg) && !COMMIT_RE_RELEASE.test(msg))) {
   console.log()
   console.error(
     `  ${colors.bgRed(colors.white(' ERROR '))} ${colors.red(
