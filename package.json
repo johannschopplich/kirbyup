@@ -51,7 +51,8 @@
     "stub": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "bumpp --commit --push --tag",
+    "release": "bumpp --commit --push --tag --execute \"pnpm run changelog\"",
+    "changelog": "npx conventional-changelog-cli -p angular -r 0 -i CHANGELOG.md -s && npx prettier --write CHANGELOG.md",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "pnpm exec simple-git-hooks"

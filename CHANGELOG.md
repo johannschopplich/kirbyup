@@ -1,3 +1,7 @@
+## [1.0.2](https://github.com/johannschopplich/kirbyup/compare/v1.0.1...v1.0.2) (2022-06-09)
+
+## [1.0.1](https://github.com/johannschopplich/kirbyup/compare/v1.0.0...v1.0.1) (2022-06-09)
+
 # [1.0.0](https://github.com/johannschopplich/kirbyup/compare/v0.24.1...v1.0.0) (2022-06-08)
 
 ## [0.24.1](https://github.com/johannschopplich/kirbyup/compare/v0.24.0...v0.24.1) (2022-06-01)

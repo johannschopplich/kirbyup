@@ -35,8 +35,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: npx conventional-changelog-cli -p angular -i CHANGELOG.md -s && npx prettier --write CHANGELOG.md
-
       - run: npx conventional-github-releaser -p angular
         env:
           CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
