@@ -166,4 +166,4 @@ it('supports kirbyup.config.js', async () => {
   })
 
   expect(output).toMatchSnapshot()
-}, 10000)
+}, 20_000)
