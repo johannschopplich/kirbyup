@@ -109,7 +109,7 @@ it('compiles vue templates', async () => {
           </header>
         </section>
       </template>
-      
+
       <script>
       export default {
         created() {
@@ -117,7 +117,7 @@ it('compiles vue templates', async () => {
         }
       };
       </script>
-      
+
       <style>
       .k-demo-section {
         padding: 20px;
