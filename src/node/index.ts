@@ -19,7 +19,6 @@ import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/autoImport'
 import type {
-  Awaited,
   CliOptions,
   PostCSSConfigResult,
   ResolvedCliOptions,

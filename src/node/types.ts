@@ -4,8 +4,6 @@ import type * as Postcss from 'postcss'
 export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
 Required<Pick<T, RK>>
 
-export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
-
 export interface CliOptions {
   entry?: string
   outDir?: string
