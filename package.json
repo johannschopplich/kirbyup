@@ -1,7 +1,7 @@
 {
   "name": "kirbyup",
   "version": "1.0.2",
-  "packageManager": "pnpm@7.2.1",
+  "packageManager": "pnpm@7.3.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -36,9 +36,7 @@
   },
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "bin": {
-    "kirbyup": "./bin/kirbyup.mjs"
-  },
+  "bin": "./cli.mjs",
   "files": [
     "bin",
     "dist"
@@ -48,7 +46,7 @@
   },
   "scripts": {
     "build": "unbuild",
-    "stub": "unbuild --stub",
+    "dev": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp --commit --push --tag",
@@ -69,7 +67,7 @@
     "postcss-logical": "^5.0.4",
     "sass": "^1.52.3",
     "unconfig": "^0.3.4",
-    "vite": "2.9.9",
+    "vite": "2.9.12",
     "vite-plugin-vue2": "^2.0.1",
     "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.14"
@@ -79,16 +77,16 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.0.0",
     "@types/prompts": "^2.4.0",
-    "bumpp": "^8.2.0",
-    "eslint": "^8.17.0",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.18.0",
     "execa": "^6.1.0",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
     "simple-git-hooks": "^2.8.0",
-    "tsx": "^3.4.3",
-    "typescript": "^4.7.3",
+    "tsx": "^3.5.0",
+    "typescript": "^4.7.4",
     "unbuild": "^0.7.4",
-    "vitest": "^0.15.1"
+    "vitest": "^0.15.2"
   },
   "simple-git-hooks": {
     "commit-msg": "node scripts/verifyCommit.mjs $1"

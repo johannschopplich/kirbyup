@@ -4,9 +4,9 @@ import { build as _build, mergeConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
-// @ts-expect-error: types are not available
+// @ts-expect-error: types not available
 import postcssLogical from 'postcss-logical'
-// @ts-expect-error: types are not available
+// @ts-expect-error: types not available
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
 import { debounce } from 'perfect-debounce'
