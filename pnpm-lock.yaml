@@ -26,7 +26,7 @@ specifiers:
   typescript: ^4.7.4
   unbuild: ^0.7.4
   unconfig: ^0.3.4
-  vite: 2.9.12
+  vite: 2.9.9
   vite-plugin-vue2: ^2.0.1
   vitest: ^0.15.2
   vue: ^2.6.14
@@ -45,8 +45,8 @@ dependencies:
   postcss-logical: 5.0.4_postcss@8.4.14
   sass: 1.52.3
   unconfig: 0.3.4
-  vite: 2.9.12_sass@1.52.3
-  vite-plugin-vue2: 2.0.1_jttg6x6i6wypek3x7xn5g4bdeq
+  vite: 2.9.9_sass@1.52.3
+  vite-plugin-vue2: 2.0.1_dj3dtukdyynhbiqf2xbv2ocyei
   vue: 2.6.14
   vue-template-compiler: 2.6.14
 
@@ -4386,7 +4386,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-plugin-vue2/2.0.1_jttg6x6i6wypek3x7xn5g4bdeq:
+  /vite-plugin-vue2/2.0.1_dj3dtukdyynhbiqf2xbv2ocyei:
     resolution: {integrity: sha512-8ixcIDZwk3PSbdaqKrPFYDot044lPLIqpjjuRXUDHdRhml87Kbc6JqLq6uwHERlPovwfI3DpluWRMVgn/Llmag==}
     peerDependencies:
       vite: ^2.0.0
@@ -4420,7 +4420,7 @@ packages:
       rollup: 2.75.7
       slash: 3.0.0
       source-map: 0.7.4
-      vite: 2.9.12_sass@1.52.3
+      vite: 2.9.9_sass@1.52.3
       vue-template-babel-compiler: 1.2.0_ev5jzj74xu2fombjvobqpq452a
       vue-template-compiler: 2.6.14
     transitivePeerDependencies:
@@ -4503,6 +4503,32 @@ packages:
       sass: 1.52.3
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /vite/2.9.9_sass@1.52.3:
+    resolution: {integrity: sha512-ffaam+NgHfbEmfw/Vuh6BHKKlI/XIAhxE5QSS7gFLIngxg171mg1P3a4LSRME0z2ZU1ScxoKzphkipcYwSD5Ew==}
+    engines: {node: '>=12.2.0'}
+    hasBin: true
+    peerDependencies:
+      less: '*'
+      sass: '*'
+      stylus: '*'
+    peerDependenciesMeta:
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+    dependencies:
+      esbuild: 0.14.47
+      postcss: 8.4.14
+      resolve: 1.22.1
+      rollup: 2.75.7
+      sass: 1.52.3
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: false
 
   /vitest/0.15.2_sass@1.52.3:
     resolution: {integrity: sha512-cMabuUqu+nNHafkdN7H8Z20+UZTrrUfqjGwAoLwUwrqFGWBz3gXwxndjbLf6mgSFs9lF/JWjKeNM1CXKwtk26w==}
