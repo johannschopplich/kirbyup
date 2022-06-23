@@ -1,10 +1,11 @@
 // @ts-check
-// Invoked on the `commit-msg` git hook by simple-git-hooks.
+// Invoked on the `commit-msg` git hook by simple-git-hooks
+// Modified from https://github.com/vitejs/vite/blob/main/scripts/verifyCommit.ts
 
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import colors from 'picocolors'
 
-// Get `$1` from `commit-msg` script
+// Get $1 from commit-msg script
 const msgPath = process.argv[2]
 const msg = readFileSync(msgPath, 'utf-8').trim()
 
@@ -17,7 +18,9 @@ if (!RELEASE_RE.test(msg) && !COMMIT_RE.test(msg)) {
     `  ${colors.bgRed(colors.white(' ERROR '))} ${colors.red(
       'invalid commit message format.',
     )}\n\n${
-      colors.red('  Proper commit message format is required for automated changelog generation. Examples:\n\n')
+      colors.red(
+        '  Proper commit message format is required for automated changelog generation. Examples:\n\n',
+      )
       }    ${colors.green('feat: add \'comments\' option')}\n`
       + `    ${colors.green('fix: handle events on blur (close #28)')}\n\n${
       colors.red('  See .github/commit-convention.md for more details.\n')}`,
