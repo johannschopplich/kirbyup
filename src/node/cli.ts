@@ -1,42 +1,4 @@
-import { cac } from 'cac'
-import { name, version } from '../../package.json'
+import { startCli } from './cli-start'
 import { handleError } from './errors'
-import type { CliOptions } from './types'
-import { build } from './index'
 
-async function main(options: CliOptions = {}) {
-  const cli = cac(name)
-
-  cli
-    .command('[file]', 'Panel input file', {
-      ignoreOptionDefaultValue: true,
-    })
-    .option('-d, --out-dir <dir>', 'Output directory', {
-      default: process.cwd(),
-    })
-    .option(
-      '-w, --watch [path]',
-      'Watch mode. If no path is specified, the folder of the input file will be watched. Repeat "--watch" for multiple paths.',
-    )
-    .action(async (file: string, flags) => {
-      Object.assign(options, {
-        ...flags,
-      })
-
-      if (file)
-        options.entry = file
-
-      await build(options)
-    })
-
-  cli.help()
-
-  cli.version(version)
-
-  // Parse CLI args without running the command to
-  // handle command errors globally
-  cli.parse(process.argv, { run: false })
-  await cli.runMatchedCommand()
-}
-
-main().catch(handleError)
+startCli().catch(handleError)

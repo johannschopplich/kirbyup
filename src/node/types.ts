@@ -5,12 +5,13 @@ export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
 Required<Pick<T, RK>>
 
 export interface CliOptions {
+  cwd?: string
   entry?: string
   outDir?: string
   watch?: boolean | string | Array<boolean | string>
 }
 
-export type ResolvedCliOptions = MarkRequired<CliOptions, 'entry'>
+export type ResolvedCliOptions = MarkRequired<CliOptions, 'cwd' | 'entry' >
 
 export interface UserConfig {
   /**

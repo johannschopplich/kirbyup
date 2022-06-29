@@ -1,4 +1,4 @@
-import { existsSync } from 'fs'
+import { existsSync } from 'node:fs'
 import { basename, dirname, resolve } from 'pathe'
 import { build as _build, mergeConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
@@ -28,13 +28,12 @@ import type {
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-async function viteBuild(options: ResolvedCliOptions) {
+async function generate(options: ResolvedCliOptions) {
   let result: Awaited<ReturnType<typeof _build>> | undefined
 
   const mode = options.watch ? 'development' : 'production'
-  const root = process.cwd()
-  const outDir = options.outDir ?? root
-  const aliasDir = resolve(root, dirname(options.entry))
+  const outDir = options.outDir || options.cwd
+  const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
 
   const defaultConfig: InlineConfig = {
@@ -42,7 +41,7 @@ async function viteBuild(options: ResolvedCliOptions) {
     plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
     build: {
       lib: {
-        entry: resolve(root, options.entry),
+        entry: resolve(options.cwd, options.entry),
         formats: ['iife'],
         name: 'kirbyupExport',
         fileName: () => 'index.js',
@@ -87,13 +86,15 @@ async function viteBuild(options: ResolvedCliOptions) {
   if (result && !options.watch) {
     const { output } = toArray(result as RollupOutput)[0]
     for (const { fileName, type, code } of output as OutputChunk[])
-      printFileInfo(root, outDir, fileName, type, code)
+      printFileInfo(options.cwd, outDir, fileName, type, code)
   }
 
   return result
 }
 
 export async function resolveOptions(options: CliOptions) {
+  options.cwd = options.cwd || process.cwd()
+
   if (!options.entry) {
     throw new PrettyError(
       `No input file, try ${colors.cyan(`${name} <path/to/file.js>`)}`,
@@ -101,17 +102,18 @@ export async function resolveOptions(options: CliOptions) {
   }
 
   // Ensure entry exists
-  if (!existsSync(options.entry))
-    throw new PrettyError(`Cannot find ${options.entry}`)
+  if (!existsSync(resolve(options.cwd, options.entry)))
+    throw new PrettyError(`Cannot find "${options.entry}"`)
 
   return options as ResolvedCliOptions
 }
 
 export async function build(_options: CliOptions) {
   const options = await resolveOptions(_options)
+  const { cwd } = options
 
   // Resolve kirbyup config
-  const { config, sources: configSources } = await loadConfig()
+  const { config, sources: configSources } = await loadConfig(cwd)
   resolvedKirbyupConfig = config
 
   // Resolve postcss config
@@ -136,7 +138,7 @@ export async function build(_options: CliOptions) {
     consola.info('Running in watch mode')
 
   const debouncedBuild = debounce(async () => {
-    viteBuild(options).catch(handleError)
+    generate(options).catch(handleError)
   }, 100)
 
   const startWatcher = async () => {
@@ -171,6 +173,7 @@ export async function build(_options: CliOptions) {
       ignoreInitial: true,
       ignorePermissionErrors: true,
       ignored,
+      cwd,
     })
 
     if (configSources.length)
@@ -191,7 +194,7 @@ export async function build(_options: CliOptions) {
     })
   }
 
-  await viteBuild(options)
+  await generate(options)
   consola.success('Build successful')
 
   startWatcher()

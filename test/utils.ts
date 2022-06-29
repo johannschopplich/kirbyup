@@ -1,7 +1,7 @@
 import { resolve } from 'pathe'
 import fs from 'fs-extra'
 import fg from 'fast-glob'
-import { execa } from 'execa'
+import { startCli } from '../src/node/cli-start'
 
 export const cacheDir = resolve(__dirname, '.cache')
 export const cli = resolve(__dirname, '../src/node/cli.ts')
@@ -24,16 +24,7 @@ export async function runCli(files: Record<string, string>) {
     ),
   )
 
-  // Run kirbyup cli
-  const { exitCode, stdout, stderr } = await execa(
-    'npx',
-    ['tsx', cli, 'src/input.js'],
-    { cwd: testDir },
-  )
-
-  const logs = stdout + stderr
-  if (exitCode !== 0)
-    throw new Error(logs)
+  await runAsyncChildProcess(testDir, 'src/input.js')
 
   // Get main output and all associated files
   const output = await getFileContent('index.js')
@@ -42,7 +33,10 @@ export async function runCli(files: Record<string, string>) {
   return {
     output,
     outFiles,
-    logs,
     getFileContent,
   }
+}
+
+function runAsyncChildProcess(cwd: string, ...args: string[]) {
+  return startCli(cwd, ['', '', ...args])
 }
