@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { basename, dirname, resolve } from 'pathe'
 import { build as _build, mergeConfig } from 'vite'
-import { createVuePlugin } from 'vite-plugin-vue2'
+import vuePlugin from '@vitejs/plugin-vue2'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
 // @ts-expect-error: types not available
@@ -38,7 +38,7 @@ async function generate(options: ResolvedCliOptions) {
 
   const defaultConfig: InlineConfig = {
     mode,
-    plugins: [createVuePlugin(), kirbyupAutoImportPlugin()],
+    plugins: [vuePlugin(), kirbyupAutoImportPlugin()],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
