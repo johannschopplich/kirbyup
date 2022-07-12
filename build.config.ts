@@ -5,4 +5,7 @@ export default defineBuildConfig({
   clean: true,
   declaration: true,
   externals: ['magic-string', 'rollup'],
+  replace: {
+    'process.env.VITEST': 'undefined',
+  },
 })

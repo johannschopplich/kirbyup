@@ -130,9 +130,11 @@ export async function build(_options: CliOptions) {
     }
   }
 
-  // Start kirbyup
-  consola.log(colors.green(`${name} v${version}`))
-  consola.start(`Building ${colors.cyan(options.entry)}`)
+  if (!process.env.VITEST) {
+    // Start kirbyup
+    consola.log(colors.green(`${name} v${version}`))
+    consola.start(`Building ${colors.cyan(options.entry)}`)
+  }
 
   if (options.watch)
     consola.info('Running in watch mode')
@@ -195,7 +197,9 @@ export async function build(_options: CliOptions) {
   }
 
   await generate(options)
-  consola.success('Build successful')
+
+  if (!process.env.VITEST)
+    consola.success('Build successful')
 
   startWatcher()
 }
