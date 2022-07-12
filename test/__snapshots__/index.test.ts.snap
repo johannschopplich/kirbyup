@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`builds index.css 1`] = `
-"(function(){\\"use strict\\";var t=\\"\\"})();
+"(function(){\\"use strict\\";const t=\\"\\"})();
 "
 `;
 
@@ -11,42 +11,42 @@ exports[`builds index.css 2`] = `
 `;
 
 exports[`builds index.js 1`] = `
-"var kirbyupExport=function(){\\"use strict\\";var r=\\"bar\\";return r}();
+"const kirbyupExport=function(){\\"use strict\\";return\\"bar\\"}();
 "
 `;
 
 exports[`builds panel plugins 1`] = `
-"(function(){\\"use strict\\";var e={extends:\\"k-info-field\\"};window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:e}})})();
+"(function(){\\"use strict\\";const e={extends:\\"k-info-field\\"};window.panel.plugin(\\"kirbyup/test\\",{fields:{demo:e}})})();
 "
 `;
 
 exports[`compiles vue templates 1`] = `
-"(function(){\\"use strict\\";var f=function(){var n=this,t=n.$createElement;return n._self._c,n._m(0)},d=[function(){var n=this,t=n.$createElement,i=n._self._c||t;return i(\\"section\\",{staticClass:\\"k-demo-section\\"},[i(\\"header\\",{staticClass:\\"k-section-header\\"},[i(\\"h2\\",{staticClass:\\"k-headline\\"},[n._v(\\"Custom section\\")])])])}],S=\\"\\";function v(n,t,i,$,s,_,c,R){var e=typeof n==\\"function\\"?n.options:n;t&&(e.render=t,e.staticRenderFns=i,e._compiled=!0),$&&(e.functional=!0),_&&(e._scopeId=\\"data-v-\\"+_);var r;if(c?(r=function(o){o=o||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!o&&typeof __VUE_SSR_CONTEXT__!=\\"undefined\\"&&(o=__VUE_SSR_CONTEXT__),s&&s.call(this,o),o&&o._registeredComponents&&o._registeredComponents.add(c)},e._ssrRegister=r):s&&(r=R?function(){s.call(this,(e.functional?this.parent:this).$root.$options.shadowRoot)}:s),r)if(e.functional){e._injectStyles=r;var g=e.render;e.render=function(k,u){return r.call(u),g(k,u)}}else{var l=e.beforeCreate;e.beforeCreate=l?[].concat(l,r):[r]}return{exports:n,options:e}}const h={created(){console.log(\\"created\\")}},a={};var p=v(h,f,d,!1,m,null,null,null);function m(n){for(let t in a)this[t]=a[t]}var C=function(){return p.exports}();window.panel.plugin(\\"kirbyup/test\\",{sections:{demo:C}})})();
+"(function(){\\"use strict\\";const g=\\"\\";function l(o,n,p,m,i,r,a,C){var e=typeof o==\\"function\\"?o.options:o;n&&(e.render=n,e.staticRenderFns=p,e._compiled=!0),m&&(e.functional=!0),r&&(e._scopeId=\\"data-v-\\"+r);var s;if(a?(s=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!t&&typeof __VUE_SSR_CONTEXT__<\\"u\\"&&(t=__VUE_SSR_CONTEXT__),i&&i.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(a)},e._ssrRegister=s):i&&(s=C?function(){i.call(this,(e.functional?this.parent:this).$root.$options.shadowRoot)}:i),s)if(e.functional){e._injectStyles=s;var R=e.render;e.render=function($,f){return s.call(f),R($,f)}}else{var _=e.beforeCreate;e.beforeCreate=_?[].concat(_,s):[s]}return{exports:o,options:e}}const c={created(){console.log(\\"created\\")}};var d=function(){var n=this;return n._self._c,n._m(0)},u=[function(){var o=this,n=o._self._c;return n(\\"section\\",{staticClass:\\"k-demo-section\\"},[n(\\"header\\",{staticClass:\\"k-section-header\\"},[n(\\"h2\\",{staticClass:\\"k-headline\\"},[o._v(\\"Custom section\\")])])])}],v=l(c,d,u,!1,null,null,null,null);const h=v.exports;window.panel.plugin(\\"kirbyup/test\\",{sections:{demo:h}})})();
 "
 `;
 
 exports[`supports auto-importing components 1`] = `
-"(function(){\\"use strict\\";var c=function(){var e=this,o=e.$createElement,i=e._self._c||o;return i(\\"k-header\\",[e._v(\\"Bar\\")])},v=[];function p(e,o,i,_,s,f,l,k){var n=typeof e==\\"function\\"?e.options:e;o&&(n.render=o,n.staticRenderFns=i,n._compiled=!0),_&&(n.functional=!0),f&&(n._scopeId=\\"data-v-\\"+f);var t;if(l?(t=function(r){r=r||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!r&&typeof __VUE_SSR_CONTEXT__!=\\"undefined\\"&&(r=__VUE_SSR_CONTEXT__),s&&s.call(this,r),r&&r._registeredComponents&&r._registeredComponents.add(l)},n._ssrRegister=t):s&&(t=k?function(){s.call(this,(n.functional?this.parent:this).$root.$options.shadowRoot)}:s),t)if(n.functional){n._injectStyles=t;var R=n.render;n.render=function(y,d){return t.call(d),R(y,d)}}else{var u=n.beforeCreate;n.beforeCreate=u?[].concat(u,t):[t]}return{exports:e,options:n}}const h={},a={};var b=p(h,c,v,!1,m,null,null,null);function m(e){for(let o in a)this[o]=a[o]}var C=function(){return b.exports}(),g=Object.freeze(Object.defineProperty({__proto__:null,default:C},Symbol.toStringTag,{value:\\"Module\\"}));const O=e=>e.substring(e.lastIndexOf(\\"/\\")+1,e.lastIndexOf(\\".\\")).toLowerCase(),$=Object.freeze({import(e){return Object.entries(e).reduce((o,[i,_])=>(o[O(i)]=_.default,o),{})}});window.panel.plugin(\\"kirbyup/example\\",{blocks:$.import({\\"./components/blocks/Foo.vue\\":g})})})();
+"(function(){\\"use strict\\";function d(n,r,i,_,s,a,f,O){var e=typeof n==\\"function\\"?n.options:n;r&&(e.render=r,e.staticRenderFns=i,e._compiled=!0),_&&(e.functional=!0),a&&(e._scopeId=\\"data-v-\\"+a);var t;if(f?(t=function(o){o=o||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!o&&typeof __VUE_SSR_CONTEXT__<\\"u\\"&&(o=__VUE_SSR_CONTEXT__),s&&s.call(this,o),o&&o._registeredComponents&&o._registeredComponents.add(f)},e._ssrRegister=t):s&&(t=O?function(){s.call(this,(e.functional?this.parent:this).$root.$options.shadowRoot)}:s),t)if(e.functional){e._injectStyles=t;var k=e.render;e.render=function(R,u){return t.call(u),k(R,u)}}else{var l=e.beforeCreate;e.beforeCreate=l?[].concat(l,t):[t]}return{exports:n,options:e}}const c={};var p=function(){var r=this,i=r._self._c;return i(\\"k-header\\",[r._v(\\"Bar\\")])},v=[],b=d(c,p,v,!1,null,null,null,null);const m=b.exports,h=Object.freeze(Object.defineProperty({__proto__:null,default:m},Symbol.toStringTag,{value:\\"Module\\"})),C=n=>n.substring(n.lastIndexOf(\\"/\\")+1,n.lastIndexOf(\\".\\")).toLowerCase(),g=Object.freeze({import(n){return Object.entries(n).reduce((r,[i,_])=>(r[C(i)]=_.default,r),{})}});window.panel.plugin(\\"kirbyup/example\\",{blocks:g.import(Object.assign({\\"./components/blocks/Foo.vue\\":h}))})})();
 "
 `;
 
 exports[`supports built-in env variables 1`] = `
-"var kirbyupExport=function(e){\\"use strict\\";const o=\\"production\\";return e.mode=o,Object.defineProperties(e,{__esModule:{value:!0},[Symbol.toStringTag]:{value:\\"Module\\"}}),e}({});
+"const kirbyupExport=function(e){\\"use strict\\";const o=\\"production\\";return e.mode=o,Object.defineProperties(e,{__esModule:{value:!0},[Symbol.toStringTag]:{value:\\"Module\\"}}),e}({});
 "
 `;
 
 exports[`supports custom env variables 1`] = `
-"var kirbyupExport=function(e){\\"use strict\\";const o={}.KIRBYUP_FOO;return e.foo=o,Object.defineProperties(e,{__esModule:{value:!0},[Symbol.toStringTag]:{value:\\"Module\\"}}),e}({});
+"const kirbyupExport=function(e){\\"use strict\\";const o={BASE_URL:\\"/\\",MODE:\\"production\\",DEV:!1,PROD:!0}.KIRBYUP_FOO;return e.foo=o,Object.defineProperties(e,{__esModule:{value:!0},[Symbol.toStringTag]:{value:\\"Module\\"}}),e}({});
 "
 `;
 
 exports[`supports kirbyup.config.js 1`] = `
-"var test=function(){\\"use strict\\";var r=\\"bar\\";return r}();
+"const test=function(){\\"use strict\\";return\\"bar\\"}();
 "
 `;
 
 exports[`supports postcss plugins 1`] = `
-"(function(){\\"use strict\\";var t=\\"\\"})();
+"(function(){\\"use strict\\";const t=\\"\\"})();
 "
 `;
 
@@ -56,6 +56,6 @@ exports[`supports postcss plugins 2`] = `
 `;
 
 exports[`supports resolve aliases 1`] = `
-"var kirbyupExport=function(){\\"use strict\\";var r=\\"bar\\";return r}();
+"const kirbyupExport=function(){\\"use strict\\";return\\"bar\\"}();
 "
 `;
