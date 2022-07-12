@@ -149,8 +149,7 @@ it('supports kirbyup.config.js', async () => {
     'src/foo.js': 'export default \'bar\'',
     'kirbyup.config.js': `
       import { resolve } from 'path'
-      import { defineConfig } from '${resolve(__dirname, '../dist/index.mjs')}'
-      export default defineConfig({
+      export default {
         alias: {
           '__ALIAS__/': resolve(__dirname, 'src') + '/'
         },
@@ -161,9 +160,9 @@ it('supports kirbyup.config.js', async () => {
             }
           }
         }
-      })
+      }
     `,
   })
 
   expect(output).toMatchSnapshot()
-}, 10_000)
+})
