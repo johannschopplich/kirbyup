@@ -22,7 +22,7 @@
     "kirby-plugin",
     "kirby",
     "panel",
-    "bundle"
+    "bundler"
   ],
   "exports": {
     ".": {
