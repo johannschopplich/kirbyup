@@ -135,7 +135,8 @@ it('supports auto-importing components', async () => {
         blocks: kirbyup.import('./components/blocks/*.vue')
       })
     `,
-    'src/components/blocks/Foo.vue': '<template><k-header>Bar</k-header></template>',
+    'src/components/blocks/Foo.vue': '<template><k-header>Foo</k-header></template>',
+    'src/components/blocks/Bar.vue': '<template><k-header>Bar</k-header></template>',
   })
 
   expect(output).toMatchSnapshot()

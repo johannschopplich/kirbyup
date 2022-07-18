@@ -4,7 +4,7 @@ import { multilineCommentsRE, singlelineCommentsRE } from './utils'
 
 /**
  * Transform `kirbyup.import(<path>)` to
- * `kirbyup.import(import.meta.globEager(<path>))`
+ * `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
  */
 export default function kirbyupAutoImportPlugin(): Plugin {
   let config: ResolvedConfig
@@ -36,7 +36,7 @@ export default function kirbyupAutoImportPlugin(): Plugin {
           s.overwrite(
             index,
             index + exp.length,
-            `kirbyup.import(import.meta.globEager(${rawPath}))`,
+            `kirbyup.import(import.meta.glob(${rawPath}, { eager: true }))`,
           )
         }
 
