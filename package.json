@@ -53,8 +53,7 @@
     "release": "bumpp --commit --push --tag",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "prepare": "pnpm exec simple-git-hooks",
-    "postinstall": "patch-package"
+    "prepare": "pnpm exec simple-git-hooks && pnpm exec patch-package"
   },
   "dependencies": {
     "@vue/compiler-sfc": "^2.7.7",
