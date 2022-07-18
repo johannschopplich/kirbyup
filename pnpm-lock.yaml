@@ -6,6 +6,7 @@ specifiers:
   '@types/node': ^18.0.6
   '@types/prompts': ^2.4.0
   '@vitejs/plugin-vue2': ^1.1.2
+  '@vue/compiler-sfc': ^2.7.7
   bumpp: ^8.2.1
   cac: ^6.7.12
   chokidar: ^3.5.3
@@ -32,6 +33,7 @@ specifiers:
 
 dependencies:
   '@vitejs/plugin-vue2': 1.1.2_vite@3.0.1+vue@2.7.7
+  '@vue/compiler-sfc': 2.7.7
   cac: 6.7.12
   chokidar: 3.5.3
   consola: 2.15.3

@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-vue2": "^1.1.2",
+    "@vue/compiler-sfc": "^2.7.7",
     "cac": "^6.7.12",
     "chokidar": "^3.5.3",
     "consola": "^2.15.3",
