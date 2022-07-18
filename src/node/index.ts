@@ -17,7 +17,7 @@ import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
-import kirbyupAutoImportPlugin from './plugins/autoImport'
+import kirbyupAutoImportPlugin from './plugins/auto-import'
 import type {
   CliOptions,
   PostCSSConfigResult,
