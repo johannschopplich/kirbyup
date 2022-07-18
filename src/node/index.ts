@@ -96,7 +96,7 @@ async function generate(options: ResolvedCliOptions) {
 
     // @ts-expect-error: `code` not available in `OutputAsset`
     for (const { fileName, type, code } of output) {
-      printFileInfo(
+      await printFileInfo(
         options.cwd,
         outDir,
         fileName,
