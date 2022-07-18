@@ -94,8 +94,12 @@ async function generate(options: ResolvedCliOptions) {
         longest = l
     }
 
-    // @ts-expect-error: `code` not available in `OutputAsset`
-    for (const { fileName, type, code } of output) {
+    for (const {
+      fileName,
+      type,
+      // @ts-expect-error: `code` not available in `OutputAsset`
+      code,
+    } of output) {
       await printFileInfo(
         options.cwd,
         outDir,
