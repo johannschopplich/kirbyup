@@ -1,5 +1,5 @@
 import { resolve } from 'pathe'
-import fs from 'fs-extra'
+import { outputFile, readFile } from 'fs-extra'
 import fg from 'fast-glob'
 import { startCli } from '../src/node/cli-start'
 
@@ -11,16 +11,12 @@ export async function runCli(files: Record<string, string>) {
 
   // Retrieve any file's content
   const getFileContent = (filename: string) =>
-    fs.readFile(resolve(testDir, filename), 'utf8')
+    readFile(resolve(testDir, filename), 'utf8')
 
   // Write entry files on disk
   await Promise.all(
     Object.entries(files).map(([path, content]) =>
-      fs.outputFile(
-        resolve(testDir, path),
-        content.replace(/\{(.+?)\}\?raw/, '$1'),
-        'utf8',
-      ),
+      outputFile(resolve(testDir, path), content, 'utf8'),
     ),
   )
 
