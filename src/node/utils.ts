@@ -1,4 +1,3 @@
-import { readFile } from 'fs/promises'
 import { gzip } from 'zlib'
 import { promisify } from 'util'
 import { normalize, relative, resolve } from 'pathe'
@@ -23,17 +22,18 @@ export async function printFileInfo(
   root: string,
   outDir: string,
   filePath: string,
+  content: string,
   type: string,
-  content?: string,
+  maxLength: number,
 ) {
-  content ??= await readFile(resolve(outDir, filePath), 'utf8')
   const prettyOutDir = `${normalize(relative(root, resolve(root, outDir)))}/`
   const kibs = content.length / 1024
   const compressedSize = await getCompressedSize(content)
   const writeColor = type === 'chunk' ? colors.cyan : colors.magenta
 
   consola.log(
-    `${colors.white(colors.dim(prettyOutDir)) + writeColor(filePath)}   ${
-      colors.dim(`${kibs.toFixed(2)} KiB${compressedSize}`)}`,
+    colors.white(colors.dim(prettyOutDir))
+    + writeColor(filePath.padEnd(maxLength + 2))
+    + colors.dim(`${kibs.toFixed(2)} KiB${compressedSize}`),
   )
 }

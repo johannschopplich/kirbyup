@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
 import { basename, dirname, resolve } from 'pathe'
 import { build as _build, mergeConfig } from 'vite'
 import vuePlugin from '@vitejs/plugin-vue2'
@@ -11,7 +12,7 @@ import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import consola from 'consola'
 import { debounce } from 'perfect-debounce'
 import colors from 'picocolors'
-import type { OutputChunk, RollupOutput } from 'rollup'
+import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
@@ -85,8 +86,25 @@ async function generate(options: ResolvedCliOptions) {
 
   if (result && !options.watch) {
     const { output } = toArray(result as RollupOutput)[0]
-    for (const { fileName, type, code } of output as OutputChunk[])
-      printFileInfo(options.cwd, outDir, fileName, type, code)
+
+    let longest = 0
+    for (const file in output) {
+      const l = output[file].fileName.length
+      if (l > longest)
+        longest = l
+    }
+
+    // @ts-expect-error: `code` not available in `OutputAsset`
+    for (const { fileName, type, code } of output) {
+      printFileInfo(
+        options.cwd,
+        outDir,
+        fileName,
+        code ?? await readFile(resolve(outDir, fileName), 'utf8'),
+        type,
+        longest,
+      )
+    }
   }
 
   return result
