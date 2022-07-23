@@ -1,7 +1,7 @@
 {
   "name": "kirbyup",
   "version": "1.3.2",
-  "packageManager": "pnpm@7.5.2",
+  "packageManager": "pnpm@7.6.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -53,10 +53,10 @@
     "release": "bumpp --commit --push --tag",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "prepare": "pnpm exec simple-git-hooks && pnpm exec patch-package"
+    "prepare": "simple-git-hooks && patch-package"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^2.7.7",
+    "@vue/compiler-sfc": "^2.7.8",
     "cac": "^6.7.12",
     "chokidar": "^3.5.3",
     "consola": "^2.15.3",
@@ -68,10 +68,10 @@
     "postcss-dir-pseudo-class": "^6.0.5",
     "postcss-load-config": "^4.0.1",
     "postcss-logical": "^5.0.4",
-    "sass": "^1.53.0",
+    "sass": "^1.54.0",
     "unconfig": "^0.3.5",
-    "vite": "^3.0.1",
-    "vue": "^2.7.7"
+    "vite": "^3.0.2",
+    "vue": "^2.7.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
@@ -86,7 +86,7 @@
     "patch-package": "^6.4.7",
     "simple-git-hooks": "^2.8.0",
     "typescript": "^4.7.4",
-    "unbuild": "^0.7.4",
+    "unbuild": "^0.7.6",
     "vitest": "^0.18.1"
   },
   "simple-git-hooks": {
