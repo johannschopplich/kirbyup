@@ -1,7 +1,11 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { basename, dirname, resolve } from 'pathe'
-import { build as _build, mergeConfig } from 'vite'
+import {
+  build as _build,
+  createServer as _createServer,
+  mergeConfig,
+} from 'vite'
 import vuePlugin from '@vitejs/plugin-vue2'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
@@ -19,6 +23,7 @@ import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/auto-import'
+import kirbyupHmrPlugin from './plugins/hmr'
 import type {
   CliOptions,
   PostCSSConfigResult,
@@ -28,6 +33,31 @@ import type {
 
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
+
+async function createServer(options: ResolvedCliOptions) {
+  const aliasDir = resolve(options.cwd, dirname(options.entry))
+  const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
+
+  const defaultConfig: InlineConfig = {
+    plugins: [vuePlugin(), kirbyupAutoImportPlugin(), kirbyupHmrPlugin(options)],
+    // Input needs to be specified so dep pre-bundling works
+    build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
+    resolve: {
+      alias: {
+        '~/': `${aliasDir}/`,
+        '@/': `${aliasDir}/`,
+        ...alias,
+      },
+    },
+    css: {
+      postcss: resolvedPostCssConfig,
+    },
+    envPrefix: ['VITE_', 'KIRBYUP_'],
+    logLevel: 'warn',
+  }
+
+  return _createServer(mergeConfig(defaultConfig, extendViteConfig))
+}
 
 async function generate(options: ResolvedCliOptions) {
   let result: Awaited<ReturnType<typeof _build>> | undefined
@@ -128,6 +158,41 @@ export async function resolveOptions(options: CliOptions) {
     throw new PrettyError(`Cannot find "${options.entry}"`)
 
   return options as ResolvedCliOptions
+}
+
+export async function serve(_options: CliOptions) {
+  const options = await resolveOptions(_options)
+  const { cwd } = options
+
+  // Resolve kirbyup config
+  const { config } = await loadConfig(cwd)
+  resolvedKirbyupConfig = config
+
+  // Resolve postcss config
+  try {
+    // @ts-expect-error: types won't match
+    resolvedPostCssConfig = await postcssrc({})
+  }
+  catch (err: any) {
+    if (!/No PostCSS Config found/.test(err.message))
+      throw err
+    resolvedPostCssConfig = {
+      plugins: [postcssLogical(), postcssDirPseudoClass()],
+    }
+  }
+
+  if (!process.env.VITEST) {
+    consola.log(colors.green(`${name} v${version}`))
+    consola.info('Starting development server...')
+  }
+
+  const server = await createServer(options)
+
+  await server.listen()
+  if (!process.env.VITEST)
+    consola.success(`Server is listening on :${server.config.server.port}`)
+
+  return server
 }
 
 export async function build(_options: CliOptions) {

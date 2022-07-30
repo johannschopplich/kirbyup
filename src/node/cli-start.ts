@@ -1,7 +1,7 @@
 import { cac } from 'cac'
 import { name, version } from '../../package.json'
 import type { CliOptions } from './types'
-import { build } from './index'
+import { build, serve } from './index'
 
 export async function startCli(
   cwd = process.cwd(),
@@ -9,6 +9,23 @@ export async function startCli(
   options: CliOptions = {},
 ) {
   const cli = cac(name)
+
+  cli
+    .command('serve [file]', 'Panel input file', {
+      ignoreOptionDefaultValue: true,
+    })
+    .action(async (file, flags) => {
+      Object.assign(options, {
+        cwd,
+        ...flags,
+      })
+
+      if (file)
+        options.entry = file
+
+      const server = await serve(options)
+      process.on('SIGINT', () => server.close())
+    })
 
   cli
     .command('[file]', 'Panel input file', {

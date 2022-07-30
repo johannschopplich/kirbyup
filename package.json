@@ -94,6 +94,7 @@
     "@types/prompts": "^2.4.0",
     "@vitejs/plugin-vue2": "^1.1.2",
     "bumpp": "^8.2.1",
+    "detect-package-manager": "^2.0.1",
     "eslint": "^8.21.0",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
