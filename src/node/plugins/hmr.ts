@@ -3,21 +3,15 @@ import { writeFile } from 'node:fs/promises'
 import type { AddressInfo } from 'node:net'
 import { resolve } from 'pathe'
 import type { Plugin, ResolvedConfig } from 'vite'
-import { normalizePath } from 'vite'
 import type { PM } from 'detect-package-manager'
 import { detect as detectPm } from 'detect-package-manager'
+import { parseVueRequest } from '@vitejs/plugin-vue2'
 import type { ResolvedCliOptions } from '../types'
 
-const __HMR_ID__ = '\0kirbyup:hmr'
-
-// Injected code to trigger full reloads for updates that aren't CSS
+// Component reload (vs. refresh) doesn't work with Kirby so reload the page instead
 const __HMR_CODE__ = `
-if (import.meta.hot) {
-  import.meta.hot.on("vite:beforeUpdate", ({ updates }) => {
-    if (updates.some((update) => !update.path.match(/type=style&index=\\d+/))) {
-      import.meta.hot.invalidate();
-    }
-  });
+if (typeof __VUE_HMR_RUNTIME__ !== 'undefined' && import.meta.hot) {
+  __VUE_HMR_RUNTIME__.reload = () => import.meta.hot.invalidate();
 }`.trim()
 
 // Proxy JS file to "forward" the plugin script loaded by Kirby to the Vite server
@@ -43,19 +37,18 @@ export default function kirbyupHmrPlugin(options: ResolvedCliOptions): Plugin {
     configResolved(resolvedConfig) {
       config = resolvedConfig
     },
-    resolveId(id) {
-      if (id === __HMR_ID__)
-        return id
-    },
-    load(id) {
-      if (id === __HMR_ID__)
-        return __HMR_CODE__
-    },
+    // Mirrors github.com/vitejs/vite-plugin-vue2/blob/d3d3a599f191bef5d6034993de92e2176e9577b3/src/index.ts#L156
     transform(code, id) {
-      if (id === normalizePath(entry))
-        return `import '${__HMR_ID__}';${code}`
+      const { query } = parseVueRequest(id)
 
-      return code
+      if (query.raw)
+        return
+
+      if ((typeof id !== 'string' || /\0/.test(id)) && !query.vue)
+        return
+
+      if (/\.vue$/.test(id) && !query.vue)
+        return `${code};${__HMR_CODE__}`
     },
     configureServer(server) {
       if (!server.httpServer)
