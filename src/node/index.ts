@@ -18,6 +18,7 @@ import { debounce } from 'perfect-debounce'
 import colors from 'picocolors'
 import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
+import liveReloadPlugin from 'vite-plugin-live-reload'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
@@ -36,10 +37,18 @@ let resolvedPostCssConfig: PostCSSConfigResult
 
 async function createServer(options: ResolvedCliOptions) {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
+  const { alias = {}, extendViteConfig = {}, reloadOnPhpChange = true } = resolvedKirbyupConfig
+
+  const defaultWatchConf: Parameters<typeof liveReloadPlugin> = ['./**/*.php']
+  const watchConf = typeof reloadOnPhpChange === 'boolean' ? defaultWatchConf : reloadOnPhpChange
+
+  const plugins = [vuePlugin(), kirbyupAutoImportPlugin(), kirbyupHmrPlugin(options)]
+
+  if (reloadOnPhpChange)
+    plugins.push(liveReloadPlugin(...watchConf))
 
   const defaultConfig: InlineConfig = {
-    plugins: [vuePlugin(), kirbyupAutoImportPlugin(), kirbyupHmrPlugin(options)],
+    plugins,
     // Input needs to be specified so dep pre-bundling works
     build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
     resolve: {

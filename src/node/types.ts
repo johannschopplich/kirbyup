@@ -1,5 +1,6 @@
 import type { AliasOptions, InlineConfig } from 'vite'
 import type * as Postcss from 'postcss'
+import type liveReloadPlugin from 'vite-plugin-live-reload'
 
 export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
 Required<Pick<T, RK>>
@@ -27,6 +28,14 @@ export interface UserConfig {
    * in that the first defined rules are applied first.
    */
   alias?: AliasOptions
+
+  /**
+   * Controls whether the plugin's PHP files are watched for changes.
+   * Pass true or false to enable or disable. Alternatively you can pass
+   * an array of arguments that are passed to vite-plugin-live-reload.
+   * The default is to watch all PHP files in the plugin directory. (./\*\*\/*.php)
+   */
+  reloadOnPhpChange: boolean | Parameters<typeof liveReloadPlugin>
 
   /**
    * Extends Vite's configuration. Will be merged with kirbyup's
