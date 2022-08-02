@@ -26,7 +26,7 @@ try {
 }`.trim()
 
 export default function kirbyupHmrPlugin(options: ResolvedCliOptions): Plugin {
-  const indexMjs = resolve(options.cwd, 'index.mjs')
+  const indexMjs = resolve(options.cwd, '_index.mjs')
   const entry = resolve(options.cwd, options.entry)
 
   let config: ResolvedConfig
