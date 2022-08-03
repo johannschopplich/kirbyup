@@ -1,7 +1,7 @@
-diff --git a/node_modules/@vitejs/plugin-vue2/dist/index.cjs b/node_modules/@vitejs/plugin-vue2/dist/index.cjs
-index ad2aa3b..c050fa7 100644
---- a/node_modules/@vitejs/plugin-vue2/dist/index.cjs
-+++ b/node_modules/@vitejs/plugin-vue2/dist/index.cjs
+diff --git a/dist/index.cjs b/dist/index.cjs
+index ad2aa3b32dbf7863b85dbe190a2188cbb0b631c3..c050fa7174ff6d776ce8d041eaf2bb10f6ae6c79 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
 @@ -3193,7 +3193,7 @@ function vuePlugin(rawOptions = {}) {
        options.devServer = server;
      },
@@ -11,10 +11,10 @@ index ad2aa3b..c050fa7 100644
      },
      async resolveId(id) {
        if (id === NORMALIZER_ID || id === HMR_RUNTIME_ID) {
-diff --git a/node_modules/@vitejs/plugin-vue2/dist/index.mjs b/node_modules/@vitejs/plugin-vue2/dist/index.mjs
-index 6874b26..96dfea0 100644
---- a/node_modules/@vitejs/plugin-vue2/dist/index.mjs
-+++ b/node_modules/@vitejs/plugin-vue2/dist/index.mjs
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 6874b2660eac5ebf0e3698a827180252f15e7f5e..96dfea0c7fdd3e9896b10cfa2610122a346b54ad 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
 @@ -3184,7 +3184,7 @@ function vuePlugin(rawOptions = {}) {
        options.devServer = server;
      },
