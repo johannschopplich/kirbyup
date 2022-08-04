@@ -1,4 +1,5 @@
 import { cac } from 'cac'
+import consola from 'consola'
 import { name, version } from '../../package.json'
 import { build, serve } from './index'
 
@@ -30,11 +31,14 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
     .action(async (file: string, options: { watch: false | string | string[] }) => {
       const server = await serve({ cwd, entry: file, ...options })
 
-      process.on('SIGINT', () => server.close())
-      process.on('exit', () => server.close())
-      process.on('uncaughtException', () => {
+      const close = () => server.httpServer?.listening && server.close()
+
+      process.on('SIGINT', () => close())
+      process.on('exit', () => close())
+      process.on('uncaughtException', (err) => {
+        consola.error(err)
         process.exitCode = 1
-        server.close()
+        close()
       })
     })
 
