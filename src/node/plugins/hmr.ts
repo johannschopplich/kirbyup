@@ -6,7 +6,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import type { PM } from 'detect-package-manager'
 import { detect as detectPm } from 'detect-package-manager'
 import { parseVueRequest } from '@vitejs/plugin-vue2'
-import type { ResolvedCliOptions } from '../types'
+import type { ServeOptions } from '../types'
 
 // Component reload (vs. refresh) doesn't work with Kirby so reload the page instead
 const __HMR_CODE__ = `
@@ -25,17 +25,18 @@ try {
   throw err;
 }`.trim()
 
-export default function kirbyupHmrPlugin(options: ResolvedCliOptions): Plugin {
-  const indexMjs = resolve(options.cwd, '_index.mjs')
-  const entry = resolve(options.cwd, options.entry)
-
+export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
+  let entry: string
+  let indexMjs: string
 
   return {
     name: 'kirbyup:hmr',
     apply: 'serve',
     configResolved(resolvedConfig) {
       config = resolvedConfig
+      entry = resolve(config.root, options.entry)
+      indexMjs = resolve(config.root, 'index.dev.mjs')
     },
     // Mirrors github.com/vitejs/vite-plugin-vue2/blob/d3d3a599f191bef5d6034993de92e2176e9577b3/src/index.ts#L156
     transform(code, id) {

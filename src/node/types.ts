@@ -1,18 +1,19 @@
 import type { AliasOptions, InlineConfig } from 'vite'
 import type * as Postcss from 'postcss'
-import type liveReloadPlugin from 'vite-plugin-live-reload'
 
-export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
-Required<Pick<T, RK>>
-
-export interface CliOptions {
-  cwd?: string
-  entry?: string
-  outDir?: string
-  watch?: boolean | string | Array<boolean | string>
+export interface BaseOptions {
+  cwd: string
+  entry: string
 }
 
-export type ResolvedCliOptions = MarkRequired<CliOptions, 'cwd' | 'entry' >
+export interface ServeOptions extends BaseOptions {
+  watch: false | string | string[]
+}
+
+export interface BuildOptions extends BaseOptions {
+  outDir: string
+  watch: boolean | string | string[]
+}
 
 export interface UserConfig {
   /**
@@ -30,14 +31,6 @@ export interface UserConfig {
   alias?: AliasOptions
 
   /**
-   * Controls whether the plugin's PHP files are watched for changes.
-   * Pass true or false to enable or disable. Alternatively you can pass
-   * an array of arguments that are passed to vite-plugin-live-reload.
-   * The default is to watch all PHP files in the plugin directory. (./\*\*\/*.php)
-   */
-  reloadOnPhpChange: boolean | Parameters<typeof liveReloadPlugin>
-
-  /**
    * Extends Vite's configuration. Will be merged with kirbyup's
    * default configuration. Be careful what to extend.
    */
@@ -48,3 +41,5 @@ export interface PostCSSConfigResult {
   options?: Postcss.ProcessOptions
   plugins: Postcss.Plugin[]
 }
+
+export type GetViteConfigFn = (...args: ['build', BuildOptions] | ['serve', ServeOptions]) => InlineConfig

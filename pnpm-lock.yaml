@@ -34,7 +34,7 @@ specifiers:
   unbuild: ^0.7.6
   unconfig: ^0.3.5
   vite: ^3.0.4
-  vite-plugin-live-reload: ^3.0.0
+  vite-plugin-full-reload: ^1.0.3
   vitest: ^0.20.3
   vue: ^2.7.8
 
@@ -55,7 +55,7 @@ dependencies:
   sass: 1.54.1
   unconfig: 0.3.5
   vite: 3.0.4_sass@1.54.1
-  vite-plugin-live-reload: 3.0.0
+  vite-plugin-full-reload: 1.0.3_vite@3.0.4
   vue: 2.7.8
 
 devDependencies:
@@ -3453,11 +3453,14 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-plugin-live-reload/3.0.0:
-    resolution: {integrity: sha512-1ucmNc/UxiKvzudcVzgs+bTM3FHOLcso6U7kto2ujQsBoQolxAV7mMbqWtQ5jetm0hRiOvMada7QsP+IIK7+7w==}
+  /vite-plugin-full-reload/1.0.3_vite@3.0.4:
+    resolution: {integrity: sha512-owIZz/tGXFyUzIDzbu4KBpxrpd08BO+tuWqZABCug5C2laNTwOS4mcDMsMKnXT7B7WR8oRd+BI6a2kVDtsan3w==}
+    peerDependencies:
+      vite: ^2 || ^3
     dependencies:
-      chokidar: 3.5.3
       picocolors: 1.0.0
+      picomatch: 2.3.1
+      vite: 3.0.4_sass@1.54.1
     dev: false
 
   /vite/3.0.4_sass@1.54.1:
