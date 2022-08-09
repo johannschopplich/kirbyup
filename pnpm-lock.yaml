@@ -34,7 +34,7 @@ specifiers:
   unbuild: ^0.7.6
   unconfig: ^0.3.5
   vite: ^3.0.4
-  vite-plugin-full-reload: ^1.0.3
+  vite-plugin-full-reload: ^1.0.4
   vitest: ^0.20.3
   vue: ^2.7.8
 
@@ -55,7 +55,7 @@ dependencies:
   sass: 1.54.1
   unconfig: 0.3.5
   vite: 3.0.4_sass@1.54.1
-  vite-plugin-full-reload: 1.0.3_vite@3.0.4
+  vite-plugin-full-reload: 1.0.4_vite@3.0.4
   vue: 2.7.8
 
 devDependencies:
@@ -3453,8 +3453,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-plugin-full-reload/1.0.3_vite@3.0.4:
-    resolution: {integrity: sha512-owIZz/tGXFyUzIDzbu4KBpxrpd08BO+tuWqZABCug5C2laNTwOS4mcDMsMKnXT7B7WR8oRd+BI6a2kVDtsan3w==}
+  /vite-plugin-full-reload/1.0.4_vite@3.0.4:
+    resolution: {integrity: sha512-9WejQII6zJ++m/YE173Zvl2jq4cqa404KNrVT+JDzDnqaGRq5UvOvA48fnsSWPIMXFV7S0dq5+sZqcSB+tKBgA==}
     peerDependencies:
       vite: ^2 || ^3
     dependencies:
