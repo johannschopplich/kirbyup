@@ -226,4 +226,3 @@ export async function build(_options: CliOptions) {
   startWatcher()
 }
 
-export { defineConfig } from './config'

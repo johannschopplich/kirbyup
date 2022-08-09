@@ -194,7 +194,7 @@ Create a `kirbyup.config.js` or `kirbyup.config.ts` configuration file the root-
 
 ```js
 import { resolve } from 'path'
-import { defineConfig } from 'kirbyup'
+import { defineConfig } from 'kirbyup/config'
 
 export default defineConfig({
   alias: {
