@@ -31,6 +31,11 @@ export interface UserConfig {
   alias?: AliasOptions
 
   /**
+   * Specifies the port for the development server.
+   */
+  port?: number
+
+  /**
    * Extends Vite's configuration. Will be merged with kirbyup's
    * default configuration. Be careful what to extend.
    */

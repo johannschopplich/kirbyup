@@ -28,7 +28,7 @@ let resolvedPostCssConfig: PostCSSConfigResult
 
 const getViteConfig: GetViteConfigFn = (command, options) => {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
+  const { alias = {}, port = 5177, extendViteConfig = {} } = resolvedKirbyupConfig
 
   const baseConfig: InlineConfig = {
     resolve: {
@@ -45,7 +45,8 @@ const getViteConfig: GetViteConfigFn = (command, options) => {
       plugins: [kirbyupHmrPlugin(options), options.watch && fullReloadPlugin(options.watch)],
       // Input needs to be specified so dep pre-bundling works
       build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
-    })
+      server: { port, strictPort: true, origin: `http://localhost:${port}` },
+    } as InlineConfig)
 
     return mergeConfig(serveConfig, extendViteConfig) as InlineConfig
   }
