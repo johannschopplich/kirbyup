@@ -21,6 +21,7 @@ import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/auto-import'
 import kirbyupHmrPlugin from './plugins/hmr'
+import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import type { BaseOptions, BuildOptions, GetViteConfigFn, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 
 let resolvedKirbyupConfig: UserConfig
@@ -57,6 +58,7 @@ const getViteConfig: GetViteConfigFn = (command, options) => {
   const mode = options.watch ? 'development' : 'production'
 
   const buildConfig: InlineConfig = mergeConfig(baseConfig, {
+    plugins: [kirbyupBuildCleanupPlugin()],
     mode,
     build: {
       lib: {
