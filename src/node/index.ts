@@ -26,6 +26,10 @@ import type { BaseOptions, BuildOptions, GetViteConfigFn, PostCSSConfigResult, S
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
+function ensureArray<T>(arr: T | T[]): T[] {
+  return Array.isArray(arr) ? arr : [arr]
+}
+
 const getViteConfig: GetViteConfigFn = (command, options) => {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, port = 5177, extendViteConfig = {} } = resolvedKirbyupConfig
@@ -41,8 +45,12 @@ const getViteConfig: GetViteConfigFn = (command, options) => {
   }
 
   if (command === 'serve') {
+    // the paths to watch must be an array until this is fixed:
+    // https://github.com/ElMassimo/vite-plugin-full-reload/issues/9
+    const watchOptions = options.watch && ensureArray(options.watch)
+
     const serveConfig: InlineConfig = mergeConfig(baseConfig, {
-      plugins: [kirbyupHmrPlugin(options), options.watch && fullReloadPlugin(options.watch)],
+      plugins: [kirbyupHmrPlugin(options), watchOptions && fullReloadPlugin(watchOptions)],
       // Input needs to be specified so dep pre-bundling works
       build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
       server: { port, strictPort: true, origin: `http://localhost:${port}` },
@@ -73,7 +81,7 @@ const getViteConfig: GetViteConfigFn = (command, options) => {
         },
       },
     },
-  })
+  } as InlineConfig)
 
   return mergeConfig(buildConfig, extendViteConfig) as InlineConfig
 }
