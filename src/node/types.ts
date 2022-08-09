@@ -8,6 +8,7 @@ export interface BaseOptions {
 
 export interface ServeOptions extends BaseOptions {
   watch: false | string | string[]
+  port: number
 }
 
 export interface BuildOptions extends BaseOptions {
@@ -29,11 +30,6 @@ export interface UserConfig {
    * in that the first defined rules are applied first.
    */
   alias?: AliasOptions
-
-  /**
-   * Specifies the port for the development server.
-   */
-  port?: number
 
   /**
    * Extends Vite's configuration. Will be merged with kirbyup's
