@@ -58,7 +58,7 @@ const getViteConfig: GetViteConfigFn = (command, options) => {
   const mode = options.watch ? 'development' : 'production'
 
   const buildConfig: InlineConfig = mergeConfig(baseConfig, {
-    plugins: [kirbyupBuildCleanupPlugin()],
+    plugins: [kirbyupBuildCleanupPlugin(options)],
     mode,
     build: {
       lib: {

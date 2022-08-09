@@ -26,10 +26,11 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
     .option('--no-watch', 'Don\'t watch .php files for changes', { default: '\0' })
     .option('-w, --watch <path>', 'Watch additional files', { default: './**/*.php' })
     .option('-p, --port <number>', 'Port for the development server', { default: 5177 })
+    .option('-d, --out-dir <dir>', 'Output directory')
     .example('kirbyup serve src/index.js')
     .example('kirbyup serve src/index.js --no-watch --port 3003')
     .example('kirbyup serve src/index.js --watch snippets/*.php --watch templates/*.php\n')
-    .action(async (file: string, options: { watch: false | string | string[]; port: number }) => {
+    .action(async (file: string, options: { watch: false | string | string[]; port: number; outDir?: string }) => {
       const server = await serve({ cwd, entry: file, ...options })
 
       const close = () => server.httpServer?.listening && server.close()

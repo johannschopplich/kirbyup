@@ -9,6 +9,7 @@ export interface BaseOptions {
 export interface ServeOptions extends BaseOptions {
   watch: false | string | string[]
   port: number
+  outDir?: string
 }
 
 export interface BuildOptions extends BaseOptions {
