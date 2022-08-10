@@ -43,5 +43,3 @@ export interface PostCSSConfigResult {
   options?: Postcss.ProcessOptions
   plugins: Postcss.Plugin[]
 }
-
-export type GetViteConfigFn = (...args: ['build', BuildOptions] | ['serve', ServeOptions]) => InlineConfig

@@ -22,12 +22,14 @@ import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/auto-import'
 import kirbyupHmrPlugin from './plugins/hmr'
 import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
-import type { BaseOptions, BuildOptions, GetViteConfigFn, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
+import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-const getViteConfig: GetViteConfigFn = (command, options) => {
+const getViteConfig: (
+  ...args: ['build', BuildOptions] | ['serve', ServeOptions]
+) => InlineConfig = (command, options) => {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
 
