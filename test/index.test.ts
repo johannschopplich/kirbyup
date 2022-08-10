@@ -126,6 +126,7 @@ it('compiles vue templates', async () => {
 
   expect(output).toMatchSnapshot()
 })
+
 it('supports auto-importing components', async () => {
   const { output } = await runCli({
     'src/input.js': `
@@ -142,7 +143,7 @@ it('supports auto-importing components', async () => {
   expect(output).toMatchSnapshot()
 })
 
-it('supports kirbyup.config.js', async () => {
+it('supports kirbyup.config.js with object', async () => {
   const { output } = await runCli({
     'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
     'src/foo.js': 'export default \'bar\'',
@@ -160,6 +161,31 @@ it('supports kirbyup.config.js', async () => {
           }
         }
       }
+    `,
+  })
+
+  expect(output).toMatchSnapshot()
+})
+
+it('supports kirbyup.config.js with function', async () => {
+  const { output } = await runCli({
+    'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+    'src/foo.js': 'export default \'bar\'',
+    'kirbyup.config.js': `
+      import { resolve } from 'path'
+      import { defineConfig } from '${resolve(__dirname, '../dist/config.mjs')}'
+      export default defineConfig({
+        alias: {
+          '__ALIAS__/': resolve(__dirname, 'src') + '/'
+        },
+        extendViteConfig: {
+          build: {
+            lib: {
+              name: 'test'
+            }
+          }
+        }
+      })
     `,
   })
 

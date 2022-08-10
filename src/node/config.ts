@@ -6,10 +6,6 @@ import type { UserConfig } from './types'
 
 export type { LoadConfigResult, LoadConfigSource }
 
-export function defineConfig(config: UserConfig) {
-  return config
-}
-
 export async function loadConfig<U extends UserConfig>(
   cwd = process.cwd(),
   configOrPath: string | U = cwd,
