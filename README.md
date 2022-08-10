@@ -70,7 +70,7 @@ Global installation is supported as well, but not recommended.
 
 ### Development
 
-Start a development server for the panel plugin:
+Start a development server for the Panel plugin:
 
 ```bash
 kirbyup serve src/index.js
