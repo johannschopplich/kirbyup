@@ -10,6 +10,7 @@ export default defineBuildConfig({
   clean: true,
   declaration: true,
   externals: ['rollup'],
+  failOnWarn: false,
   replace: {
     'process.env.VITEST': 'undefined',
   },
