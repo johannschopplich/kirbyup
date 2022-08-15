@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { basename, dirname, resolve } from 'pathe'
-import { build as _build, mergeConfig } from 'vite'
+import { build as _build, createServer, mergeConfig } from 'vite'
 import vuePlugin from '@vitejs/plugin-vue2'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
@@ -14,32 +14,54 @@ import { debounce } from 'perfect-debounce'
 import colors from 'picocolors'
 import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
+import fullReloadPlugin from 'vite-plugin-full-reload'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/auto-import'
-import type {
-  CliOptions,
-  PostCSSConfigResult,
-  ResolvedCliOptions,
-  UserConfig,
-} from './types'
+import kirbyupHmrPlugin from './plugins/hmr'
+import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
+import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-async function generate(options: ResolvedCliOptions) {
-  let result: Awaited<ReturnType<typeof _build>> | undefined
-
-  const mode = options.watch ? 'development' : 'production'
-  const outDir = options.outDir || options.cwd
+const getViteConfig: (
+  ...args: ['build', BuildOptions] | ['serve', ServeOptions]
+) => InlineConfig = (command, options) => {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
 
-  const defaultConfig: InlineConfig = {
-    mode,
+  const baseConfig: InlineConfig = {
+    resolve: {
+      alias: { '~/': `${aliasDir}/`, '@/': `${aliasDir}/`, ...alias },
+    },
     plugins: [vuePlugin(), kirbyupAutoImportPlugin()],
+    css: { postcss: resolvedPostCssConfig },
+    envPrefix: ['VITE_', 'KIRBYUP_'],
+    logLevel: 'warn',
+  }
+
+  if (command === 'serve') {
+    const port = options.port
+
+    const serveConfig: InlineConfig = mergeConfig(baseConfig, {
+      plugins: [kirbyupHmrPlugin(options), options.watch && fullReloadPlugin(options.watch)],
+      // Input needs to be specified so dep pre-bundling works
+      build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
+      // Specify origin so asset URLs include Vite server host
+      server: { port, strictPort: true, origin: `http://localhost:${port}` },
+    } as InlineConfig)
+
+    return mergeConfig(serveConfig, extendViteConfig) as InlineConfig
+  }
+
+  const mode = options.watch ? 'development' : 'production'
+
+  const buildConfig: InlineConfig = mergeConfig(baseConfig, {
+    plugins: [kirbyupBuildCleanupPlugin(options)],
+    mode,
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
@@ -48,39 +70,39 @@ async function generate(options: ResolvedCliOptions) {
         fileName: () => 'index.js',
       },
       minify: mode === 'production',
-      outDir,
+      outDir: options.outDir,
       emptyOutDir: false,
       rollupOptions: {
         external: ['vue'],
         output: {
           assetFileNames: 'index.[ext]',
-          globals: {
-            vue: 'Vue',
-          },
+          globals: { vue: 'Vue' },
         },
       },
     },
-    resolve: {
-      alias: {
-        '~/': `${aliasDir}/`,
-        '@/': `${aliasDir}/`,
-        ...alias,
-      },
-    },
-    css: {
-      postcss: resolvedPostCssConfig,
-    },
-    envPrefix: ['VITE_', 'KIRBYUP_'],
-    logLevel: 'warn',
-  }
+  } as InlineConfig)
+
+  return mergeConfig(buildConfig, extendViteConfig) as InlineConfig
+}
+
+function ensureEntry(options: BaseOptions) {
+  // Ensure entry exists
+  if (!existsSync(resolve(options.cwd, options.entry)))
+    throw new PrettyError(`Cannot find "${options.entry}"`)
+}
+
+async function generate(options: BuildOptions) {
+  const config = getViteConfig('build', options)
+
+  let result: Awaited<ReturnType<typeof _build>> | undefined
 
   try {
-    result = await _build(mergeConfig(defaultConfig, extendViteConfig))
+    result = await _build(config)
   }
   catch (error) {
     consola.error('Build failed')
 
-    if (mode === 'production')
+    if (config.mode === 'production')
       throw error
   }
 
@@ -102,9 +124,9 @@ async function generate(options: ResolvedCliOptions) {
     } of output) {
       await printFileInfo(
         options.cwd,
-        outDir,
+        options.outDir,
         fileName,
-        code ?? await readFile(resolve(outDir, fileName), 'utf8'),
+        code ?? await readFile(resolve(options.outDir, fileName), 'utf8'),
         type,
         longest,
       )
@@ -114,24 +136,9 @@ async function generate(options: ResolvedCliOptions) {
   return result
 }
 
-export async function resolveOptions(options: CliOptions) {
-  options.cwd = options.cwd || process.cwd()
+export async function build(options: BuildOptions) {
+  ensureEntry(options)
 
-  if (!options.entry) {
-    throw new PrettyError(
-      `No input file, try ${colors.cyan(`${name} <path/to/file.js>`)}`,
-    )
-  }
-
-  // Ensure entry exists
-  if (!existsSync(resolve(options.cwd, options.entry)))
-    throw new PrettyError(`Cannot find "${options.entry}"`)
-
-  return options as ResolvedCliOptions
-}
-
-export async function build(_options: CliOptions) {
-  const options = await resolveOptions(_options)
   const { cwd } = options
 
   // Resolve kirbyup config
@@ -226,3 +233,38 @@ export async function build(_options: CliOptions) {
   startWatcher()
 }
 
+export async function serve(options: ServeOptions) {
+  ensureEntry(options)
+
+  const { cwd } = options
+
+  // Resolve kirbyup config
+  const { config } = await loadConfig(cwd)
+  resolvedKirbyupConfig = config
+
+  // Resolve postcss config
+  try {
+    // @ts-expect-error: types won't match
+    resolvedPostCssConfig = await postcssrc({})
+  }
+  catch (err: any) {
+    if (!/No PostCSS Config found/.test(err.message))
+      throw err
+    resolvedPostCssConfig = {
+      plugins: [postcssLogical(), postcssDirPseudoClass()],
+    }
+  }
+
+  if (!process.env.VITEST) {
+    consola.log(colors.green(`${name} v${version}`))
+    consola.info('Starting development server...')
+  }
+
+  const server = await createServer(getViteConfig('serve', options))
+
+  await server.listen()
+  if (!process.env.VITEST)
+    consola.success(`Server is listening on :${server.config.server.port}`)
+
+  return server
+}

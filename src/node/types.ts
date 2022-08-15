@@ -1,17 +1,21 @@
 import type { AliasOptions, InlineConfig } from 'vite'
 import type * as Postcss from 'postcss'
 
-export type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
-Required<Pick<T, RK>>
-
-export interface CliOptions {
-  cwd?: string
-  entry?: string
-  outDir?: string
-  watch?: boolean | string | Array<boolean | string>
+export interface BaseOptions {
+  cwd: string
+  entry: string
 }
 
-export type ResolvedCliOptions = MarkRequired<CliOptions, 'cwd' | 'entry' >
+export interface ServeOptions extends BaseOptions {
+  watch: false | string | string[]
+  port: number
+  outDir?: string
+}
+
+export interface BuildOptions extends BaseOptions {
+  outDir: string
+  watch: boolean | string | string[]
+}
 
 export interface UserConfig {
   /**

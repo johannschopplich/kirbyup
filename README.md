@@ -8,7 +8,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
-- 🔍 Watch mode
+- 🔄 Hot Module Replacement and Watch mode
 - \*️⃣ `kirbyup.import` to [auto-import blocks & fields](#auto-import-blocks-and-fields)
 - 🎒 [PostCSS support](#postcss)
 - 🧭 [Path resolve aliases](#path-resolve-aliases)
@@ -36,7 +36,7 @@ If you want to use kirbyup right away, there is no need to install it. Simply ca
 ```json
 {
   "scripts": {
-    "dev": "npx -y kirbyup src/index.js --watch",
+    "dev": "npx -y kirbyup serve src/index.js",
     "build": "npx -y kirbyup src/index.js"
   }
 }
@@ -55,7 +55,7 @@ Example package configuration:
 ```json
 {
   "scripts": {
-    "dev": "kirbyup src/index.js --watch",
+    "dev": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
@@ -70,23 +70,13 @@ Global installation is supported as well, but not recommended.
 
 ### Development
 
-Rebuild the Panel plugin on any file changes:
+Start a development server for the Panel plugin:
 
 ```bash
-kirbyup src/index.js --watch
+kirbyup serve src/index.js
 ```
 
-You can also specify the directories to be watched. By default, if no path is specified, kirbyup watches the directory specified by the input file (`src` for the example above).
-
-```bash
-kirbyup src/index.js --watch src
-```
-
-You can specify more than a single directory:
-
-```bash
-kirbyup src/index.js --watch src --watch libs
-```
+This creates `./index.dev.mjs`, telling Kirby to load the development version of the plugin from the dev server started by `kirbyup serve`, enhanced by features like hot module replacement and auto-reload.
 
 ### Production
 
@@ -94,7 +84,7 @@ kirbyup src/index.js --watch src --watch libs
 kirbyup src/index.js
 ```
 
-The final panel plugin will be bundled, minified, and written into the current directory as `./index.js`.
+The final panel plugin will be bundled, minified, and written into the current directory as `./index.js` and `./index.css`.
 
 ## Built-in Features
 
@@ -222,15 +212,38 @@ For a complete list of options, take a look at the [Vite configuration options](
 
 ## Options
 
-> Inspect all available options with `kirbyup --help`.
+> Inspect all available options with `kirbyup --help` and `kirbyup serve --help`.
 
-### `--out-dir`
+### `kirbyup <input>`
+
+##### `--out-dir <dir>`
 
 The output directory to save the processed code into. Defaults to the current working directory.
 
-### `--watch`
+##### `--watch [path]`
 
-Sets the watch mode. If no path is specified, kirbyup watches the folder of the input file. Repeat `--watch` for multiple paths.
+Enables watch mode. If no path is specified, kirbyup watches the folder of the input file. Repeat `--watch` for multiple paths.
+
+### `kirbyup serve <input>`
+
+##### `--port <port>`
+
+The port for the development server to run on. Defaults to `5177`.
+
+##### `--out-dir <dir>`
+
+The output directory where the plugin file read by Kirby is saved. Defaults to the project root.
+
+##### `--watch <path>`
+
+Specifies additional files that should be watched for changes, with changes causing the page to reload. Repeat `--watch` for multiple paths.
+
+> 💡 By default, kirbyup will watch all PHP files (`./**/*.php`) in the plugin directory and reload the page if it detects changes. Using `--watch` to set your own path overrides this setting, so you need to add the PHP glob explicitly if you want to keep the behavior: `--watch ./my/files/* --watch ./**/*.php`
+
+##### `--no-watch`
+
+Disables the default behavior of watching all PHP files for changes.
+
 
 ## Credits
 

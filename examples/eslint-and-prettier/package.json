@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "kirbyup src/index.js --watch",
+    "dev": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js",
     "lint": "eslint \"src/**/*.{js,vue}\"",
     "lint:fix": "npm run lint -- --fix",
