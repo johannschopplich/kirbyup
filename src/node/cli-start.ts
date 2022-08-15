@@ -6,7 +6,7 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
   const cli = cac(name)
 
   cli
-    .command('<file>', 'Compile the panel plugin to index.js and index.css')
+    .command('<file>', 'Compile the Kirby Panel plugin to index.js and index.css')
     .option('-d, --out-dir <dir>', 'Output directory', { default: cwd })
     .option(
       '-w, --watch [path]',
@@ -16,7 +16,13 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
     .example('kirbyup src/index.js')
     .example('kirbyup src/index.js --out-dir ~/kirby-site/site/plugins/demo')
     .example('kirbyup src/index.js --watch src/**/*.{js,css} --watch assets/*\n')
-    .action(async (file: string, options: { outDir: string; watch: boolean | string | string[] }) => {
+    .action(async (
+      file: string,
+      options: {
+        outDir: string
+        watch: boolean | string | string[]
+      },
+    ) => {
       await build({ cwd, entry: file, ...options })
     })
 
@@ -29,7 +35,14 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
     .example('kirbyup serve src/index.js')
     .example('kirbyup serve src/index.js --no-watch --port 3003')
     .example('kirbyup serve src/index.js --watch snippets/*.php --watch templates/*.php\n')
-    .action(async (file: string, options: { watch: false | string | string[]; port: number; outDir?: string }) => {
+    .action(async (
+      file: string,
+      options: {
+        watch: false | string | string[]
+        port: number
+        outDir?: string
+      },
+    ) => {
       const server = await serve({ cwd, entry: file, ...options })
 
       // Vite handles SIGTERM and end of stdin (Ctrl+D) itself, but not SIGINT
@@ -41,11 +54,15 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
           process.exit()
         }
       }
+
       process.once('SIGINT', exitProcess)
     })
 
-  // Filter out unnecessary "default" output for negated options (zerobyte acts as marker)
-  cli.help(s => s.map(msg => ({ ...msg, body: msg.body.replace(' (default: \0)', '') })))
+  // Filter out unnecessary `default` output for negated options (zerobyte acts as marker)
+  cli.help(s =>
+    s.map(msg => ({ ...msg, body: msg.body.replace(' (default: \0)', '') })),
+  )
+
   cli.version(version)
 
   // Parse CLI args without running the command to

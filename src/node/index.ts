@@ -27,9 +27,10 @@ import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, User
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-const getViteConfig: (
-  ...args: ['build', BuildOptions] | ['serve', ServeOptions]
-) => InlineConfig = (command, options) => {
+function getViteConfig<T extends 'build' | 'serve'>(
+  command: T,
+  options: T extends 'build' ? BuildOptions : ServeOptions,
+): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
 
@@ -44,23 +45,26 @@ const getViteConfig: (
   }
 
   if (command === 'serve') {
-    const port = options.port
+    const { port, watch } = options as ServeOptions
 
     const serveConfig: InlineConfig = mergeConfig(baseConfig, {
-      plugins: [kirbyupHmrPlugin(options), options.watch && fullReloadPlugin(options.watch)],
+      plugins: [
+        kirbyupHmrPlugin(options as ServeOptions),
+        watch && fullReloadPlugin(watch),
+      ],
       // Input needs to be specified so dep pre-bundling works
       build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
       // Specify origin so asset URLs include Vite server host
       server: { port, strictPort: true, origin: `http://localhost:${port}` },
-    } as InlineConfig)
+    })
 
-    return mergeConfig(serveConfig, extendViteConfig) as InlineConfig
+    return mergeConfig(serveConfig, extendViteConfig)
   }
 
   const mode = options.watch ? 'development' : 'production'
 
   const buildConfig: InlineConfig = mergeConfig(baseConfig, {
-    plugins: [kirbyupBuildCleanupPlugin(options)],
+    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     mode,
     build: {
       lib: {
@@ -80,15 +84,9 @@ const getViteConfig: (
         },
       },
     },
-  } as InlineConfig)
+  })
 
-  return mergeConfig(buildConfig, extendViteConfig) as InlineConfig
-}
-
-function ensureEntry(options: BaseOptions) {
-  // Ensure entry exists
-  if (!existsSync(resolve(options.cwd, options.entry)))
-    throw new PrettyError(`Cannot find "${options.entry}"`)
+  return mergeConfig(buildConfig, extendViteConfig)
 }
 
 async function generate(options: BuildOptions) {
@@ -126,7 +124,7 @@ async function generate(options: BuildOptions) {
         options.cwd,
         options.outDir,
         fileName,
-        code ?? await readFile(resolve(options.outDir, fileName), 'utf8'),
+        code ?? (await readFile(resolve(options.outDir, fileName), 'utf8')),
         type,
         longest,
       )
@@ -194,10 +192,9 @@ export async function build(options: BuildOptions) {
           : options.watch
 
     consola.info(
-      `Watching for changes in ${
-        toArray(watchPaths)
-          .map(i => colors.cyan(i))
-          .join(', ')}`,
+      `Watching for changes in ${toArray(watchPaths)
+        .map(i => colors.cyan(i))
+        .join(', ')}`,
     )
 
     const watcher = watch(watchPaths, {
@@ -267,4 +264,10 @@ export async function serve(options: ServeOptions) {
     consola.success(`Server is listening on :${server.config.server.port}`)
 
   return server
+}
+
+function ensureEntry(options: BaseOptions) {
+  // Ensure entry exists
+  if (!existsSync(resolve(options.cwd, options.entry)))
+    throw new PrettyError(`Cannot find "${options.entry}"`)
 }
