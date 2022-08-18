@@ -244,7 +244,6 @@ Specifies additional files that should be watched for changes, with changes caus
 
 Disables the default behavior of watching all PHP files for changes.
 
-
 ## Credits
 
 - [Vite](https://vitejs.dev) by Evan You and all of its contributors.
