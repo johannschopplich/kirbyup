@@ -36,7 +36,8 @@ If you want to use kirbyup right away, there is no need to install it. Simply ca
 ```json
 {
   "scripts": {
-    "dev": "npx -y kirbyup serve src/index.js",
+    "dev": "npx -y kirbyup src/index.js --watch",
+    "serve": "npx -y kirbyup serve src/index.js",
     "build": "npx -y kirbyup src/index.js"
   }
 }
@@ -55,7 +56,8 @@ Example package configuration:
 ```json
 {
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup src/index.js --watch",
+    "serve": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {

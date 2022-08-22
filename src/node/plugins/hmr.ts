@@ -20,7 +20,7 @@ try {
   await import("${entryUrl}");
 } catch (err) {
   console.error(
-    "[kirbyup] Couldn't connect to the development server. Run \`${pm} run dev\` to start Vite or build the plugin with \`${pm} run build\` so Kirby uses the production version."
+    "[kirbyup] Couldn't connect to the development server. Run \`${pm} run serve\` to start Vite or build the plugin with \`${pm} run build\` so Kirby uses the production version."
   );
   throw err;
 }`.trim()

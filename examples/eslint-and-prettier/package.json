@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "kirbyup serve src/index.js",
+    "serve": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js",
     "lint": "eslint \"src/**/*.{js,vue}\"",
     "lint:fix": "npm run lint -- --fix",
