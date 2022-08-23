@@ -74,11 +74,19 @@ Global installation is supported as well, but not recommended.
 
 Start a development server for the Panel plugin:
 
+> ℹ️ This feature requires Kirby v3.7.4+.
+
 ```bash
 kirbyup serve src/index.js
 ```
 
 This creates `./index.dev.mjs`, telling Kirby to load the development version of the plugin from the dev server started by `kirbyup serve`, enhanced by features like hot module replacement and auto-reload.
+
+If you prefer the watch mode to build a development bundle of the final Panel plugin or develop in an older version of Kirby (prior to 3.7.4), run:
+
+```bash
+kirbyup src/index.js --watch
+```
 
 ### Production
 
