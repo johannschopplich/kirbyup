@@ -168,14 +168,7 @@ During production, these env variables are **statically replaced**. It is theref
 
 #### `.env` Files
 
-kirbyup (thanks to Vite) uses [dotenv](https://github.com/motdotla/dotenv) to load additional environment variables from the following files in your plugin's root directory:
-
-```
-.env                # loaded in all cases
-.env.local          # loaded in all cases, ignored by git
-.env.[mode]         # only loaded in specified mode
-.env.[mode].local   # only loaded in specified mode, ignored by git
-```
+kirbyup (thanks to Vite) uses [dotenv](https://github.com/motdotla/dotenv) to load additional environment variables from the `.env` and `.env.local` files in your plugin's root directory.
 
 Loaded env variables are also exposed to your source code via `import.meta.env`.
 
