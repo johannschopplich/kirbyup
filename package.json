@@ -1,7 +1,7 @@
 {
   "name": "kirbyup",
   "version": "2.0.0-beta.0",
-  "packageManager": "pnpm@7.9.0",
+  "packageManager": "pnpm@7.9.4",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -57,7 +57,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "scripts": {
     "build": "unbuild",
@@ -70,7 +70,7 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^2.7.9",
+    "@vue/compiler-sfc": "^2.7.10",
     "cac": "^6.7.12",
     "chokidar": "^3.5.3",
     "consola": "^2.15.3",
@@ -87,12 +87,12 @@
     "unconfig": "^0.3.5",
     "vite": "^3.0.9",
     "vite-plugin-full-reload": "^1.0.4",
-    "vue": "^2.7.9"
+    "vue": "^2.7.10"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.26.1",
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.7.9",
+    "@types/node": "^18.7.11",
     "@types/prompts": "^2.4.0",
     "@vitejs/plugin-vue2": "^1.1.2",
     "bumpp": "^8.2.1",

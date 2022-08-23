@@ -8,7 +8,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
-- 🔄 Hot Module Replacement and watch mode
+- 🔄 Hot Module Replacement and watch mode (requires Kirby v3.7.4+)
 - \*️⃣ `kirbyup.import` to [auto-import blocks & fields](#auto-import-blocks-and-fields)
 - 🎒 [PostCSS support](#postcss)
 - 🧭 [Path resolve aliases](#path-resolve-aliases)
@@ -17,9 +17,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 ## Requirements
 
-- Node 14+ (Node 16 recommended)
-
-> ℹ️ When using kirbyup with `npx`, **npm 7+** is required. Previous versions don't pass cli arguments to the package invoked. npm 7 is bundled from Node 16 onwards.
+- Node 16 (active LTS) or newer
 
 ## Get Started Right Away
 
