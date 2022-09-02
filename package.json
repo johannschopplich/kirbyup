@@ -1,6 +1,6 @@
 {
   "name": "kirbyup",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "packageManager": "pnpm@7.9.4",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
