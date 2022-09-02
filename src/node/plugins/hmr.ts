@@ -57,8 +57,9 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
 
       server.httpServer.once('listening', async () => {
         const entryPath = entry.replace(`${config.root}/`, '')
-        const { address, port } = server.httpServer!.address() as AddressInfo
-        const baseUrl = `http://${address}:${port}${config.base}`
+        const { address, family, port } = server.httpServer!.address() as AddressInfo
+        const hostname = family === 'IPv6' ? `[${address}]` : address
+        const baseUrl = `http://${hostname}:${port}${config.base}`
         const entryUrl = new URL(entryPath, baseUrl).href
 
         const pm: PM = await detectPm().catch(() => 'npm')
