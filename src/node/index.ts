@@ -1,20 +1,21 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { basename, dirname, resolve } from 'pathe'
+import consola from 'consola'
+import colors from 'picocolors'
+import { debounce } from 'perfect-debounce'
 import { build as _build, createServer, mergeConfig } from 'vite'
+import vueCompilerSfc from 'vue/compiler-sfc'
 import vuePlugin from '@vitejs/plugin-vue2'
+import fullReloadPlugin from 'vite-plugin-full-reload'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
 // @ts-expect-error: types not available
 import postcssLogical from 'postcss-logical'
 // @ts-expect-error: types not available
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
-import consola from 'consola'
-import { debounce } from 'perfect-debounce'
-import colors from 'picocolors'
 import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
-import fullReloadPlugin from 'vite-plugin-full-reload'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
@@ -38,7 +39,12 @@ function getViteConfig<T extends 'build' | 'serve'>(
     resolve: {
       alias: { '~/': `${aliasDir}/`, '@/': `${aliasDir}/`, ...alias },
     },
-    plugins: [vuePlugin(), kirbyupAutoImportPlugin()],
+    plugins: [
+      // Explicitly pass the compiler, since the plugin's resolving of the compiler
+      // looks in the current directory and breaks `npx kirbyup`
+      vuePlugin({ compiler: vueCompilerSfc }),
+      kirbyupAutoImportPlugin(),
+    ],
     css: { postcss: resolvedPostCssConfig },
     envPrefix: ['VITE_', 'KIRBYUP_'],
     logLevel: 'warn',
