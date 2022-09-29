@@ -5,7 +5,7 @@ import consola from 'consola'
 import colors from 'picocolors'
 import { debounce } from 'perfect-debounce'
 import { build as _build, createServer, mergeConfig } from 'vite'
-import vueCompilerSfc from 'vue/compiler-sfc'
+import * as vueCompilerSfc from 'vue/compiler-sfc'
 import vuePlugin from '@vitejs/plugin-vue2'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 // eslint-disable-next-line import/default
