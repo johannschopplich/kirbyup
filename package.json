@@ -70,6 +70,7 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
+    "@vitejs/plugin-vue2": "^2.0.0",
     "@vue/compiler-sfc": "^2.7.10",
     "cac": "^6.7.14",
     "chokidar": "^3.5.3",
@@ -94,7 +95,6 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.18",
     "@types/prompts": "^2.4.0",
-    "@vitejs/plugin-vue2": "^2.0.0",
     "bumpp": "^8.2.1",
     "eslint": "^8.23.1",
     "fast-glob": "^3.2.12",
