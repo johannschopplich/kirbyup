@@ -5,14 +5,8 @@ import { resolve } from 'pathe'
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { PM } from 'detect-package-manager'
 import { detect as detectPm } from 'detect-package-manager'
-import { parseVueRequest } from '@vitejs/plugin-vue2'
 import type { ServeOptions } from '../types'
-
-// Component reload (vs. refresh) doesn't work with Kirby so reload the page instead
-const __HMR_CODE__ = `
-if (typeof __VUE_HMR_RUNTIME__ !== 'undefined' && import.meta.hot) {
-  __VUE_HMR_RUNTIME__.reload = () => import.meta.hot.invalidate();
-}`.trim()
+import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
 
 // Proxy JS file to "forward" the plugin script loaded by Kirby to the Vite server
 const getViteProxyModule = (entryUrl: string, pm: PM) => `
@@ -38,18 +32,19 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       entry = resolve(config.root, options.entry)
       indexMjs = resolve(config.root, options.outDir || '', 'index.dev.mjs')
     },
-    // Adapted from https://github.com/vitejs/vite-plugin-vue2/blob/d3d3a599f191bef5d6034993de92e2176e9577b3/src/index.ts#L156
     transform(code, id) {
-      const { query } = parseVueRequest(id)
-
-      if (query.raw)
-        return
-
-      if ((typeof id !== 'string' || /\0/.test(id)) && !query.vue)
-        return
-
-      if (/\.vue$/.test(id) && !query.vue)
-        return `${code};${__HMR_CODE__}`
+      if (isHmrRuntimeId(id)) {
+        // Call $_applyKirbyModifications before instantiating the new component instance
+        // and append our own runtime code *at the end*, so rerender & reload methods on the
+        // __VUE_HMR_RUNTIME__ are already defined and can be wrapped.
+        return (
+          code.replace(
+            // https://github.com/vitejs/vite-plugin-vue2/blob/06ede94/src/utils/hmrRuntime.ts#L173
+            /^.*=\s*record\.Ctor\.super\.extend\(options\)/m,
+            '$_applyKirbyModifications(record.Ctor.options, options) // injected by kirbyup\n$&',
+          ) + __INJECTED_HMR_CODE__
+        )
+      }
     },
     configureServer(server) {
       if (!server.httpServer)

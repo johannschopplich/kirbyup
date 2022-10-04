@@ -61,7 +61,7 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub",
+    "dev": "STUB=true unbuild",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp --commit --push --tag",
@@ -70,7 +70,8 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "@vitejs/plugin-vue2": "^2.0.0",
+    "@vitejs/plugin-vue2": "2.0.0",
+    "@vitejs/plugin-vue2-jsx": "1.0.3",
     "@vue/compiler-sfc": "^2.7.10",
     "cac": "^6.7.14",
     "chokidar": "^3.5.3",
