@@ -1,7 +1,7 @@
 {
   "name": "kirbyup",
-  "version": "2.0.2-beta.0",
-  "packageManager": "pnpm@7.12.1",
+  "version": "2.0.2",
+  "packageManager": "pnpm@7.13.1",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
