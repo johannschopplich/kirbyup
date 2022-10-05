@@ -14,9 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/johannschopplich/kirbyup.git"
   },
-  "bugs": {
-    "url": "https://github.com/johannschopplich/kirbyup/issues"
-  },
+  "bugs": "https://github.com/johannschopplich/kirbyup/issues",
   "keywords": [
     "kirby-cms",
     "kirby-plugin",
