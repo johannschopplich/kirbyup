@@ -7,6 +7,7 @@ import { debounce } from 'perfect-debounce'
 import { build as _build, createServer, mergeConfig } from 'vite'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
 import vuePlugin from '@vitejs/plugin-vue2'
+import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
@@ -43,6 +44,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
       // Explicitly pass the compiler, since the plugin's resolving of the compiler
       // looks in the current directory and breaks `npx kirbyup`
       vuePlugin({ compiler: vueCompilerSfc }),
+      vueJsxPlugin(),
       kirbyupAutoImportPlugin(),
     ],
     css: { postcss: resolvedPostCssConfig },
