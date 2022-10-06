@@ -50,6 +50,7 @@ export const isHmrRuntimeId = (id: string) => id === HMR_RUNTIME_ID || id === JS
  */
 
 export const __INJECTED_HMR_CODE__ = `
+/** - injected by kirbyup - */
 for (const methodName of ['rerender', 'reload']) {
   const original = __VUE_HMR_RUNTIME__[methodName]
 
@@ -64,10 +65,11 @@ for (const methodName of ['rerender', 'reload']) {
         if (updatedDef[key] === pluginComponents[componentName][key]) {
           const usedDefinition = usedComponentDefs[componentName].options
 
-          if (map[id].options !== usedDefinition) {
+          if (map[id].options !== usedDefinition)
             map[id].options = usedDefinition
+          
+          if (typeof map[id].options.$_isSection !== 'boolean')
             map[id].options.$_isSection = /^k-.*-section$/.test(componentName)
-          }
 
           break
         }
@@ -102,5 +104,5 @@ function $_applyKirbyModifications(activeDef, newDef) {
     else { newDef.extends = null }
   }
 }
-/** */
+/** -- */
 `
