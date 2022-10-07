@@ -62,7 +62,8 @@
     "dev": "STUB=true unbuild",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "bumpp --commit --push --tag",
+    "release:prod": "bumpp --commit --push --tag",
+    "release:dev": "bumpp --commit --push --tag dev",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
