@@ -1,9 +1,10 @@
-name: Release
+name: Release Preversion
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      # only run for versions that have -something appended
+      - 'v[0-9]+.[0-9]+.[0-9]+-**'
 
 jobs:
   release:
@@ -27,7 +28,7 @@ jobs:
         run: pnpm run build
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: npm publish --access public --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
