@@ -28,7 +28,7 @@ jobs:
         run: pnpm run build
 
       - name: Publish to npm
-        run: npm publish --access public --tag dev
+        run: npm publish --access public --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
