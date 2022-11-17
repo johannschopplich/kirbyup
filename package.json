@@ -55,7 +55,7 @@
     "dist"
   ],
   "engines": {
-    "node": "^18"
+    "node": "^16 || ^18"
   },
   "scripts": {
     "build": "unbuild",
