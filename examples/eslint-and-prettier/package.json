@@ -4,15 +4,15 @@
     "dev": "kirbyup serve src/index.js",
     "serve": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js",
-    "lint": "eslint \"src/**/*.{js,vue}\"",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier \"src/**/*.{css,js,vue}\" --write"
   },
   "devDependencies": {
-    "eslint": "^8.27.0",
+    "@nuxt/eslint-config": "^0.1.0",
+    "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-vue": "^9.7.0",
     "kirbyup": "latest",
-    "prettier": "^2.7.1"
+    "prettier": "^2.8.1"
   }
 }
