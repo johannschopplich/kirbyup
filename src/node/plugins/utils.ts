@@ -59,7 +59,7 @@ for (const methodName of ['rerender', 'reload']) {
 
     if (key) {
       const pluginComponents = window.panel.plugins.components
-      const usedComponentDefs = window.panel.$vue.$options.components
+      const usedComponentDefs = window.panel.$vue._vnode.componentInstance.$options.components
 
       for (const componentName in pluginComponents) {
         if (updatedDef[key] === pluginComponents[componentName][key]) {
