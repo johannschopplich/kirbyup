@@ -5,7 +5,7 @@ export default defineBuildConfig({
     'src/node/index',
     'src/node/cli',
     'src/client/config',
-    ...!process.env.STUB ? ['src/client/plugin'] : [],
+    ...(!process.env.STUB ? ['src/client/plugin'] : []),
   ],
   clean: !process.env.STUB,
   stub: !!process.env.STUB,
