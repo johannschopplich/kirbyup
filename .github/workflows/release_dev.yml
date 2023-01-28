@@ -1,5 +1,8 @@
 name: Release Preversion
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
