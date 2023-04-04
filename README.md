@@ -43,7 +43,7 @@ If you want to use kirbyup right away, there is no need to install it. Simply ca
 
 > If `npx` doesn't use the latest kirbyup version, although it is available, run `npx -y kirbyup@latest` instead or delete the `~/.npm/_npx` cache folder.
 
-While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend to target a specific package version, rather than using `npx`. Install kirbyup with a package manager of your choice locally to your project:
+While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend targeting a specific package version, rather than using `npx`. Install kirbyup with a package manager of your choice locally to your project:
 
 ```bash
 npm i kirbyup --save-dev
@@ -184,7 +184,7 @@ Only `KIRBYUP_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to yo
 Create a `kirbyup.config.js` or `kirbyup.config.ts` configuration file the root-level of your project to customize kirbyup.
 
 ```js
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { defineConfig } from 'kirbyup/config'
 
 export default defineConfig({
