@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      # only run for versions that have -something appended
+      # only run for versions that have `-something` appended
       - 'v[0-9]+.[0-9]+.[0-9]+-**'
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://registry.npmjs.org/
 
       - run: corepack enable
