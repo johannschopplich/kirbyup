@@ -11,9 +11,7 @@ import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 // eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
-// @ts-expect-error: types not available
 import postcssLogical from 'postcss-logical'
-// @ts-expect-error: types not available
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
@@ -22,6 +20,7 @@ import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/auto-import'
+import kirbyupComponentCleanupPlugin from './plugins/component-cleanup'
 import kirbyupHmrPlugin from './plugins/hmr'
 import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
@@ -38,7 +37,11 @@ function getViteConfig<T extends 'build' | 'serve'>(
 
   const baseConfig: InlineConfig = {
     resolve: {
-      alias: { '~/': `${aliasDir}/`, '@/': `${aliasDir}/`, ...alias },
+      alias: {
+        '~/': `${aliasDir}/`,
+        '@/': `${aliasDir}/`,
+        ...alias,
+      },
     },
     plugins: [
       // Explicitly pass the compiler, since the plugin's resolving of the compiler
@@ -46,6 +49,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
       kirbyupAutoImportPlugin(),
+      kirbyupComponentCleanupPlugin(),
     ],
     css: { postcss: resolvedPostCssConfig },
     envPrefix: ['VITE_', 'KIRBYUP_'],
@@ -161,6 +165,7 @@ export async function build(options: BuildOptions) {
       throw err
 
     resolvedPostCssConfig = {
+      // @ts-expect-error: types won't match
       plugins: [postcssLogical(), postcssDirPseudoClass()],
     }
   }
@@ -256,6 +261,7 @@ export async function serve(options: ServeOptions) {
     if (!/No PostCSS Config found/.test(err.message))
       throw err
     resolvedPostCssConfig = {
+      // @ts-expect-error: types won't match
       plugins: [postcssLogical(), postcssDirPseudoClass()],
     }
   }
