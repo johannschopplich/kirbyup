@@ -1,5 +1,5 @@
-import { gzip } from 'zlib'
-import { promisify } from 'util'
+import { gzip } from 'node:zlib'
+import { promisify } from 'node:util'
 import { normalize, relative, resolve } from 'pathe'
 import consola from 'consola'
 import colors from 'picocolors'

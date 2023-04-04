@@ -70,4 +70,3 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
   cli.parse(argv, { run: false })
   await cli.runMatchedCommand()
 }
-

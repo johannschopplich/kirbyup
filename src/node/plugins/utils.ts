@@ -4,7 +4,9 @@ export const singlelineCommentsRE = /\/\/.*/g
 export const HMR_RUNTIME_ID = '\0plugin-vue2:hmr-runtime'
 export const JSX_HMR_RUNTIME_ID = 'plugin-vue2-jsx:hmr-runtime'
 
-export const isHmrRuntimeId = (id: string) => id === HMR_RUNTIME_ID || id === JSX_HMR_RUNTIME_ID
+export function isHmrRuntimeId(id: string) {
+  return id === HMR_RUNTIME_ID || id === JSX_HMR_RUNTIME_ID
+}
 
 /**
  * This code is injected into the HMR runtime of plugin-vue2(-jsx).
@@ -48,7 +50,6 @@ export const isHmrRuntimeId = (id: string) => id === HMR_RUNTIME_ID || id === JS
  * The call to $_applyKirbyModifications() is injected into __VUE_HMR_RUNTIME__.reload()
  * at the appropriate position using a RegExp in the Vite plugin's transform method.
  */
-
 export const __INJECTED_HMR_CODE__ = `
 /** - injected by kirbyup - */
 for (const methodName of ['rerender', 'reload']) {
@@ -67,7 +68,7 @@ for (const methodName of ['rerender', 'reload']) {
 
           if (map[id].options !== usedDefinition)
             map[id].options = usedDefinition
-          
+
           if (typeof map[id].options.$_isSection !== 'boolean')
             map[id].options.$_isSection = /^k-.*-section$/.test(componentName)
 

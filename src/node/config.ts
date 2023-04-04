@@ -1,4 +1,4 @@
-import { existsSync, statSync } from 'fs'
+import { existsSync, statSync } from 'node:fs'
 import { dirname, resolve } from 'pathe'
 import { createConfigLoader as createLoader } from 'unconfig'
 import type { LoadConfigResult, LoadConfigSource } from 'unconfig'

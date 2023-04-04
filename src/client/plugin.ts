@@ -7,9 +7,6 @@ interface Module {
   [key: string]: any
 }
 
-const getComponentName = (path: string) =>
-  path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')).toLowerCase()
-
 /*
  * Set of utils for Kirby Panel plugins
  */
@@ -36,3 +33,7 @@ export const kirbyup = Object.freeze({
     )
   },
 })
+
+function getComponentName(path: string) {
+  return path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')).toLowerCase()
+}
