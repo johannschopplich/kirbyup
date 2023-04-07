@@ -1,5 +1,6 @@
 import { gzip } from 'node:zlib'
 import { promisify } from 'node:util'
+import { Buffer } from 'node:buffer'
 import { normalize, relative, resolve } from 'pathe'
 import consola from 'consola'
 import colors from 'picocolors'
