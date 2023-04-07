@@ -23,6 +23,9 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
         watch: boolean | string | string[]
       },
     ) => {
+      if (!process.env.NODE_ENV)
+        process.env.NODE_ENV = options.watch ? 'development' : 'production'
+
       await build({ cwd, entry: file, ...options })
     })
 
@@ -43,6 +46,9 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
         outDir?: string
       },
     ) => {
+      if (!process.env.NODE_ENV)
+        process.env.NODE_ENV = 'development'
+
       const server = await serve({ cwd, entry: file, ...options })
 
       // Vite handles SIGTERM and end of stdin (Ctrl+D) itself, but not SIGINT

@@ -20,7 +20,6 @@ import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { loadConfig } from './config'
 import kirbyupAutoImportPlugin from './plugins/auto-import'
-import kirbyupComponentCleanupPlugin from './plugins/component-cleanup'
 import kirbyupHmrPlugin from './plugins/hmr'
 import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
@@ -49,7 +48,6 @@ function getViteConfig<T extends 'build' | 'serve'>(
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
       kirbyupAutoImportPlugin(),
-      kirbyupComponentCleanupPlugin(),
     ],
     css: { postcss: resolvedPostCssConfig },
     envPrefix: ['VITE_', 'KIRBYUP_'],
