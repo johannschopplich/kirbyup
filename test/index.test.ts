@@ -1,13 +1,16 @@
 import { resolve } from 'pathe'
 import { remove } from 'fs-extra'
-import { afterAll, beforeAll, expect, it } from 'vitest'
+import { afterAll, beforeAll, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
 
 beforeAll(async () => {
+  // unset so kirbyup applies its default env setting
+  vi.stubEnv('NODE_ENV', '')
   await remove(cacheDir)
 })
 
 afterAll(async () => {
+  vi.unstubAllEnvs()
   await remove(cacheDir)
 })
 
