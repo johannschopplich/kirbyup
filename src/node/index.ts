@@ -153,7 +153,7 @@ export async function build(options: BuildOptions) {
   // Resolve postcss config
   try {
     // @ts-expect-error: types won't match
-    resolvedPostCssConfig = await postcssrc({})
+    resolvedPostCssConfig = await postcssrc(undefined, undefined, { stopDir: cwd })
   }
   catch (err: any) {
     if (!/No PostCSS Config found/.test(err.message))
@@ -250,7 +250,7 @@ export async function serve(options: ServeOptions) {
   // Resolve postcss config
   try {
     // @ts-expect-error: types won't match
-    resolvedPostCssConfig = await postcssrc({})
+    resolvedPostCssConfig = await postcssrc(undefined, undefined, { stopDir: cwd })
   }
   catch (err: any) {
     if (!/No PostCSS Config found/.test(err.message))
