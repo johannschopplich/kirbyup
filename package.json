@@ -1,7 +1,7 @@
 {
   "name": "kirbyup",
   "version": "2.2.1",
-  "packageManager": "pnpm@8.6.1",
+  "packageManager": "pnpm@8.6.3",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -84,7 +84,7 @@
     "postcss-load-config": "^4.0.1",
     "postcss-logical": "^6.2.0",
     "rollup-plugin-external-globals": "^0.8.0",
-    "sass": "^1.63.2",
+    "sass": "^1.63.4",
     "unconfig": "^0.3.9",
     "vite": "^4.3.9",
     "vite-plugin-full-reload": "^1.0.5",
@@ -93,10 +93,10 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
     "@types/fs-extra": "^11.0.1",
-    "@types/node": "^18.16.16",
+    "@types/node": "^18.16.18",
     "@types/prompts": "^2.4.4",
     "bumpp": "^9.1.1",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "fast-glob": "^3.2.12",
     "fs-extra": "^11.1.1",
     "simple-git-hooks": "^2.8.1",
