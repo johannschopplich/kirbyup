@@ -2,8 +2,8 @@ import { gzip } from 'node:zlib'
 import { promisify } from 'node:util'
 import { Buffer } from 'node:buffer'
 import { normalize, relative, resolve } from 'pathe'
-import consola from 'consola'
-import colors from 'picocolors'
+import { consola } from 'consola'
+import { colors } from 'consola/utils'
 
 export function toArray<T>(array?: T | T[]): T[] {
   array = array || []
@@ -35,6 +35,6 @@ export async function printFileInfo(
   consola.log(
     colors.white(colors.dim(prettyOutDir))
     + writeColor(filePath.padEnd(maxLength + 2))
-    + colors.dim(`${kibs.toFixed(2)} KiB${compressedSize}`),
+    + colors.dim(`${kibs.toFixed(2)} kB${compressedSize}`),
   )
 }
