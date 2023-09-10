@@ -17,7 +17,7 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 ## Requirements
 
-- Node 16 or newer
+- Latest Node.js LTS version (currently v18)
 
 ## Get Started Right Away
 
