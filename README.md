@@ -187,9 +187,11 @@ Create a `kirbyup.config.js` or `kirbyup.config.ts` configuration file the root-
 import { resolve } from 'node:path'
 import { defineConfig } from 'kirbyup/config'
 
+const currentDir = new URL('.', import.meta.url).pathname
+
 export default defineConfig({
   alias: {
-    '#deep/': `${resolve(__dirname, 'src/deep')}/`
+    '#deep/': `${resolve(currentDir, 'src/deep')}/`
   },
   extendViteConfig: {
     build: {

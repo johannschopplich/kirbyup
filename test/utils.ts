@@ -3,8 +3,8 @@ import { outputFile, readFile } from 'fs-extra'
 import fg from 'fast-glob'
 import { startCli } from '../src/node/cli-start'
 
-export const cacheDir = resolve(__dirname, '.cache')
-export const cli = resolve(__dirname, '../src/node/cli.ts')
+export const cacheDir = new URL('./.cache', import.meta.url).pathname
+export const cli = new URL('../src/node/cli.ts', import.meta.url).pathname
 
 export async function runCli(files: Record<string, string>) {
   const testDir = resolve(cacheDir, Date.now().toString())

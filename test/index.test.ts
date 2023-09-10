@@ -3,6 +3,8 @@ import { remove } from 'fs-extra'
 import { afterAll, beforeAll, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
 
+const currentDir = new URL('.', import.meta.url).pathname
+
 beforeAll(async () => {
   // unset so kirbyup applies its default env setting
   vi.stubEnv('NODE_ENV', '')
@@ -133,7 +135,7 @@ it('compiles vue templates', async () => {
 it('supports auto-importing components', async () => {
   const { output } = await runCli({
     'src/input.js': `
-      import { kirbyup } from '${resolve(__dirname, '../dist/plugin.mjs')}'
+      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')
@@ -152,9 +154,10 @@ it('supports kirbyup.config.js with object', async () => {
     'src/foo.js': 'export default \'bar\'',
     'kirbyup.config.js': `
       import { resolve } from 'path'
+      const currentDir = new URL('.', import.meta.url).pathname
       export default {
         alias: {
-          '__ALIAS__/': resolve(__dirname, 'src') + '/'
+          '__ALIAS__/': resolve(currentDir, 'src') + '/'
         },
         extendViteConfig: {
           build: {
@@ -176,10 +179,11 @@ it('supports kirbyup.config.js with function', async () => {
     'src/foo.js': 'export default \'bar\'',
     'kirbyup.config.js': `
       import { resolve } from 'path'
-      import { defineConfig } from '${resolve(__dirname, '../dist/config.mjs')}'
+      import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
+      const currentDir = new URL('.', import.meta.url).pathname
       export default defineConfig({
         alias: {
-          '__ALIAS__/': resolve(__dirname, 'src') + '/'
+          '__ALIAS__/': resolve(currentDir, 'src') + '/'
         },
         extendViteConfig: {
           build: {
