@@ -59,7 +59,7 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "STUB=true unbuild",
+    "dev": "UNBUILD_STUB=true unbuild",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp --commit --push --tag",
