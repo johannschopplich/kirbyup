@@ -1,9 +1,0 @@
-{
-  "extends": "@antfu",
-  "ignorePatterns": [
-    "examples"
-  ],
-  "rules": {
-    "n/prefer-global/process": "off"
-  }
-}

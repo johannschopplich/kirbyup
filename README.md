@@ -254,6 +254,6 @@ Disables the default behavior of watching all PHP files for changes.
 
 ## License
 
-[MIT](./LICENSE) License © 2021-2023 [Johann Schopplich](https://github.com/johannschopplich)
+[MIT](./LICENSE) License © 2021-PRESENT [Johann Schopplich](https://github.com/johannschopplich)
 
-[MIT](./LICENSE) License © 2022-2023 [Jonas Kuske](https://github.com/jonaskuske)
+[MIT](./LICENSE) License © 2022-PRESENT [Jonas Kuske](https://github.com/jonaskuske)
