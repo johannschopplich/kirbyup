@@ -12,7 +12,7 @@ export default {
 
   async created() {
     const response = await this.load();
-    this.label = response.label || "Tailwind CSS"
+    this.label = response.label || "Tailwind Section"
   },
 };
 </script>

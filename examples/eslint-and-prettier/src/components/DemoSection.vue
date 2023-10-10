@@ -1,19 +1,24 @@
 <script>
+import SectionMixin from "../mixins/section.js";
+
 export default {
-  // Put your section logic here
-}
+  mixins: [SectionMixin],
+
+  data() {
+    return {
+      label: undefined,
+    };
+  },
+
+  async created() {
+    const response = await this.load();
+    this.label = response.label || "Demo Section"
+  },
+};
 </script>
 
 <template>
-  <section class="k-demo-section">
-    <header class="k-section-header">
-      <h2 class="k-headline">
-        Your custom section
-      </h2>
-    </header>
-  </section>
+  <k-section :headline="label">
+    <k-box>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia sunt praesentium dolor fugiat officia rem corrupti alias veniam magni in doloribus nemo velit, et ut nostrum veritatis soluta, inventore nisi.</k-box>
+  </k-section>
 </template>
-
-<style>
-/** Put your CSS here **/
-</style>

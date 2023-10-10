@@ -3,7 +3,10 @@
   "scripts": {
     "dev": "kirbyup serve src/index.js",
     "serve": "kirbyup serve src/index.js",
-    "build": "kirbyup src/index.js"
+    "build": "kirbyup src/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier \"src/**/*.{css,js,vue}\" --write"
   },
   "devDependencies": {
     "@byjohann/eslint-config": "^0.2.2",
