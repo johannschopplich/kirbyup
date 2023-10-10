@@ -6,7 +6,10 @@
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
+    "@byjohann/eslint-config": "^0.2.2",
     "autoprefixer": "^10.4.16",
+    "eslint": "^8.50.0",
+    "eslint-plugin-tailwindcss": "^3.13.0",
     "kirbyup": "latest",
     "tailwindcss": "^3.3.3"
   }
