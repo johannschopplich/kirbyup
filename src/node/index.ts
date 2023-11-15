@@ -10,8 +10,6 @@ import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import externalGlobals from 'rollup-plugin-external-globals'
-
-// eslint-disable-next-line import/default
 import postcssrc from 'postcss-load-config'
 import postcssLogical from 'postcss-logical'
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'

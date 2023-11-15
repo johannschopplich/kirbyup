@@ -30,7 +30,7 @@ export function isHmrRuntimeId(id: string) {
  * if the updated definition belongs to a component added by a Kirby plugin. To do so, we can check
  * whether the __file (added by plugin-vue2) or __hmrId (added by plugin-vue2-jsx) properties of the
  * updated module and the plugin component match. If so, we look up the component definition that is
- * *actually* used by component instances rendered on the page (window.panel.$vue.$options.components)
+ * _actually_ used by component instances rendered on the page (window.panel.$vue.$options.components)
  * and if it differs from the one stored in the HMR runtime's map, we updates the map's reference.
  *
  * We also check the component name and add a $_isSection flag if it's k-something-section, because
