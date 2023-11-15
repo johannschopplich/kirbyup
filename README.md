@@ -1,5 +1,6 @@
 # kirbyup
 
+> [!NOTE]
 > Take a look into Kirby's [pluginkit](https://github.com/getkirby/pluginkit/tree/4-panel) repository for an example setup.
 
 The fastest and leanest way to bundle your Kirby Panel plugins. No configuration necessary.
@@ -41,6 +42,7 @@ If you want to use kirbyup right away, there is no need to install it. Simply ca
 }
 ```
 
+> [!NOTE]
 > If `npx` doesn't use the latest kirbyup version, although it is available, run `npx -y kirbyup@latest` instead or delete the `~/.npm/_npx` cache folder.
 
 While kirbyup will stay backwards compatible, exact build reproducibility may be of importance to you. If so, I recommend targeting a specific package version, rather than using `npx`. Install kirbyup with a package manager of your choice locally to your project:
@@ -72,7 +74,8 @@ Global installation is supported as well, but not recommended.
 
 Start a development server for the Panel plugin:
 
-> ℹ️ This feature requires Kirby v3.7.4+.
+> [!NOTE]
+> This feature requires Kirby v3.7.4+.
 
 ```bash
 kirbyup serve src/index.js
@@ -122,7 +125,8 @@ You can use the alias:
 import someUtility from '~/utils'
 ```
 
-> ℹ️ You can use `@/` as path alias as well.
+> [!NOTE]
+> You can use `@/` as path alias as well.
 
 ### Auto-Import Blocks and Fields
 
@@ -172,7 +176,7 @@ Loaded env variables are also exposed to your source code via `import.meta.env`.
 
 To prevent accidentally leaking env variables for distribution, only variables prefixed with `KIRBYUP_` or `VITE_` are exposed to your processed code. Take the following file as an example:
 
-```
+```ini
 DB_PASSWORD=foobar
 KIRBYUP_SOME_KEY=123
 ```
@@ -241,7 +245,8 @@ The output directory where the plugin file read by Kirby is saved. Defaults to t
 
 Specifies additional files that should be watched for changes, with changes causing the page to reload. Repeat `--watch` for multiple paths.
 
-> 💡 By default, kirbyup will watch all PHP files (`./**/*.php`) in the plugin directory and reload the page if it detects changes. Using `--watch` to set your own path overrides this setting, so you need to add the PHP glob explicitly if you want to keep the behavior: `--watch ./my/files/* --watch ./**/*.php`
+> [!NOTE]
+> By default, kirbyup will watch all PHP files (`./**/*.php`) in the plugin directory and reload the page if it detects changes. Using `--watch` to set your own path overrides this setting, so you need to add the PHP glob explicitly if you want to keep the behavior: `--watch ./my/files/* --watch ./**/*.php`
 
 ##### `--no-watch`
 
