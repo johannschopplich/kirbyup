@@ -16,14 +16,16 @@ export function isHmrRuntimeId(id: string) {
  * that are based off this definition. When a module is updated, the runtime applies all
  * changes from the updated module to the stored definition, then re-renders the instances.
  *
+ * ```js
  * {
  *   [id]: { options: ComponentDefinition, instances: [...] }
  * }
+ * ```
  *
  * However, in some cases (sections and blocks) Kirby does not actually register the
  * object that is exported from a .vue file (and stored as definition) as component,
  * instead it creates a new object and merges the definition from the .vue file in:
- * https://github.com/getkirby/kirby/blob/main/panel/public/js/plugins.js#L19-L22
+ * https://github.com/getkirby/kirby/blob/main/panel/public/js/plugins.js#L22-L25
  * After changes, the runtime updates the definition and re-renders the instances, but since
  * they are derived from the object created by Kirby, not the stored definition, nothing happens.
  * To fix that, we wrap rerender() and reload() so that before applying the updates, we first check
