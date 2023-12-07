@@ -6,7 +6,7 @@ import { cacheDir, runCli } from './utils'
 const currentDir = new URL('.', import.meta.url).pathname
 
 beforeAll(async () => {
-  // unset so kirbyup applies its default env setting
+  // Unset so kirbyup applies its default environment setting
   vi.stubEnv('NODE_ENV', '')
   await remove(cacheDir)
 })

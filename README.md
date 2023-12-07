@@ -1,6 +1,6 @@
 # kirbyup
 
-> [!NOTE]
+> [!TIP]
 > Take a look into Kirby's [pluginkit](https://github.com/getkirby/pluginkit/tree/4-panel) repository for an example setup.
 
 The fastest and leanest way to bundle your Kirby Panel plugins. No configuration necessary.
@@ -125,7 +125,7 @@ You can use the alias:
 import someUtility from '~/utils'
 ```
 
-> [!NOTE]
+> [!TIP]
 > You can use `@/` as path alias as well.
 
 ### Auto-Import Blocks and Fields
@@ -219,6 +219,7 @@ For a complete list of options, take a look at the [Vite configuration options](
 
 ## Options
 
+> [!TIP]
 > Inspect all available options with `kirbyup --help` and `kirbyup serve --help`.
 
 ### `kirbyup <input>`
