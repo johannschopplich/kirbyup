@@ -1,7 +1,0 @@
-{
-  "root": true,
-  "extends": "@byjohann/eslint-config",
-  "rules": {
-    "vue/component-name-in-template-casing": "off"
-  }
-}

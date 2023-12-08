@@ -24,9 +24,10 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 … With one of the following Panel plugin kits:
 
-- [`eslint-and-prettier`](./examples/eslint-and-prettier) (recommended)
+- [`eslint`](./examples/eslint)
 - [`tailwindcss`](./examples/tailwindcss)
-- [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel)
+
+I highly recommend using one of these starters instead of [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel). They provide a better developer experience out of the box.
 
 ## Installation
 

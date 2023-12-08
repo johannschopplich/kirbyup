@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <k-section :headline="label">
+  <k-section :label="label">
     <div
       class="mb-2 inline-block rounded-xl border border-solid border-gray-600 p-1"
     >

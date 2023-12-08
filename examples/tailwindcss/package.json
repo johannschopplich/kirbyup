@@ -5,15 +5,14 @@
     "serve": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier \"src/**/*.{css,js,vue}\" --write"
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@byjohann/eslint-config": "^0.2.2",
+    "@antfu/eslint-config": "^2.4.3",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.50.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
-    "kirbyup": "latest",
+    "kirbyup": "^3.0.2",
     "tailwindcss": "^3.3.3"
   }
 }
