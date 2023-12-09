@@ -145,8 +145,8 @@ export async function build(options: BuildOptions) {
   const { cwd } = options
 
   // Resolve kirbyup config
-  const { config, sources: configSources } = await loadConfig(cwd)
-  resolvedKirbyupConfig = config
+  const { config, configFile } = await loadConfig(cwd)
+  resolvedKirbyupConfig = config ?? {}
 
   // Resolve postcss config
   try {
@@ -210,12 +210,12 @@ export async function build(options: BuildOptions) {
       cwd,
     })
 
-    if (configSources.length)
-      watcher.add(configSources)
+    if (configFile)
+      watcher.add(configFile)
 
     watcher.on('all', async (type, file) => {
-      if (configSources.includes(file)) {
-        resolvedKirbyupConfig = (await loadConfig()).config
+      if (configFile === file) {
+        resolvedKirbyupConfig = (await loadConfig(cwd)).config ?? {}
         consola.info(
           `${colors.cyan(basename(file))} changed, setting new config`,
         )
@@ -243,7 +243,7 @@ export async function serve(options: ServeOptions) {
 
   // Resolve kirbyup config
   const { config } = await loadConfig(cwd)
-  resolvedKirbyupConfig = config
+  resolvedKirbyupConfig = config ?? {}
 
   // Resolve postcss config
   try {

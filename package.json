@@ -72,6 +72,7 @@
     "@vitejs/plugin-vue2": "2.2.0",
     "@vitejs/plugin-vue2-jsx": "1.1.0",
     "@vue/compiler-sfc": "^2.7.15",
+    "c12": "^1.5.1",
     "cac": "^6.7.14",
     "chokidar": "^3.5.3",
     "consola": "^3.2.3",
@@ -85,7 +86,6 @@
     "postcss-logical": "^7.0.0",
     "rollup-plugin-external-globals": "^0.9.1",
     "sass": "^1.69.5",
-    "unconfig": "^0.3.11",
     "vite": "^5.0.6",
     "vite-plugin-full-reload": "^1.1.0",
     "vue": "^2.7.15"
