@@ -25,7 +25,7 @@ Now, the element with `p-2 lg:p4` from the first plugin will stay at `p-2`, sinc
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["src/panel/**/*.vue"],
+  content: ["src/**/*.vue"],
   // Circumvent colliding class names for multiple plugins using Tailwind CSS
   prefix: "my-plugin-",
   theme: {
