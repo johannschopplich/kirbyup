@@ -1,9 +1,10 @@
+import { fileURLToPath } from 'node:url'
 import { resolve } from 'pathe'
 import { remove } from 'fs-extra'
 import { afterAll, beforeAll, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
 
-const currentDir = new URL('.', import.meta.url).pathname
+const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 beforeAll(async () => {
   // Unset so kirbyup applies its default environment setting
@@ -153,8 +154,9 @@ it('supports kirbyup.config.js with object', async () => {
     'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
     'src/foo.js': 'export default \'bar\'',
     'kirbyup.config.js': `
+      import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
-      const currentDir = new URL('.', import.meta.url).pathname
+      const currentDir = fileURLToPath(new URL('.', import.meta.url))
       export default {
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
@@ -178,9 +180,10 @@ it('supports kirbyup.config.js with function', async () => {
     'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
     'src/foo.js': 'export default \'bar\'',
     'kirbyup.config.js': `
+      import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
       import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
-      const currentDir = new URL('.', import.meta.url).pathname
+      const currentDir = fileURLToPath(new URL('.', import.meta.url))
       export default defineConfig({
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'

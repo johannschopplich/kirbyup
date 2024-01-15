@@ -189,20 +189,19 @@ Only `KIRBYUP_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to yo
 Create a `kirbyup.config.js` or `kirbyup.config.ts` configuration file the root-level of your project to customize kirbyup.
 
 ```js
+import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 import { defineConfig } from 'kirbyup/config'
 
-const currentDir = new URL('.', import.meta.url).pathname
+const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
   alias: {
-    '#deep/': `${resolve(currentDir, 'src/deep')}/`
+    '#plugin/': `${resolve(currentDir, 'src/plugin')}/`
   },
   extendViteConfig: {
-    build: {
-      lib: {
-        name: 'myPlugin'
-      }
+    define: {
+      __PLAYGROUND__: JSON.stringify(process.env.PLAYGROUND)
     }
   }
 })
