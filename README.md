@@ -163,9 +163,9 @@ window.panel.plugin('kirbyup/example', {
 
 kirbyup exposes env variables on the special `import.meta.env` object. Some built-in variables are available in all cases:
 
-- **`import.meta.env.MODE`**: {`development` | `production`} the mode kirbyup is running in.
-- **`import.meta.env.PROD`**: {boolean} whether kirbyup is running in production.
-- **`import.meta.env.DEV`**: {boolean} whether kirbyup is running in development (always the opposite of `import.meta.env.PROD`)
+- **`import.meta.env.MODE`** (`development` | `production`): the mode kirbyup is running in.
+- **`import.meta.env.PROD`** (`boolean`): whether kirbyup is running in production.
+- **`import.meta.env.DEV`** (`boolean`): whether kirbyup is running in development (always the opposite of `import.meta.env.PROD`)
 
 During production, these env variables are **statically replaced**. It is therefore necessary to always reference them using the full static string. For example, dynamic key access like `import.meta.env[key]` will not work.
 
