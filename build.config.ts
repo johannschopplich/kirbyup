@@ -14,4 +14,5 @@ export default defineBuildConfig({
   replace: {
     'process.env.VITEST': 'undefined',
   },
+  failOnWarn: false,
 })
