@@ -11,14 +11,11 @@ import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import externalGlobals from 'rollup-plugin-external-globals'
 import postcssrc from 'postcss-load-config'
-
-// @ts-expect-error: No types provided
 import postcssLogical from 'postcss-logical'
-
-// @ts-expect-error: No types provided
 import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
+import type { Plugin as PostCSSPlugin } from 'postcss'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
@@ -162,7 +159,7 @@ export async function build(options: BuildOptions) {
       throw err
 
     resolvedPostCssConfig = {
-      plugins: [postcssLogical(), postcssDirPseudoClass()],
+      plugins: [postcssLogical() as PostCSSPlugin, postcssDirPseudoClass() as PostCSSPlugin],
     }
   }
 
@@ -257,7 +254,7 @@ export async function serve(options: ServeOptions) {
     if (!/No PostCSS Config found/.test(err.message))
       throw err
     resolvedPostCssConfig = {
-      plugins: [postcssLogical(), postcssDirPseudoClass()],
+      plugins: [postcssLogical() as PostCSSPlugin, postcssDirPseudoClass() as PostCSSPlugin],
     }
   }
 

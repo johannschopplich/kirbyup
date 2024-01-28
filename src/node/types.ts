@@ -1,5 +1,5 @@
 import type { AliasOptions, InlineConfig } from 'vite'
-import type * as Postcss from 'postcss'
+import type * as PostCSS from 'postcss'
 
 export interface BaseOptions {
   cwd: string
@@ -40,6 +40,6 @@ export interface UserConfig {
 }
 
 export interface PostCSSConfigResult {
-  options?: Postcss.ProcessOptions
-  plugins: Postcss.Plugin[]
+  options?: PostCSS.ProcessOptions
+  plugins: PostCSS.Plugin[]
 }
