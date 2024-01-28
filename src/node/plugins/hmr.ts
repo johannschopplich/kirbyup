@@ -3,8 +3,8 @@ import { writeFile } from 'node:fs/promises'
 import type { AddressInfo } from 'node:net'
 import { resolve } from 'pathe'
 import type { Plugin, ResolvedConfig } from 'vite'
-import type { PM } from 'detect-package-manager'
-import { detect as detectPm } from 'detect-package-manager'
+import { detectPackageManager } from 'nypm'
+import type { PackageManager } from 'nypm'
 import type { ServeOptions } from '../types'
 import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
 
@@ -47,7 +47,7 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
         const baseUrl = `http://${hostname}:${port}${config.base}`
         const entryUrl = new URL(entryPath, baseUrl).href
 
-        const pm: PM = await detectPm().catch(() => 'npm')
+        const pm = await detectPackageManager(config.root)
 
         await writeFile(indexMjs, getViteProxyModule(entryUrl, pm))
       })
@@ -63,7 +63,9 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
 /**
  * Proxy the JS file to "forward" the plugin script loaded by Kirby to the Vite server
  */
-function getViteProxyModule(entryUrl: string, pm: PM) {
+function getViteProxyModule(entryUrl: string, packageManager?: PackageManager) {
+  const pm = packageManager?.name || 'npm'
+
   return `
 try {
   await import("${entryUrl}");
