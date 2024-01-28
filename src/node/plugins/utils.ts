@@ -32,7 +32,7 @@ export function isHmrRuntimeId(id: string) {
  * if the updated definition belongs to a component added by a Kirby plugin. To do so, we can check
  * whether the __file (added by plugin-vue2) or __hmrId (added by plugin-vue2-jsx) properties of the
  * updated module and the plugin component match. If so, we look up the component definition that is
- * _actually_ used by component instances rendered on the page (window.panel.$vue.$options.components)
+ * _actually_ used by component instances rendered on the page (window.panel.app.$options.components)
  * and if it differs from the one stored in the HMR runtime's map, we updates the map's reference.
  *
  * We also check the component name and add a $_isSection flag if it's k-something-section, because
@@ -62,8 +62,8 @@ for (const methodName of ['rerender', 'reload']) {
 
     if (key) {
       const pluginComponents = window.panel.plugins.components
-      // const usedComponentDefs = window.panel.$vue.$options.components
-      const usedComponentDefs = window.panel.$vue._vnode.componentInstance.$options.components // #33
+      // const usedComponentDefs = window.panel.app.$options.components
+      const usedComponentDefs = window.panel.app._vnode.componentInstance.$options.components // #33
 
       for (const componentName in pluginComponents) {
         if (updatedDef[key] === pluginComponents[componentName][key]) {
@@ -85,7 +85,7 @@ for (const methodName of ['rerender', 'reload']) {
 }
 
 function $_applyKirbyModifications(activeDef, newDef) {
-  const usedComponentDefs = window.panel.$vue.$options.components
+  const usedComponentDefs = window.panel.app.$options.components
 
   if (newDef.template)
     newDef.render = null
