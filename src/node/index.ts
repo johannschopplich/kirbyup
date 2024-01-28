@@ -88,7 +88,11 @@ function getViteConfig<T extends 'build' | 'serve'>(
       minify: mode === 'production',
       outDir: options.outDir,
       emptyOutDir: false,
-      rollupOptions: { output: { assetFileNames: 'index.[ext]' } },
+      rollupOptions: {
+        output: {
+          assetFileNames: 'index.[ext]',
+        },
+      },
     },
   })
 
@@ -245,7 +249,7 @@ export async function serve(options: ServeOptions) {
   const { config } = await loadConfig(cwd)
   resolvedKirbyupConfig = config ?? {}
 
-  // Resolve postcss config
+  // Resolve PostCSS config
   try {
     // @ts-expect-error: types won't match
     resolvedPostCssConfig = await postcssrc(undefined, undefined, { stopDir: cwd })
