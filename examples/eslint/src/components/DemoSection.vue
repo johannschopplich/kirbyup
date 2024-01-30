@@ -18,7 +18,9 @@ export default {
 </script>
 
 <template>
-  <k-section :headline="label">
-    <k-box>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia sunt praesentium dolor fugiat officia rem corrupti alias veniam magni in doloribus nemo velit, et ut nostrum veritatis soluta, inventore nisi.</k-box>
+  <k-section :label="label">
+    <k-text>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia sunt praesentium dolor fugiat officia rem corrupti alias veniam magni in doloribus nemo velit, et ut nostrum veritatis soluta, inventore nisi.</p>
+    </k-text>
   </k-section>
 </template>

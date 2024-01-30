@@ -9,16 +9,12 @@ The fastest and leanest way to bundle your Kirby Panel plugins. No configuration
 
 - 🍂 Lightweight, robust and tested
 - ⚡️ Fast compilation with Vite/esbuild
-- 🔄 Hot Module Replacement and watch mode (requires Kirby v3.7.4+)
+- 🔄 Hot module replacement and watch mode
 - \*️⃣ `kirbyup.import` to [auto-import blocks & fields](#auto-import-blocks-and-fields)
 - 🎒 [PostCSS support](#postcss)
 - 🧭 [Path resolve aliases](#path-resolve-aliases)
 - 🔌 [Env variables support](#env-variables)
 - 🦔 [Extendable configuration with `kirbyup.config.js`](#extendable-configuration-with-kirbyupconfigjs)
-
-## Requirements
-
-- Node.js v18+
 
 ## Get Started Right Away
 
@@ -36,8 +32,7 @@ If you want to use kirbyup right away, there is no need to install it. Simply ca
 ```json
 {
   "scripts": {
-    "dev": "npx -y kirbyup src/index.js --watch",
-    "serve": "npx -y kirbyup serve src/index.js",
+    "dev": "npx -y kirbyup serve src/index.js",
     "build": "npx -y kirbyup src/index.js"
   }
 }
@@ -57,8 +52,7 @@ Example package configuration:
 ```json
 {
   "scripts": {
-    "dev": "kirbyup src/index.js --watch",
-    "serve": "kirbyup serve src/index.js",
+    "dev": "kirbyup serve src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
@@ -74,9 +68,6 @@ Global installation is supported as well, but not recommended.
 ### Development
 
 Start a development server for the Panel plugin:
-
-> [!NOTE]
-> This feature requires Kirby v3.7.4+.
 
 ```bash
 kirbyup serve src/index.js
