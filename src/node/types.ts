@@ -19,12 +19,6 @@ export interface BuildOptions extends BaseOptions {
 
 export interface UserConfig {
   /**
-   * Load from config files
-   * Set to `false` to disable
-   */
-  configFile?: string | false
-
-  /**
    * Specifies an `Object`, or an `Array` of `Object`,
    * which defines aliases used to replace values in `import` statements.
    * With either format, the order of the entries is important,
@@ -34,7 +28,20 @@ export interface UserConfig {
 
   /**
    * Extends Vite's configuration. Will be merged with kirbyup's
-   * default configuration. Be careful what to extend.
+   * default configuration. For example, you can define global constant replacements.
+   *
+   * @example
+   * export default defineConfig({
+   *   vite: {
+   *    define: {
+   *     __TEST__: JSON.stringify(process.env.TEST === 'true'),
+   *   },
+   * })
+   */
+  vite?: InlineConfig
+
+  /**
+   * @deprecated Use `vite` instead.
    */
   extendViteConfig?: InlineConfig
 }

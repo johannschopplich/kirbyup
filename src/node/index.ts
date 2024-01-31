@@ -33,7 +33,8 @@ function getViteConfig<T extends 'build' | 'serve'>(
   options: T extends 'build' ? BuildOptions : ServeOptions,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, extendViteConfig = {} } = resolvedKirbyupConfig
+  const { alias = {}, vite, extendViteConfig } = resolvedKirbyupConfig
+  const userConfig = vite ?? extendViteConfig ?? {}
 
   const baseConfig: InlineConfig = {
     resolve: {
@@ -70,7 +71,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
       server: { port, strictPort: true, origin: `http://localhost:${port}` },
     })
 
-    return mergeConfig(serveConfig, extendViteConfig)
+    return mergeConfig(serveConfig, userConfig)
   }
 
   const mode = options.watch ? 'development' : 'production'
@@ -96,7 +97,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
     },
   })
 
-  return mergeConfig(buildConfig, extendViteConfig)
+  return mergeConfig(buildConfig, userConfig)
 }
 
 async function generate(options: BuildOptions) {
@@ -153,19 +154,8 @@ export async function build(options: BuildOptions) {
   const { config, configFile } = await loadConfig(cwd)
   resolvedKirbyupConfig = config ?? {}
 
-  // Resolve postcss config
-  try {
-    // @ts-expect-error: types won't match
-    resolvedPostCssConfig = await postcssrc(undefined, undefined, { stopDir: cwd })
-  }
-  catch (err: any) {
-    if (!/No PostCSS Config found/.test(err.message))
-      throw err
-
-    resolvedPostCssConfig = {
-      plugins: [postcssLogical() as PostCSSPlugin, postcssDirPseudoClass() as PostCSSPlugin],
-    }
-  }
+  // Resolve PostCSS config
+  resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
 
   if (!process.env.VITEST) {
     // Start kirbyup
@@ -250,17 +240,7 @@ export async function serve(options: ServeOptions) {
   resolvedKirbyupConfig = config ?? {}
 
   // Resolve PostCSS config
-  try {
-    // @ts-expect-error: types won't match
-    resolvedPostCssConfig = await postcssrc(undefined, undefined, { stopDir: cwd })
-  }
-  catch (err: any) {
-    if (!/No PostCSS Config found/.test(err.message))
-      throw err
-    resolvedPostCssConfig = {
-      plugins: [postcssLogical() as PostCSSPlugin, postcssDirPseudoClass() as PostCSSPlugin],
-    }
-  }
+  resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))
@@ -280,4 +260,19 @@ function ensureEntry(options: BaseOptions) {
   // Ensure entry exists
   if (!existsSync(resolve(options.cwd, options.entry)))
     throw new PrettyError(`Cannot find "${options.entry}"`)
+}
+
+async function resolvePostCSSConfig(cwd: string) {
+  try {
+    const config = await postcssrc(undefined, undefined, { stopDir: cwd })
+    return config as PostCSSConfigResult
+  }
+  catch (error) {
+    if (!(error as any).message.includes('No PostCSS Config found'))
+      throw error
+
+    return {
+      plugins: [postcssLogical(), postcssDirPseudoClass()],
+    } as PostCSSConfigResult
+  }
 }

@@ -161,7 +161,7 @@ it('supports kirbyup.config.js with object', async () => {
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
         },
-        extendViteConfig: {
+        vite: {
           build: {
             lib: {
               name: 'test'
@@ -188,7 +188,7 @@ it('supports kirbyup.config.js with function', async () => {
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
         },
-        extendViteConfig: {
+        vite: {
           build: {
             lib: {
               name: 'test'

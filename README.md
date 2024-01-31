@@ -190,7 +190,7 @@ export default defineConfig({
   alias: {
     '#plugin/': `${resolve(currentDir, 'src/plugin')}/`
   },
-  extendViteConfig: {
+  vite: {
     define: {
       __PLAYGROUND__: JSON.stringify(process.env.PLAYGROUND)
     }
@@ -202,7 +202,7 @@ export default defineConfig({
 
 When aliasing to file system paths, always use absolute paths. Relative alias values will be used as-is and will not be resolved into file system paths.
 
-#### `extendViteConfig`
+#### `vite`
 
 You can build upon the defaults kirbup uses and extend the Vite configuration with custom plugins etc.
 
@@ -247,7 +247,6 @@ Disables the default behavior of watching all PHP files for changes.
 ## Credits
 
 - [Vite](https://vitejs.dev) by Evan You and all of its contributors.
-- [EGOIST](https://github.com/egoist) for his inspirational work on [tsup](https://github.com/egoist/tsup).
 
 ## License
 
