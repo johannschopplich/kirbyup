@@ -19,8 +19,8 @@ export interface BuildOptions extends BaseOptions {
 
 export interface UserConfig {
   /**
-   * Specifies an `Object`, or an `Array` of `Object`,
-   * which defines aliases used to replace values in `import` statements.
+   * Specifies an object or an array of objects, which defines aliases
+   * used to replace values in `import` statements.
    * With either format, the order of the entries is important,
    * in that the first defined rules are applied first.
    */
