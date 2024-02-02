@@ -5,17 +5,17 @@ import type { BuildOptions } from '../types'
 
 export default function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig
-  let indexMjs: string
+  let devIndexPath: string
 
   return {
     name: 'kirbyup:build-cleanup',
     configResolved(resolvedConfig) {
       config = resolvedConfig
-      indexMjs = resolve(config.root, options.outDir, 'index.dev.mjs')
+      devIndexPath = resolve(config.root, options.outDir, 'index.dev.mjs')
     },
     writeBundle() {
-      if (existsSync(indexMjs))
-        unlinkSync(indexMjs)
+      if (existsSync(devIndexPath))
+        unlinkSync(devIndexPath)
     },
   }
 }

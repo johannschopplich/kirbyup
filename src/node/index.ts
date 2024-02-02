@@ -63,8 +63,8 @@ function getViteConfig<T extends 'build' | 'serve'>(
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
         watch && fullReloadPlugin(watch),
-      ],
-      // Input needs to be specified so dep pre-bundling works
+      ].filter(Boolean),
+      // Input needs to be specified so dependency pre-bundling works
       build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
       // Specify origin so asset URLs include Vite server host
       server: { port, strictPort: true, origin: `http://localhost:${port}` },
@@ -177,7 +177,7 @@ export async function build(options: BuildOptions) {
 
     const ignored = [
       '**/{.git,node_modules}/**',
-      // Always ignore out files
+      // Always ignore dist files
       'index.{css,js}',
     ]
 

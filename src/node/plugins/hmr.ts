@@ -11,7 +11,7 @@ import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
 export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
   let entry: string
-  let indexMjs: string
+  let devIndexPath: string
 
   return {
     name: 'kirbyup:hmr',
@@ -20,7 +20,7 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     configResolved(resolvedConfig) {
       config = resolvedConfig
       entry = resolve(config.root, options.entry)
-      indexMjs = resolve(config.root, options.outDir || '', 'index.dev.mjs')
+      devIndexPath = resolve(config.root, options.outDir || '', 'index.dev.mjs')
     },
 
     transform(code, id) {
@@ -29,7 +29,7 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
         // and append our own runtime code *at the end*, so rerender & reload methods on the
         // __VUE_HMR_RUNTIME__ are already defined and can be wrapped.
         return code.replace(
-          // https://github.com/vitejs/vite-plugin-vue2/blob/06ede94/src/utils/hmrRuntime.ts#L173
+          // https://github.com/vitejs/vite-plugin-vue2/blob/8de73ea6b8a1df4c14308da2885db195dacc2b14/src/utils/hmrRuntime.ts#L173
           /^.*=\s*record\.Ctor\.super\.extend\(options\)/m,
           '$_applyKirbyModifications(record.Ctor.options, options) // injected by kirbyup\n$&',
         ) + __INJECTED_HMR_CODE__
@@ -46,16 +46,15 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
         const hostname = family === 'IPv6' ? `[${address}]` : address
         const baseUrl = `http://${hostname}:${port}${config.base}`
         const entryUrl = new URL(entryPath, baseUrl).href
-
         const pm = await detectPackageManager(config.root)
 
-        await writeFile(indexMjs, getViteProxyModule(entryUrl, pm))
+        await writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
       })
     },
 
     closeBundle() {
-      if (existsSync(indexMjs))
-        unlinkSync(indexMjs)
+      if (existsSync(devIndexPath))
+        unlinkSync(devIndexPath)
     },
   }
 }
@@ -74,5 +73,6 @@ try {
     "[kirbyup] Couldn't connect to the development server. Run \`${pm} run serve\` to start Vite or build the plugin with \`${pm} run build\` so Kirby uses the production version."
   );
   throw err;
-}`.trim()
+}
+`.trimStart()
 }
