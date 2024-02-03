@@ -1,19 +1,17 @@
-/*
- * Exports are ESM and not part of the kirbyup CLI,
- * but importable when writing a Kirby Panel plugin
- */
+// Exports are ESM and not part of the kirbyup CLI,
+// but importable when writing a Kirby Panel plugin.
 
 interface Module {
   [key: string]: any
 }
 
 /*
- * Set of utils for Kirby Panel plugins
+ * Set of utils for Kirby Panel plugins.
  */
 export const kirbyup = Object.freeze({
   /**
-   * Auto-import Kirby Panel components, will be transformed by
-   * kirbyup's auto import plugin for Vite
+   * Auto-import Kirby Panel components, transformed by
+   * kirbyup's glob-import plugin for Vite.
    *
    * @example
    * kirbyup.import('./components/blocks/*.vue')
@@ -22,7 +20,7 @@ export const kirbyup = Object.freeze({
     // `kirbyup.import(<path>)` will be transformed by the auto import plugin,
     // which will change the signature at build-time to:
     // `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
-    // Thus, we have to force a type cast here
+    // Thus, we have to force a type cast here.
     const modules = glob as unknown as Record<string, Module>
     return Object.entries(modules).reduce<Record<string, any>>(
       (accumulator, [path, component]) => {
