@@ -1,6 +1,6 @@
 # Auto-Import Blocks and Fields
 
-::: warn
+::: warning
 This feature might be removed in future versions of kirbyup.
 :::
 
