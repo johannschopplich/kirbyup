@@ -203,7 +203,9 @@ export async function build(options: BuildOptions) {
       watcher.add(configFile)
 
     watcher.on('all', async (type, file) => {
-      if (configFile === file) {
+      const absolutePath = resolve(cwd, file)
+
+      if (configFile === absolutePath) {
         resolvedKirbyupConfig = (await loadConfig(cwd)).config ?? {}
         consola.info(
           `${colors.cyan(basename(file))} changed, setting new config`,
