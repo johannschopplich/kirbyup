@@ -3,14 +3,13 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { multilineCommentsRE, singlelineCommentsRE } from './utils'
 
 /**
- * This Vite plugin will transform `kirbyup.import(<path>)` to
- * `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
+ * Transforms `kirbyup.import(<path>)` to `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
  */
-export default function kirbyupAutoImportPlugin(): Plugin {
+export default function kirbyupGlobImportPlugin(): Plugin {
   let config: ResolvedConfig
 
   return {
-    name: 'kirbyup:auto-import',
+    name: 'kirbyup:glob-import',
 
     configResolved(resolvedConfig) {
       config = resolvedConfig
@@ -20,8 +19,7 @@ export default function kirbyupAutoImportPlugin(): Plugin {
       if (!code.includes('kirbyup.import'))
         return
 
-      const kirbyupImportRE
-          = /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/g
+      const kirbyupImportRE = /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/g
       const noCommentsCode = code
         .replace(multilineCommentsRE, m => ' '.repeat(m.length))
         .replace(singlelineCommentsRE, m => ' '.repeat(m.length))

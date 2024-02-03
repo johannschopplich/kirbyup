@@ -10,16 +10,13 @@ import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import externalGlobals from 'rollup-plugin-external-globals'
-import postcssrc from 'postcss-load-config'
-import postcssLogical from 'postcss-logical'
-import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
 import type { RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
-import { loadConfig } from './config'
-import kirbyupAutoImportPlugin from './plugins/auto-import'
+import { loadConfig, resolvePostCSSConfig } from './config'
+import kirbyupGlobImportPlugin from './plugins/glob-import'
 import kirbyupHmrPlugin from './plugins/hmr'
 import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
@@ -48,7 +45,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
       // looks in the current directory and breaks `npx kirbyup`
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
-      kirbyupAutoImportPlugin(),
+      kirbyupGlobImportPlugin(),
       { ...externalGlobals({ vue: 'Vue' }), enforce: 'post' },
     ],
     css: { postcss: resolvedPostCssConfig },
@@ -181,14 +178,13 @@ export async function build(options: BuildOptions) {
       'index.{css,js}',
     ]
 
-    const watchPaths
-      = typeof options.watch === 'boolean'
-        ? dirname(options.entry)
-        : Array.isArray(options.watch)
-          ? options.watch.filter(
-            (path): path is string => typeof path === 'string',
-          )
-          : options.watch
+    const watchPaths = typeof options.watch === 'boolean'
+      ? dirname(options.entry)
+      : Array.isArray(options.watch)
+        ? options.watch.filter(
+          (path): path is string => typeof path === 'string',
+        )
+        : options.watch
 
     consola.info(
       `Watching for changes in ${toArray(watchPaths)
@@ -259,19 +255,4 @@ function ensureEntry(options: BaseOptions) {
   // Ensure entry exists
   if (!existsSync(resolve(options.cwd, options.entry)))
     throw new PrettyError(`Cannot find "${options.entry}"`)
-}
-
-async function resolvePostCSSConfig(cwd: string) {
-  try {
-    const config = await postcssrc(undefined, undefined, { stopDir: cwd })
-    return config as PostCSSConfigResult
-  }
-  catch (error) {
-    if (!(error as any).message.includes('No PostCSS Config found'))
-      throw error
-
-    return {
-      plugins: [postcssLogical(), postcssDirPseudoClass()],
-    } as PostCSSConfigResult
-  }
 }

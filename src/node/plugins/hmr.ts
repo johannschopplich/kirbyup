@@ -25,9 +25,9 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
 
     transform(code, id) {
       if (isHmrRuntimeId(id)) {
-        // Call $_applyKirbyModifications before instantiating the new component instance
+        // Call `$_applyKirbyModifications` before instantiating the new component instance
         // and append our own runtime code *at the end*, so rerender & reload methods on the
-        // __VUE_HMR_RUNTIME__ are already defined and can be wrapped.
+        // `__VUE_HMR_RUNTIME__` are already defined and can be wrapped.
         return code.replace(
           // https://github.com/vitejs/vite-plugin-vue2/blob/8de73ea6b8a1df4c14308da2885db195dacc2b14/src/utils/hmrRuntime.ts#L173
           /^.*=\s*record\.Ctor\.super\.extend\(options\)/m,

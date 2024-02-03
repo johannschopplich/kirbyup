@@ -1,5 +1,8 @@
 import { loadConfig as _loadConfig } from 'c12'
-import type { UserConfig } from './types'
+import postcssrc from 'postcss-load-config'
+import postcssLogical from 'postcss-logical'
+import postcssDirPseudoClass from 'postcss-dir-pseudo-class'
+import type { PostCSSConfigResult, UserConfig } from './types'
 
 export function loadConfig(cwd = process.cwd()) {
   return _loadConfig<UserConfig>({
@@ -11,4 +14,19 @@ export function loadConfig(cwd = process.cwd()) {
       esmResolve: true,
     },
   })
+}
+
+export async function resolvePostCSSConfig(cwd: string) {
+  try {
+    const config = await postcssrc(undefined, undefined, { stopDir: cwd })
+    return config as PostCSSConfigResult
+  }
+  catch (error) {
+    if (!(error as any).message.includes('No PostCSS Config found'))
+      throw error
+
+    return {
+      plugins: [postcssLogical(), postcssDirPseudoClass()],
+    } as PostCSSConfigResult
+  }
 }
