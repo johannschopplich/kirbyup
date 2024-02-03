@@ -3,6 +3,6 @@ import './index.css'
 
 window.panel.plugin('kirbyup/tailwindcss', {
   sections: {
-    tailwind: TailwindSection
-  }
+    tailwind: TailwindSection,
+  },
 })

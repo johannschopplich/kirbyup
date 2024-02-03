@@ -1,7 +1,7 @@
-import DemoSection from "./components/DemoSection.vue";
+import DemoSection from './components/DemoSection.vue'
 
-window.panel.plugin("kirbyup/pluginkit", {
+window.panel.plugin('kirbyup/pluginkit', {
   sections: {
     demo: DemoSection,
   },
-});
+})

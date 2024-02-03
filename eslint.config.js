@@ -2,7 +2,10 @@ import antfu from '@antfu/eslint-config'
 
 export default await antfu(
   {
-    ignores: ['examples/**', 'tsconfig.json'],
+    vue: {
+      vueVersion: 2,
+    },
+    ignores: ['examples/**/*.vue', 'tsconfig.json'],
   },
   {
     rules: {
