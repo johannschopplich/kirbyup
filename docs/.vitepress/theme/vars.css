@@ -2,27 +2,33 @@
  * Colors Theme
  * -------------------------------------------------------------------------- */
 :root {
-  --vp-c-accent: #E1D599;
-  --vp-c-brand-1: #D6C571;
-  --vp-c-brand-2: #CFBB5A;
-  --vp-c-brand-3: #C8B142;
-  --vp-c-brand-soft: #D6C57114;
+  --vp-c-brand-1: #BD913A;
+  --vp-c-brand-2: #AE8535;
+  --vp-c-brand-3: #9E7930;
+  --vp-c-brand-soft: #C0973714;
+}
+
+.dark {
+  --vp-c-brand-1: #CAAF50;
+  --vp-c-brand-2: #C6A841;
+  --vp-c-brand-3: #BA9D38;
+  --vp-c-brand-soft: #C0973714;
 }
 
 /**
  * Component: Home
  * -------------------------------------------------------------------------- */
- :root {
+:root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #DDDDDD 15%,
-    #D6C571
+    #CAAF50 15%,
+    #E6DAAE
   );
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #DDDDDD60 30%,
-    #D6C57160
+    #3F392160 30%,
+    #FFFFFF60
   );
   --vp-home-hero-image-filter: blur(30px);
 }
