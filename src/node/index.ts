@@ -10,7 +10,7 @@ import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import externalGlobals from 'rollup-plugin-external-globals'
-import type { RollupOutput } from 'rollup'
+import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
@@ -121,12 +121,7 @@ async function generate(options: BuildOptions) {
         longest = l
     }
 
-    for (const {
-      fileName,
-      type,
-      // @ts-expect-error: `code` not available in `OutputAsset`
-      code,
-    } of output) {
+    for (const { fileName, type, code } of (output as OutputChunk[])) {
       await printFileInfo(
         options.cwd,
         options.outDir,
