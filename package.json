@@ -61,6 +61,9 @@
   "scripts": {
     "build": "unbuild",
     "dev": "UNBUILD_STUB=true unbuild",
+    "docs": "pnpm -C docs run dev",
+    "docs:build": "pnpm -C docs run build",
+    "docs:serve": "pnpm -C docs run serve",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp --commit --push --tag",
