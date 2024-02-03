@@ -47,6 +47,6 @@ export interface UserConfig {
 }
 
 export interface PostCSSConfigResult {
-  options?: PostCSS.ProcessOptions
-  plugins: PostCSS.Plugin[]
+  options: PostCSS.ProcessOptions
+  plugins: PostCSS.AcceptedPlugin[]
 }

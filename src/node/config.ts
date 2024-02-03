@@ -16,10 +16,9 @@ export function loadConfig(cwd = process.cwd()) {
   })
 }
 
-export async function resolvePostCSSConfig(cwd: string) {
+export async function resolvePostCSSConfig(cwd: string): Promise<PostCSSConfigResult> {
   try {
-    const config = await postcssrc(undefined, undefined, { stopDir: cwd })
-    return config as PostCSSConfigResult
+    return await postcssrc(undefined, undefined, { stopDir: cwd })
   }
   catch (error) {
     if (!(error as any).message.includes('No PostCSS Config found'))
