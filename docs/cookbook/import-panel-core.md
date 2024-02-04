@@ -31,7 +31,7 @@ export default defineConfig({
 })
 ```
 
-Any part of your Panel plugin can now import from the Kirby Panel source. For example, let's import some props for a new Kirby field component:
+Any part of your Panel plugin can now import from the Kirby Panel source. For example, let's import some props from the Kirby base field component. The Panel itself uses imports like `@/components/Forms/Field.vue` all the time. And you can do the same in your Vue component's `<script>` section:
 
 ```js
 import { props as FieldProps } from '@/components/Forms/Field.vue'
