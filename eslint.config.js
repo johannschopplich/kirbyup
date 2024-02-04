@@ -5,7 +5,7 @@ export default await antfu(
     vue: {
       vueVersion: 2,
     },
-    ignores: ['examples/**/*.vue', 'tsconfig.json'],
+    ignores: ['examples/**/*.vue', 'docs/**/*.md', 'tsconfig.json'],
   },
   {
     rules: {
