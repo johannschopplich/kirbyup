@@ -8,17 +8,16 @@ For example, given the following directory structure:
 .
 ├─ src
 │  ├─ components
-│  │  └─ MyComponent.vue
+│  │  ├─ fields
+│  │  │  └─ MyField.vue
 │  └─ utils
 │     └─ index.js
 ```
 
-Instead of handling relative paths in a component located at `src/components/MyComponent.vue` like this:
+Instead of handling relative paths in a component located at `src/components/fields/MyField.vue` like this:
 
-```vue
-<script>
-import { myFunction } from '../utils'
-</script>
+```js
+import { myFunction } from '../../utils'
 ```
 
 You can use the built-in path alias like this:

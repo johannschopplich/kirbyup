@@ -39,6 +39,7 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': sidebarGuide(),
+      '/cookbook/': sidebarGuide(),
       '/api/': sidebarGuide(),
     },
 
@@ -82,6 +83,13 @@ function nav(): DefaultTheme.NavItem[] {
       ],
     },
     {
+      text: 'Cookbook',
+      activeMatch: '^/cookbook/',
+      items: [
+        { text: 'Import Panel Mixins', link: '/cookbook/import-panel-core' },
+      ],
+    },
+    {
       text: 'API',
       link: '/api/',
       activeMatch: '^/api/',
@@ -114,6 +122,12 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         { text: 'Path Aliases', link: '/guide/path-aliases' },
         { text: 'PostCSS', link: '/guide/postcss' },
         { text: 'Glob Imports', link: '/guide/glob-imports' },
+      ],
+    },
+    {
+      text: 'Cookbook',
+      items: [
+        { text: 'Import Panel Mixins', link: '/cookbook/import-panel-core' },
       ],
     },
     { text: 'API', link: '/api/' },
