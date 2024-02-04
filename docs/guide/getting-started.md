@@ -81,7 +81,7 @@ npm run dev
 
 The terminal will output the port the server is running on, e.g. `5177`:
 
-<<< @/snippets/hmr.ansi
+<<< @/snippets/serve.ansi
 
 This creates `./index.dev.mjs`, telling Kirby to load the development version of the plugin from the dev server started by `kirbyup serve` when the Panel is opened. The serve command provides hot module replacement and auto-reload.
 
@@ -101,4 +101,6 @@ npm run build
 # kirbyup src/index.js
 ```
 
-The final Panel plugin will be bundled, minified, and written into the current directory as `index.js` and `index.css`.
+The terminal will output the path to the bundled and minified plugin assets:
+
+<<< @/snippets/build.ansi

@@ -3,11 +3,11 @@ layout: home
 sidebar: false
 
 title: kirbyup
-titleTemplate: Official Bundler for Kirby Panel Plugins
+titleTemplate: Bundler for Kirby Panel Plugins
 
 hero:
   name: kirbyup
-  text: Official Bundler for Kirby Panel Plugins
+  text: Bundler for Kirby Panel Plugins
   tagline: Zero-config usage, built-in HMR.
   image:
     src: /logo-shadow.svg
