@@ -1,6 +1,6 @@
 # PostCSS
 
-If the project contains a valid PostCSS config (any format supported by [postcss-load-config](https://github.com/postcss/postcss-load-config), e.g. `postcss.config.js`), it will be automatically applied to all imported CSS.
+If the project contains a valid PostCSS config (any format supported by [postcss-load-config](https://github.com/postcss/postcss-load-config), e.g. `postcss.config.cjs`), it will be automatically applied to all imported CSS.
 
 If no configuration file is found, kirbyup will apply two PostCSS plugins which the Kirby Panel uses as well to let you embrace the same functionality within your Panel plugins. The following PostCSS transforms are applied by kirbyup:
 
