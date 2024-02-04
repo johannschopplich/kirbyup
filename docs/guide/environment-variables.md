@@ -14,7 +14,7 @@ For example, you might want to log something only during development:
 // The following code will be removed in production
 if (import.meta.env.DEV) {
   // Log the title of the current Kirby model
-  console.log(this.panel.view.title)
+  console.log(this.$panel.view.title)
 }
 ```
 
