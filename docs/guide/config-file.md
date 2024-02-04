@@ -21,7 +21,7 @@ const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
   alias: {
-    '#plugin/': `${resolve(currentDir, 'src/plugin')}/`
+    '#utils/': `${resolve(currentDir, 'src/utils')}/`
   },
   vite: {
     define: {
@@ -33,8 +33,8 @@ export default defineConfig({
 
 The configuration above does the following:
 
-- It sets up an alias for the `#plugin/` path to resolve to the `src/plugin/` directory.
-- It extends the Vite configuration with a custom `define` option. Vite will replace `__TEST__` with `true` if the environment variable `TEST` is set to `'true'`.
+- It sets up an alias for the `#utils/` path to resolve to the `src/utils/` directory.
+- It extends the Vite configuration with a custom `define` option. Vite will replace `__TEST__` with `true` if the environment variable `TEST` is set to `'true'`. This can be useful to tree-shake code based on the environment.
 
 ## Configuration Options
 

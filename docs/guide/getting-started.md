@@ -2,6 +2,12 @@
 
 This guide will walk you through the steps to get started with `kirbyup`.
 
+[[toc]]
+
+## Prerequisites
+
+Node.js and npm (or another package manager like pnpm) are required to use `kirbyup`.
+
 ::: tip
 If you want to skip starting from scratch, pick one of the following starters:
 
@@ -29,7 +35,7 @@ Use a package manager of your choice to install `kirbyup` as a development depen
 
 Having installed kirbyup, you can add the following scripts as shortcuts to the commands you will use most often:
 
-```json
+```json{3-4}
 {
   "scripts": {
     "dev": "kirbyup serve src/index.js",
@@ -41,11 +47,11 @@ Having installed kirbyup, you can add the following scripts as shortcuts to the 
 }
 ```
 
-### No Installation Required
+### Without the Installation Step
 
 If you want to use kirbyup right away and don't want to track it as a dependency in your project, simply call it with `npx`:
 
-```json
+```json{3-4}
 {
   "scripts": {
     "dev": "npx -y kirbyup serve src/index.js",
@@ -61,26 +67,38 @@ Because of the caching, it's recommended to install kirbyup as a development dep
 
 ## Usage
 
+kirbyup provides a CLI to build and serve your Panel plugin. It uses Vite under the hood, so you can use all of Vite's features.
+
 ### Development
 
 Start a development server for the Panel plugin:
 
 ```bash
-kirbyup serve src/index.js
+npm run dev
+# Which will run:
+# kirbyup serve src/index.js
 ```
 
-This creates `./index.dev.mjs`, telling Kirby to load the development version of the plugin from the dev server started by `kirbyup serve`, enhanced by features like hot module replacement and auto-reload.
+The terminal will output the port the server is running on, e.g. `5177`:
+
+<<< @/snippets/hmr.ansi
+
+This creates `./index.dev.mjs`, telling Kirby to load the development version of the plugin from the dev server started by `kirbyup serve` when the Panel is opened. The serve command provides hot module replacement and auto-reload.
 
 If you prefer the watch mode to build a development bundle of the final Panel plugin or develop in an older version of Kirby (prior to 3.7.4), run:
 
 ```bash
-kirbyup src/index.js --watch
+npx kirbyup src/index.js --watch
 ```
 
 ### Production
 
+To compile the final Panel plugin for production, run:
+
 ```bash
-kirbyup src/index.js
+npm run build
+# Which will run:
+# kirbyup src/index.js
 ```
 
-The final panel plugin will be bundled, minified, and written into the current directory as `./index.js` and `./index.css`.
+The final Panel plugin will be bundled, minified, and written into the current directory as `index.js` and `index.css`.

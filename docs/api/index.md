@@ -16,7 +16,9 @@ kirbyup serve --help
 
 :::
 
-## `kirbyup <input>`
+## `kirbyup <file>`
+
+The `<file>` argument is the entry point of your Kirby plugin, i.e. your main JavaScript file. kirbyup will generate a minified and production-ready version of your plugin and save it in the current working directory.
 
 ### `--out-dir <dir>`
 

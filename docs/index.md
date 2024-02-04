@@ -26,12 +26,12 @@ hero:
 features:
   - title: Hot Module Replacement
     icon: <span class="i-ri-speed-up-line"></span>
-    details: Instantly see changes in your browser without a page reload.
+    details: Instantly see changes in the Panel without a page reload.
     link: /guide/getting-started.html#development
     linkText: Development Usage
   - title: PostCSS support
     icon: <span class="i-ri-layout-masonry-line"></span>
-    details: Use all the latest PostCSS features.
+    details: Use all latest PostCSS features and add your own plugins.
     link: /guide/postcss
     linkText: Use PostCSS
   - title: Environment Variables
@@ -41,7 +41,7 @@ features:
     linkText: Conditional Builds
   - title: Configuration File
     icon: <span class="i-ri-file-code-line"></span>
-    details: Extend Vite with a `kirbyup.config.js` configuration file.
+    details: Extend Vite with a <code>kirbyup.config.js</code> configuration file.
     link: /guide/config-file
-    linkText: Create a config file
+    linkText: Create a Config File
 ---

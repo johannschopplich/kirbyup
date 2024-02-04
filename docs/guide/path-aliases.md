@@ -2,17 +2,29 @@
 
 Import certain modules more easily by using the `~/` path alias. It will resolve to the directory of your input file, for example `src` when building `kirbyup src/index.js`.
 
-For example, instead of handling relative paths like this:
+For example, given the following directory structure:
 
-```js
-// Inside deeply nested module
-import someUtility from '../../utils'
+```
+.
+├─ src
+│  ├─ components
+│  │  └─ MyComponent.vue
+│  └─ utils
+│     └─ index.js
+```
+
+Instead of handling relative paths in a component located at `src/components/MyComponent.vue` like this:
+
+```vue
+<script>
+import { myFunction } from '../utils'
+</script>
 ```
 
 You can use the built-in path alias like this:
 
 ```js
-import someUtility from '~/utils'
+import { myFunction } from '~/utils'
 ```
 
 ::: tip
