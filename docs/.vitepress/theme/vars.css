@@ -2,15 +2,9 @@
  * Colors Theme
  * -------------------------------------------------------------------------- */
 :root {
-  --vp-c-brand-1: #BD913A;
-  --vp-c-brand-2: #AE8535;
-  --vp-c-brand-3: #9E7930;
-}
-
-.dark {
-  --vp-c-brand-1: #CAAF50;
-  --vp-c-brand-2: #C6A841;
-  --vp-c-brand-3: #BA9D38;
+  --vp-c-brand-1: #51A8B1;
+  --vp-c-brand-2: #499BA4;
+  --vp-c-brand-3: #438E96;
 }
 
 /**
@@ -20,13 +14,13 @@
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #CAAF50 15%,
-    #E6DAAE
+    #438E96 15%,
+    #BFE0E2
   );
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #3F392160 30%,
-    #FFFFFF60
+    #438E9660 30%,
+    #BFE0E260
   );
   --vp-home-hero-image-filter: blur(30px);
 }

@@ -1,4 +1,4 @@
-[![kirbyup](./docs/public/og.jpg)](https://kirbyup.byjohann.dev)
+[![kirbyup](./docs/public/og.png)](https://kirbyup.byjohann.dev)
 
 # kirbyup
 

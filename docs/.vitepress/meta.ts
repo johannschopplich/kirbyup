@@ -1,6 +1,6 @@
 /* VitePress head */
 export const ogUrl = 'https://kirbyup.byjohann.dev/'
-export const ogImage = `${ogUrl}og.jpg`
+export const ogImage = `${ogUrl}og.png`
 
 /* GitHub and social links */
 export const github = 'https://github.com/johannschopplich/kirbyup'
