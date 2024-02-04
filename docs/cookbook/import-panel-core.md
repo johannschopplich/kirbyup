@@ -17,6 +17,7 @@ git clone git@github.com:getkirby/kirby.git
 Then, create a `kirbyup.config.js` in the root of your Panel plugin and define a custom alias that points to the Kirby Panel source folder:
 
 ```js
+// `kirbyup.config.js`
 import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 import { defineConfig } from 'kirbyup/config'
@@ -28,6 +29,18 @@ export default defineConfig({
     '@/': `${resolve(currentDir, 'kirby/panel/src')}/`
   }
 })
+```
+
+Any part of your Panel plugin can now import from the Kirby Panel source. For example, let's import some props for a new Kirby field component:
+
+```js
+import { props as FieldProps } from '@/components/Forms/Field.vue'
+import { options } from '@/mixins/props.js'
+
+export default {
+  mixins: [FieldProps, options],
+  // ...
+}
 ```
 
 ::: info
