@@ -13,7 +13,7 @@ export default defineConfig({
   title: name,
   description: 'Official Bundler for Kirby Panel Plugins',
   head: [
-    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
     ['meta', { name: 'author', content: 'Johann Schopplich' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:url', content: ogUrl }],
@@ -28,7 +28,10 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
+    logo: {
+      light: '/logo-light.svg',
+      dark: '/logo-dark.svg',
+    },
 
     editLink: {
       pattern: 'https://github.com/johannschopplich/kirbyup/edit/main/docs/:path',

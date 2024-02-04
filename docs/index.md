@@ -10,7 +10,10 @@ hero:
   text: Bundler for Kirby Panel Plugins
   tagline: Zero-config usage, built-in HMR.
   image:
-    src: /logo-shadow.svg
+    light:
+      src: /logo-shadow-light.svg
+    dark:
+      src: /logo-shadow-dark.svg
     alt: kirbyup
   actions:
     - theme: brand
