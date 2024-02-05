@@ -14,7 +14,7 @@ If you want to skip starting from scratch, pick one of the following starters:
 - [`eslint`](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint)
 - [`tailwindcss`](https://github.com/johannschopplich/kirbyup/tree/main/examples/tailwindcss)
 
-These are recommended instead of [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel). They provide a better developer experience out of the box, like ESLint and Tailwind CSS.
+These are recommended instead of [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel), because they rely on ESLint to find problems in your code.
 :::
 
 ## Installation
