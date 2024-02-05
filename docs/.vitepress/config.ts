@@ -51,8 +51,11 @@ export default defineConfig({
     ],
 
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2021-PRESENT Johann Schopplich & Jonas Kuske.',
+      message: 'Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.',
+      copyright: [
+        'Copyright © 2021-PRESENT <a href="https://github.com/johannschopplich" target="_blank">Johann Schopplich</a>.',
+        'Copyright © 2022-PRESENT <a href="https://github.com/jonaskuske" target="_blank">Jonas Kuske</a>.',
+      ].join('<br>'),
     },
 
     search: {
