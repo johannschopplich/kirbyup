@@ -34,7 +34,7 @@ A simple example of a `kirbyup.config.js` file to achieve the following:
 - Set up an alias for the `#utils/` path to resolve to the `src/utils/` directory.
 - Extend the Vite configuration with a custom `define` option. Vite will replace `__PLAYGROUND__` with `true` if the environment variable `PLAYGROUND` is set to `'true'`. This can be useful to tree-shake code based on the environment.
 
-::: tip
+::: info
 Don't use `define` to target build environments, like `development` or `production`. Instead, use [`import.meta.env.DEV` and `import.meta.env.PROD`](/guide/environment-variables) to conditionally execute code.
 :::
 
@@ -77,11 +77,12 @@ if (__PLAYGROUND__)
 
 To pass the `PLAYGROUND` environment variable to the Vite server or build command, you can prepend the kirbyup command with it:
 
-```json{3}
+```json{3-5}
 {
   "scripts": {
     "dev": "PLAYGROUND=true kirbyup serve src/index.js",
-    "build": "kirbyup src/index.js"
+    "build": "kirbyup src/index.js",
+    "build:playground": "PLAYGROUND=true kirbyup src/index.js"
   }
 }
 ```
