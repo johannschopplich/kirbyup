@@ -76,13 +76,15 @@ if (__TEST__)
 
 To pass the `TEST` environment variable to the Vite server or build command, you can prepend the kirbyup command with it:
 
-```json{3-4}
+```json{3}
 {
   "scripts": {
     "dev": "TEST=true kirbyup serve src/index.js",
-    "build": "TEST=true kirbyup src/index.js"
+    "build": "kirbyup src/index.js"
   }
 }
 ```
+
+In this example, every if statement that checks for `__TEST__` will be removed from the production build.
 
 :::
