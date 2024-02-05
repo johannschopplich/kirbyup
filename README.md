@@ -1,4 +1,4 @@
-[![kirbyup](./docs/public/og.png)](https://kirbyup.byjohann.dev)
+[![kirbyup](./docs/public/og.png)](https://kirbyup.getkirby.com)
 
 # kirbyup
 
@@ -7,20 +7,20 @@
 The official bundler for Kirby Panel plugins with zero-config usage and built-in HMR.
 
 - [✨ &nbsp;Release Notes](https://github.com/johannschopplich/kirbyup/releases)
-- [📖 &nbsp;Read the documentation](https://kirbyup.byjohann.dev)
+- [📖 &nbsp;Read the documentation](https://kirbyup.getkirby.com)
 
 ## Key Features
 
-- 🔄 [Hot module replacement](https://kirbyup.byjohann.dev/guide/getting-started.html#development)
+- 🔄 [Hot module replacement](https://kirbyup.getkirby.com/guide/getting-started.html#development)
 - 🎒 PostCSS support
 - 🧭 Add custom path aliases
 - 🔌 Run actions based on environment variables
-- 🦔 [Extends Vite with `kirbyup.config.js`](https://kirbyup.byjohann.dev/guide/config-file)
+- 🦔 [Extends Vite with `kirbyup.config.js`](https://kirbyup.getkirby.com/guide/config-file)
 
 ## Setup
 
 > [!TIP]
-> [📖 Read the documentation](https://kirbyup.byjohann.dev)
+> [📖 Read the documentation](https://kirbyup.getkirby.com)
 
 ```bash
 # pnpm
@@ -33,7 +33,7 @@ npm i -D kirbyup
 ## Basic Usage
 
 > [!TIP]
-> [📖 Read the documentation](https://kirbyup.byjohann.dev) or skip starting from scratch and pick one of the following starters:
+> [📖 Read the documentation](https://kirbyup.getkirby.com) or skip starting from scratch and pick one of the following starters:
 > - [`eslint`](./examples/eslint)
 > - [`tailwindcss`](./examples/tailwindcss)
 
