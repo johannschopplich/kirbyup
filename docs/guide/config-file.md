@@ -32,9 +32,13 @@ For a complete list of options, take a look at the [Vite configuration options](
 A simple example of a `kirbyup.config.js` file to achieve the following:
 
 - Set up an alias for the `#utils/` path to resolve to the `src/utils/` directory.
-- Extend the Vite configuration with a custom `define` option. Vite will replace `__TEST__` with `true` if the environment variable `TEST` is set to `'true'`. This can be useful to tree-shake code based on the environment.
+- Extend the Vite configuration with a custom `define` option. Vite will replace `__PLAYGROUND__` with `true` if the environment variable `PLAYGROUND` is set to `'true'`. This can be useful to tree-shake code based on the environment.
 
-Could look like this:
+::: tip
+Don't use `define` to target build environments, like `development` or `production`. Instead, use [`import.meta.env.DEV` and `import.meta.env.PROD`](/guide/environment-variables) to conditionally execute code.
+:::
+
+The requirements above can be written in a configuration file like this:
 
 ```js
 import { fileURLToPath } from 'node:url'
@@ -48,16 +52,13 @@ export default defineConfig({
     '#utils/': `${resolve(currentDir, 'src/utils')}/`
   },
   vite: {
+    // `process.env` lets you access environment variables at build time
     define: {
-      __TEST__: JSON.stringify(process.env.TEST === 'true')
+      __PLAYGROUND__: JSON.stringify(process.env.PLAYGROUND === 'true')
     }
   }
 })
 ```
-
-::: tip
-When using the `vite.define` option, you can use the `process.env` object to access environment variables. This is useful for tree-shaking code based on conditions.
-:::
 
 If you were to import a file from the `#utils/` path, it would resolve to the `src/utils/` directory:
 
@@ -65,26 +66,26 @@ If you were to import a file from the `#utils/` path, it would resolve to the `s
 import { myUtil } from '#utils/myUtil.js'
 ```
 
-The `__TEST__` global constant will be statically replaced during development and at build time:
+The `__PLAYGROUND__` global constant will be statically replaced during development and at build time. You can use it to conditionally execute code, like bundling the same plugin for different Kirby instances:
 
 ```js
-if (__TEST__)
-  console.log('Running in test mode')
+if (__PLAYGROUND__)
+  console.log('This Kirby site is the playground!')
 ```
 
 ::: info
 
-To pass the `TEST` environment variable to the Vite server or build command, you can prepend the kirbyup command with it:
+To pass the `PLAYGROUND` environment variable to the Vite server or build command, you can prepend the kirbyup command with it:
 
 ```json{3}
 {
   "scripts": {
-    "dev": "TEST=true kirbyup serve src/index.js",
+    "dev": "PLAYGROUND=true kirbyup serve src/index.js",
     "build": "kirbyup src/index.js"
   }
 }
 ```
 
-In this example, every if statement that checks for `__TEST__` will be removed from the production build.
+In this example, every if statement that checks for `__PLAYGROUND__` will be removed from the production build.
 
 :::
