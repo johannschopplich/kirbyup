@@ -6,11 +6,35 @@ Since kirbyup uses Vite under the hood, you might want to add Vite plugins or cu
 import { defineConfig } from 'kirbyup/config'
 
 export default defineConfig({
-  // Your custom configuration
+  alias: {
+    // Custom aliases
+  },
+  vite: {
+    // Custom Vite options to be merged with the default config
+  }
 })
 ```
 
-A simple example of a `kirbyup.config.js` file could look like this:
+## Configuration Options
+
+### `alias`
+
+When aliasing to file system paths, always use absolute paths. Relative alias values will be used as-is and will not be resolved into file system paths.
+
+### `vite`
+
+You can build upon the defaults kirbup uses and extend the Vite configuration with custom plugins, etc.
+
+For a complete list of options, take a look at the [Vite configuration options](https://vitejs.dev/config/).
+
+## Example
+
+A simple example of a `kirbyup.config.js` file to achieve the following:
+
+- Set up an alias for the `#utils/` path to resolve to the `src/utils/` directory.
+- Extend the Vite configuration with a custom `define` option. Vite will replace `__TEST__` with `true` if the environment variable `TEST` is set to `'true'`. This can be useful to tree-shake code based on the environment.
+
+Could look like this:
 
 ```js
 import { fileURLToPath } from 'node:url'
@@ -31,19 +55,34 @@ export default defineConfig({
 })
 ```
 
-The configuration above does the following:
+::: tip
+When using the `vite.define` option, you can use the `process.env` object to access environment variables. This is useful for tree-shaking code based on conditions.
+:::
 
-- It sets up an alias for the `#utils/` path to resolve to the `src/utils/` directory.
-- It extends the Vite configuration with a custom `define` option. Vite will replace `__TEST__` with `true` if the environment variable `TEST` is set to `'true'`. This can be useful to tree-shake code based on the environment.
+If you were to import a file from the `#utils/` path, it would resolve to the `src/utils/` directory:
 
-## Configuration Options
+```js
+import { myUtil } from '#utils/myUtil.js'
+```
 
-### `alias`
+The `__TEST__` global constant will be statically replaced during development and at build time:
 
-When aliasing to file system paths, always use absolute paths. Relative alias values will be used as-is and will not be resolved into file system paths.
+```js
+if (__TEST__)
+  console.log('Running in test mode')
+```
 
-### `vite`
+::: info
 
-You can build upon the defaults kirbup uses and extend the Vite configuration with custom plugins, etc.
+To pass the `TEST` environment variable to the Vite server or build command, you can prepend the kirbyup command with it:
 
-For a complete list of options, take a look at the [Vite configuration options](https://vitejs.dev/config/).
+```json{3-4}
+{
+  "scripts": {
+    "dev": "TEST=true kirbyup serve src/index.js",
+    "build": "TEST=true kirbyup src/index.js"
+  }
+}
+```
+
+:::

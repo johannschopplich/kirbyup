@@ -89,7 +89,7 @@ function nav(): DefaultTheme.NavItem[] {
       text: 'Cookbook',
       activeMatch: '^/cookbook/',
       items: [
-        { text: 'Import Panel Mixins', link: '/cookbook/import-panel-core' },
+        { text: 'Import From Panel', link: '/cookbook/import-from-panel' },
       ],
     },
     {
@@ -130,7 +130,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'Cookbook',
       items: [
-        { text: 'Import Panel Mixins', link: '/cookbook/import-panel-core' },
+        { text: 'Import From Panel', link: '/cookbook/import-from-panel' },
       ],
     },
     { text: 'API', link: '/api/' },
