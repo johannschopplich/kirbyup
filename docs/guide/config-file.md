@@ -15,6 +15,10 @@ export default defineConfig({
 })
 ```
 
+::: tip
+To target build environments, like `development` or `production`, use [`import.meta.env.DEV` and `import.meta.env.PROD`](/guide/environment-variables) to conditionally execute code.
+:::
+
 ## Configuration Options
 
 ### `alias`
@@ -29,64 +33,31 @@ For a complete list of options, take a look at the [Vite configuration options](
 
 ## Example
 
-A simple example of a `kirbyup.config.js` file to achieve the following:
+Let's say a plugin has the following requirements:
 
-- Set up an alias for the `#utils/` path to resolve to the `src/utils/` directory.
-- Extend the Vite configuration with a custom `define` option. Vite will replace `__PLAYGROUND__` with `true` if the environment variable `PLAYGROUND` is set to `'true'`. This can be useful to tree-shake code based on the environment.
+- Set up an alias for the path `@/` to resolve to Kirby's Panel source directory.
+- Extend the Vite configuration with a plugin to polyfill Node.js built-in modules. This is needed for an imaginary library we're importing in a component (which would break in the browser without the polyfills).
 
-::: info
-Don't use `define` to target build environments, like `development` or `production`. Instead, use [`import.meta.env.DEV` and `import.meta.env.PROD`](/guide/environment-variables) to conditionally execute code.
-:::
-
-The requirements above can be written in a configuration file like this:
+To achieve this, create a `kirbyup.config.js` file in the root of your project with the following content:
 
 ```js
 import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 import { defineConfig } from 'kirbyup/config'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
-  alias: {
-    '#utils/': `${resolve(currentDir, 'src/utils')}/`
-  },
   vite: {
-    // `process.env` lets you access environment variables at build time
-    define: {
-      __PLAYGROUND__: JSON.stringify(process.env.PLAYGROUND === 'true')
-    }
-  }
+    resolve: {
+      alias: {
+        '@/': `${resolve(currentDir, 'kirby/panel/src')}/`,
+      },
+    },
+    plugins: [
+      nodePolyfills()
+    ],
+  },
 })
 ```
-
-If you were to import a file from the `#utils/` path, it would resolve to the `src/utils/` directory:
-
-```js
-import { myUtil } from '#utils/myUtil.js'
-```
-
-The `__PLAYGROUND__` global constant will be statically replaced during development and at build time. You can use it to conditionally execute code, like bundling the same plugin for different Kirby instances:
-
-```js
-if (__PLAYGROUND__)
-  console.log('This Kirby site is the playground!')
-```
-
-::: info
-
-To pass the `PLAYGROUND` environment variable to the Vite server or build command, you can prepend the kirbyup command with it:
-
-```json{3-5}
-{
-  "scripts": {
-    "dev": "PLAYGROUND=true kirbyup serve src/index.js",
-    "build": "kirbyup src/index.js",
-    "build:playground": "PLAYGROUND=true kirbyup src/index.js"
-  }
-}
-```
-
-In this example, every if statement that checks for `__PLAYGROUND__` will be removed from the production build.
-
-:::
