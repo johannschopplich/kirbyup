@@ -61,7 +61,6 @@
   "scripts": {
     "build": "unbuild",
     "dev": "UNBUILD_STUB=true unbuild",
-    "docs": "pnpm -C docs run dev",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
