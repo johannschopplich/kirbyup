@@ -1,10 +1,6 @@
 ---
 layout: home
-sidebar: false
-
-title: kirbyup
 titleTemplate: Bundler for Kirby Panel Plugins
-
 hero:
   name: kirbyup
   text: Bundler for Kirby Panel Plugins
