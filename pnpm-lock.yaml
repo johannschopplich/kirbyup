@@ -97,7 +97,7 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0
       typescript:
-        specifier: ~5.4.2
+        specifier: ^5.4.2
         version: 5.4.2
       unbuild:
         specifier: ^3.0.0-rc.1
