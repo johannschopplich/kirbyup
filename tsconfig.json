@@ -1,19 +1,13 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
+    "module": "Preserve",
     "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
+    "strict": true,
     "noEmit": true,
-
-    /* Linting */
-    "strict": true
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   }
 }
