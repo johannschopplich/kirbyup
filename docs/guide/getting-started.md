@@ -11,10 +11,11 @@ Node.js and npm (or another package manager like pnpm) are required to use `kirb
 ::: tip
 If you want to skip starting from scratch, pick one of the following starters:
 
-- [`eslint`](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint)
-- [`tailwindcss`](https://github.com/johannschopplich/kirbyup/tree/main/examples/tailwindcss)
+- [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel)
+- [`pluginkit` + ESLint](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint)
+- [`pluginkit` + Tailwind CSS](https://github.com/johannschopplich/kirbyup/tree/main/examples/tailwindcss)
 
-These are recommended instead of [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel), because they rely on ESLint to find problems in your code.
+The last two examples are based on the default `pluginkit` and include ESLint to find bugs in your code. This will help you write cleaner code and avoid common JavaScript or Vue pitfalls and thus provide a better developer experience. The Tailwind CSS example includes Tailwind CSS to style your Panel plugin.
 :::
 
 ## Installation
