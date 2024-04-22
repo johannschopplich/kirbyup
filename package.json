@@ -72,10 +72,10 @@
     "test:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@vitejs/plugin-vue2": "2.2.0",
-    "@vitejs/plugin-vue2-jsx": "1.1.0",
-    "@vue/compiler-sfc": "^2.7.16",
-    "c12": "^3.0.4",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue/compiler-sfc": "^3.4.23",
+    "c12": "^1.10.0",
     "cac": "^6.7.14",
     "chokidar": "~3.6.0",
     "consola": "^3.4.2",
