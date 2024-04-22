@@ -1,22 +1,18 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
-import vuePlugin from '@vitejs/plugin-vue2'
-import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
+import { basename, dirname, resolve } from 'pathe'
 import { consola } from 'consola'
 import { colors } from 'consola/utils'
-import { basename, dirname, resolve } from 'pathe'
 import { debounce } from 'perfect-debounce'
-import externalGlobals from 'rollup-plugin-external-globals'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
-import fullReloadPlugin from 'vite-plugin-full-reload'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
+import vuePlugin from '@vitejs/plugin-vue'
+import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
+import fullReloadPlugin from 'vite-plugin-full-reload'
 import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig, LogLevel } from 'vite'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
-import { handleError, PrettyError } from './errors'
-import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
-import kirbyupGlobImportPlugin from './plugins/glob-import'
 import kirbyupHmrPlugin from './plugins/hmr'
 import { printFileInfo, toArray } from './utils'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
@@ -43,8 +39,8 @@ function getViteConfig(
   options: BuildOptions | ServeOptions,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, vite, extendViteConfig } = resolvedKirbyupConfig
-  const userConfig = vite ?? extendViteConfig ?? {}
+  const { alias = {}, vite } = resolvedKirbyupConfig
+  const userConfig = vite ?? {}
 
   const sharedConfig: InlineConfig = {
     resolve: {
@@ -59,8 +55,6 @@ function getViteConfig(
       // looks in the current directory and breaks `npx kirbyup`
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
-      kirbyupGlobImportPlugin(),
-      { ...externalGlobals({ vue: 'Vue' }), enforce: 'post' },
     ],
     build: {
       copyPublicDir: false,
@@ -106,14 +100,14 @@ function getViteConfig(
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
-        formats: ['iife'],
-        name: 'kirbyupExport',
+        formats: ['es'],
         fileName: () => 'index.js',
       },
       minify: mode === 'production',
       outDir: options.outDir,
       emptyOutDir: false,
       rollupOptions: {
+        external: ['vue'],
         output: {
           assetFileNames: 'index.[ext]',
         },
@@ -198,7 +192,7 @@ export async function build(options: BuildOptions) {
     const ignored = [
       '**/{.git,node_modules}/**',
       // Always ignore dist files
-      'index.{css,js}',
+      'index.{css,js,mjs}',
     ]
 
     const watchPaths = typeof options.watch === 'boolean'
