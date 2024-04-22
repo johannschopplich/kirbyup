@@ -6,17 +6,15 @@ import { colors } from 'consola/utils'
 import { debounce } from 'perfect-debounce'
 import { build as _build, createServer, mergeConfig } from 'vite'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
-import vuePlugin from '@vitejs/plugin-vue2'
-import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
+import vuePlugin from '@vitejs/plugin-vue'
+import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
-import externalGlobals from 'rollup-plugin-external-globals'
 import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig } from 'vite'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
 import { loadConfig, resolvePostCSSConfig } from './config'
-import kirbyupGlobImportPlugin from './plugins/glob-import'
 import kirbyupHmrPlugin from './plugins/hmr'
 import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
@@ -29,10 +27,10 @@ function getViteConfig<T extends 'build' | 'serve'>(
   options: T extends 'build' ? BuildOptions : ServeOptions,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, vite, extendViteConfig } = resolvedKirbyupConfig
-  const userConfig = vite ?? extendViteConfig ?? {}
+  const { alias = {}, vite } = resolvedKirbyupConfig
+  const userConfig = vite ?? {}
 
-  const baseConfig: InlineConfig = {
+  const sharedConfig: InlineConfig = {
     resolve: {
       alias: {
         '~/': `${aliasDir}/`,
@@ -45,8 +43,6 @@ function getViteConfig<T extends 'build' | 'serve'>(
       // looks in the current directory and breaks `npx kirbyup`
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
-      kirbyupGlobImportPlugin(),
-      { ...externalGlobals({ vue: 'Vue' }), enforce: 'post' },
     ],
     css: { postcss: resolvedPostCssConfig },
     envPrefix: ['VITE_', 'KIRBYUP_'],
@@ -56,7 +52,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
   if (command === 'serve') {
     const { port, watch } = options as ServeOptions
 
-    const serveConfig: InlineConfig = mergeConfig(baseConfig, {
+    const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
         watch && fullReloadPlugin(watch),
@@ -72,20 +68,20 @@ function getViteConfig<T extends 'build' | 'serve'>(
 
   const mode = options.watch ? 'development' : 'production'
 
-  const buildConfig: InlineConfig = mergeConfig(baseConfig, {
+  const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     mode,
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
-        formats: ['iife'],
-        name: 'kirbyupExport',
+        formats: ['es'],
         fileName: () => 'index.js',
       },
       minify: mode === 'production',
       outDir: options.outDir,
       emptyOutDir: false,
       rollupOptions: {
+        external: ['vue'],
         output: {
           assetFileNames: 'index.[ext]',
         },
@@ -137,7 +133,7 @@ async function generate(options: BuildOptions) {
 }
 
 export async function build(options: BuildOptions) {
-  ensureEntry(options)
+  assertEntryExists(options)
 
   const { cwd } = options
 
@@ -170,7 +166,7 @@ export async function build(options: BuildOptions) {
     const ignored = [
       '**/{.git,node_modules}/**',
       // Always ignore dist files
-      'index.{css,js}',
+      'index.{css,js,mjs}',
     ]
 
     const watchPaths = typeof options.watch === 'boolean'
@@ -223,7 +219,7 @@ export async function build(options: BuildOptions) {
 }
 
 export async function serve(options: ServeOptions) {
-  ensureEntry(options)
+  assertEntryExists(options)
 
   const { cwd } = options
 
@@ -248,8 +244,7 @@ export async function serve(options: ServeOptions) {
   return server
 }
 
-function ensureEntry(options: BaseOptions) {
-  // Ensure entry exists
+function assertEntryExists(options: BaseOptions) {
   if (!existsSync(resolve(options.cwd, options.entry)))
     throw new PrettyError(`Cannot find "${options.entry}"`)
 }
