@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    // @ts-expect-error: Pinned Vite version inconsistency
     UnoCSS(),
   ],
 })
