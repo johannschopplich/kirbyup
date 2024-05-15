@@ -8,11 +8,11 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.8.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^8.57.0",
+    "@antfu/eslint-config": "^2.18.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.2.0",
     "eslint-plugin-tailwindcss": "^3.15.1",
     "kirbyup": "^3.1.5",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.3"
   }
 }

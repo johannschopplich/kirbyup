@@ -32,7 +32,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
   const { alias = {}, vite, extendViteConfig } = resolvedKirbyupConfig
   const userConfig = vite ?? extendViteConfig ?? {}
 
-  const baseConfig: InlineConfig = {
+  const sharedConfig: InlineConfig = {
     resolve: {
       alias: {
         '~/': `${aliasDir}/`,
@@ -56,7 +56,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
   if (command === 'serve') {
     const { port, watch } = options as ServeOptions
 
-    const serveConfig: InlineConfig = mergeConfig(baseConfig, {
+    const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
         watch && fullReloadPlugin(watch),
@@ -72,7 +72,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
 
   const mode = options.watch ? 'development' : 'production'
 
-  const buildConfig: InlineConfig = mergeConfig(baseConfig, {
+  const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     mode,
     build: {
@@ -137,7 +137,7 @@ async function generate(options: BuildOptions) {
 }
 
 export async function build(options: BuildOptions) {
-  ensureEntry(options)
+  assertEntryExists(options)
 
   const { cwd } = options
 
@@ -223,7 +223,7 @@ export async function build(options: BuildOptions) {
 }
 
 export async function serve(options: ServeOptions) {
-  ensureEntry(options)
+  assertEntryExists(options)
 
   const { cwd } = options
 
@@ -248,8 +248,7 @@ export async function serve(options: ServeOptions) {
   return server
 }
 
-function ensureEntry(options: BaseOptions) {
-  // Ensure entry exists
+function assertEntryExists(options: BaseOptions) {
   if (!existsSync(resolve(options.cwd, options.entry)))
     throw new PrettyError(`Cannot find "${options.entry}"`)
 }

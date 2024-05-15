@@ -2,6 +2,7 @@ import antfu from '@antfu/eslint-config'
 
 export default await antfu(
   {
+    regexp: false,
     vue: {
       vueVersion: 2,
     },
