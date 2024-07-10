@@ -1,4 +1,4 @@
-export const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//gm
+export const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//g
 export const singlelineCommentsRE = /\/\/.*/g
 
 export const HMR_RUNTIME_ID = '\0plugin-vue2:hmr-runtime'

@@ -26,15 +26,15 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/node/index.d.ts",
+      "types": "./dist/node/index.d.mts",
       "import": "./dist/node/index.mjs"
     },
     "./config": {
-      "types": "./dist/client/config.d.ts",
+      "types": "./dist/client/config.d.mts",
       "import": "./dist/client/config.mjs"
     },
     "./plugin": {
-      "types": "./dist/client/plugin.d.ts",
+      "types": "./dist/client/plugin.d.mts",
       "import": "./dist/client/plugin.mjs"
     }
   },
@@ -43,10 +43,10 @@
   "typesVersions": {
     "*": {
       "config": [
-        "./dist/client/config.d.ts"
+        "./dist/client/config.d.mts"
       ],
       "plugin": [
-        "./dist/client/plugin.d.ts"
+        "./dist/client/plugin.d.mts"
       ]
     }
   },
@@ -68,8 +68,7 @@
     "lint:fix": "eslint . --fix",
     "release": "bumpp --commit --push --tag",
     "test": "vitest --no-isolate",
-    "test:types": "tsc --noEmit",
-    "prepare": "simple-git-hooks"
+    "test:types": "tsc --noEmit"
   },
   "dependencies": {
     "@vitejs/plugin-vue2": "2.2.0",
@@ -102,12 +101,8 @@
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "nypm": "^0.3.9",
-    "simple-git-hooks": "^2.11.1",
     "typescript": "^5.5.3",
     "unbuild": "^3.0.0-rc.6",
     "vitest": "^2.0.1"
-  },
-  "simple-git-hooks": {
-    "commit-msg": "node scripts/verifyCommit.mjs $1"
   }
 }
