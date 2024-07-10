@@ -4,7 +4,7 @@ import { basename, dirname, resolve } from 'pathe'
 import { consola } from 'consola'
 import { colors } from 'consola/utils'
 import { debounce } from 'perfect-debounce'
-import { build as _build, createServer, mergeConfig } from 'vite'
+import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
 import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
@@ -24,9 +24,22 @@ import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, User
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-function getViteConfig<T extends 'build' | 'serve'>(
-  command: T,
-  options: T extends 'build' ? BuildOptions : ServeOptions,
+const logger = createLogger()
+const loggerWarn = logger.warn
+
+logger.warn = (msg, options) => {
+  // Ignore output directory warning for Kirby plugin builds
+  if (msg.startsWith(`\n(!) build.outDir must not be`))
+    return
+
+  loggerWarn(msg, options)
+}
+
+function getViteConfig(command: 'build', options: BuildOptions): InlineConfig
+function getViteConfig(command: 'serve', options: ServeOptions): InlineConfig
+function getViteConfig(
+  command: string,
+  options: BuildOptions | ServeOptions,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, vite, extendViteConfig } = resolvedKirbyupConfig
@@ -50,6 +63,7 @@ function getViteConfig<T extends 'build' | 'serve'>(
     ],
     css: { postcss: resolvedPostCssConfig },
     envPrefix: ['VITE_', 'KIRBYUP_'],
+    customLogger: logger,
     logLevel: 'warn',
   }
 
@@ -62,9 +76,17 @@ function getViteConfig<T extends 'build' | 'serve'>(
         watch && fullReloadPlugin(watch),
       ].filter(Boolean),
       // Input needs to be specified so dependency pre-bundling works
-      build: { rollupOptions: { input: resolve(options.cwd, options.entry) } },
+      build: {
+        rollupOptions: {
+          input: resolve(options.cwd, options.entry),
+        },
+      },
       // Specify origin so asset URLs include Vite server host
-      server: { port, strictPort: true, origin: `http://localhost:${port}` },
+      server: {
+        port,
+        strictPort: true,
+        origin: `http://localhost:${port}`,
+      },
     })
 
     return mergeConfig(serveConfig, userConfig)

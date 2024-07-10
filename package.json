@@ -43,10 +43,10 @@
   "typesVersions": {
     "*": {
       "config": [
-        "./dist/client/config.d.mts"
+        "./dist/client/config.d.ts"
       ],
       "plugin": [
-        "./dist/client/plugin.d.mts"
+        "./dist/client/plugin.d.ts"
       ]
     }
   },
@@ -104,10 +104,5 @@
     "typescript": "^5.5.3",
     "unbuild": "^3.0.0-rc.6",
     "vitest": "^2.0.1"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "vite@5.3.3": "patches/vite@5.3.3.patch"
-    }
   }
 }
