@@ -11,7 +11,7 @@ import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import externalGlobals from 'rollup-plugin-external-globals'
 import type { OutputChunk, RollupOutput } from 'rollup'
-import type { InlineConfig } from 'vite'
+import type { InlineConfig, LogLevel } from 'vite'
 import { name, version } from '../../package.json'
 import { PrettyError, handleError } from './errors'
 import { printFileInfo, toArray } from './utils'
@@ -24,12 +24,13 @@ import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, User
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
 
-const logger = createLogger()
+const logLevel: LogLevel = 'warn'
+const logger = createLogger(logLevel)
 const loggerWarn = logger.warn
 
+// Overwrite log function to ignore output directory warning
 logger.warn = (msg, options) => {
-  // Ignore output directory warning for Kirby plugin builds
-  if (msg.startsWith(`\n(!) build.outDir must not be`))
+  if (msg.includes('(!) build.outDir'))
     return
 
   loggerWarn(msg, options)
@@ -64,7 +65,7 @@ function getViteConfig(
     css: { postcss: resolvedPostCssConfig },
     envPrefix: ['VITE_', 'KIRBYUP_'],
     customLogger: logger,
-    logLevel: 'warn',
+    logLevel,
   }
 
   if (command === 'serve') {
