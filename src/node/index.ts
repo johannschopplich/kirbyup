@@ -62,7 +62,12 @@ function getViteConfig(
       kirbyupGlobImportPlugin(),
       { ...externalGlobals({ vue: 'Vue' }), enforce: 'post' },
     ],
-    css: { postcss: resolvedPostCssConfig },
+    build: {
+      copyPublicDir: false,
+    },
+    css: {
+      postcss: resolvedPostCssConfig,
+    },
     envPrefix: ['VITE_', 'KIRBYUP_'],
     customLogger: logger,
     logLevel,
@@ -96,8 +101,8 @@ function getViteConfig(
   const mode = options.watch ? 'development' : 'production'
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
-    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     mode,
+    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
