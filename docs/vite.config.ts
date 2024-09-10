@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   optimizeDeps: {
@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    // @ts-expect-error: Incompatible Vite plugin types
     UnoCSS(),
   ],
 })

@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
-import { resolve } from 'pathe'
 import { remove } from 'fs-extra'
+import { resolve } from 'pathe'
 import { afterAll, beforeAll, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
 

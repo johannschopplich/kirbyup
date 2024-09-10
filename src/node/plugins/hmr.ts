@@ -1,12 +1,12 @@
 import { existsSync, unlinkSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
-import type { AddressInfo } from 'node:net'
-import { resolve } from 'pathe'
-import type { Plugin, ResolvedConfig } from 'vite'
 import { detectPackageManager } from 'nypm'
+import { resolve } from 'pathe'
+import type { AddressInfo } from 'node:net'
 import type { PackageManager } from 'nypm'
-import type { ServeOptions } from '../types'
+import type { Plugin, ResolvedConfig } from 'vite'
 import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
+import type { ServeOptions } from '../types'
 
 export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig

@@ -1,6 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
-export default await antfu(
+export default antfu(
   {
     vue: {
       // https://github.com/antfu/eslint-config/issues/367

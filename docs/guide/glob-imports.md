@@ -11,8 +11,8 @@ Instead of manually importing each block or field, you can use the `kirbyup.impo
 Given the following Panel plugin:
 
 ```js
-import Foo from './components/blocks/Foo.vue'
 import Bar from './components/blocks/Bar.vue'
+import Foo from './components/blocks/Foo.vue'
 import Maps from './components/blocks/Maps.vue'
 
 window.panel.plugin('kirbyup/example', {

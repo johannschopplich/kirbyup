@@ -41,8 +41,8 @@ Let's say a plugin has the following requirements:
 To achieve this, create a `kirbyup.config.js` file in the root of your project with the following content:
 
 ```js
-import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'kirbyup/config'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 

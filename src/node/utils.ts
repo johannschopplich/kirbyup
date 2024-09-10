@@ -1,15 +1,13 @@
-import { gzip } from 'node:zlib'
-import { promisify } from 'node:util'
 import { Buffer } from 'node:buffer'
-import { normalize, relative, resolve } from 'pathe'
+import { promisify } from 'node:util'
+import { gzip } from 'node:zlib'
 import { consola } from 'consola'
 import { colors } from 'consola/utils'
+import { normalize, relative, resolve } from 'pathe'
 
 export function toArray<T>(array?: T | T[]): T[] {
-  array = array || []
-  if (Array.isArray(array))
-    return array
-  return [array]
+  array ??= []
+  return Array.isArray(array) ? array : [array]
 }
 
 const compress = promisify(gzip)

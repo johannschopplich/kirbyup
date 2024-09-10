@@ -1,6 +1,6 @@
-import { resolve } from 'pathe'
-import { outputFile, readFile } from 'fs-extra'
 import fg from 'fast-glob'
+import { outputFile, readFile } from 'fs-extra'
+import { resolve } from 'pathe'
 import { startCli } from '../src/node/cli-start'
 
 export const cacheDir = new URL('./.cache', import.meta.url).pathname

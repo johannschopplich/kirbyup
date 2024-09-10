@@ -1,5 +1,5 @@
-import type { AliasOptions, InlineConfig } from 'vite'
 import type * as PostCSS from 'postcss'
+import type { AliasOptions, InlineConfig } from 'vite'
 
 export interface BaseOptions {
   cwd: string
