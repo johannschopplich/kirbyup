@@ -29,34 +29,34 @@ window.panel.plugin("kirbyup/test", {
 `;
 
 exports[`compiles vue templates 1`] = `
-"import { openBlock as r, createElementBlock as a, createElementVNode as n } from "vue";
-const i = (e, t) => {
-  const o = e.__vccOpts || e;
-  for (const [c, s] of t)
-    o[c] = s;
-  return o;
-}, _ = {
+"import { openBlock as r, createElementBlock as a, createElementVNode as c } from "vue";
+const i = (o, e) => {
+  const t = o.__vccOpts || o;
+  for (const [n, s] of e)
+    t[n] = s;
+  return t;
+}, d = {
   created() {
     console.log("created");
   }
-}, d = { class: "k-demo-section" }, l = /* @__PURE__ */ n(
-  "header",
-  { class: "k-section-header" },
-  [
-    /* @__PURE__ */ n("h2", { class: "k-headline" }, "Custom section")
-  ],
-  -1
-  /* HOISTED */
-), p = [
-  l
-];
-function m(e, t, o, c, s, k) {
-  return r(), a("section", d, p);
+}, l = { class: "k-demo-section" };
+function p(o, e, t, n, s, m) {
+  return r(), a("section", l, e[0] || (e[0] = [
+    c(
+      "header",
+      { class: "k-section-header" },
+      [
+        c("h2", { class: "k-headline" }, "Custom section")
+      ],
+      -1
+      /* HOISTED */
+    )
+  ]));
 }
-const h = /* @__PURE__ */ i(_, [["render", m]]);
+const _ = /* @__PURE__ */ i(d, [["render", p]]);
 window.panel.plugin("kirbyup/test", {
   sections: {
-    demo: h
+    demo: _
   }
 });
 "
@@ -72,18 +72,25 @@ export {
 
 exports[`supports custom env variables 1`] = `
 <<<<<<< HEAD
+<<<<<<< HEAD
 "var kirbyupExport=function(o){"use strict";const r="bar";return o.foo=r,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
 =======
 <<<<<<< HEAD
 "var kirbyupExport=function(e){"use strict";var t={BASE_URL:"/",DEV:!1,MODE:"production",PROD:!0,SSR:!1};const o=t.KIRBYUP_FOO;return e.foo=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),e}({});
 =======
 "var e = { BASE_URL: "/", MODE: "production", DEV: !1, PROD: !0, SSR: !1 };
+=======
+"var e = { BASE_URL: "/", DEV: !1, MODE: "production", PROD: !0, SSR: !1 };
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 const o = e.KIRBYUP_FOO;
 export {
   o as foo
 };
+<<<<<<< HEAD
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 "
 `;
 
