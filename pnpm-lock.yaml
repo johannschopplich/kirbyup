@@ -18,6 +18,7 @@ importers:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@vitejs/plugin-vue2':
         specifier: 2.2.0
         version: 2.2.0(vite@6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))(vue@2.7.16)
@@ -36,11 +37,19 @@ importers:
 =======
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
       '@vitejs/plugin-vue':
+<<<<<<< HEAD
         specifier: ^5.0.5
         version: 5.0.5(vite@5.3.3(@types/node@20.14.10)(sass@1.77.7))(vue@3.4.31(typescript@5.5.3))
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+        specifier: ^5.1.3
+        version: 5.1.3(vite@5.3.5(@types/node@20.16.5)(sass@1.78.0))(vue@3.5.4(typescript@5.5.4))
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       '@vitejs/plugin-vue-jsx':
+<<<<<<< HEAD
 <<<<<<< HEAD
         specifier: ^3.1.0
 <<<<<<< HEAD
@@ -63,11 +72,23 @@ importers:
         version: 4.0.0(vite@5.3.3(@types/node@20.14.10)(sass@1.77.7))(vue@3.4.31(typescript@5.5.3))
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+        specifier: ^4.0.1
+        version: 4.0.1(vite@5.3.5(@types/node@20.16.5)(sass@1.78.0))(vue@3.5.4(typescript@5.5.4))
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
       '@vue/compiler-sfc':
+<<<<<<< HEAD
         specifier: ^3.4.31
         version: 3.4.31
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+        specifier: ^3.5.4
+        version: 3.5.4
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       c12:
         specifier: ^3.0.0
         version: 3.3.2
@@ -99,21 +120,17 @@ importers:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         specifier: ^8.5.6
         version: 8.5.6
 =======
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
         specifier: ^8.4.45
         version: 8.4.45
-=======
-<<<<<<< HEAD
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-        specifier: ^8.4.39
-        version: 8.4.39
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
       postcss-dir-pseudo-class:
         specifier: ^9.0.0
         version: 9.0.0(postcss@8.4.45)
@@ -135,9 +152,9 @@ importers:
 =======
         version: 6.0.1(jiti@1.21.6)(postcss@8.4.45)(tsx@4.19.0)(yaml@2.5.1)
       postcss-logical:
-<<<<<<< HEAD
         specifier: ^8.0.0
         version: 8.0.0(postcss@8.4.45)
+<<<<<<< HEAD
       rollup-plugin-external-globals:
         specifier: ^0.12.0
         version: 0.12.0(rollup@4.21.2)
@@ -146,16 +163,28 @@ importers:
         version: 7.0.1(postcss@8.4.39)
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
       sass:
         specifier: ^1.94.2
         version: 1.94.2
       vite:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
         specifier: ^6.4.1
         version: 6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1)
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
         specifier: ~5.4.19
         version: 5.4.19(@types/node@22.16.0)(sass@1.89.2)
@@ -196,12 +225,23 @@ importers:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+        specifier: ~5.3.5
+        version: 5.3.5(@types/node@20.16.5)(sass@1.78.0)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       vite-plugin-full-reload:
         specifier: ^1.2.0
         version: 1.2.0
       vue:
+<<<<<<< HEAD
 <<<<<<< HEAD
         specifier: ^2.7.16
         version: 2.7.16
@@ -210,11 +250,19 @@ importers:
 =======
         specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.3)
+=======
+        specifier: ^3.5.4
+        version: 3.5.4(typescript@5.5.4)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     devDependencies:
       '@antfu/eslint-config':
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
         specifier: ^6.2.0
         version: 6.2.0(@vue/compiler-sfc@3.5.25)(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.14(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))
       '@types/node':
@@ -225,6 +273,8 @@ importers:
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
         specifier: ^4.16.2
         version: 4.16.2(@vue/compiler-sfc@2.7.16)(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(sass@1.89.2))
@@ -235,29 +285,17 @@ importers:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
         specifier: ^3.5.1
-        version: 3.5.1(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4))(@vue/compiler-sfc@2.7.16)(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.5)(sass@1.78.0))
-=======
-<<<<<<< HEAD
-        specifier: ^2.22.0
-        version: 2.22.0(@vue/compiler-sfc@2.7.16)(eslint@9.6.0)(typescript@5.5.3)(vitest@2.0.1(@types/node@20.14.10)(sass@1.77.7))
-=======
-        specifier: ^2.15.0
-        version: 2.15.0(@vue/compiler-sfc@3.4.23)(eslint@8.57.0)(typescript@5.4.5)(vitest@1.5.0)
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
-        specifier: ^2.22.0
-        version: 2.22.0(@vue/compiler-sfc@3.4.31)(eslint@9.6.0)(typescript@5.5.3)(vitest@2.0.2(@types/node@20.14.10)(sass@1.77.7))
->>>>>>> bfdd577 (chore: upgrade dependencies)
+        version: 3.5.1(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4))(@vue/compiler-sfc@3.5.4)(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.5)(sass@1.78.0))
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
       '@types/node':
-<<<<<<< HEAD
-<<<<<<< HEAD
         specifier: ^20.16.5
         version: 20.16.5
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
         specifier: ^20.14.10
@@ -275,6 +313,8 @@ importers:
         version: 20.14.10
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
       '@types/prompts':
         specifier: ^2.4.9
         version: 2.4.9
@@ -303,6 +343,7 @@ importers:
       nypm:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         specifier: ^0.6.0
         version: 0.6.0
 =======
@@ -319,8 +360,18 @@ importers:
         version: 0.3.9
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+        specifier: ^0.3.11
+        version: 0.3.11
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -331,11 +382,14 @@ importers:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         specifier: ^4.0.14
         version: 4.0.14(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1)
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(sass@1.89.2)
@@ -376,8 +430,18 @@ importers:
         version: 2.0.2(@types/node@20.14.10)(sass@1.77.7)
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+        specifier: ^2.0.5
+        version: 2.0.5(@types/node@20.16.5)(sass@1.78.0)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   docs:
     devDependencies:
@@ -391,11 +455,14 @@ importers:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         specifier: ^66.5.9
         version: 66.5.9(postcss@8.5.6)(vite@6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
         specifier: ^65.5.0
         version: 65.5.0(postcss@8.5.6)(vite@5.4.19(@types/node@22.16.0)(sass@1.89.2))(vue@3.5.17(typescript@5.8.3))
@@ -416,11 +483,23 @@ importers:
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
       vitepress:
+<<<<<<< HEAD
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.45.0)(@types/node@24.10.1)(change-case@5.4.4)(jiti@2.6.1)(postcss@8.5.6)(sass@1.94.2)(search-insights@2.17.3)(typescript@5.9.3)(yaml@2.8.1)
       vue:
         specifier: ^3.5.25
         version: 3.5.25(typescript@5.9.3)
+=======
+        specifier: ^1.6.3
+        version: 1.6.3(@algolia/client-search@5.30.0)(@types/node@22.16.0)(postcss@8.5.6)(sass@1.89.2)(search-insights@2.17.3)(typescript@5.8.3)
+=======
+        specifier: ^0.62.3
+        version: 0.62.3(postcss@8.4.45)(rollup@4.21.2)(vite@5.4.3(@types/node@20.16.5)(sass@1.78.0))
+      vitepress:
+        specifier: ^1.3.4
+        version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@20.16.5)(postcss@8.4.45)(sass@1.78.0)(search-insights@2.17.2)(typescript@5.6.2)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
 packages:
 
@@ -535,6 +614,7 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@antfu/eslint-config@4.16.2':
     resolution: {integrity: sha512-5KHZR+7ne+HZnOJUKeTTdHKYA/yOygPssaJ7TZOMoBqjSMtVAa7FO5Wvu2dEtkibM6v3emYyKnQnia1S8NHQeA==}
 =======
@@ -551,8 +631,18 @@ packages:
     resolution: {integrity: sha512-5bkd3R9UZMd/XI88fQk1ZsDDm/vDzYeBl+I4zfGw7bjDBNxQq2OhLDgdUB9d1r3J5R+grnozF1blXtfT5qYXfw==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  '@antfu/eslint-config@3.5.1':
+    resolution: {integrity: sha512-zSQs+1B1/rw/gdM1959e/tmNORibN1nLYdysV3qnH7qOD4c5spi1C9ogJbwXJ49dFD56GZw+Eue8FJ2HQx0hKA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     hasBin: true
     peerDependencies:
       '@eslint-react/eslint-plugin': ^2.0.1
@@ -618,6 +708,11 @@ packages:
       svelte-eslint-parser:
         optional: true
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   '@antfu/install-pkg@1.1.0':
     resolution: {integrity: sha512-MGQsmw10ZyI+EJo45CdSER4zEb+p31LpDAFp2Z3gkSd1yqVZGi0Ebx++YTEMonJy4oChEMLsxZ64j8FH6sSqtQ==}
 <<<<<<< HEAD
@@ -650,6 +745,10 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+  '@antfu/install-pkg@0.4.1':
+    resolution: {integrity: sha512-T7yB5QNG29afhWVkVq7XeIMBa5U/vs9mX69YqayXypPRmYzUmzwnYltplHmPtZ4HPCn+sQKeXW8I47wCbuBOjw==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
 <<<<<<< HEAD
 =======
@@ -678,11 +777,18 @@ packages:
     resolution: {integrity: sha512-6uFXyCayocRbqhZOB+6XcuZbkMNimwfVGFji8CTZnCzOHVGvDqzvitu1re2AU5LROliz7eQPhB8CpAMvnx9EjA==}
     engines: {node: '>=6.9.0'}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   '@babel/core@7.28.5':
     resolution: {integrity: sha512-e7jT4DxYvIDLk1ZHmU/m/mB19rex9sv0c2ftBtjSBv+kVM/902eh0fINUzD7UwLLNR+jU585GxUJ8/EBfAM5fw==}
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@babel/core@7.28.0':
     resolution: {integrity: sha512-UlLAnTPrFdNGoFtbSXwcGFQBtQZJCNjaN6hQNP3UPvuNXT1i82N26KL3dZeIpNalWywr9IuQuncaAfUaS1g6sQ==}
@@ -741,8 +847,18 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  '@babel/core@7.25.2':
+    resolution: {integrity: sha512-BBt3opiCOxUr9euZ5/ro/Xv8/V7yJ5bjYMqG/C1YAo8MIKAnumZalCN+msbci3Pigy4lIQfPUpfMM27HMGaYEA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=6.9.0'}
 
   '@babel/generator@7.28.5':
@@ -768,11 +884,14 @@ packages:
     engines: {node: '>=6.9.0'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@babel/helper-member-expression-to-functions@7.28.5':
     resolution: {integrity: sha512-cwM7SBRZcPCLgl8a7cY0soT1SptSzAlMH39vwiRpOQkJlh53r5hdHwLSCZpQdVLT39sZt+CRpNwYG4Y2v77atg==}
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@babel/helper-member-expression-to-functions@7.27.1':
     resolution: {integrity: sha512-E5chM8eWjTp/aNoVpcbfM7mLxu9XGLWYise2eBKGQomAk/Mb4XoxyqXTZbuTohbsl8EKqdlMhnDI2CCLfcs9wA==}
@@ -781,6 +900,8 @@ packages:
     resolution: {integrity: sha512-0pYVBnDKZO2fnSPCrgM/6WMc7eS20Fbok+0r88fp+YtWVLZrp4CkafFGIp+W0VKw4a22sgebPT99y+FDNMdP4w==}
     engines: {node: '>=6.9.0'}
 
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@babel/helper-module-imports@7.24.7':
     resolution: {integrity: sha512-8AyH3C+74cgCVVXow/myrynrAGv+nTVg5vKu2nZph9x7RcRwzmh0VFallJuFTZ9mx6u4eSdXZfcOzSqTUm0HCA==}
 >>>>>>> c538cbe (chore: upgrade dependencies)
@@ -808,6 +929,7 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@babel/helper-plugin-utils@7.27.1':
     resolution: {integrity: sha512-1gn1Up5YXka3YYAHGKpbideQ5Yjf1tDa9qYcgysz+cNCXukyLl6DjPXhD3VRwSb8c0J9tA4b2+rHEZtc6R0tlw==}
 =======
@@ -824,7 +946,14 @@ packages:
     resolution: {integrity: sha512-Rq76wjt7yz9AAc1KnlRKNAi/dMSVWgDRx43FHoJEbcYU6xOWaE2dVPwcdTukJrjxS65GITyfbvEYHvkirZ6uEg==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+  '@babel/helper-plugin-utils@7.24.8':
+    resolution: {integrity: sha512-FFWx5142D8h2Mgr/iPVGH5G7w6jDn4jUSpZTyDnQO0Yn7Ks2Kuz6Pci8H6MPCoUJegd/UZQ3tAvfLCxQSnWWwg==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-replace-supers@7.27.1':
@@ -884,11 +1013,18 @@ packages:
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
     engines: {node: '>=6.9.0'}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   '@babel/helper-validator-identifier@7.28.5':
     resolution: {integrity: sha512-qSs4ifwzKJSV39ucNjsvc6WVHs6b7S03sOh2OcHF9UHfVPqWWALUsNUVzhSBiItjRZoLHx7nIarVjqKVusUZ1Q==}
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@babel/helper-validator-identifier@7.27.1':
     resolution: {integrity: sha512-D2hP9eA+Sqx1kBZgzxZh0y1trbuU+JoDkiEwqhQ36nodYqJwyEIhPSdMNd7lOm/4io72luTPWH20Yda0xOuUow==}
@@ -905,8 +1041,18 @@ packages:
     resolution: {integrity: sha512-7MbVt6xrwFQbunH2DNQsAP5sTGxfqQtErvBIvIMi6EQnbgUOuVYanvREcmFrOPhoXBrTtjhhP+lW+o5UfK+tDg==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  '@babel/helper-string-parser@7.24.8':
+    resolution: {integrity: sha512-pO9KhhRcuUyGnJWwyEgnRJTSIZHiT+vMD0kPeD+so0l7mxkMT19g3pjY9GTnHySck/hDzq+dtW/4VgnMkippsQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-option@7.27.1':
@@ -939,9 +1085,9 @@ packages:
     resolution: {integrity: sha512-EStJpq4OuY8xYfhGVXngigBJRWxftKX9ksiGDnmlY3o7B/V7KIAc9X4oiK87uPJSc/vs5L869bem5fhZa8caZw==}
     engines: {node: '>=6.9.0'}
 
-<<<<<<< HEAD
   '@babel/parser@7.25.6':
     resolution: {integrity: sha512-trGdfBdbD0l1ZPmcJ83eNxB9rbEax4ALFTF7fN386TMYbeCQbyme5cOEXQhbGXKebwGaB/J52w1mrklMcbgy6Q==}
+<<<<<<< HEAD
 =======
   '@babel/parser@7.24.7':
     resolution: {integrity: sha512-9uUYRm6OqQrCqQdG1iCBwBPZgN8ciDBro2nIOFaiRz1/BCxaI7CNvQbDHvsArAC7Tw9Hda/B3U+6ui9u4HWXPw==}
@@ -982,6 +1128,8 @@ packages:
 =======
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1021,9 +1169,9 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-<<<<<<< HEAD
   '@babel/standalone@7.25.6':
     resolution: {integrity: sha512-Kf2ZcZVqsKbtYhlA7sP0z5A3q5hmCVYMKMWRWNK/5OVwHIve3JY1djVRmIVAx8FMueLIfZGKQDIILK2w8zO4mg==}
+<<<<<<< HEAD
 =======
   '@babel/standalone@7.24.7':
     resolution: {integrity: sha512-QRIRMJ2KTeN+vt4l9OjYlxDVXEpcor1Z6V7OeYzeBOw6Q8ew9oMTHjzTx8s6ClsZO7wVf6JgTRutihatN6K0yA==}
@@ -1095,7 +1243,12 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=6.9.0'}
 
   '@babel/traverse@7.27.7':
@@ -1134,6 +1287,11 @@ packages:
   '@docsearch/css@3.8.2':
     resolution: {integrity: sha512-y05ayQFyUmCXze79+56v/4HpycYF3uFqB78pLPrSV5ZKAlDuIAAJNhaRi8tTdRNXh05yxX/TyNnzD6LwSM89vQ==}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   '@docsearch/js@3.8.2':
     resolution: {integrity: sha512-Q5wY66qHn0SwA7Taa0aDbHiJvaFJLOJyHmooQ7y8hlwwQLQ/5WwCcoX0g7ii04Qi2DJlHsd0XXzJ8Ypw9+9YmQ==}
 
@@ -1143,6 +1301,8 @@ packages:
 =======
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@docsearch/css@3.6.1':
     resolution: {integrity: sha512-VtVb5DS+0hRIprU2CO6ZQjK2Zg4QU5HrDM1+ix6rT0umsYvFvatMAnf97NHZlVWDaaLlx7GRfR/7FikANiM2Fg==}
 
@@ -1151,6 +1311,7 @@ packages:
 
   '@docsearch/react@3.6.1':
     resolution: {integrity: sha512-qXZkEPvybVhSXj0K7U3bXc233tk5e8PfhoZ6MhPOiik/qUQxYC+Dn9DnoS7CxHQQhHfCvTiN0eY9M12oRghEXw==}
+<<<<<<< HEAD
 =======
   '@docsearch/css@3.6.0':
     resolution: {integrity: sha512-+sbxb71sWre+PwDK7X2T8+bhS6clcVMLwBPznX45Qu6opJcgRjAp7gYSDzVFp187J+feSj5dNBN1mJoi6ckkUQ==}
@@ -1162,7 +1323,12 @@ packages:
     resolution: {integrity: sha512-HUFut4ztcVNmqy9gp/wxNbC7pTOHhgVVkHVGCACTuLhUKUhKAF9KYHJtMiLUJxEqiFLQiuri1fWF8zqwM/cu1w==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
       react: '>= 16.8.0 < 19.0.0'
@@ -1179,6 +1345,7 @@ packages:
         optional: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@emnapi/core@1.7.1':
     resolution: {integrity: sha512-o1uhUASyo921r2XtHYOHy7gdkGLge8ghBEQHMWmyJFoXlpU58kIrhhN3w26lpQb6dspetweapMn2CSNwQ8I4wg==}
 
@@ -1191,6 +1358,9 @@ packages:
 =======
 <<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   '@es-joy/jsdoccomment@0.50.2':
     resolution: {integrity: sha512-YAdE/IJSpwbOTiaURNCKECdAwqrJuFiZhylmesBcIRawtYKnBR2wxPhoIewMg+Yu+QuYvHfJNReWpoxGBKOChA==}
     engines: {node: '>=18'}
@@ -1200,16 +1370,10 @@ packages:
     engines: {node: '>=20.11.0'}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@es-joy/jsdoccomment@0.48.0':
     resolution: {integrity: sha512-G6QUWIcC+KvSwXNsJyDTHvqUdNoAVJPPgkc3+Uk4WBKqZvoXhlvazOgm9aL0HwihJLQf0l+tOE2UFzXBqCqgDw==}
-=======
-  '@es-joy/jsdoccomment@0.43.1':
-    resolution: {integrity: sha512-I238eDtOolvCuvtxrnqtlBaw0BwdQuYqK7eA6XIonicMdOOOb75mqdIzkGDUbS04+1Di007rgm9snFRNeVrOog==}
-    engines: {node: '>=16'}
-
-  '@es-joy/jsdoccomment@0.46.0':
-    resolution: {integrity: sha512-C3Axuq1xd/9VqFZpW4YAzOx5O9q/LP46uIQy/iNDpHG3fmPa6TBtvfglMCs3RBiBxAIi0Go97r8+jvTt55XMyQ==}
->>>>>>> bfdd577 (chore: upgrade dependencies)
     engines: {node: '>=16'}
 >>>>>>> c538cbe (chore: upgrade dependencies)
 
@@ -1722,11 +1886,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@eslint/compat@1.4.1':
     resolution: {integrity: sha512-cfO82V9zxxGBxcQDr1lfaYB7wykTa0b00mGa36FrJl7iTFd0Z2cHfEYuxcBRP/iNijCsWsEkA+jzT8hGYmv33w==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@eslint/compat@1.3.1':
     resolution: {integrity: sha512-k8MHony59I5EPic6EQTCNOuPoVBnoYXkP+20xvwFjN7t0qI3ImyvyBgg+hIVPwC8JaxVjjUZld+cLfBLFDLucg==}
@@ -1734,19 +1901,14 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@eslint/compat@1.1.1':
     resolution: {integrity: sha512-lpHyRyplhGPL5mGEh6M9O5nnKk0Gz4bFI+Zu6tKlPpDUN7XshWvH9C/px4UVm87IAANE0W81CEsNGbS1KlzXpA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/config-array@0.18.0':
     resolution: {integrity: sha512-fTxvnS1sRMu3+JjXwJG0j/i4RT9u4qJ+lqS/yCGap4lH4zZGzQ7tu+xZqQmcMZq5OBZDL4QRxQzRjkWcGt8IVw==}
-=======
-<<<<<<< HEAD
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-  '@eslint/config-array@0.17.0':
-    resolution: {integrity: sha512-A68TBu6/1mHHuc5YJL0U0VVeGNiklLAL6rRmhTCP2B5XjWLMnrX+HkO+IAXyHvks5cyyY1jjK5ITPQ1HGS2EVA==}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/eslintrc@3.1.0':
@@ -1853,11 +2015,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@iconify/utils@3.1.0':
     resolution: {integrity: sha512-Zlzem1ZXhI1iHeeERabLNzBHdOa4VhQbqAcOQaMKuTuyZCpwKbC2R4Dd0Zo3g9EAc+Y4fiarO8HIHRAth7+skw==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@iconify/utils@2.3.0':
     resolution: {integrity: sha512-GmQ78prtwYW6EtzXRU1rY+KwOKfz32PD7iJh6Iyqw68GiKuoZ2A6pRtzWONz5VQJbp50mEjXh/7NkumtrAgRKA==}
@@ -1898,8 +2063,18 @@ packages:
     resolution: {integrity: sha512-Y+iGko8uv/Fz5bQLLJyNSZGOdMW0G7cnlEX1CiNcKsRXX9cq/y/vwxrIAtLCZhKHr3m0VJmsjVPsvnM4uX8YLg==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  '@iconify/utils@2.1.32':
+    resolution: {integrity: sha512-LeifFZPPKu28O3AEDpYJNdEbvS4/ojAPyIW+pF/vUpJTYnbTiXUHkCh0bwgFRzKvdpb8H4Fbfd/742++MF4fPQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -2113,6 +2288,7 @@ packages:
         optional: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@rollup/pluginutils@5.2.0':
     resolution: {integrity: sha512-qWJ2ZTbmumwiLFomfzTyt5Kng4hwPi9rwCYN4SHb6eaRU1KNO4ccxINHr/VhH4GgPlt1XfSTLX2LBTme8ne4Zw==}
 =======
@@ -2131,6 +2307,8 @@ packages:
     resolution: {integrity: sha512-JAcBr1+fgqx20m7Fwe1DxPUl/hPkee6jA6Pl7n1v2EFiktAHenTaXl5aIFjUIEsfn9w3HE4gK1lEgNGMzBDs1w==}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@rollup/rollup-android-arm-eabi@4.21.2':
     resolution: {integrity: sha512-fSuPrt0ZO8uXeS+xP3b+yYTCBUd05MoSp2N/MFOgjhhUhMmchXlpTQrTpI8T+YAwAQuK7MafsCOxW7VrPMrJcg==}
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
@@ -2353,6 +2531,7 @@ packages:
 =======
   '@shikijs/transformers@1.16.3':
     resolution: {integrity: sha512-bu4IcpUWmch4NvIWQgyMk2r9sH1XNZjUFgu56d3TPD1wLmBB/krctzVYgmurQ45X4dBEpNZdNvdG3v5B27taSw==}
+<<<<<<< HEAD
 =======
   '@rollup/rollup-android-arm-eabi@4.18.1':
     resolution: {integrity: sha512-lncuC4aHicncmbORnx+dUaAgzee9cm/PbIqgWz1PpXuwc+sa1Ct83tnqUDy/GFKleLiN7ZIeytM6KJ4cAn1SxA==}
@@ -2453,7 +2632,12 @@ packages:
 >>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
 <<<<<<< HEAD
   '@shikijs/engine-oniguruma@2.5.0':
@@ -2461,6 +2645,7 @@ packages:
 =======
   '@shikijs/vscode-textmate@9.2.2':
     resolution: {integrity: sha512-TMp15K+GGYrWlZM8+Lnj9EaHEFmOen0WJBrfa17hF7taDOYthuPPV0GWzfd/9iMij0akS/8Yw2ikquH7uVi/fg==}
+<<<<<<< HEAD
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
@@ -2536,6 +2721,11 @@ packages:
   '@stylistic/eslint-plugin@2.6.0-beta.0':
     resolution: {integrity: sha512-1NJy1iIDSFC4gelDJ82VMTq9J32tNvQ9k1lnxOsipZ0YQB826U5zGLiH37QAM8dRfNY6yeYhjlrUVtZUxFR19w==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+
+  '@stylistic/eslint-plugin@2.8.0':
+    resolution: {integrity: sha512-Ufvk7hP+bf+pD35R/QfunF793XlSRIC7USr3/EdgduK9j13i2JjmsM0LUz3/foS+jDYp2fzyWZA9N44CPur0Ow==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -2544,6 +2734,7 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   '@types/chai@5.2.2':
@@ -2556,8 +2747,11 @@ packages:
 =======
 <<<<<<< HEAD
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
   '@types/eslint@8.56.10':
@@ -2576,6 +2770,8 @@ packages:
     resolution: {integrity: sha512-Shavhk87gCtY2fhXDctcfS3e6FdxWkCx1iUZ9eEUbh7rTqlZT0/IzOkCOVt0fCjcFuZ9FPYfuezTBImfHCDBGQ==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
@@ -2626,6 +2822,7 @@ packages:
     resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
 =======
@@ -2651,6 +2848,10 @@ packages:
     resolution: {integrity: sha512-4NpsnpYl2Gt1ljyBGrKMxFYAYvpqbnnkgP/i/g+NLpjEUa3obn1XJCur9YbEXKDAkaXqsR1LbDnGEJ0MmKFxfg==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+  '@types/markdown-it@14.1.2':
+    resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -2662,7 +2863,10 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
@@ -2677,26 +2881,13 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
   '@types/node@20.16.5':
     resolution: {integrity: sha512-VwYCweNo3ERajwy0IUlqqcyZ8/A7Zwa9ZP3MnENWcB11AejO+tLy3pu850goUW2FC/IJMdZUfKpX/yxL1gymCA==}
-=======
-<<<<<<< HEAD
-  '@types/node@20.14.10':
-    resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
-=======
-  /@types/node@20.12.7:
-    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
-    dependencies:
-      undici-types: 5.26.5
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
-  '@types/node@20.14.10':
-    resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
->>>>>>> bfdd577 (chore: upgrade dependencies)
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -2722,11 +2913,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@typescript-eslint/eslint-plugin@8.48.0':
     resolution: {integrity: sha512-XxXP5tL1txl13YFtrECECQYeZjBZad4fyd3cFV4a19LkAY/bIp9fev3US4S5fDVV2JaYFiKAZ/GRTOLer+mbyQ==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@typescript-eslint/eslint-plugin@8.35.1':
     resolution: {integrity: sha512-9XNTlo7P7RJxbVeICaIIIEipqxLKguyh+3UbXuT2XQuFp6d8VOeDEGuz5IiX0dgZo8CiI6aOFLg4e8cF71SFVg==}
@@ -2744,8 +2938,18 @@ packages:
     resolution: {integrity: sha512-yku4NjpP0UujYq8d1GWXYELpKYwuoESSgvXPd9uAiO24OszGxQhPsGWTe4fmZV05J47qILfaGANO9SCa9fEU0w==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  '@typescript-eslint/eslint-plugin@8.5.0':
+    resolution: {integrity: sha512-lHS5hvz33iUFQKuPFGheAB84LwcJ60G8vKnEhnfcK1l8kGVLro2SFYW6K0/tj8FUhRJ0VHyg1oAfg50QGbPPHw==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       '@typescript-eslint/parser': ^8.48.0
@@ -2806,8 +3010,22 @@ packages:
     resolution: {integrity: sha512-cQMcGQQH7kwKoVswD1xdOytxQR60MWKM1di26xSUtxehaDs/32Zpqsu5WJlXTtTTqyAVK8R7hvsUnIXRS+bjvA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+<<<<<<< HEAD
   '@typescript-eslint/typescript-estree@8.48.0':
     resolution: {integrity: sha512-ljHab1CSO4rGrQIAyizUS6UGHHCiAYhbfcIZ1zVJr5nMryxlXMVWS3duFPSKvSUbFPwkXMFk1k0EMIjub4sRRQ==}
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  '@typescript-eslint/typescript-estree@8.48.0':
+    resolution: {integrity: sha512-ljHab1CSO4rGrQIAyizUS6UGHHCiAYhbfcIZ1zVJr5nMryxlXMVWS3duFPSKvSUbFPwkXMFk1k0EMIjub4sRRQ==}
+=======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+<<<<<<< HEAD
+  '@typescript-eslint/typescript-estree@8.35.1':
+    resolution: {integrity: sha512-Vvpuvj4tBxIka7cPs6Y1uvM7gJgdF5Uu9F+mBJBPY4MhvjrjWGK4H0lVgLJd/8PWZ23FTqsaJaLEkBCFUk8Y9g==}
+>>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 <<<<<<< HEAD
 =======
@@ -3022,7 +3240,14 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+  '@unocss/astro@0.62.3':
+    resolution: {integrity: sha512-C6ZdyLbLDS0LebwmgwVItLNAOSkL/tvVWNRd1i3Jy5uj1vPxlrw+3lIYiHjEofn0GFpBiwlv5+OCvO1Xpq5MqA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependencies:
       typescript: '>=4.8.4 <6.0.0'
 
@@ -3127,10 +3352,15 @@ packages:
       vite: ^6.4.1
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vitejs/plugin-vue-jsx@3.1.0':
 =======
   '@vitejs/plugin-vue-jsx@4.0.0':
     resolution: {integrity: sha512-A+6wL2AdQhDsLsDnY+2v4rRDI1HLJGIMc97a8FURO9tqKsH5QvjWrzsa5DH3NlZsM742W2wODl2fF+bfcTWtXw==}
+=======
+  '@vitejs/plugin-vue-jsx@4.0.1':
+    resolution: {integrity: sha512-7mg9HFGnFHMEwCdB6AY83cVK4A6sCqnrjFYF4WIlebYAQVVJ/sC/CiTruVdrRlhrFoeZ8rlMxY9wYpPTIRhhAg==}
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
 <<<<<<< HEAD
@@ -3148,6 +3378,7 @@ packages:
       vue: ^3.0.0
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   '@vitejs/plugin-vue@5.2.4':
     resolution: {integrity: sha512-7Yx/SXSOcQq5HiiV3orevHUFn+pmMB4cgbEkDYgnkUWb0WfeQ/wa2yFv6D5ICiCQOVpjA7vYDXrC7AGO8yjDHA==}
@@ -3389,22 +3620,34 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+  '@vitejs/plugin-vue@5.1.3':
+    resolution: {integrity: sha512-3xbWsKEKXYlmX82aOHufFQVnkbMC/v8fLpWwh6hWOUrK5fbbtBh9Q/WWse27BFgSy2/e2c0fz5Scgya9h2GLhw==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^6.4.1
       vue: ^3.2.25
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vitest/eslint-plugin@1.5.0':
     resolution: {integrity: sha512-j3uuIAPTYWYnSit9lspb08/EKsxEmGqjQf+Wpb1DQkxc+mMkhL58ZknDCgjYhY4Zu76oxZ0hVWTHlmRW0mJq5w==}
     engines: {node: '>=18'}
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@vitest/eslint-plugin@1.3.4':
     resolution: {integrity: sha512-EOg8d0jn3BAiKnR55WkFxmxfWA3nmzrbIIuOXyTe6A72duryNgyU+bdBEauA97Aab3ho9kLmAwgPX63Ckj4QEg==}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@vitest/eslint-plugin@1.1.0':
     resolution: {integrity: sha512-Ur80Y27Wbw8gFHJ3cv6vypcjXmrx6QHfw+q435h6Q2L+tf+h4Xf5pJTCL4YU/Jps9EVeggQxS85OcUZU7sdXRw==}
 >>>>>>> c538cbe (chore: upgrade dependencies)
@@ -3472,32 +3715,19 @@ packages:
 =======
   '@vitest/utils@2.0.5':
     resolution: {integrity: sha512-d8HKbqIcya+GR67mkZbrzhS5kKhtp8dQLcmRZLGTscGVg7yImT82cIrhtn2L8+VujWcy6KZweApgNmPsTAO/UQ==}
+<<<<<<< HEAD
 >>>>>>> c538cbe (chore: upgrade dependencies)
 =======
   '@vitest/expect@2.0.2':
     resolution: {integrity: sha512-nKAvxBYqcDugYZ4nJvnm5OR8eDJdgWjk4XM9owQKUjzW70q0icGV2HVnQOyYsp906xJaBDUXw0+9EHw2T8e0mQ==}
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
-  '@vitest/pretty-format@2.0.2':
-    resolution: {integrity: sha512-SBCyOXfGVvddRd9r2PwoVR0fonQjh9BMIcBMlSzbcNwFfGr6ZhOhvBzurjvi2F4ryut2HcqiFhNeDVGwru8tLg==}
+  '@vue/babel-helper-vue-transform-on@1.2.4':
+    resolution: {integrity: sha512-3L9zXWRN2jvmLjtSyw9vtcO5KTSCfKhCD5rEZM+024bc+4dKSzTjIABl/5b+uZ5nXe5y31uUMxxLo1PdXkYaig==}
 
-  '@vitest/runner@2.0.2':
-    resolution: {integrity: sha512-OCh437Vi8Wdbif1e0OvQcbfM3sW4s2lpmOjAE7qfLrpzJX2M7J1IQlNvEcb/fu6kaIB9n9n35wS0G2Q3en5kHg==}
-
-  '@vitest/snapshot@2.0.2':
-    resolution: {integrity: sha512-Yc2ewhhZhx+0f9cSUdfzPRcsM6PhIb+S43wxE7OG0kTxqgqzo8tHkXFuFlndXeDMp09G3sY/X5OAo/RfYydf1g==}
-
-  '@vitest/spy@2.0.2':
-    resolution: {integrity: sha512-MgwJ4AZtCgqyp2d7WcQVE8aNG5vQ9zu9qMPYQHjsld/QVsrvg78beNrXdO4HYkP0lDahCO3P4F27aagIag+SGQ==}
->>>>>>> bfdd577 (chore: upgrade dependencies)
-
-  '@vitest/utils@2.0.2':
-    resolution: {integrity: sha512-pxCY1v7kmOCWYWjzc0zfjGTA3Wmn8PKnlPvSrsA643P1NHl1fOyXj2Q9SaNlrlFE+ivCsxM80Ov3AR82RmHCWQ==}
-
-  '@vue/babel-helper-vue-transform-on@1.2.2':
-    resolution: {integrity: sha512-nOttamHUR3YzdEqdM/XXDyCSdxMA9VizUKoroLX6yTyRtggzQMHXcmwh8a7ZErcJttIBIc9s68a1B8GZ+Dmvsw==}
-
-  '@vue/babel-plugin-jsx@1.2.2':
-    resolution: {integrity: sha512-nYTkZUVTu4nhP199UoORePsql0l+wj7v/oyQjtThUVhJl1U+6qHuoVhIvR3bf7eVKjbCK+Cs2AWd7mi9Mpz9rA==}
+  '@vue/babel-plugin-jsx@1.2.4':
+    resolution: {integrity: sha512-jwAVtHUaDfOGGT1EmVKBi0anXOtPvsuKbImcdnHXluaJQ6GEJzshf1JMTtMRx2fPiG7BZjNmyMv+NdZY2OyZEA==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
@@ -3506,12 +3736,17 @@ packages:
         optional: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vue/babel-plugin-resolve-type@1.5.0':
     resolution: {integrity: sha512-Wm/60o+53JwJODm4Knz47dxJnLDJ9FnKnGZJbUUf8nQRAtt6P+undLUAVU3Ha33LxOJe6IPoifRQ6F/0RrU31w==}
 =======
   '@vue/babel-plugin-resolve-type@1.2.2':
     resolution: {integrity: sha512-EntyroPwNg5IPVdUJupqs0CFzuf6lUrVvCspmv2J1FITLeGnUCuoGNNk78dgCusxEiYj6RMkTJflGSxk5aIC4A==}
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+  '@vue/babel-plugin-resolve-type@1.2.4':
+    resolution: {integrity: sha512-jWcJAmfKvc/xT2XBC4JAmy2eezNjU3CLfeDecl2Ge3tSjJCTmKJWkEhHdzXyx9Nr6PbIcQrFKhCaEDobhSrPqw==}
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
@@ -3521,6 +3756,7 @@ packages:
   '@vue/compiler-dom@3.5.25':
     resolution: {integrity: sha512-4We0OAcMZsKgYoGlMjzYvaoErltdFI2/25wqanuTu+S4gismOTRTBPi4IASOjxWdzIwrYSjnqONfKvuqkXzE2Q==}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   '@vue/compiler-sfc@2.7.16':
     resolution: {integrity: sha512-KWhJ9k5nXuNtygPU7+t1rX6baZeqOYLEforUPjgNDBnLicfHCoi48H87Q8XyLZOrNNsmhuwKqtpDQWjEFe6Ekg==}
@@ -3540,7 +3776,14 @@ packages:
     resolution: {integrity: sha512-einJxqEw8IIJxzmnxmJBuK2usI+lJonl53foq+9etB2HAzlPjAS/wa7r0uUpXw5ByX3/0uswVSrjNb17vJm1kQ==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+  '@vue/compiler-sfc@3.5.4':
+    resolution: {integrity: sha512-P+yiPhL+NYH7m0ZgCq7AQR2q7OIE+mpAEgtkqEeH9oHSdIRvUO+4X6MPvblJIWcoe4YC5a2Gdf/RsoyP8FFiPQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
   '@vue/compiler-ssr@3.5.25':
     resolution: {integrity: sha512-ritPSKLBcParnsKYi+GNtbdbrIE1mtuFEJ4U1sWeuOMlIziK5GtOL85t5RhsNy4uWIXPgk+OUdpnXiTdzn8o3A==}
@@ -3589,6 +3832,7 @@ packages:
       qrcode: ^1.5
       sortablejs: ^1
       universal-cookie: ^7
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -3748,6 +3992,8 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependenciesMeta:
       async-validator:
         optional: true
@@ -3783,6 +4029,7 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vueuse/shared@12.8.2':
     resolution: {integrity: sha512-dznP38YzxZoNloI0qpEfpkms8knDtaoQ6Y/sfS0L7Yki4zh40LFHEhur0odJC6xTHG5dxWVPiUWBXn+wCG2s5w==}
 =======
@@ -3814,7 +4061,14 @@ packages:
     resolution: {integrity: sha512-fyNoIXEq3PfX1L3NkNhtVQUSRtqYwJtJg+Bp9rIzculIZWHTkKSysujrOk2J+NrRulLTQH9+3gGSfYLWSEWU1A==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+  '@vueuse/shared@11.0.3':
+    resolution: {integrity: sha512-0rY2m6HS5t27n/Vp5cTDsKTlNnimCqsbh/fmT2LgE+aaU42EMfXo8+bNX91W9I7DDmxfuACXMmrd7d79JxkqWA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3900,12 +4154,15 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   ast-kit@2.2.0:
     resolution: {integrity: sha512-m1Q/RaVOnTp9JxPX+F+Zn7IcLYMzM8kZofDImfsKZd8MbR+ikdOzTeztStWqfrqIxZnYWryyI9ePm3NGjnZgGw==}
     engines: {node: '>=20.19.0'}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   autoprefixer@10.4.21:
     resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
@@ -3923,6 +4180,10 @@ packages:
     resolution: {integrity: sha512-BaENR2+zBZ8xXhM4pUaKUxlVdxZ0EZhjvbopwnXmxRUfqDmwSpC2lAi/QXvx7NRdPCo1WKEcEF6mV64si1z4Ew==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+  autoprefixer@10.4.20:
+    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -4001,11 +4262,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   bumpp@10.3.2:
     resolution: {integrity: sha512-yUUkVx5zpTywLNX97MlrqtpanI7eMMwFwLntWR2EBVDw3/Pm3aRIzCoDEGHATLIiHK9PuJC7xWI4XNWqXItSPg==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   bumpp@10.2.0:
     resolution: {integrity: sha512-1EJ2NG3M3WYJj4m+GtcxNH6Y7zMQ8q68USMoUGKjM6qFTVXSXCnTxcQSUDV7j4KjLVbk2uK6345Z+6RKOv0w5A==}
@@ -4015,6 +4279,8 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   bumpp@9.5.2:
     resolution: {integrity: sha512-L0awRXkMY4MLasVy3dyfM+2aU2Q4tyCDU45O7hxiB2SHZF8jurw3nmyifrtFJ4cI/JZIvu5ChCtf0i8yLfnohQ==}
     engines: {node: '>=10'}
@@ -4036,18 +4302,6 @@ packages:
 
   c12@1.11.2:
     resolution: {integrity: sha512-oBs8a4uvSDO9dm8b7OCFW7+dgtVrwmwnrVXYzLm43ta7ep2jCn/0MhoUFygIWtxhyy6+/MG7/agvpY0U1Iemew==}
-=======
-<<<<<<< HEAD
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-  bumpp@9.4.1:
-    resolution: {integrity: sha512-kzhp/LpNX0HkUpEyLd7sU2LTN/mbAVgcxJ1Zi2cAJTE/tul6rypSKGpH8UywDpzKWItL8LVdKsIFnwmylw0+7g==}
-    engines: {node: '>=10'}
-    hasBin: true
-
-  c12@1.11.1:
-    resolution: {integrity: sha512-KDU0TvSvVdaYcQKQ6iPHATGz/7p/KiVjPg4vQrB6Jg/wX9R0yl5RZxWm9IoZqaIHD2+6PZd81+KMGwRr/lRIUg==}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     peerDependencies:
       magicast: ^0.3.4
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
@@ -4066,12 +4320,15 @@ packages:
     engines: {node: '>=6'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   caniuse-lite@1.0.30001757:
     resolution: {integrity: sha512-r0nnL/I28Zi/yjk1el6ilj27tKcdjLsNqAOZr0yVjWPrSQyHgKI2INaEWw21bAQSv2LXRt1XuCS/GomNpWOxsQ==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
 =======
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   camelcase@6.3.0:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
@@ -4080,14 +4337,19 @@ packages:
   caniuse-lite@1.0.30001757:
     resolution: {integrity: sha512-r0nnL/I28Zi/yjk1el6ilj27tKcdjLsNqAOZr0yVjWPrSQyHgKI2INaEWw21bAQSv2LXRt1XuCS/GomNpWOxsQ==}
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   caniuse-lite@1.0.30001726:
     resolution: {integrity: sha512-VQAUIUzBiZ/UnlM28fSp2CRF3ivUn1BWEvxMcVTNwpw91Py1pGbPIyIKtd+tzct9C3ouceCVdGAXxZOpZAsgdw==}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   caniuse-lite@1.0.30001660:
     resolution: {integrity: sha512-GacvNTTuATm26qC74pt+ad1fW15mlQ/zuTzzY1ZoIzECTP8HURDfF43kNxPgf7H1jmelCBQTTbBNxdSXOA7Bqg==}
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
@@ -4095,6 +4357,7 @@ packages:
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
+<<<<<<< HEAD
 =======
   caniuse-lite@1.0.30001641:
     resolution: {integrity: sha512-Phv5thgl67bHYo1TtMY/MurjkHhV4EDaCosezRXgZ8jzA/Ub+wjxAvbGvjoFENStinwi5kCyOYV3mi5tOGykwA==}
@@ -4114,6 +4377,8 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   chai@6.2.1:
     resolution: {integrity: sha512-p4Z49OGG5W/WBCPSS/dH3jQ73kD6tiMmUM+bckNK6Jr5JHMG3k9bg/BvKR8lKmtVBKmOiuVaV2ws8s9oSbwysg==}
@@ -4282,7 +4547,10 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
@@ -4293,6 +4561,8 @@ packages:
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   cssnano-preset-default@7.0.7:
     resolution: {integrity: sha512-jW6CG/7PNB6MufOrlovs1TvBTEVmhY45yz+bd0h6nw3h6d+1e+/TX+0fflZ+LzvZombbT5f+KC063w9VoHeHow==}
@@ -4310,6 +4580,10 @@ packages:
     resolution: {integrity: sha512-jQ6zY9GAomQX7/YNLibMEsRZguqMUGuupXcEk2zZ+p3GUxwCAsobqPYE62VrJ9qZ0l9ltrv2rgjwZPBIFIjYtw==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+  cssnano-preset-default@7.0.6:
+    resolution: {integrity: sha512-ZzrgYupYxEvdGGuqL+JKOY70s7+saoNlHSCK/OGn1vB2pQK8KSET8jvenzItcY+kA7NoWvfbb/YhlzuzNKjOhQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
     peerDependencies:
       postcss: ^8.4.32
@@ -4432,14 +4706,8 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
 
-<<<<<<< HEAD
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
-=======
-  dir-glob@3.0.1:
-    resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
-    engines: {node: '>=8'}
->>>>>>> bfdd577 (chore: upgrade dependencies)
 
   diff-sequences@27.5.1:
     resolution: {integrity: sha512-k1gCAXAsNgLwEL+Y8Wvl+M6oEFj5bgazfZULpS5CneoPPXRaCCW7dm+q21Ky2VEE5X+VeRDBVg1Pcvvsr4TtNQ==}
@@ -4497,14 +4765,16 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-<<<<<<< HEAD
   electron-to-chromium@1.5.19:
     resolution: {integrity: sha512-kpLJJi3zxTR1U828P+LIUDZ5ohixyo68/IcYOHLqnbTPr/wdgn4i1ECvmALN9E16JPA6cvCG5UG79gVwVdEK5w==}
+<<<<<<< HEAD
 =======
   electron-to-chromium@1.4.825:
     resolution: {integrity: sha512-OCcF+LwdgFGcsYPYC5keEEFC2XT0gBhrYbeGzHCx7i9qRFbzO/AqTmc/C/1xNhJj+JA7rzlN7mpBuStshh96Cg==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
   empathic@2.0.0:
     resolution: {integrity: sha512-i6UzDscO/XfAcNYD75CfICkmfLedpyPDdozrLMmQc5ORaQcdMoc21OnlEylMIqI7U8eniKrPMxxtj8k0vhmJhA==}
@@ -4569,14 +4839,18 @@ packages:
     engines: {node: '>=10'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   escape-string-regexp@5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -4585,6 +4859,8 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   eslint-compat-utils@0.5.1:
     resolution: {integrity: sha512-3z3vFexKIEnjHE3zCMRo6fn/e44U7T1khUjg+Hp0ZQMCigh28rALD0nPFBcGZuiLC5rLZa2ubQHDRln09JfU2Q==}
     engines: {node: '>=12'}
@@ -4632,7 +4908,10 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   eslint-plugin-antfu@3.1.1:
     resolution: {integrity: sha512-7Q+NhwLfHJFvopI2HBZbSxWXngTwBLKxW1AGXLr2lEGxcEIK/AsDs8pn8fvIizl5aZjBbVbVK5ujmMpBe4Tvdg==}
     peerDependencies:
@@ -4646,6 +4925,8 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   eslint-plugin-antfu@2.6.0:
     resolution: {integrity: sha512-4dz0VgWGpZ6jUSEUPSI6OGFqBc+P8c7zFFXht5t+YwzIvBsruqVX7Hjl3I8KNNEyJmA4fL3+GIc+EWU1woTp1A==}
     peerDependencies:
@@ -4653,6 +4934,7 @@ packages:
 
   eslint-plugin-command@0.2.4:
     resolution: {integrity: sha512-IbZnQY21pOanbcCh/bAWWl+1BynV2HuDE75URMmk/28Tdn+PM7CoKeibXtPGrL7KQdIEHMgUEnRwwI8qmggVMA==}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -4666,7 +4948,12 @@ packages:
     resolution: {integrity: sha512-1bBYNfjZg60N2ZpLV5ATYSYyueIJ+zl5yKrTs0UFDdnyu07dNSZ7Xplnc+Wb6SXTdc1sIaoIrnuyhvztcltX6A==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependencies:
       eslint: '*'
 
@@ -4692,11 +4979,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   eslint-plugin-jsdoc@61.4.1:
     resolution: {integrity: sha512-3c1QW/bV25sJ1MsIvsvW+EtLtN6yZMduw7LVQNVt72y2/5BbV5Pg5b//TE5T48LRUxoEQGaZJejCmcj3wCxBzw==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-plugin-jsdoc@51.3.3:
     resolution: {integrity: sha512-8XK/9wncTh4PPntQfM4iYJ2v/kvX4qsfBzp+dTnyxpERWhl2R9hEJw1ihws+yAecg9CC6ExTfMInEg3wSK9kWA==}
@@ -4717,50 +5007,10 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   eslint-plugin-jsdoc@50.2.2:
     resolution: {integrity: sha512-i0ZMWA199DG7sjxlzXn5AeYZxpRfMJjDPUl7lL9eJJX8TPRoIaxJU4ys/joP5faM5AXE1eqW/dslCj3uj4Nqpg==}
-=======
-<<<<<<< HEAD
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-  eslint-plugin-import-x@0.5.3:
-    resolution: {integrity: sha512-hJ/wkMcsLQXAZL3+txXIDpbW5cqwdm1rLTqV4VRY03aIbzE3zWE7rPZKW6Gzf7xyl1u3V1iYC6tOG77d9NF4GQ==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      eslint: ^8.56.0 || ^9.0.0-0
-
-<<<<<<< HEAD
-  eslint-plugin-jsdoc@48.6.0:
-    resolution: {integrity: sha512-UsOdFYWeyYaiGW1OzJaKvRpb88JPF0HGpDkmMDvhfWbTGu3B4TYKhGH3cPGiRjMDxKPA3fJ/+tL823argNxOkA==}
-=======
-  /eslint-plugin-import-x@0.5.0(eslint@8.57.0)(typescript@5.4.5):
-    resolution: {integrity: sha512-C7R8Z4IzxmsoOPMtSzwuOBW5FH6iRlxHR6iTks+MzVlrk3r3TUxokkWTx3ypdj9nGOEP+CG/5e6ebZzHbxgbbQ==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      eslint: ^8.56.0 || ^9.0.0-0
-    dependencies:
-      '@typescript-eslint/utils': 7.7.0(eslint@8.57.0)(typescript@5.4.5)
-      debug: 4.3.4
-      doctrine: 3.0.0
-      eslint: 8.57.0
-      eslint-import-resolver-node: 0.3.9
-      get-tsconfig: 4.7.3
-      is-glob: 4.0.3
-      minimatch: 9.0.4
-      semver: 7.6.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
-  /eslint-plugin-jsdoc@48.2.3(eslint@8.57.0):
-    resolution: {integrity: sha512-r9DMAmFs66VNvNqRLLjHejdnJtILrt3xGi+Qx0op0oRfFGVpOR1Hb3BC++MacseHx93d8SKYPhyrC9BS7Os2QA==}
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
-  eslint-plugin-jsdoc@48.7.0:
-    resolution: {integrity: sha512-5oiVf7Y+ZxGYQTlLq81X72n+S+hjvS/u0upAdbpPEeaIZILK3MKN8lm/6QqKioBjm/qZ0B5XpMQUtc2fUkqXAg==}
->>>>>>> bfdd577 (chore: upgrade dependencies)
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -4774,11 +5024,18 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   eslint-plugin-n@17.23.1:
     resolution: {integrity: sha512-68PealUpYoHOBh332JLLD9Sj7OQUDkFpmcfqt8R9sySfFSeuGJjMTJQvCRRB96zO3A/PELRLkPrzsHmzEFQQ5A==}
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-plugin-n@17.21.0:
     resolution: {integrity: sha512-1+iZ8We4ZlwVMtb/DcHG3y5/bZOdazIpa/4TySo22MLKdwrLcfrX0hbadnCvykSQCCmkAnWmIP8jZVb2AAq29A==}
@@ -4797,8 +5054,18 @@ packages:
     resolution: {integrity: sha512-CPSaXDXdrT4nsrOrO4mT4VB6FMUkoySRkHWuuJJHVqsIEjIeZgMY1H7AzSwPbDScikBmLN82KeM1u7ixV7PzGg==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  eslint-plugin-n@17.10.2:
+    resolution: {integrity: sha512-e+s4eAf5NtJaxPhTNu3qMO0Iz40WANS93w9LQgYcvuljgvDmWi/a3rh+OrNyMHeng6aOWGJO0rCg5lH4zi8yTw==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0'
@@ -4814,11 +5081,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   eslint-plugin-perfectionist@4.15.1:
     resolution: {integrity: sha512-MHF0cBoOG0XyBf7G0EAFCuJJu4I18wy0zAoT1OHfx2o6EOx1EFTIzr2HGeuZa1kDcusoX0xJ9V7oZmaeFd773Q==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-plugin-perfectionist@4.15.0:
     resolution: {integrity: sha512-pC7PgoXyDnEXe14xvRUhBII8A3zRgggKqJFx2a82fjrItDs1BSI7zdZnQtM2yQvcyod6/ujmzb7ejKPx8lZTnw==}
@@ -4826,11 +5096,14 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   eslint-plugin-perfectionist@3.5.0:
     resolution: {integrity: sha512-vwDNuxlAlbZJ3DjHo6GnfZrmMlJBLFrkOLBV/rYvVnLFD+x54u9VyJcGOfJ2DK9d1cd3a/C/vtBrbBNgAC6Mrg==}
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
     engines: {node: ^18.0.0 || >=20.0.0}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
   eslint-plugin-perfectionist@2.11.0:
@@ -4845,6 +5118,8 @@ packages:
     resolution: {integrity: sha512-XrtBtiu5rbQv88gl+1e2RQud9te9luYNvKIgM9emttQ2zutHPzY/AQUucwxscDKV4qlTkvLTxjOFvxqeDpPorw==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependencies:
       eslint: '>=8.45.0'
 <<<<<<< HEAD
@@ -4894,11 +5169,18 @@ packages:
     peerDependencies:
       eslint: '>=9.38.0'
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   eslint-plugin-unused-imports@4.3.0:
     resolution: {integrity: sha512-ZFBmXMGBYfHttdRtOG9nFFpmUvMtbHSjsKrS20vdWdbfiVYsO3yA2SGYy9i9XmZJDfMGBflZGBCm70SEnFQtOA==}
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-plugin-unused-imports@4.1.4:
     resolution: {integrity: sha512-YptD6IzQjDardkl0POxnnRBhU1OEePMV0nd6siHaRBbd+lyh6NAhFEobiznKU7kTsSsDeSD62Pe7kAM1b7dAZQ==}
@@ -4979,8 +5261,18 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  eslint-plugin-unused-imports@4.1.3:
+    resolution: {integrity: sha512-lqrNZIZjFMUr7P06eoKtQLwyVRibvG7N+LtfKtObYGizAAGrcqLkc3tDx+iAik2z7q0j/XI3ihjupIqxhFabFA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^8.0.0-0 || ^7.0.0 || ^6.0.0 || ^5.0.0
       eslint: ^9.0.0 || ^8.0.0
@@ -4988,32 +5280,31 @@ packages:
       '@typescript-eslint/eslint-plugin':
         optional: true
 
+<<<<<<< HEAD
   eslint-plugin-vue@10.6.2:
     resolution: {integrity: sha512-nA5yUs/B1KmKzvC42fyD0+l9Yd+LtEpVhWRbXuDj0e+ZURcTtyRbMDWUeJmTAh2wC6jC83raS63anNM2YT3NPw==}
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  eslint-plugin-vue@10.6.2:
+    resolution: {integrity: sha512-nA5yUs/B1KmKzvC42fyD0+l9Yd+LtEpVhWRbXuDj0e+ZURcTtyRbMDWUeJmTAh2wC6jC83raS63anNM2YT3NPw==}
+=======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+<<<<<<< HEAD
+  eslint-plugin-vue@10.3.0:
+    resolution: {integrity: sha512-A0u9snqjCfYaPnqqOaH6MBLVWDUIN4trXn8J3x67uDcXvR7X6Ut8p16N+nYhMCQ9Y7edg2BIRGzfyZsY0IdqoQ==}
+>>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 <<<<<<< HEAD
 =======
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   eslint-plugin-vue@9.28.0:
     resolution: {integrity: sha512-ShrihdjIhOTxs+MfWun6oJWuk+g/LAhN+CiuOl/jjkG3l0F2AuK5NMTaWqyvBgkFtpYmyks6P4603mLmhNJW8g==}
-=======
-  eslint-plugin-vitest@0.5.4:
-    resolution: {integrity: sha512-um+odCkccAHU53WdKAw39MY61+1x990uXjSPguUCq3VcEHdqJrOb8OTMrbYlY6f9jAKx7x98kLVlIe3RJeJqoQ==}
-    engines: {node: ^18.0.0 || >= 20.0.0}
-    peerDependencies:
-      '@typescript-eslint/eslint-plugin': '*'
-      eslint: ^8.57.0 || ^9.0.0
-      vitest: '*'
-    peerDependenciesMeta:
-      '@typescript-eslint/eslint-plugin':
-        optional: true
-      vitest:
-        optional: true
-
-  eslint-plugin-vue@9.27.0:
-    resolution: {integrity: sha512-5Dw3yxEyuBSXTzT5/Ge1X5kIkRTQ3nvBn/VwPwInNiZBSJOO/timWMUaflONnFBzU6NhB68lxnCda7ULV5N7LA==}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     engines: {node: ^14.17.0 || >=16.0.0}
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
@@ -5252,7 +5543,10 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   globals@15.15.0:
     resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
     engines: {node: '>=18'}
@@ -5286,8 +5580,18 @@ packages:
     resolution: {integrity: sha512-s3Fq41ZVh7vbbe2PN3nrW7yC7U7MFVc5c98/iTl9c2GawNMKx/J648KQRW6WKkuU8GIbbh2IXfIRQjOZnXcTnw==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  globals@15.9.0:
+    resolution: {integrity: sha512-SmSKyLLKFbSr6rptvP8izbyxJL4ILwqO9Jg23UA0sDlGlu58V59D1//I3vlc0KJphVdUR7vMjHIplYnzBxorQA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=18'}
 
   globrex@0.1.2:
@@ -5400,10 +5704,14 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 =======
 <<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
 =======
@@ -5422,6 +5730,8 @@ packages:
     engines: {node: '>=8'}
 
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   is-stream@3.0.0:
     resolution: {integrity: sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -5504,15 +5814,19 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -5520,6 +5834,8 @@ packages:
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
 
@@ -5545,6 +5861,7 @@ packages:
     engines: {node: '>=10'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -5566,6 +5883,8 @@ packages:
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   lodash.memoize@4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
 
@@ -5789,10 +6108,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   mkdist@1.5.9:
     resolution: {integrity: sha512-PdJimzhcgDxaHpk1SUabw56gT3BU15vBHUTHkeeus8Kl7jUkpgG7+z0PiS/y23XXgO8TiU/dKP3L1oG55qrP1g==}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
   mkdist@1.5.3:
@@ -5810,6 +6128,8 @@ packages:
     resolution: {integrity: sha512-XXvaXyS3k/fCExY2/c9z0fmJ9kWq/UZeZZGQ0R693M004lowXNJKIENdH5Cf5Uu3LtSB9vhGu/1YM7IGjWbfxA==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     hasBin: true
     peerDependencies:
       sass: ^1.85.0
@@ -6077,7 +6397,11 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   pkg-types@1.3.1:
     resolution: {integrity: sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==}
 
@@ -6118,8 +6442,18 @@ packages:
     resolution: {integrity: sha512-+JrgthZG6m3ckicaOB74TwQ+tBWsFl3qVQg7mN8ulwSOElJ7gBhKzj2VkCPnZ4NlF6kEquYU+RIYNVAvzd54UA==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  pkg-types@1.2.0:
+    resolution: {integrity: sha512-+ifYuSSqOQ8CqP4MbZA5hDpb97n3E8SVWdJe+Wms9kj745lmd3b7EZJiqvmLwAlmRfjrI7Hi5z3kdBJ93lFNPA==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
@@ -6134,11 +6468,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   pnpm-workspace-yaml@1.3.0:
     resolution: {integrity: sha512-Krb5q8Totd5mVuLx7we+EFHq/AfxA75nbfTm25Q1pIf606+RlaKUG+PXH8SDihfe5b5k4H09gE+sL47L1t5lbw==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   pnpm-workspace-yaml@0.3.1:
     resolution: {integrity: sha512-3nW5RLmREmZ8Pm8MbPsO2RM+99RRjYd25ynj3NV0cFsN7CcEl4sDFzgoFmSyduFwxFQ2Qbu3y2UdCh6HlyUOeA==}
@@ -6159,6 +6496,10 @@ packages:
     resolution: {integrity: sha512-OmjhudoNTP0QleZCwl1i6NeBwN+5MZbY5ersLZz69mjJiDVv/p57RjRuKDkHeDWr4T+S97wQfsqRTNoDHB2e3g==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+  postcss-calc@10.0.2:
+    resolution: {integrity: sha512-DT/Wwm6fCKgpYVI7ZEWuPJ4az8hiEHtCUeYjZXqU7Ou4QqYh1Df2yCQ7Ca6N7xqKPFkxN3fhf+u9KSoOCJNAjg==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     engines: {node: ^18.12 || ^20.9 || >=22.0}
     peerDependencies:
       postcss: ^8.4.38
@@ -6176,18 +6517,16 @@ packages:
       postcss: ^8.4.32
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   postcss-discard-comments@7.0.4:
     resolution: {integrity: sha512-6tCUoql/ipWwKtVP/xYiFf1U9QgJ0PUvxN7pTcsQ8Ns3Fnwq1pU5D5s1MhT/XySeLq6GXNvn37U46Ded0TckWg==}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   postcss-dir-pseudo-class@9.0.0:
     resolution: {integrity: sha512-T59BG9lURiXmhcJMyKbyjNAK3KCyEQYEhaz9GAETHXfIy9XbGQeyz+H0zIwRJlrP4KKRPJolNYe3QjQPemMjBA==}
     engines: {node: '>=18'}
-=======
-  postcss-dir-pseudo-class@8.0.1:
-    resolution: {integrity: sha512-uULohfWBBVoFiZXgsQA24JV6FdKIidQ+ZqxOouhWwdE+qJlALbkS5ScB43ZTjPK+xUZZhlaO/NjfCt5h4IKUfw==}
-    engines: {node: ^14 || ^16 || >=18}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     peerDependencies:
       postcss: ^8.4
 
@@ -6217,9 +6556,9 @@ packages:
       postcss: ^8.4.32
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 
-<<<<<<< HEAD
   postcss-load-config@6.0.1:
     resolution: {integrity: sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g==}
+<<<<<<< HEAD
 =======
   postcss-load-config@5.1.0:
     resolution: {integrity: sha512-G5AJ+IX0aD0dygOE0yFZQ/huFFMSNneyfp0e3/bT05a8OfPC5FUoZRPfGijUdGOJNMewJiwzcHJXFafFzeKFVA==}
@@ -6273,6 +6612,8 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>= 18'}
     peerDependencies:
       jiti: '>=1.21.0'
@@ -6289,6 +6630,11 @@ packages:
       yaml:
         optional: true
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   postcss-selector-parser@7.1.1:
     resolution: {integrity: sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==}
     engines: {node: '>=4'}
@@ -6296,19 +6642,18 @@ packages:
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   postcss-merge-longhand@7.0.5:
     resolution: {integrity: sha512-Kpu5v4Ys6QI59FxmxtNB/iHUVDn9Y9sYw66D6+SZoIk4QTz1prC4aYkhIESu+ieG1iylod1f8MILMs1Em3mmIw==}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   postcss-logical@8.0.0:
     resolution: {integrity: sha512-HpIdsdieClTjXLOyYdUPAX/XQASNIwdKt5hoZW08ZOAiI+tbV0ta1oclkpVkW5ANU+xJvk3KkA0FejkjGLXUkg==}
     engines: {node: '>=18'}
-=======
-  postcss-logical@7.0.1:
-    resolution: {integrity: sha512-8GwUQZE0ri0K0HJHkDv87XOLC8DE0msc+HoWLeKdtjDZEwpZ5xuK3QdV6FhmHSQW40LPkg43QzvATRAI3LsRkg==}
-    engines: {node: ^14 || ^16 || >=18}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     peerDependencies:
       postcss: ^8.4
 
@@ -6350,17 +6695,16 @@ packages:
       postcss: ^8.4.32
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   postcss-nested@7.0.2:
     resolution: {integrity: sha512-5osppouFc0VR9/VYzYxO03VaDa3e8F23Kfd6/9qcZTUI8P58GIYlArOET2Wq0ywSl2o2PjELhYOFI4W7l5QHKw==}
     engines: {node: '>=18.0'}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   postcss-nested@6.2.0:
     resolution: {integrity: sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==}
-=======
-  postcss-nested@6.0.1:
-    resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     engines: {node: '>=12.0'}
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
     peerDependencies:
@@ -6438,147 +6782,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.32
 
-<<<<<<< HEAD
   postcss-selector-parser@6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
-=======
-  postcss-selector-parser@6.1.0:
-    resolution: {integrity: sha512-UMz42UD0UY0EApS0ZL9o1XnLhSTtvvvLe5Dc2H2O56fvRZi+KulDyf5ctDhhtYJBGKStV2FL1fy6253cmLgqVQ==}
-<<<<<<< HEAD
-=======
-    dependencies:
-      postcss: 8.4.38
-      postcss-selector-parser: 6.0.16
-    dev: true
-
-  /postcss-normalize-charset@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-a8N9czmdnrjPHa3DeFlwqst5eaL5W8jYu3EBbTTkI5FHkfMhFZh1EGbku6jhHhIzTA6tquI2P42NtZ59M/H/kQ==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-    dev: true
-
-  /postcss-normalize-display-values@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-8H04Mxsb82ON/aAkPeq8kcBbAtI5Q2a64X/mnRRfPXBq7XeogoQvReqxEfc0B4WPq1KimjezNC8flUtC3Qz6jg==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-positions@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-/JFzI441OAB9O7VnLA+RtSNZvQ0NCFZDOtp6QPFo1iIyawyXg0YI3CYM9HBy1WvwCRHnPep/BvI1+dGPKoXx/Q==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-repeat-style@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-YdCgsfHkJ2jEXwR4RR3Tm/iOxSfdRt7jplS6XRh9Js9PyCR/aka/FCb6TuHT2U8gQubbm/mPmF6L7FY9d79VwQ==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-string@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-vQZIivlxlfqqMp4L9PZsFE4YUkWniziKjQWUtsxUiVsSSPelQydwS8Wwcuw0+83ZjPWNTl02oxlIvXsmmG+CiQ==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-timing-functions@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-a+YrtMox4TBtId/AEwbA03VcJgtyW4dGBizPl7e88cTFULYsprgHWTbfyjSLyHeBcK/Q9JhXkt2ZXiwaVHoMzA==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-unicode@6.1.0(postcss@8.4.38):
-    resolution: {integrity: sha512-QVC5TQHsVj33otj8/JD869Ndr5Xcc/+fwRh4HAsFsAeygQQXm+0PySrKbr/8tkDKzW+EVT3QkqZMfFrGiossDg==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      browserslist: 4.23.0
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-url@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-kVNcWhCeKAzZ8B4pv/DnrU1wNh458zBNp8dh4y5hhxih5RZQ12QWMuQrDgPRw3LRl8mN9vOVfHl7uhvHYMoXsQ==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-normalize-whitespace@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-sXZ2Nj1icbJOKmdjXVT9pnyHQKiSAyuNQHSgRCUgThn2388Y9cGVDR+E9J9iAYbSbLHI+UUwLVl1Wzco/zgv0Q==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-ordered-values@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-VRZSOB+JU32RsEAQrO94QPkClGPKJEL/Z9PCBImXMhIeK5KAYo6slP/hBYlLgrCjFxyqvn5VC81tycFEDBLG1Q==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      cssnano-utils: 4.0.2(postcss@8.4.38)
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-reduce-initial@6.1.0(postcss@8.4.38):
-    resolution: {integrity: sha512-RarLgBK/CrL1qZags04oKbVbrrVK2wcxhvta3GCxrZO4zveibqbRPmm2VI8sSgCXwoUHEliRSbOfpR0b/VIoiw==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      browserslist: 4.23.0
-      caniuse-api: 3.0.0
-      postcss: 8.4.38
-    dev: true
-
-  /postcss-reduce-transforms@6.0.2(postcss@8.4.38):
-    resolution: {integrity: sha512-sB+Ya++3Xj1WaT9+5LOOdirAxP7dJZms3GRcYheSPi1PiTMigsxHAdkrbItHxwYHr4kt1zL7mmcHstgMYT+aiA==}
-    engines: {node: ^14 || ^16 || >=18.0}
-    peerDependencies:
-      postcss: ^8.4.31
-    dependencies:
-      postcss: 8.4.38
-      postcss-value-parser: 4.2.0
-    dev: true
-
-  /postcss-selector-parser@6.0.16:
-    resolution: {integrity: sha512-A0RVJrX+IUkVZbW3ClroRWurercFhieevHB38sr2+l9eUClMqome3LmEmnhlNy+5Mr2EYN6B2Kaw9wYdd+VHiw==}
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
     engines: {node: '>=4'}
 
 <<<<<<< HEAD
@@ -6640,11 +6845,18 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 =======
 <<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   postcss@8.5.6:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
@@ -6660,12 +6872,15 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   postcss@8.4.45:
     resolution: {integrity: sha512-7KTLTdzdZZYscUc65XmjFiB73vBhBfbPztCYdUNvlaso9PrzjzcmjqBPR0lNGkcVlcO4BjiO5rK/qNz+XAen1Q==}
     engines: {node: ^10 || ^12 || >=14}
 
   preact@10.23.2:
     resolution: {integrity: sha512-kKYfePf9rzKnxOAKDpsWhg/ysrHPqT+yQ7UW4JjdnqjFIeNUnNcEJvhuA8fDenxAGWzUqtd51DfVg7xp/8T9NA==}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -6700,8 +6915,16 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -6742,6 +6965,7 @@ packages:
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -6754,6 +6978,8 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
@@ -6868,11 +7094,18 @@ packages:
       typescript: ^4.5 || ^5.0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 =======
 <<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   rollup-plugin-external-globals@0.13.0:
     resolution: {integrity: sha512-wBS3hmoF0OtEnA0lWsmTC6Nhnkk2zjZbfhaX2gLo8VnfNGFdGhiYKwMpIPQPrYbAw+mAYUYmoHYktAl1eZHgVw==}
@@ -6880,6 +7113,8 @@ packages:
       rollup: ^2.25.0 || ^3.3.0 || ^4.1.4
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
   rollup@4.53.3:
     resolution: {integrity: sha512-w8GmOxZfBmKknvdXU1sdM9NHcoQejwF/4mNgj2JuEEdRaHwwF12K7e9eXn1nLZ07ad+du76mkVsyeb2rKGllsA==}
@@ -6899,6 +7134,7 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   sass@1.89.2:
     resolution: {integrity: sha512-xCmtksBKd/jdJ9Bt9p7nPKiuqrlBMBuuGkQlkhZjjQk3Ty48lv93k5Dq6OPkKt4XwxDJ7tvlfrTa1MPA9bf+QA==}
 =======
@@ -6915,8 +7151,18 @@ packages:
     resolution: {integrity: sha512-9ywH75cO+rLjbrZ6en3Gp8qAMwPGBapFtlsMJoDTkcMU/bSe5a6cjKVUn5Jr4Gzg5GbP3HE8cm+02pLCgcoMow==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  sass@1.78.0:
+    resolution: {integrity: sha512-AaIqGSrjo5lA2Yg7RvFZrlXDBCp3nV4XP73GrLGvdRWWwk+8H3l0SDvq/5bA4eF+0RFPLuWUk3E+P1U/YqnpsQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -6924,8 +7170,23 @@ packages:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
     engines: {node: ^14.0.0 || >=16.0.0}
 
+<<<<<<< HEAD
+=======
+  scule@1.3.0:
+    resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
+
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   search-insights@2.17.3:
     resolution: {integrity: sha512-RQPdCYTa8A68uM2jwxoY842xDhvx3E5LFL1LxvxCNMev4o5mLuokczhzjAgGwUZBAmOKZknArSxLKmXtIi2AxQ==}
+=======
+  search-insights@2.17.2:
+    resolution: {integrity: sha512-zFNpOpUO+tY2D85KrxJ+aqwnIfdEGi06UH2+xEb+Bp9Mwznmauqc9djbnBibJO5mpfUPPa8st6Sx65+vbeO45g==}
+
+  semver@5.7.2:
+    resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
+    hasBin: true
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -6948,6 +7209,7 @@ packages:
   shiki@2.5.0:
     resolution: {integrity: sha512-mI//trrsaiCIPsja5CNfsyNOqgAZUb6VpJA+340toL42UpzQlXpwRV9nch69X6gaUxrr9kaOOa6e3y3uAkGFxQ==}
 =======
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   shiki@2.5.0:
@@ -6978,7 +7240,14 @@ packages:
     resolution: {integrity: sha512-eneCLncGuvPdTutJuLyUGS8QNPAVFO5Trvld2wgEq1e002mwctAhJKeMGWtWVXOIEzmlcLRqcgPSorR6AVzOmQ==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+  shiki@1.16.3:
+    resolution: {integrity: sha512-GypUE+fEd06FqDs63LSAVlmq7WsahhPQU62cgZxGF+TJT5LjD2k7HTxXj4/CKOVuMM3+wWQ1t4Y5oooeJFRRBQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -7010,17 +7279,6 @@ packages:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
 
-<<<<<<< HEAD
-=======
-  slash@5.1.0:
-    resolution: {integrity: sha512-ZA6oR3T/pEyuqwMgAKT0/hAv8oAXckzbkmR0UkUosQ+Mc4RxGoJkRmwHgHufaenlyAgE1Mxgpdcrf75y6XcnDg==}
-    engines: {node: '>=14.16'}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
   slashes@3.0.12:
     resolution: {integrity: sha512-Q9VME8WyGkc7pJf6QEkj3wE+2CnvZMI+XJhwdTPR8Z/kWQRXi7boAWLDibRPyHRTUTPx5FaU7MsyrjI3yLB4HA==}
 
@@ -7078,11 +7336,14 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   superjson@2.2.6:
     resolution: {integrity: sha512-H+ue8Zo4vJmV2nRjpx86P35lzwDT3nItnIsocgumgr0hHMQ+ZGq5vrERg9kJBo5AWGmxZDhzDo+WVIJqkB0cGA==}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
@@ -7096,15 +7357,10 @@ packages:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   stylehacks@7.0.4:
     resolution: {integrity: sha512-i4zfNrGMt9SB4xRK9L83rlsFCgdGANfeDAYacO1pkqcE7cRHPdWHwnKZVz7WY17Veq/FvyYsRAU++Ga+qDFIww==}
-=======
-<<<<<<< HEAD
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-  stylehacks@7.0.2:
-    resolution: {integrity: sha512-HdkWZS9b4gbgYTdMg4gJLmm7biAUug1qTqXjS+u8X+/pUd+9Px1E+520GnOW3rST9MNsVOVpsJG+mPHNosxjOQ==}
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
     peerDependencies:
       postcss: ^8.4.31
@@ -7186,12 +7442,16 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 =======
 <<<<<<< HEAD
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -7200,6 +7460,8 @@ packages:
     resolution: {integrity: sha512-1/eK7zUnIklz4JUUlL+658n58XO2hHLQfSk1Zf2LKieUjxidN16eKFEoDEfjHc3ohofSSqK3X5yO6VGb6iW8Lw==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
@@ -7223,6 +7485,7 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   tinyrainbow@2.0.0:
     resolution: {integrity: sha512-op4nsTR47R6p0vMUUoYl/a+ljLFVtlfaXkLQmqfLR1qHma1h/ysYk4hEXZ880bf2CYgTskvTa/e196Vd5dDQXw==}
     engines: {node: '>=14.0.0'}
@@ -7236,13 +7499,15 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   tinyrainbow@1.2.0:
     resolution: {integrity: sha512-weEDEq7Z5eTHPDh4xjX789+fHfF+P8boiFB+0vbWzpbnbsEr/GRaohi/uMKxg8RZMXnl1ItAi/IUHWMsjDV7kQ==}
     engines: {node: '>=14.0.0'}
 
-<<<<<<< HEAD
   tinyspy@3.0.2:
     resolution: {integrity: sha512-n1cw8k1k0x4pgA2+9XrOkFydTerNcJ1zWCO5Nn9scWHTD+5tp8dghT2x1uduQePZTZgd3Tupf+x9BxJjeJi77Q==}
+<<<<<<< HEAD
 =======
   tinyspy@3.0.0:
     resolution: {integrity: sha512-q5nmENpTHgiPVd1cJDDc9cVoYN5x4vCvwT3FMilvKPKneCBZAxn2YWQjDF0UMcE9k0Cay1gBiDfTMU0g+mPMQA==}
@@ -7266,8 +7531,16 @@ packages:
     resolution: {integrity: sha512-q5nmENpTHgiPVd1cJDDc9cVoYN5x4vCvwT3FMilvKPKneCBZAxn2YWQjDF0UMcE9k0Cay1gBiDfTMU0g+mPMQA==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=14.0.0'}
 
   to-regex-range@5.0.1:
@@ -7397,10 +7670,9 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -7409,14 +7681,27 @@ packages:
     resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     engines: {node: '>=14.17'}
     hasBin: true
 
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   unconfig-core@7.4.1:
     resolution: {integrity: sha512-Bp/bPZjV2Vl/fofoA2OYLSnw1Z0MOhCX7zHnVCYrazpfZvseBbGhwcNQMxsg185Mqh7VZQqK3C8hFG/Dyng+yA==}
 
@@ -7425,16 +7710,21 @@ packages:
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   unbuild@3.5.0:
     resolution: {integrity: sha512-DPFttsiADnHRb/K+yJ9r9jdn6JyXlsmdT0S12VFC14DFSJD+cxBnHq+v0INmqqPVPxOoUjvJFYUVIb02rWnVeA==}
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
 
   unbuild@3.0.0-rc.7:
     resolution: {integrity: sha512-LsxbMZGYC0ZwHb8sxqHzuBsMq+GS9g5ObWtnfCElpOz/yUT+raIoA6Ref53Ht4wLcjwraOxYMwVo1rHXpMpTzQ==}
+<<<<<<< HEAD
 =======
   unbuild@3.0.0-rc.6:
     resolution: {integrity: sha512-mkCsqiFfKt0loPewuoKQiU0wDR8V/I/AIbMJJOqZc2HTJ5MabJQCvz4YmBXRiW3F8MzY/Fqk7jS0WwJNHoQtjA==}
@@ -7458,6 +7748,8 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     hasBin: true
     peerDependencies:
       typescript: ^5.7.3
@@ -7465,6 +7757,7 @@ packages:
       typescript:
         optional: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   unconfig@7.0.0:
     resolution: {integrity: sha512-G5CJSoG6ZTxgzCJblEfgpdRK2tos9+UdD2WtecDUVfImzQ0hFjwpH5RVvGMhP4pRpC9ML7NrC4qBsBl0Ttj35A==}
@@ -7527,8 +7820,18 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+  unconfig@0.5.5:
+    resolution: {integrity: sha512-VQZ5PT9HDX+qag0XdgQi8tJepPhXiR/yVOkn707gJDKo31lGjRilPREiQJ9Z6zd/Ugpv6ZvO5VxVIcatldYcNQ==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
@@ -7569,33 +7872,11 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   unocss@0.62.3:
     resolution: {integrity: sha512-CLS6+JIlBobe/iPTz07pehyGDP8VqGJsiE+ZZ3Xkgib3hw76nCqAQF/4mJ8jVoV4C8KvGyVxmHaSSCFOkWmmZg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@unocss/webpack': 0.62.3
-=======
-<<<<<<< HEAD
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-  unocss@0.61.3:
-    resolution: {integrity: sha512-Mpci+yP9CUnDjSwm0EAq9U76cgiNB5UM0ztXfDjjMiSe+jOS6sZ2A+kZ5JY9ZBRx5TX0Wh4kQBoPQQ1ooxHicg==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      '@unocss/webpack': 0.61.3
-<<<<<<< HEAD
-=======
-  /unocss@0.59.4(postcss@8.4.38)(rollup@4.16.1)(vite@5.2.10):
-    resolution: {integrity: sha512-QmCVjRObvVu/gsGrJGVt0NnrdhFFn314BUZn2WQyXV9rIvHLRmG5bIu0j5vibJkj7ZhFchTrnTM1pTFXP1xt5g==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      '@unocss/webpack': 0.59.4
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
@@ -7665,7 +7946,10 @@ packages:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
@@ -7702,6 +7986,10 @@ packages:
   vite-node@2.0.2:
     resolution: {integrity: sha512-w4vkSz1Wo+NIQg8pjlEn0jQbcM/0D+xVaYjhw3cvarTanLLBh54oNiRbsT8PNK5GfuST0IlVXjsNRoNlqvY/fw==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+  vite-node@2.0.5:
+    resolution: {integrity: sha512-LdsW4pxj0Ot69FAoXZ1yTnA9bjGohr2yNBU7QKRxpz8ITSkhuDl6h3zS/tvgz4qrNjeRnvrWeXQ8ZF7Um4W00Q==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -7710,27 +7998,17 @@ packages:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   vite@5.4.19:
     resolution: {integrity: sha512-qO3aKv3HoQC8QKiNSTuUM1l9o/XX3+c+VTgLHbJWHZGeTPVAg2XwazI9UWzoxjIJCGCV2zU60uqMzjeLZuULqA==}
 =======
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   vite@5.3.5:
     resolution: {integrity: sha512-MdjglKR6AQXQb9JGiS7Rc2wC6uMjcm7Go/NHNO63EwiJXfuk9PgqiP/n5IDJCziMkfw9n4Ubp7lttNwz+8ZVKA==}
-=======
-<<<<<<< HEAD
-  vite@5.3.3:
-    resolution: {integrity: sha512-NPQdeCU0Dv2z5fu+ULotpuq5yfCS1BzKUIPhNbP3YBfAMGJXbt2nS+sbTFu+qchaqWTD+H3JK++nRwr6XIcp6A==}
-=======
-  /vite@5.2.10(@types/node@20.12.7)(sass@1.75.0):
-    resolution: {integrity: sha512-PAzgUZbP7msvQvqdSD+ErD5qGnSFiGOoWmV5yAKUEI0kdhjbH6nMWVyZQC/hSc4aXwc0oJ9aEdIiF9Oje0JFCw==}
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
-  vite@5.3.3:
-    resolution: {integrity: sha512-NPQdeCU0Dv2z5fu+ULotpuq5yfCS1BzKUIPhNbP3YBfAMGJXbt2nS+sbTFu+qchaqWTD+H3JK++nRwr6XIcp6A==}
->>>>>>> bfdd577 (chore: upgrade dependencies)
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -7757,7 +8035,6 @@ packages:
       terser:
         optional: true
 
-<<<<<<< HEAD
   vite@5.4.3:
     resolution: {integrity: sha512-IH+nl64eq9lJjFqU+/yrRnrHPVTlgy42/+IzbOdaFDVlyLgI/wDlf+FCobXLX1cT0X5+7LMyH1mIy2xJdLfo8Q==}
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
@@ -7812,6 +8089,7 @@ packages:
 =======
   vitepress@1.3.4:
     resolution: {integrity: sha512-I1/F6OW1xl3kW4PaIMC6snxjWgf3qfziq2aqsDoFc/Gt41WbcRv++z8zjw8qGRIJ+I4bUW7ZcKFDHHN/jkH9DQ==}
+<<<<<<< HEAD
 =======
   vitepress@1.3.0:
     resolution: {integrity: sha512-Cbm2AgXcCrukUeV+/24g1ZDSvw8blamh/1uf2pz3ApFpaYb9T7mo4imWDZ6APn2uPo4bJ6sgOzvsJ4aH+oLbBA==}
@@ -7839,8 +8117,16 @@ packages:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4
@@ -7851,6 +8137,7 @@ packages:
       postcss:
         optional: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   vitest@4.0.14:
     resolution: {integrity: sha512-d9B2J9Cm9dN9+6nxMnnNJKJCtcyKfnHj15N6YNJfaFHRLua/d3sRKU9RuKmO9mB0XdFtUizlxfz/VPbd3OxGhw==}
@@ -7865,6 +8152,8 @@ packages:
       '@vitest/browser-webdriverio': 4.0.14
       '@vitest/ui': 4.0.14
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   vitest@3.2.4:
     resolution: {integrity: sha512-LUCP5ev3GURDysTWiP47wRRUpLKMOfPh+yKTx3kVIEiu5KOMeqzpnYNsKyOoVrULivR8tLcks4+lga33Whn90A==}
@@ -7878,26 +8167,29 @@ packages:
       '@vitest/ui': 3.2.4
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   vitest@2.0.5:
     resolution: {integrity: sha512-8GUxONfauuIdeSl5f9GTgVEpg5BTOlplET4WEDaeY2QBiN8wSm68vxN/tb5z405OwppfoCavnwXafiaYBC/xOA==}
-=======
-  vitest@2.0.2:
-    resolution: {integrity: sha512-WlpZ9neRIjNBIOQwBYfBSr0+of5ZCbxT2TVGKW4Lv0c8+srCFIiRdsP7U009t8mMn821HQ4XKgkx5dVWpyoyLw==}
->>>>>>> bfdd577 (chore: upgrade dependencies)
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0
-<<<<<<< HEAD
       '@vitest/browser': 2.0.5
       '@vitest/ui': 2.0.5
+<<<<<<< HEAD
 =======
       '@vitest/browser': 2.0.2
       '@vitest/ui': 2.0.2
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
       happy-dom: '*'
       jsdom: '*'
     peerDependenciesMeta:
@@ -7930,6 +8222,7 @@ packages:
     resolution: {integrity: sha512-zKgsWWkXq0xrus7H4Mc+uFs1ESrmdTXlO0YNbR6wMdPaFvosL3fMB8N7uTV308UhGy9UvTrGhIY7mVz9eN+L0Q==}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   vue@2.7.16:
     resolution: {integrity: sha512-4gCtFXaAA3zYZdTp5s4Hl2sozuySsgz4jy1EnpBHNfpMa9dK1ZCG7viqBPCwXtmgc8nHqUsAu3G4gtmXkkY3Sw==}
     deprecated: Vue 2 has reached EOL and is no longer actively maintained. See https://v2.vuejs.org/eol/ for more details.
@@ -7949,7 +8242,14 @@ packages:
     resolution: {integrity: sha512-njqRrOy7W3YLAlVqSKpBebtZpDVg21FPoaq1I7f/+qqBThK9ChAIjkRWgeP6Eat+8C+iia4P3OYqpATP21BCoQ==}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+  vue@3.5.4:
+    resolution: {integrity: sha512-3yAj2gkmiY+i7+22A1PWM+kjOVXjU74UPINcTiN7grIVPyFFI0lpGwHlV/4xydDmobaBn7/xmi+YG8HeSlCTcg==}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -7995,6 +8295,7 @@ packages:
 
 snapshots:
 
+<<<<<<< HEAD
   '@algolia/abtesting@1.11.0':
     dependencies:
       '@algolia/client-common': 5.45.0
@@ -8006,15 +8307,39 @@ snapshots:
     dependencies:
       '@algolia/autocomplete-plugin-algolia-insights': 1.17.7(@algolia/client-search@5.45.0)(algoliasearch@5.45.0)(search-insights@2.17.3)
       '@algolia/autocomplete-shared': 1.17.7(@algolia/client-search@5.45.0)(algoliasearch@5.45.0)
+=======
+<<<<<<< HEAD
+  '@algolia/autocomplete-core@1.17.7(@algolia/client-search@5.30.0)(algoliasearch@5.30.0)(search-insights@2.17.3)':
+    dependencies:
+      '@algolia/autocomplete-plugin-algolia-insights': 1.17.7(@algolia/client-search@5.30.0)(algoliasearch@5.30.0)(search-insights@2.17.3)
+      '@algolia/autocomplete-shared': 1.17.7(@algolia/client-search@5.30.0)(algoliasearch@5.30.0)
+=======
+  '@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)(search-insights@2.17.2)':
+    dependencies:
+      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)(search-insights@2.17.2)
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
       - search-insights
 
+<<<<<<< HEAD
   '@algolia/autocomplete-plugin-algolia-insights@1.17.7(@algolia/client-search@5.45.0)(algoliasearch@5.45.0)(search-insights@2.17.3)':
+=======
+<<<<<<< HEAD
+  '@algolia/autocomplete-plugin-algolia-insights@1.17.7(@algolia/client-search@5.30.0)(algoliasearch@5.30.0)(search-insights@2.17.3)':
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       '@algolia/autocomplete-shared': 1.17.7(@algolia/client-search@5.45.0)(algoliasearch@5.45.0)
       search-insights: 2.17.3
+=======
+  '@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)(search-insights@2.17.2)':
+    dependencies:
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
+      search-insights: 2.17.2
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
@@ -8119,6 +8444,7 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.29
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@antfu/eslint-config@4.16.2(@vue/compiler-sfc@2.7.16)(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(sass@1.89.2))':
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
@@ -8174,10 +8500,12 @@ snapshots:
 =======
   '@antfu/eslint-config@2.22.0(@vue/compiler-sfc@3.4.31)(eslint@9.6.0)(typescript@5.5.3)(vitest@2.0.2(@types/node@20.14.10)(sass@1.77.7))':
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+  '@antfu/eslint-config@3.5.1(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4))(@vue/compiler-sfc@3.5.4)(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.5)(sass@1.78.0))':
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     dependencies:
       '@antfu/install-pkg': 0.4.1
       '@clack/prompts': 0.7.0
-<<<<<<< HEAD
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.0(eslint@9.10.0(jiti@1.21.6))
       '@eslint/markdown': 6.1.0(eslint@9.10.0(jiti@1.21.6))
       '@stylistic/eslint-plugin': 2.8.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)
@@ -8202,8 +8530,9 @@ snapshots:
       eslint-plugin-unused-imports: 4.1.3(@typescript-eslint/eslint-plugin@8.5.0(@typescript-eslint/parser@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-vue: 9.28.0(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-yml: 1.14.0(eslint@9.10.0(jiti@1.21.6))
-      eslint-processor-vue-blocks: 0.1.2(@vue/compiler-sfc@2.7.16)(eslint@9.10.0(jiti@1.21.6))
+      eslint-processor-vue-blocks: 0.1.2(@vue/compiler-sfc@3.5.4)(eslint@9.10.0(jiti@1.21.6))
       globals: 15.9.0
+<<<<<<< HEAD
 =======
       '@stylistic/eslint-plugin': 2.6.0-beta.0(eslint@9.6.0)(typescript@5.5.3)
       '@typescript-eslint/eslint-plugin': 8.0.0-alpha.40(@typescript-eslint/parser@8.0.0-alpha.40(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)
@@ -8233,6 +8562,8 @@ snapshots:
       globals: 15.8.0
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
       jsonc-eslint-parser: 2.4.0
       local-pkg: 1.1.1
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
@@ -8323,12 +8654,15 @@ snapshots:
       - supports-color
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@babel/helper-module-imports@7.27.1':
 =======
   '@babel/helper-module-imports@7.22.15':
     dependencies:
       '@babel/types': 7.24.7
 
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@babel/helper-module-imports@7.24.7':
 >>>>>>> c538cbe (chore: upgrade dependencies)
     dependencies:
@@ -8438,16 +8772,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.25.6
 
-<<<<<<< HEAD
-  '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.25.2)':
-    dependencies:
-      '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.8
-
   '@babel/plugin-syntax-jsx@7.24.7(@babel/core@7.25.2)':
-=======
-  '@babel/plugin-syntax-jsx@7.24.7(@babel/core@7.24.7)':
->>>>>>> bfdd577 (chore: upgrade dependencies)
     dependencies:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
@@ -8498,10 +8823,24 @@ snapshots:
 
   '@docsearch/css@3.8.2': {}
 
+<<<<<<< HEAD
   '@docsearch/js@3.8.2(@algolia/client-search@5.45.0)(search-insights@2.17.3)':
     dependencies:
       '@docsearch/react': 3.8.2(@algolia/client-search@5.45.0)(search-insights@2.17.3)
       preact: 10.27.2
+=======
+<<<<<<< HEAD
+  '@docsearch/js@3.8.2(@algolia/client-search@5.30.0)(search-insights@2.17.3)':
+    dependencies:
+      '@docsearch/react': 3.8.2(@algolia/client-search@5.30.0)(search-insights@2.17.3)
+      preact: 10.26.9
+=======
+  '@docsearch/js@3.6.1(@algolia/client-search@4.24.0)(search-insights@2.17.2)':
+    dependencies:
+      '@docsearch/react': 3.6.1(@algolia/client-search@4.24.0)(search-insights@2.17.2)
+      preact: 10.23.2
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/react'
@@ -8509,7 +8848,12 @@ snapshots:
       - react-dom
       - search-insights
 
+<<<<<<< HEAD
   '@docsearch/react@3.8.2(@algolia/client-search@5.45.0)(search-insights@2.17.3)':
+=======
+<<<<<<< HEAD
+  '@docsearch/react@3.8.2(@algolia/client-search@5.30.0)(search-insights@2.17.3)':
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       '@algolia/autocomplete-core': 1.17.7(@algolia/client-search@5.45.0)(algoliasearch@5.45.0)(search-insights@2.17.3)
       '@algolia/autocomplete-preset-algolia': 1.17.7(@algolia/client-search@5.45.0)(algoliasearch@5.45.0)
@@ -8517,6 +8861,16 @@ snapshots:
       algoliasearch: 5.45.0
     optionalDependencies:
       search-insights: 2.17.3
+=======
+  '@docsearch/react@3.6.1(@algolia/client-search@4.24.0)(search-insights@2.17.2)':
+    dependencies:
+      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)(search-insights@2.17.2)
+      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
+      '@docsearch/css': 3.6.1
+      algoliasearch: 4.24.0
+    optionalDependencies:
+      search-insights: 2.17.2
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - '@algolia/client-search'
 
@@ -8551,6 +8905,7 @@ snapshots:
       comment-parser: 1.4.1
       esquery: 1.6.0
 <<<<<<< HEAD
+<<<<<<< HEAD
       jsdoc-type-pratt-parser: 6.10.0
 =======
 <<<<<<< HEAD
@@ -8565,6 +8920,9 @@ snapshots:
       jsdoc-type-pratt-parser: 4.0.0
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+      jsdoc-type-pratt-parser: 4.1.0
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
   '@es-joy/resolve.exports@1.2.0': {}
 
@@ -8980,6 +9338,7 @@ snapshots:
       oniguruma-to-es: 3.1.1
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@shikijs/engine-oniguruma@2.5.0':
 =======
 <<<<<<< HEAD
@@ -8992,6 +9351,11 @@ snapshots:
   '@stylistic/eslint-plugin-js@2.6.0-beta.0(eslint@9.6.0)':
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+  '@shikijs/vscode-textmate@9.2.2': {}
+
+  '@stylistic/eslint-plugin@2.8.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)':
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     dependencies:
       '@shikijs/types': 2.5.0
       '@shikijs/vscode-textmate': 10.0.2
@@ -9319,11 +9683,16 @@ snapshots:
       vite: 6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vitejs/plugin-vue-jsx@3.1.0(vite@6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))(vue@2.7.16)':
 =======
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@vitejs/plugin-vue2-jsx@1.1.0(rollup@4.53.3)(vite@6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))(vue@2.7.16)':
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@vitejs/plugin-vue2-jsx@1.1.0(rollup@4.44.1)(vite@5.4.19(@types/node@22.16.0)(sass@1.89.2))(vue@2.7.16)':
 =======
@@ -9367,6 +9736,22 @@ snapshots:
     dependencies:
       vite: 6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1)
       vue: 2.7.16
+=======
+  '@vitejs/plugin-vue-jsx@4.0.1(vite@5.3.5(@types/node@20.16.5)(sass@1.78.0))(vue@3.5.4(typescript@5.5.4))':
+    dependencies:
+      '@babel/core': 7.25.2
+      '@babel/plugin-transform-typescript': 7.25.2(@babel/core@7.25.2)
+      '@vue/babel-plugin-jsx': 1.2.4(@babel/core@7.25.2)
+      vite: 5.3.5(@types/node@20.16.5)(sass@1.78.0)
+      vue: 3.5.4(typescript@5.5.4)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@vitejs/plugin-vue@5.1.3(vite@5.3.5(@types/node@20.16.5)(sass@1.78.0))(vue@3.5.4(typescript@5.5.4))':
+    dependencies:
+      vite: 5.3.5(@types/node@20.16.5)(sass@1.78.0)
+      vue: 3.5.4(typescript@5.5.4)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
 <<<<<<< HEAD
   '@vitejs/plugin-vue@5.2.4(vite@6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))(vue@3.5.25(typescript@5.9.3))':
@@ -9375,22 +9760,33 @@ snapshots:
   '@vitejs/plugin-vue@5.2.4(vite@5.4.19(@types/node@22.16.0)(sass@1.89.2))(vue@3.5.17(typescript@5.8.3))':
 =======
   '@vitejs/plugin-vue@5.1.3(vite@5.4.3(@types/node@20.16.5)(sass@1.78.0))(vue@3.5.4(typescript@5.6.2))':
+<<<<<<< HEAD
 =======
   '@vitejs/plugin-vue@5.0.5(vite@5.3.3(@types/node@20.14.10)(sass@1.77.7))(vue@3.4.31(typescript@5.5.3))':
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       vite: 6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1)
       vue: 3.5.25(typescript@5.9.3)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vitest/eslint-plugin@1.5.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.14(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1))':
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@vitest/eslint-plugin@1.3.4(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(sass@1.89.2))':
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   '@vitest/eslint-plugin@1.1.0(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.10.0(jiti@1.21.6))(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.5)(sass@1.78.0))':
 >>>>>>> c538cbe (chore: upgrade dependencies)
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
@@ -9435,45 +9831,25 @@ snapshots:
       pathe: 1.1.2
 
   '@vitest/spy@2.0.5':
-=======
-  '@vitest/expect@2.0.2':
-    dependencies:
-      '@vitest/spy': 2.0.2
-      '@vitest/utils': 2.0.2
-      chai: 5.1.1
-      tinyrainbow: 1.2.0
-
-  '@vitest/pretty-format@2.0.2':
-    dependencies:
-      tinyrainbow: 1.2.0
-
-  '@vitest/runner@2.0.2':
-    dependencies:
-      '@vitest/utils': 2.0.2
-      pathe: 1.1.2
-
-  '@vitest/snapshot@2.0.2':
-    dependencies:
-      '@vitest/pretty-format': 2.0.2
-      magic-string: 0.30.10
-      pathe: 1.1.2
-
-  '@vitest/spy@2.0.2':
->>>>>>> bfdd577 (chore: upgrade dependencies)
     dependencies:
       tinyspy: 3.0.2
 
-<<<<<<< HEAD
   '@vitest/utils@2.0.5':
     dependencies:
       '@vitest/pretty-format': 2.0.5
+<<<<<<< HEAD
 =======
   '@vitest/utils@2.0.2':
     dependencies:
       '@vitest/pretty-format': 2.0.2
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
@@ -9502,15 +9878,22 @@ snapshots:
       tinyrainbow: 3.0.3
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vue/babel-helper-vue-transform-on@1.5.0': {}
 
   '@vue/babel-plugin-jsx@1.5.0(@babel/core@7.28.5)':
 =======
   '@vue/babel-helper-vue-transform-on@1.2.2': {}
+=======
+  '@vue/babel-helper-vue-transform-on@1.2.4': {}
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   '@vue/babel-plugin-transform-vue-jsx@1.4.0(@babel/core@7.28.5)':
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@vue/babel-plugin-transform-vue-jsx@1.4.0(@babel/core@7.28.0)':
 =======
@@ -9597,15 +9980,35 @@ snapshots:
       svg-tags: 1.0.0
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+  '@vue/babel-plugin-jsx@1.2.4(@babel/core@7.25.2)':
+    dependencies:
+      '@babel/helper-module-imports': 7.24.7
+      '@babel/helper-plugin-utils': 7.24.8
+      '@babel/plugin-syntax-jsx': 7.24.7(@babel/core@7.25.2)
+      '@babel/template': 7.25.0
+      '@babel/traverse': 7.25.6
+      '@babel/types': 7.25.6
+      '@vue/babel-helper-vue-transform-on': 1.2.4
+      '@vue/babel-plugin-resolve-type': 1.2.4(@babel/core@7.25.2)
+      html-tags: 3.3.1
+      svg-tags: 1.0.0
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     optionalDependencies:
-      '@babel/core': 7.24.7
+      '@babel/core': 7.25.2
     transitivePeerDependencies:
       - supports-color
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   '@vue/babel-sugar-composition-api-inject-h@1.4.0(@babel/core@7.28.5)':
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   '@vue/babel-sugar-composition-api-inject-h@1.4.0(@babel/core@7.28.0)':
 =======
@@ -9655,14 +10058,18 @@ snapshots:
       - supports-color
 =======
   '@vue/babel-plugin-resolve-type@1.2.2(@babel/core@7.24.7)':
+=======
+  '@vue/babel-plugin-resolve-type@1.2.4(@babel/core@7.25.2)':
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     dependencies:
       '@babel/code-frame': 7.24.7
-      '@babel/core': 7.24.7
-      '@babel/helper-module-imports': 7.22.15
-      '@babel/helper-plugin-utils': 7.24.7
-      '@babel/parser': 7.24.7
-      '@vue/compiler-sfc': 3.4.31
->>>>>>> bfdd577 (chore: upgrade dependencies)
+      '@babel/core': 7.25.2
+      '@babel/helper-module-imports': 7.24.7
+      '@babel/helper-plugin-utils': 7.24.8
+      '@babel/parser': 7.25.6
+      '@vue/compiler-sfc': 3.5.4
+    transitivePeerDependencies:
+      - supports-color
 
   '@vue/compiler-core@3.5.25':
     dependencies:
@@ -9677,6 +10084,7 @@ snapshots:
       '@vue/compiler-core': 3.5.25
       '@vue/shared': 3.5.25
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   '@vue/compiler-sfc@2.7.16':
     dependencies:
@@ -9697,7 +10105,13 @@ snapshots:
   '@vue/compiler-sfc@3.4.31':
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+  '@vue/compiler-sfc@3.5.4':
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       '@babel/parser': 7.28.5
       '@vue/compiler-core': 3.5.25
@@ -9748,7 +10162,21 @@ snapshots:
       '@vue/shared': 3.5.25
       csstype: 3.2.3
 
+<<<<<<< HEAD
   '@vue/server-renderer@3.5.25(vue@3.5.25(typescript@5.9.3))':
+=======
+<<<<<<< HEAD
+  '@vue/server-renderer@3.5.17(vue@3.5.17(typescript@5.8.3))':
+=======
+  '@vue/server-renderer@3.5.4(vue@3.5.4(typescript@5.5.4))':
+    dependencies:
+      '@vue/compiler-ssr': 3.5.4
+      '@vue/shared': 3.5.4
+      vue: 3.5.4(typescript@5.5.4)
+
+  '@vue/server-renderer@3.5.4(vue@3.5.4(typescript@5.6.2))':
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       '@vue/compiler-ssr': 3.5.25
       '@vue/shared': 3.5.25
@@ -9864,12 +10292,15 @@ snapshots:
   browserslist@4.28.0:
     dependencies:
 <<<<<<< HEAD
+<<<<<<< HEAD
       baseline-browser-mapping: 2.8.32
       caniuse-lite: 1.0.30001757
       electron-to-chromium: 1.5.262
       node-releases: 2.0.27
       update-browserslist-db: 1.1.4(browserslist@4.28.0)
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
       caniuse-lite: 1.0.30001726
       electron-to-chromium: 1.5.179
@@ -9877,10 +10308,13 @@ snapshots:
       update-browserslist-db: 1.1.3(browserslist@4.25.1)
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
       caniuse-lite: 1.0.30001660
       electron-to-chromium: 1.5.19
       node-releases: 2.0.18
       update-browserslist-db: 1.1.0(browserslist@4.23.3)
+<<<<<<< HEAD
 =======
       caniuse-lite: 1.0.30001641
       electron-to-chromium: 1.4.825
@@ -9888,7 +10322,12 @@ snapshots:
       update-browserslist-db: 1.1.0(browserslist@4.23.2)
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
   builtin-modules@5.0.0: {}
 
@@ -9928,11 +10367,24 @@ snapshots:
   callsites@3.1.0: {}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
   camelcase@6.3.0: {}
 
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
   caniuse-lite@1.0.30001757: {}
+=======
+  caniuse-api@3.0.0:
+    dependencies:
+      browserslist: 4.25.1
+      caniuse-lite: 1.0.30001726
+      lodash.memoize: 4.1.2
+      lodash.uniq: 4.5.0
+
+  caniuse-lite@1.0.30001726: {}
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
   ccount@2.0.1: {}
 
@@ -10045,11 +10497,7 @@ snapshots:
   detect-libc@1.0.3:
     optional: true
 
-<<<<<<< HEAD
   devlop@1.1.0:
-=======
-  dir-glob@3.0.1:
->>>>>>> bfdd577 (chore: upgrade dependencies)
     dependencies:
       dequal: 2.0.3
 
@@ -10066,6 +10514,7 @@ snapshots:
   electron-to-chromium@1.5.262: {}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   emoji-regex-xs@1.0.0: {}
 =======
 <<<<<<< HEAD
@@ -10074,6 +10523,9 @@ snapshots:
   electron-to-chromium@1.4.825: {}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+  electron-to-chromium@1.5.19: {}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
   empathic@2.0.0: {}
 
@@ -10169,8 +10621,11 @@ snapshots:
       eslint-compat-utils: 0.5.1(eslint@9.39.1(jiti@2.6.1))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   eslint-plugin-import-lite@0.3.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3):
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-plugin-import-lite@0.3.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3):
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
@@ -10199,7 +10654,15 @@ snapshots:
       '@es-joy/jsdoccomment': 0.46.0
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+  eslint-plugin-jsdoc@50.2.2(eslint@9.10.0(jiti@1.21.6)):
+    dependencies:
+      '@es-joy/jsdoccomment': 0.48.0
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
       are-docs-informative: 0.0.2
       comment-parser: 1.4.1
       debug: 4.4.3
@@ -10318,11 +10781,14 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 8.48.0(@typescript-eslint/parser@8.48.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   eslint-plugin-vue@10.6.2(@stylistic/eslint-plugin@5.6.1(eslint@9.39.1(jiti@2.6.1)))(@typescript-eslint/parser@8.48.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.39.1(jiti@2.6.1))):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.39.1(jiti@2.6.1))
       eslint: 9.39.1(jiti@2.6.1)
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-plugin-vue@10.3.0(@typescript-eslint/parser@8.35.1(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(vue-eslint-parser@10.2.0(eslint@9.30.1(jiti@2.4.2))):
     dependencies:
@@ -10330,27 +10796,12 @@ snapshots:
       eslint: 9.30.1(jiti@2.4.2)
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   eslint-plugin-vue@9.28.0(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@9.10.0(jiti@1.21.6))
       eslint: 9.10.0(jiti@1.21.6)
-=======
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.0.0-alpha.40(@typescript-eslint/parser@8.0.0-alpha.40(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)(vitest@2.0.2(@types/node@20.14.10)(sass@1.77.7)):
-    dependencies:
-      '@typescript-eslint/utils': 7.16.0(eslint@9.6.0)(typescript@5.5.3)
-      eslint: 9.6.0
-    optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.0.0-alpha.40(@typescript-eslint/parser@8.0.0-alpha.40(eslint@9.6.0)(typescript@5.5.3))(eslint@9.6.0)(typescript@5.5.3)
-      vitest: 2.0.2(@types/node@20.14.10)(sass@1.77.7)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-
-  eslint-plugin-vue@9.27.0(eslint@9.6.0):
-    dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@9.6.0)
-      eslint: 9.6.0
->>>>>>> bfdd577 (chore: upgrade dependencies)
       globals: 13.24.0
 >>>>>>> c538cbe (chore: upgrade dependencies)
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
@@ -10377,8 +10828,11 @@ snapshots:
       - supports-color
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   eslint-processor-vue-blocks@2.0.0(@vue/compiler-sfc@3.5.25)(eslint@9.39.1(jiti@2.6.1)):
 =======
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-processor-vue-blocks@2.0.0(@vue/compiler-sfc@2.7.16)(eslint@9.39.1(jiti@2.6.1)):
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
@@ -10386,6 +10840,8 @@ snapshots:
       '@vue/compiler-sfc': 3.5.25
       eslint: 9.39.1(jiti@2.6.1)
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   eslint-processor-vue-blocks@2.0.0(@vue/compiler-sfc@2.7.16)(eslint@9.30.1(jiti@2.4.2)):
     dependencies:
@@ -10394,9 +10850,13 @@ snapshots:
 =======
 <<<<<<< HEAD
   eslint-processor-vue-blocks@0.1.2(@vue/compiler-sfc@2.7.16)(eslint@9.10.0(jiti@1.21.6)):
+=======
+  eslint-processor-vue-blocks@0.1.2(@vue/compiler-sfc@3.5.4)(eslint@9.10.0(jiti@1.21.6)):
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     dependencies:
-      '@vue/compiler-sfc': 2.7.16
+      '@vue/compiler-sfc': 3.5.4
       eslint: 9.10.0(jiti@1.21.6)
+<<<<<<< HEAD
 =======
   eslint-processor-vue-blocks@0.1.2(@vue/compiler-sfc@3.4.31)(eslint@9.6.0):
     dependencies:
@@ -10406,7 +10866,12 @@ snapshots:
   eslint-rule-composer@0.3.0: {}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
   eslint-scope@8.4.0:
     dependencies:
@@ -10570,11 +11035,7 @@ snapshots:
 =======
   glob@10.4.5:
     dependencies:
-<<<<<<< HEAD
       foreground-child: 3.3.0
-=======
-      foreground-child: 3.2.1
->>>>>>> bfdd577 (chore: upgrade dependencies)
       jackspeak: 3.4.3
       minimatch: 9.0.5
       minipass: 7.1.2
@@ -10678,7 +11139,11 @@ snapshots:
       '@types/estree': 1.0.8
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   is-reference@3.0.3:
     dependencies:
       '@types/estree': 1.0.8
@@ -10691,6 +11156,8 @@ snapshots:
   is-stream@2.0.1: {}
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   is-stream@3.0.0: {}
 >>>>>>> c538cbe (chore: upgrade dependencies)
 
@@ -10753,7 +11220,10 @@ snapshots:
       p-locate: 5.0.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 <<<<<<< HEAD
   lodash.kebabcase@4.1.1: {}
 =======
@@ -10761,6 +11231,9 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 >>>>>>> bfdd577 (chore: upgrade dependencies)
+=======
+  lodash.memoize@4.1.2: {}
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
   lodash.merge@4.6.2: {}
@@ -11345,8 +11818,11 @@ snapshots:
       - oxc-resolver
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   rolldown@1.0.0-beta.52:
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   rollup-plugin-external-globals@0.13.0(rollup@4.44.1):
 =======
@@ -11392,7 +11868,13 @@ snapshots:
   rollup@4.18.1:
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+  rollup@4.21.2:
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       '@types/estree': 1.0.8
     optionalDependencies:
@@ -11434,7 +11916,18 @@ snapshots:
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
 
+<<<<<<< HEAD
+=======
+  scule@1.3.0: {}
+
+<<<<<<< HEAD
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
   search-insights@2.17.3: {}
+=======
+  search-insights@2.17.2: {}
+
+  semver@5.7.2: {}
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 
   semver@6.3.1: {}
 
@@ -11525,16 +12018,21 @@ snapshots:
   tinyexec@0.3.2: {}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   tinyexec@1.0.2: {}
 
   tinyglobby@0.2.15:
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   tinyexec@1.0.1: {}
 
   tinyglobby@0.2.14:
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   tinyglobby@0.2.6:
 >>>>>>> c538cbe (chore: upgrade dependencies)
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
@@ -11553,11 +12051,6 @@ snapshots:
   tinyspy@4.0.3: {}
 =======
   tinyspy@3.0.2: {}
-=======
-  tinyrainbow@1.2.0: {}
-
-  tinyspy@3.0.0: {}
->>>>>>> bfdd577 (chore: upgrade dependencies)
 
   to-fast-properties@2.0.0: {}
 >>>>>>> c538cbe (chore: upgrade dependencies)
@@ -11723,6 +12216,7 @@ snapshots:
       unist-util-stringify-position: 4.0.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   vfile@6.0.3:
     dependencies:
       '@types/unist': 3.0.3
@@ -11740,21 +12234,22 @@ snapshots:
       vite: 5.4.19(@types/node@22.16.0)(sass@1.89.2)
 =======
 <<<<<<< HEAD
-  vite-node@2.0.5(@types/node@20.16.5)(sass@1.78.0):
 =======
-  vite-node@2.0.2(@types/node@20.14.10)(sass@1.77.7):
->>>>>>> bfdd577 (chore: upgrade dependencies)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+  vite-node@2.0.5(@types/node@20.16.5)(sass@1.78.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.7
       pathe: 1.1.2
       tinyrainbow: 1.2.0
-<<<<<<< HEAD
       vite: 5.3.5(@types/node@20.16.5)(sass@1.78.0)
+<<<<<<< HEAD
 =======
       vite: 5.3.3(@types/node@20.14.10)(sass@1.77.7)
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11789,6 +12284,11 @@ snapshots:
 
   vitepress@1.6.4(@algolia/client-search@5.45.0)(@types/node@24.10.1)(change-case@5.4.4)(jiti@2.6.1)(postcss@8.5.6)(sass@1.94.2)(search-insights@2.17.3)(typescript@5.9.3)(yaml@2.8.1):
     dependencies:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.45.0)(search-insights@2.17.3)
       '@iconify-json/simple-icons': 1.2.60
@@ -11813,6 +12313,8 @@ snapshots:
       focus-trap: 7.6.5
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
       esbuild: 0.21.5
       postcss: 8.4.45
       rollup: 4.21.2
@@ -11821,10 +12323,10 @@ snapshots:
       fsevents: 2.3.3
       sass: 1.78.0
 
-  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@20.16.5)(postcss@8.4.45)(sass@1.78.0)(search-insights@2.17.1)(typescript@5.6.2):
+  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@20.16.5)(postcss@8.4.45)(sass@1.78.0)(search-insights@2.17.2)(typescript@5.6.2):
     dependencies:
       '@docsearch/css': 3.6.1
-      '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)(search-insights@2.17.1)
+      '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)(search-insights@2.17.2)
       '@shikijs/core': 1.16.3
       '@shikijs/transformers': 1.16.3
       '@types/markdown-it': 14.1.2
@@ -11833,18 +12335,6 @@ snapshots:
       '@vue/shared': 3.5.4
       '@vueuse/core': 11.0.3(vue@3.5.4(typescript@5.6.2))
       '@vueuse/integrations': 11.0.3(focus-trap@7.5.4)(vue@3.5.4(typescript@5.6.2))
-=======
-      '@docsearch/css': 3.6.0
-      '@docsearch/js': 3.6.0(@algolia/client-search@4.24.0)(search-insights@2.15.0)
-      '@shikijs/core': 1.10.3
-      '@shikijs/transformers': 1.10.3
-      '@types/markdown-it': 14.1.1
-      '@vitejs/plugin-vue': 5.0.5(vite@5.3.3(@types/node@20.14.10)(sass@1.77.7))(vue@3.4.31(typescript@5.5.3))
-      '@vue/devtools-api': 7.3.5
-      '@vue/shared': 3.4.31
-      '@vueuse/core': 10.11.0(vue@3.4.31(typescript@5.5.3))
-      '@vueuse/integrations': 10.11.0(focus-trap@7.5.4)(vue@3.4.31(typescript@5.5.3))
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
       focus-trap: 7.5.4
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
@@ -11855,6 +12345,11 @@ snapshots:
       vite: 6.4.1(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1)
       vue: 3.5.25(typescript@5.9.3)
     optionalDependencies:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       postcss: 8.5.6
 <<<<<<< HEAD
 =======
@@ -11888,7 +12383,13 @@ snapshots:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+      postcss: 8.4.45
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -11924,10 +12425,13 @@ snapshots:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   vitest@4.0.14(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(yaml@2.8.1):
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.16.0)(sass@1.89.2):
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
@@ -11956,11 +12460,9 @@ snapshots:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
-  vitest@2.0.5(@types/node@20.16.5)(sass@1.78.0):
 =======
-<<<<<<< HEAD
-  vitest@2.0.1(@types/node@20.14.10)(sass@1.77.7):
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+  vitest@2.0.5(@types/node@20.16.5)(sass@1.78.0):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -11969,68 +12471,13 @@ snapshots:
       '@vitest/snapshot': 2.0.5
       '@vitest/spy': 2.0.5
       '@vitest/utils': 2.0.5
-=======
-  vitest@2.0.2(@types/node@20.14.10)(sass@1.77.7):
-    dependencies:
-      '@ampproject/remapping': 2.3.0
-      '@vitest/expect': 2.0.2
-      '@vitest/pretty-format': 2.0.2
-      '@vitest/runner': 2.0.2
-      '@vitest/snapshot': 2.0.2
-      '@vitest/spy': 2.0.2
-      '@vitest/utils': 2.0.2
->>>>>>> bfdd577 (chore: upgrade dependencies)
       chai: 5.1.1
       debug: 4.3.7
       execa: 8.0.1
-<<<<<<< HEAD
-<<<<<<< HEAD
       magic-string: 0.30.11
-=======
-=======
-  /vitest@1.5.0(@types/node@20.12.7)(sass@1.75.0):
-    resolution: {integrity: sha512-d8UKgR0m2kjdxDWX6911uwxout6GHS0XaGH1cksSIVVG8kRlE7G7aBw7myKQCvDI5dT4j7ZMa+l706BIORMDLw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@edge-runtime/vm': '*'
-      '@types/node': ^18.0.0 || >=20.0.0
-      '@vitest/browser': 1.5.0
-      '@vitest/ui': 1.5.0
-      happy-dom: '*'
-      jsdom: '*'
-    peerDependenciesMeta:
-      '@edge-runtime/vm':
-        optional: true
-      '@types/node':
-        optional: true
-      '@vitest/browser':
-        optional: true
-      '@vitest/ui':
-        optional: true
-      happy-dom:
-        optional: true
-      jsdom:
-        optional: true
-    dependencies:
-      '@types/node': 20.12.7
-      '@vitest/expect': 1.5.0
-      '@vitest/runner': 1.5.0
-      '@vitest/snapshot': 1.5.0
-      '@vitest/spy': 1.5.0
-      '@vitest/utils': 1.5.0
-      acorn-walk: 8.3.2
-      chai: 4.4.1
-      debug: 4.3.4
-      execa: 8.0.1
-      local-pkg: 0.5.0
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
-=======
->>>>>>> bfdd577 (chore: upgrade dependencies)
-      magic-string: 0.30.10
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
       pathe: 1.1.2
       std-env: 3.7.0
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
@@ -12040,8 +12487,16 @@ snapshots:
 =======
 <<<<<<< HEAD
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       tinybench: 2.9.0
       tinyexec: 0.3.2
       tinyglobby: 0.2.15
@@ -12058,6 +12513,7 @@ snapshots:
       '@types/node': 22.16.0
 =======
       '@types/node': 20.16.5
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -12089,8 +12545,16 @@ snapshots:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
     transitivePeerDependencies:
       - jiti
       - less
@@ -12109,10 +12573,13 @@ snapshots:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   vue-eslint-parser@10.2.0(eslint@9.39.1(jiti@2.6.1)):
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   vue-eslint-parser@10.2.0(eslint@9.30.1(jiti@2.4.2)):
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
@@ -12129,36 +12596,11 @@ snapshots:
 =======
 >>>>>>> c538cbe (chore: upgrade dependencies)
 <<<<<<< HEAD
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
   vue-demi@0.14.10(vue@3.5.4(typescript@5.6.2)):
     dependencies:
       vue: 3.5.4(typescript@5.6.2)
-=======
-<<<<<<< HEAD
-  vue-demi@0.14.8(vue@3.4.31(typescript@5.5.3)):
-    dependencies:
-      vue: 3.4.31(typescript@5.5.3)
-=======
-  /vue-demi@0.14.7(vue@3.4.23):
-    resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dependencies:
-      vue: 3.4.23(typescript@5.4.5)
-    dev: true
->>>>>>> 371b82c (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
-  vue-demi@0.14.8(vue@3.4.31(typescript@5.5.3)):
-    dependencies:
-      vue: 3.4.31(typescript@5.5.3)
->>>>>>> bfdd577 (chore: upgrade dependencies)
 
   vue-eslint-parser@9.4.3(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
@@ -12180,10 +12622,13 @@ snapshots:
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   vue-flow-layout@0.2.0: {}
 =======
 =======
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
   vue-flow-layout@0.1.1(vue@3.5.17(typescript@5.8.3)):
     dependencies:
@@ -12198,9 +12643,22 @@ snapshots:
 >>>>>>> c538cbe (chore: upgrade dependencies)
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
   vue@2.7.16:
+=======
+  vue@3.5.4(typescript@5.5.4):
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
     dependencies:
+<<<<<<< HEAD
       '@vue/compiler-sfc': 2.7.16
       csstype: 3.2.3
+=======
+      '@vue/compiler-dom': 3.5.4
+      '@vue/compiler-sfc': 3.5.4
+      '@vue/runtime-dom': 3.5.4
+      '@vue/server-renderer': 3.5.4(vue@3.5.4(typescript@5.5.4))
+      '@vue/shared': 3.5.4
+    optionalDependencies:
+      typescript: 5.5.4
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 
 <<<<<<< HEAD
   vue@3.5.25(typescript@5.9.3):
@@ -12209,11 +12667,17 @@ snapshots:
   vue@3.5.17(typescript@5.8.3):
 =======
   vue@3.5.4(typescript@5.6.2):
+<<<<<<< HEAD
 =======
   vue@3.4.31(typescript@5.5.3):
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
     dependencies:
       '@vue/compiler-dom': 3.5.25
       '@vue/compiler-sfc': 3.5.25
@@ -12221,10 +12685,17 @@ snapshots:
       '@vue/server-renderer': 3.5.25(vue@3.5.25(typescript@5.9.3))
       '@vue/shared': 3.5.25
     optionalDependencies:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
       typescript: 5.9.3
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
       typescript: 5.8.3
 =======
@@ -12259,8 +12730,17 @@ snapshots:
 =======
 >>>>>>> bfdd577 (chore: upgrade dependencies)
 >>>>>>> c538cbe (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 2dbbfcd (chore: upgrade dependencies)
+<<<<<<< HEAD
 >>>>>>> 0db0e60 (chore: upgrade dependencies)
+=======
+=======
+=======
+      typescript: 5.6.2
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 
   which@2.0.2:
     dependencies:
