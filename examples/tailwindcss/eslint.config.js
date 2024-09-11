@@ -1,7 +1,7 @@
 import antfu from '@antfu/eslint-config'
 import tailwindcssPlugin from 'eslint-plugin-tailwindcss'
 
-export default await antfu(
+export default antfu(
   {
     vue: {
       vueVersion: 2,
