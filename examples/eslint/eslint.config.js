@@ -3,9 +3,6 @@ import tailwindcssPlugin from 'eslint-plugin-tailwindcss'
 
 export default antfu(
   {
-    vue: {
-      vueVersion: 2,
-    },
     ignores: ['**/vendor/**', 'index.js'],
   },
   {
