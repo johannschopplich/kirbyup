@@ -1,8 +1,8 @@
 import antfu from '@antfu/eslint-config'
 
-export default antfu({
-  vue: {
-    vueVersion: 2,
+export default antfu(
+  {
+    ignores: ['**/vendor/**', 'index.js'],
   },
   ignores: ['**/vendor/**', 'index.js'],
 }, {
