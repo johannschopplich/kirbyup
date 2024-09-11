@@ -40,9 +40,15 @@ exports[`kirbyup build > injects custom environment variables 1`] = `
 =======
 exports[`supports custom env variables 1`] = `
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2040149 (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+<<<<<<< HEAD
+>>>>>>> c3f8661 (chore: upgrade dependencies)
 "var kirbyupExport=(function(o){"use strict";return o.foo="bar",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 =======
+=======
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 <<<<<<< HEAD
 "var kirbyupExport=function(o){"use strict";const r="bar";return o.foo=r,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
 =======
@@ -50,13 +56,22 @@ exports[`supports custom env variables 1`] = `
 "var kirbyupExport=function(e){"use strict";var t={BASE_URL:"/",DEV:!1,MODE:"production",PROD:!0,SSR:!1};const o=t.KIRBYUP_FOO;return e.foo=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),e}({});
 =======
 "var e = { BASE_URL: "/", MODE: "production", DEV: !1, PROD: !0, SSR: !1 };
+=======
+"var e = { BASE_URL: "/", DEV: !1, MODE: "production", PROD: !0, SSR: !1 };
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
 const o = e.KIRBYUP_FOO;
 export {
   o as foo
 };
+<<<<<<< HEAD
 >>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
 >>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
+<<<<<<< HEAD
 >>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
+=======
+=======
+>>>>>>> 8c8a728 (chore: upgrade dependencies)
+>>>>>>> 0399ff7 (chore: upgrade dependencies)
 "
 `;
 
