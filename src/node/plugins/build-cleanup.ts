@@ -1,7 +1,7 @@
-import { existsSync, unlinkSync } from 'node:fs'
-import { resolve } from 'pathe'
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { BuildOptions } from '../types'
+import { existsSync, unlinkSync } from 'node:fs'
+import { resolve } from 'pathe'
 
 export default function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig

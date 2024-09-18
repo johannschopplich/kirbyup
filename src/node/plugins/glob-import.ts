@@ -1,5 +1,5 @@
-import MagicString from 'magic-string'
 import type { Plugin, ResolvedConfig } from 'vite'
+import MagicString from 'magic-string'
 import { multilineCommentsRE, singlelineCommentsRE } from './utils'
 
 /**

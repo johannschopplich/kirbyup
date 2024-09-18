@@ -1,3 +1,6 @@
+import type { OutputChunk, RollupOutput } from 'rollup'
+import type { InlineConfig, LogLevel } from 'vite'
+import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import vuePlugin from '@vitejs/plugin-vue2'
@@ -10,8 +13,6 @@ import externalGlobals from 'rollup-plugin-external-globals'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
-import type { OutputChunk, RollupOutput } from 'rollup'
-import type { InlineConfig, LogLevel } from 'vite'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
@@ -19,7 +20,6 @@ import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import kirbyupGlobImportPlugin from './plugins/glob-import'
 import kirbyupHmrPlugin from './plugins/hmr'
 import { printFileInfo, toArray } from './utils'
-import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult
