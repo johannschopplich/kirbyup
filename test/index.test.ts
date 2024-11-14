@@ -1,5 +1,5 @@
+import * as fsp from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import { remove } from 'fs-extra'
 import { resolve } from 'pathe'
 import { afterAll, beforeAll, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
@@ -9,12 +9,12 @@ const currentDir = fileURLToPath(new URL('.', import.meta.url))
 beforeAll(async () => {
   // Unset so kirbyup applies its default environment setting
   vi.stubEnv('NODE_ENV', '')
-  await remove(cacheDir)
+  await fsp.rm(cacheDir, { recursive: true, force: true })
 })
 
 afterAll(async () => {
   vi.unstubAllEnvs()
-  await remove(cacheDir)
+  await fsp.rm(cacheDir, { recursive: true, force: true })
 })
 
 it('builds index.js', async () => {

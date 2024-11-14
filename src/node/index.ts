@@ -68,6 +68,7 @@ function getViteConfig(
     css: {
       postcss: resolvedPostCssConfig,
     },
+    envDir: options.cwd,
     envPrefix: ['VITE_', 'KIRBYUP_'],
     customLogger: logger,
     logLevel,

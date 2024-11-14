@@ -36,7 +36,7 @@ exports[`supports built-in env variables 1`] = `
 `;
 
 exports[`supports custom env variables 1`] = `
-"var kirbyupExport=function(e){"use strict";var t={BASE_URL:"/",DEV:!1,MODE:"production",PROD:!0,SSR:!1};const o=t.KIRBYUP_FOO;return e.foo=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),e}({});
+"var kirbyupExport=function(o){"use strict";const r="bar";return o.foo=r,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
 "
 `;
 
