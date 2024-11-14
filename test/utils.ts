@@ -1,5 +1,6 @@
+import * as fsp from 'node:fs/promises'
+import { dirname } from 'node:path'
 import fg from 'fast-glob'
-import { outputFile, readFile } from 'fs-extra'
 import { resolve } from 'pathe'
 import { startCli } from '../src/node/cli-start'
 
@@ -11,13 +12,15 @@ export async function runCli(files: Record<string, string>) {
 
   // Retrieve any file's content
   const getFileContent = (filename: string) =>
-    readFile(resolve(testDir, filename), 'utf8')
+    fsp.readFile(resolve(testDir, filename), 'utf8')
 
   // Write entry files on disk
   await Promise.all(
-    Object.entries(files).map(([path, content]) =>
-      outputFile(resolve(testDir, path), content, 'utf8'),
-    ),
+    Object.entries(files).map(async ([path, content]) => {
+      const filePath = resolve(testDir, path)
+      await fsp.mkdir(dirname(filePath), { recursive: true })
+      await fsp.writeFile(filePath, content, 'utf8')
+    }),
   )
 
   await runAsyncChildProcess(testDir, 'src/input.js')
