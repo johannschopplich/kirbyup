@@ -1,4 +1,5 @@
 import type { DefaultTheme } from 'vitepress'
+import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vitepress'
 import { description, name, version } from '../../package.json'
 import {
@@ -26,6 +27,12 @@ export default defineConfig({
     ['meta', { name: 'twitter:site', content: '@jschopplich' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
   ],
+
+  vite: {
+    plugins: [
+      UnoCSS(),
+    ],
+  },
 
   themeConfig: {
     logo: {

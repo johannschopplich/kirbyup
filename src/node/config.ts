@@ -9,10 +9,7 @@ export function loadConfig(cwd = process.cwd()) {
     cwd,
     name: 'kirbyup',
     rcFile: false,
-    jitiOptions: {
-      interopDefault: true,
-      esmResolve: true,
-    },
+    packageJson: false,
   })
 }
 
