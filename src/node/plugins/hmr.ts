@@ -2,8 +2,8 @@ import type { AddressInfo } from 'node:net'
 import type { PackageManager } from 'nypm'
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { ServeOptions } from '../types'
-import { existsSync, unlinkSync } from 'node:fs'
-import { writeFile } from 'node:fs/promises'
+import * as fs from 'node:fs'
+import * as fsp from 'node:fs/promises'
 import { detectPackageManager } from 'nypm'
 import { resolve } from 'pathe'
 import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
@@ -48,13 +48,13 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
         const entryUrl = new URL(entryPath, baseUrl).href
         const pm = await detectPackageManager(config.root)
 
-        await writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
+        await fsp.writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
       })
     },
 
     closeBundle() {
-      if (existsSync(devIndexPath))
-        unlinkSync(devIndexPath)
+      if (fs.existsSync(devIndexPath))
+        fs.unlinkSync(devIndexPath)
     },
   }
 }

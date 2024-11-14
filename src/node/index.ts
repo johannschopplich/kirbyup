@@ -1,8 +1,8 @@
 import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig, LogLevel } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
-import { existsSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
+import * as fs from 'node:fs'
+import * as fsp from 'node:fs/promises'
 import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import { consola } from 'consola'
@@ -155,7 +155,7 @@ async function generate(options: BuildOptions) {
         options.cwd,
         options.outDir,
         fileName,
-        code ?? (await readFile(resolve(options.outDir, fileName), 'utf8')),
+        code ?? (await fsp.readFile(resolve(options.outDir, fileName), 'utf8')),
         type,
         longest,
       )
@@ -278,6 +278,6 @@ export async function serve(options: ServeOptions) {
 }
 
 function assertEntryExists(options: BaseOptions) {
-  if (!existsSync(resolve(options.cwd, options.entry)))
+  if (!fs.existsSync(resolve(options.cwd, options.entry)))
     throw new PrettyError(`Cannot find "${options.entry}"`)
 }
