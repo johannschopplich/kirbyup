@@ -206,8 +206,8 @@ export async function build(options: BuildOptions) {
       ? dirname(options.entry)
       : Array.isArray(options.watch)
         ? options.watch.filter(
-          (path): path is string => typeof path === 'string',
-        )
+            (path): path is string => typeof path === 'string',
+          )
         : options.watch
 
     consola.info(
