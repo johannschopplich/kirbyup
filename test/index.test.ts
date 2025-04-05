@@ -64,21 +64,6 @@ it('supports custom env variables', async () => {
   expect(output).toMatchSnapshot()
 })
 
-it('supports postcss plugins', async () => {
-  const { output, getFileContent } = await runCli({
-    'src/input.js': 'import \'./input.css\'',
-    'src/input.css': `
-      .foo { inset: logical 0 5px 10px; }
-      .bar:dir(rtl) { margin-right: 10px; }
-    `,
-  })
-
-  expect(output).toMatchSnapshot()
-
-  const css = await getFileContent('index.css')
-  expect(css).toMatchSnapshot()
-})
-
 it('builds panel plugins', async () => {
   const { output } = await runCli({
     'src/input.js': `

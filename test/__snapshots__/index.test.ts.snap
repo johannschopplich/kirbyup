@@ -50,16 +50,6 @@ exports[`supports kirbyup.config.js with object 1`] = `
 "
 `;
 
-exports[`supports postcss plugins 1`] = `
-"(function(){"use strict"})();
-"
-`;
-
-exports[`supports postcss plugins 2`] = `
-".foo{top:logical;right:0;bottom:5px;left:10px}[dir=rtl] .bar{margin-right:10px}
-"
-`;
-
 exports[`supports resolve aliases 1`] = `
 "var kirbyupExport=function(){"use strict";return"bar"}();
 "

@@ -22,7 +22,7 @@ import kirbyupHmrPlugin from './plugins/hmr'
 import { printFileInfo, toArray } from './utils'
 
 let resolvedKirbyupConfig: UserConfig
-let resolvedPostCssConfig: PostCSSConfigResult
+let resolvedPostCssConfig: PostCSSConfigResult | undefined
 
 const logLevel: LogLevel = 'warn'
 const logger = createLogger(logLevel)
@@ -65,9 +65,11 @@ function getViteConfig(
     build: {
       copyPublicDir: false,
     },
-    css: {
-      postcss: resolvedPostCssConfig,
-    },
+    ...(resolvedPostCssConfig && {
+      css: {
+        postcss: resolvedPostCssConfig,
+      },
+    }),
     envDir: options.cwd,
     envPrefix: ['VITE_', 'KIRBYUP_'],
     customLogger: logger,
