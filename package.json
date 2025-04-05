@@ -27,19 +27,18 @@
   "exports": {
     ".": {
       "types": "./dist/node/index.d.mts",
-      "import": "./dist/node/index.mjs"
+      "default": "./dist/node/index.mjs"
     },
     "./config": {
       "types": "./dist/client/config.d.mts",
-      "import": "./dist/client/config.mjs"
+      "default": "./dist/client/config.mjs"
     },
     "./plugin": {
       "types": "./dist/client/plugin.d.mts",
-      "import": "./dist/client/plugin.mjs"
+      "default": "./dist/client/plugin.mjs"
     }
   },
-  "module": "./dist/node/index.mjs",
-  "types": "./dist/node/index.d.ts",
+  "types": "./dist/node/index.d.mts",
   "typesVersions": {
     "*": {
       "config": [
@@ -50,7 +49,9 @@
       ]
     }
   },
-  "bin": "./cli.mjs",
+  "bin": {
+    "kirbyup": "bin/kirbyup.mjs"
+  },
   "files": [
     "bin",
     "dist"
