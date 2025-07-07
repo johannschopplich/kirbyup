@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@iconify-json/ri": "^1.2.5",
-    "unocss": "^65.5.0",
+    "unocss": "^66.3.3",
     "vitepress": "^1.6.3"
   }
 }

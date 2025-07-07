@@ -29,7 +29,7 @@ window.panel.plugin("kirbyup/test", {
 `;
 
 exports[`compiles vue templates 1`] = `
-"import { openBlock as r, createElementBlock as a, createElementVNode as c } from "vue";
+"import { createElementBlock as r, openBlock as a, createElementVNode as c } from "vue";
 const i = (o, e) => {
   const t = o.__vccOpts || o;
   for (const [n, s] of e)
@@ -41,7 +41,7 @@ const i = (o, e) => {
   }
 }, l = { class: "k-demo-section" };
 function p(o, e, t, n, s, m) {
-  return r(), a("section", l, e[0] || (e[0] = [
+  return a(), r("section", l, e[0] || (e[0] = [
     c(
       "header",
       { class: "k-section-header" },
@@ -49,7 +49,7 @@ function p(o, e, t, n, s, m) {
         c("h2", { class: "k-headline" }, "Custom section")
       ],
       -1
-      /* HOISTED */
+      /* CACHED */
     )
   ]));
 }
@@ -71,26 +71,10 @@ export {
 `;
 
 exports[`supports custom env variables 1`] = `
-<<<<<<< HEAD
-<<<<<<< HEAD
-"var kirbyupExport=function(o){"use strict";const r="bar";return o.foo=r,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
-=======
-<<<<<<< HEAD
-"var kirbyupExport=function(e){"use strict";var t={BASE_URL:"/",DEV:!1,MODE:"production",PROD:!0,SSR:!1};const o=t.KIRBYUP_FOO;return e.foo=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),e}({});
-=======
-"var e = { BASE_URL: "/", MODE: "production", DEV: !1, PROD: !0, SSR: !1 };
-=======
-"var e = { BASE_URL: "/", DEV: !1, MODE: "production", PROD: !0, SSR: !1 };
->>>>>>> 8c8a728 (chore: upgrade dependencies)
-const o = e.KIRBYUP_FOO;
+"const o = "bar";
 export {
   o as foo
 };
-<<<<<<< HEAD
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
-=======
->>>>>>> 8c8a728 (chore: upgrade dependencies)
 "
 `;
 
@@ -110,19 +94,6 @@ export {
 "
 `;
 
-<<<<<<< HEAD
-=======
-exports[`supports postcss plugins 1`] = `
-"
-"
-`;
-
-exports[`supports postcss plugins 2`] = `
-".foo{top:logical;right:0;bottom:5px;left:10px}[dir=rtl] .bar{margin-right:10px}
-"
-`;
-
->>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 exports[`supports resolve aliases 1`] = `
 "const o = "bar";
 export {
