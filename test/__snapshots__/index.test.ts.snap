@@ -30,7 +30,41 @@ exports[`kirbyup build > compiles Vue single-file components 1`] = `
 "
 `;
 
-exports[`kirbyup build > injects built-in environment variables 1`] = `
+exports[`compiles vue templates 1`] = `
+"import { createElementBlock as r, openBlock as a, createElementVNode as c } from "vue";
+const i = (o, e) => {
+  const t = o.__vccOpts || o;
+  for (const [n, s] of e)
+    t[n] = s;
+  return t;
+}, d = {
+  created() {
+    console.log("created");
+  }
+}, l = { class: "k-demo-section" };
+function p(o, e, t, n, s, m) {
+  return a(), r("section", l, e[0] || (e[0] = [
+    c(
+      "header",
+      { class: "k-section-header" },
+      [
+        c("h2", { class: "k-headline" }, "Custom section")
+      ],
+      -1
+      /* CACHED */
+    )
+  ]));
+}
+const _ = /* @__PURE__ */ i(d, [["render", p]]);
+window.panel.plugin("kirbyup/test", {
+  sections: {
+    demo: _
+  }
+});
+"
+`;
+
+exports[`supports built-in env variables 1`] = `
 "var kirbyupExport=(function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 "
 `;
@@ -41,10 +75,14 @@ exports[`kirbyup build > injects custom environment variables 1`] = `
 exports[`supports custom env variables 1`] = `
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2040149 (feat!: migrate to Vue 3 & remove deprecated options)
 =======
 <<<<<<< HEAD
 >>>>>>> c3f8661 (chore: upgrade dependencies)
+=======
+<<<<<<< HEAD
+>>>>>>> c17bd66 (chore: upgrade Vue 3 support)
 "var kirbyupExport=(function(o){"use strict";return o.foo="bar",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 =======
 =======
@@ -72,6 +110,12 @@ export {
 =======
 >>>>>>> 8c8a728 (chore: upgrade dependencies)
 >>>>>>> 0399ff7 (chore: upgrade dependencies)
+=======
+"const o = "bar";
+export {
+  o as foo
+};
+>>>>>>> 81eaf44 (chore: upgrade Vue 3 support)
 "
 `;
 
@@ -111,19 +155,6 @@ export {
 "
 `;
 
-<<<<<<< HEAD
-=======
-exports[`supports postcss plugins 1`] = `
-"
-"
-`;
-
-exports[`supports postcss plugins 2`] = `
-".foo{top:logical;right:0;bottom:5px;left:10px}[dir=rtl] .bar{margin-right:10px}
-"
-`;
-
->>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
 exports[`supports resolve aliases 1`] = `
 "const o = "bar";
 export {
