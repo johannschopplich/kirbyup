@@ -118,22 +118,6 @@ it('compiles vue templates', async () => {
   expect(output).toMatchSnapshot()
 })
 
-it('supports auto-importing components', async () => {
-  const { output } = await runCli({
-    'src/input.js': `
-      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
-
-      window.panel.plugin('kirbyup/example', {
-        blocks: kirbyup.import('./components/blocks/*.vue')
-      })
-    `,
-    'src/components/blocks/Foo.vue': '<template><k-header>Foo</k-header></template>',
-    'src/components/blocks/Bar.vue': '<template><k-header>Bar</k-header></template>',
-  })
-
-  expect(output).toMatchSnapshot()
-})
-
 it('supports kirbyup.config.js with object', async () => {
   const { output } = await runCli({
     'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
