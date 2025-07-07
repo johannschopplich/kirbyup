@@ -8,8 +8,8 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.2.0",
-    "eslint": "^9.39.1",
-    "kirbyup": "^3.4.1"
+    "@antfu/eslint-config": "^4.16.2",
+    "eslint": "^9.30.1",
+    "kirbyup": "^3.3.0"
   }
 }
