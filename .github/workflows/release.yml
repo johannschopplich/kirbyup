@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   release:
@@ -18,7 +18,7 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org/
           cache: pnpm
 
@@ -30,7 +30,14 @@ jobs:
       - run: pnpm install
       - run: pnpm run build
 
-      - name: Publish to npm
+      - name: Publish to npm (stable)
+        if: ${{ !contains(github.ref_name, '-') }}
         run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm (prerelease)
+        if: ${{ contains(github.ref_name, '-') }}
+        run: npm publish --access public --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
