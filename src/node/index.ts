@@ -2,6 +2,7 @@ import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig, LogLevel } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
+import * as fsp from 'node:fs/promises'
 import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import { consola } from 'consola'
@@ -152,12 +153,14 @@ async function generate(options: BuildOptions) {
     }
 
     for (const { fileName, type, code } of (output as OutputChunk[])) {
+      const content = code || (await fsp.readFile(resolve(options.outDir, fileName), 'utf8'))
+
       await printFileInfo(
         {
           root: options.cwd,
           outDir: options.outDir,
           filePath: fileName,
-          content: code,
+          content,
           type,
           maxLength,
         },
