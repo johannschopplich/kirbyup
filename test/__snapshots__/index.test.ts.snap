@@ -11,7 +11,7 @@ exports[`builds index.css 2`] = `
 `;
 
 exports[`builds index.js 1`] = `
-"var kirbyupExport=function(){"use strict";return"bar"}();
+"var kirbyupExport=(function(){"use strict";return"bar"})();
 "
 `;
 
@@ -31,26 +31,26 @@ exports[`supports auto-importing components 1`] = `
 `;
 
 exports[`supports built-in env variables 1`] = `
-"var kirbyupExport=function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
+"var kirbyupExport=(function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 "
 `;
 
 exports[`supports custom env variables 1`] = `
-"var kirbyupExport=function(o){"use strict";const r="bar";return o.foo=r,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
+"var kirbyupExport=(function(o){"use strict";return o.foo="bar",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 "
 `;
 
 exports[`supports kirbyup.config.js with function 1`] = `
-"var test=function(){"use strict";return"bar"}();
+"var test=(function(){"use strict";return"bar"})();
 "
 `;
 
 exports[`supports kirbyup.config.js with object 1`] = `
-"var test=function(){"use strict";return"bar"}();
+"var test=(function(){"use strict";return"bar"})();
 "
 `;
 
 exports[`supports resolve aliases 1`] = `
-"var kirbyupExport=function(){"use strict";return"bar"}();
+"var kirbyupExport=(function(){"use strict";return"bar"})();
 "
 `;

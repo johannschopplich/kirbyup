@@ -18,12 +18,21 @@ export async function getCompressedSize(code: string | Uint8Array) {
 }
 
 export async function printFileInfo(
-  root: string,
-  outDir: string,
-  filePath: string,
-  content: string,
-  type: string,
-  maxLength: number,
+  {
+    root,
+    outDir,
+    filePath,
+    content,
+    type,
+    maxLength,
+  }: {
+    root: string
+    outDir: string
+    filePath: string
+    content: string
+    type: string
+    maxLength: number
+  },
 ) {
   const prettyOutDir = `${normalize(relative(root, resolve(root, outDir)))}/`
   const kibs = content.length / 1024

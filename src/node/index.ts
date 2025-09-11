@@ -2,7 +2,6 @@ import type { OutputChunk, RollupOutput } from 'rollup'
 import type { InlineConfig, LogLevel } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
-import * as fsp from 'node:fs/promises'
 import vuePlugin from '@vitejs/plugin-vue2'
 import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
 import { consola } from 'consola'
@@ -143,23 +142,25 @@ async function generate(options: BuildOptions) {
   }
 
   if (result && !options.watch) {
-    const { output } = toArray(result as RollupOutput)[0]
+    const { output } = toArray(result as RollupOutput)[0]!
 
-    let longest = 0
-    for (const file in output) {
-      const l = output[file].fileName.length
-      if (l > longest)
-        longest = l
+    let maxLength = 0
+    for (const chunkFile in output) {
+      const fileNameLength = output[chunkFile]!.fileName.length
+      if (fileNameLength > maxLength)
+        maxLength = fileNameLength
     }
 
     for (const { fileName, type, code } of (output as OutputChunk[])) {
       await printFileInfo(
-        options.cwd,
-        options.outDir,
-        fileName,
-        code ?? (await fsp.readFile(resolve(options.outDir, fileName), 'utf8')),
-        type,
-        longest,
+        {
+          root: options.cwd,
+          outDir: options.outDir,
+          filePath: fileName,
+          content: code,
+          type,
+          maxLength,
+        },
       )
     }
   }
