@@ -26,19 +26,19 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/node/index.d.mts",
-      "default": "./dist/node/index.mjs"
+      "types": "./dist/node/index.d.ts",
+      "default": "./dist/node/index.js"
     },
     "./config": {
-      "types": "./dist/client/config.d.mts",
-      "default": "./dist/client/config.mjs"
+      "types": "./dist/client/config.d.ts",
+      "default": "./dist/client/config.js"
     },
     "./plugin": {
-      "types": "./dist/client/plugin.d.mts",
-      "default": "./dist/client/plugin.mjs"
+      "types": "./dist/client/plugin.d.ts",
+      "default": "./dist/client/plugin.js"
     }
   },
-  "types": "./dist/node/index.d.mts",
+  "types": "./dist/node/index.d.ts",
   "typesVersions": {
     "*": {
       "config": [
