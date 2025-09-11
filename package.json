@@ -60,8 +60,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "unbuild",
-    "dev": "UNBUILD_STUB=true unbuild",
+    "build": "tsdown",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
@@ -87,7 +86,7 @@
     "postcss-load-config": "^6.0.1",
     "rollup-plugin-external-globals": "^0.13.0",
     "sass": "^1.92.1",
-    "vite": "~6.3.6",
+    "vite": "^6.3.6",
     "vite-plugin-full-reload": "^1.2.0",
     "vue": "^2.7.16"
   },
@@ -98,11 +97,14 @@
     "bumpp": "^10.2.3",
     "eslint": "^9.35.0",
     "fast-glob": "^3.3.3",
+    "tsdown": "^0.15.0",
     "typescript": "^5.9.2",
-    "unbuild": "^3.6.1",
     "vitest": "^3.2.4"
   },
   "pnpm": {
+    "overrides": {
+      "vite": "^6.3.6"
+    },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "esbuild"

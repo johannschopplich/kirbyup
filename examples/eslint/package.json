@@ -10,6 +10,6 @@
   "devDependencies": {
     "@antfu/eslint-config": "^5.3.0",
     "eslint": "^9.35.0",
-    "kirbyup": "^3.3.0"
+    "kirbyup": "^3.4.0"
   }
 }

@@ -121,7 +121,7 @@ it('compiles vue templates', async () => {
 it('supports auto-importing components', async () => {
   const { output } = await runCli({
     'src/input.js': `
-      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
+      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.js')}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')
@@ -167,7 +167,7 @@ it('supports kirbyup.config.js with function', async () => {
     'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
-      import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
+      import { defineConfig } from '${resolve(currentDir, '../dist/client/config.js')}'
       const currentDir = fileURLToPath(new URL('.', import.meta.url))
       export default defineConfig({
         alias: {

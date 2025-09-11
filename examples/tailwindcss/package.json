@@ -12,7 +12,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9.35.0",
     "eslint-plugin-tailwindcss": "^3.18.2",
-    "kirbyup": "^3.3.0",
+    "kirbyup": "^3.4.0",
     "tailwindcss": "^3.4.17"
   }
 }

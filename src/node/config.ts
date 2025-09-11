@@ -1,8 +1,9 @@
+import type { ConfigLayerMeta, ResolvedConfig } from 'c12'
 import type { PostCSSConfigResult, UserConfig } from './types'
 import { loadConfig as _loadConfig } from 'c12'
 import postcssrc from 'postcss-load-config'
 
-export function loadConfig(cwd = process.cwd()) {
+export function loadConfig(cwd: string = process.cwd()): Promise<ResolvedConfig<UserConfig, ConfigLayerMeta>> {
   return _loadConfig<UserConfig>({
     cwd,
     name: 'kirbyup',

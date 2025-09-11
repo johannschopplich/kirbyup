@@ -1,5 +1,5 @@
-import type { OutputChunk, RollupOutput } from 'rollup'
-import type { InlineConfig, LogLevel } from 'vite'
+import type { OutputChunk, RollupOutput, RollupWatcher } from 'rollup'
+import type { InlineConfig, LogLevel, ViteDevServer } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
@@ -127,7 +127,7 @@ function getViteConfig(
   return mergeConfig(buildConfig, userConfig)
 }
 
-async function generate(options: BuildOptions) {
+async function generate(options: BuildOptions): Promise<RollupOutput | RollupOutput[] | RollupWatcher | undefined> {
   const config = getViteConfig('build', options)
 
   let result: Awaited<ReturnType<typeof _build>> | undefined
@@ -171,7 +171,7 @@ async function generate(options: BuildOptions) {
   return result
 }
 
-export async function build(options: BuildOptions) {
+export async function build(options: BuildOptions): Promise<void> {
   assertEntryExists(options)
 
   const { cwd } = options
@@ -257,7 +257,7 @@ export async function build(options: BuildOptions) {
   startWatcher()
 }
 
-export async function serve(options: ServeOptions) {
+export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   assertEntryExists(options)
 
   const { cwd } = options
@@ -283,7 +283,7 @@ export async function serve(options: ServeOptions) {
   return server
 }
 
-function assertEntryExists(options: BaseOptions) {
+function assertEntryExists(options: BaseOptions): void {
   if (!fs.existsSync(resolve(options.cwd, options.entry)))
     throw new PrettyError(`Cannot find "${options.entry}"`)
 }

@@ -1,10 +1,10 @@
-export const multilineCommentsRE = /\/\*(.|[\r\n])*?\*\//g
-export const singlelineCommentsRE = /\/\/.*/g
+export const multilineCommentsRE: RegExp = /\/\*(.|[\r\n])*?\*\//g
+export const singlelineCommentsRE: RegExp = /\/\/.*/g
 
 export const HMR_RUNTIME_ID = '\0plugin-vue2:hmr-runtime'
 export const JSX_HMR_RUNTIME_ID = 'plugin-vue2-jsx:hmr-runtime'
 
-export function isHmrRuntimeId(id: string) {
+export function isHmrRuntimeId(id: string): boolean {
   return id === HMR_RUNTIME_ID || id === JSX_HMR_RUNTIME_ID
 }
 

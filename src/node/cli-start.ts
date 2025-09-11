@@ -2,7 +2,7 @@ import { cac } from 'cac'
 import { name, version } from '../../package.json'
 import { build, serve } from './index'
 
-export async function startCli(cwd = process.cwd(), argv = process.argv) {
+export async function startCli(cwd: string = process.cwd(), argv: string[] = process.argv): Promise<void> {
   const cli = cac(name)
 
   cli
