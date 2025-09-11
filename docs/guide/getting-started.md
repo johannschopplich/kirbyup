@@ -43,7 +43,7 @@ Having installed kirbyup, you can add the following scripts as shortcuts to the 
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^3.1.3"
+    "kirbyup": "^3.4.0"
   }
 }
 ```
