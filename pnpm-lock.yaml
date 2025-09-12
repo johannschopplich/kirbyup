@@ -78,9 +78,9 @@ importers:
       eslint:
         specifier: ^9.35.0
         version: 9.35.0(jiti@2.5.1)
-      fast-glob:
-        specifier: ^3.3.3
-        version: 3.3.3
+      tinyglobby:
+        specifier: ^0.2.15
+        version: 0.2.15
       tsdown:
         specifier: ^0.15.0
         version: 0.15.0(typescript@5.9.2)

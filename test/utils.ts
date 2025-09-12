@@ -1,17 +1,19 @@
 import * as fsp from 'node:fs/promises'
 import { dirname } from 'node:path'
-import fg from 'fast-glob'
 import { resolve } from 'pathe'
+import { glob } from 'tinyglobby'
 import { startCli } from '../src/node/cli-start'
 
 export const cacheDir: string = new URL('./.cache', import.meta.url).pathname
 export const cli: string = new URL('../src/node/cli.ts', import.meta.url).pathname
 
-export async function runCli(files: Record<string, string>): Promise<{
+export interface CliRunResult {
   output: string
   outFiles: string[]
   getFileContent: (filename: string) => Promise<string>
-}> {
+}
+
+export async function runCli(files: Record<string, string>): Promise<CliRunResult> {
   const testDir = resolve(cacheDir, Date.now().toString())
 
   // Retrieve any file's content
@@ -31,7 +33,7 @@ export async function runCli(files: Record<string, string>): Promise<{
 
   // Get main output and all associated files
   const output = await getFileContent('index.js')
-  const outFiles = await fg('**/*', { cwd: testDir, ignore: ['src'] })
+  const outFiles = await glob('**/*', { cwd: testDir, ignore: ['src'] })
 
   return {
     output,
