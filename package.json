@@ -74,7 +74,7 @@
     "@vitejs/plugin-vue2": "2.2.0",
     "@vitejs/plugin-vue2-jsx": "1.1.0",
     "@vue/compiler-sfc": "^2.7.16",
-    "c12": "^3.2.0",
+    "c12": "~3.2.0",
     "cac": "^6.7.14",
     "chokidar": "^4.0.3",
     "consola": "^3.4.2",
