@@ -1,2 +1,9 @@
 packages:
   - docs
+
+overrides:
+  vite: ^6.3.6
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild

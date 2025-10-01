@@ -2,7 +2,7 @@
   "name": "kirbyup",
   "type": "module",
   "version": "3.4.1",
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.17.1",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -79,34 +79,25 @@
     "chokidar": "^4.0.3",
     "consola": "^3.4.2",
     "magic-string": "^0.30.19",
-    "nypm": "^0.6.1",
+    "nypm": "^0.6.2",
     "pathe": "^2.0.3",
     "perfect-debounce": "^2.0.0",
     "postcss": "^8.5.6",
     "postcss-load-config": "^6.0.1",
     "rollup-plugin-external-globals": "^0.13.0",
-    "sass": "^1.92.1",
+    "sass": "^1.93.2",
     "vite": "^6.3.6",
     "vite-plugin-full-reload": "^1.2.0",
     "vue": "^2.7.16"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.3.0",
-    "@types/node": "^24.3.1",
+    "@antfu/eslint-config": "^5.4.1",
+    "@types/node": "^24.6.1",
     "bumpp": "^10.2.3",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "tinyglobby": "^0.2.15",
-    "tsdown": "^0.15.0",
-    "typescript": "^5.9.2",
+    "tsdown": "^0.15.6",
+    "typescript": "^5.9.3",
     "vitest": "^3.2.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "vite": "^6.3.6"
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild"
-    ]
   }
 }
