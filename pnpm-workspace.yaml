@@ -2,7 +2,7 @@ packages:
   - docs
 
 overrides:
-  vite: ^6.3.6
+  vite: ^6.4.1
 
 onlyBuiltDependencies:
   - '@parcel/watcher'

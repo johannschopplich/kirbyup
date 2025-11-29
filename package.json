@@ -2,7 +2,7 @@
   "name": "kirbyup",
   "type": "module",
   "version": "3.4.1",
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.24.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -26,26 +26,26 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/node/index.d.ts",
-      "default": "./dist/node/index.js"
+      "types": "./dist/node/index.d.mts",
+      "default": "./dist/node/index.mjs"
     },
     "./config": {
-      "types": "./dist/client/config.d.ts",
-      "default": "./dist/client/config.js"
+      "types": "./dist/client/config.d.mts",
+      "default": "./dist/client/config.mjs"
     },
     "./plugin": {
-      "types": "./dist/client/plugin.d.ts",
-      "default": "./dist/client/plugin.js"
+      "types": "./dist/client/plugin.d.mts",
+      "default": "./dist/client/plugin.mjs"
     }
   },
-  "types": "./dist/node/index.d.ts",
+  "types": "./dist/node/index.d.mts",
   "typesVersions": {
     "*": {
       "config": [
-        "./dist/client/config.d.ts"
+        "./dist/client/config.d.mts"
       ],
       "plugin": [
-        "./dist/client/plugin.d.ts"
+        "./dist/client/plugin.d.mts"
       ]
     }
   },
@@ -74,30 +74,30 @@
     "@vitejs/plugin-vue2": "2.2.0",
     "@vitejs/plugin-vue2-jsx": "1.1.0",
     "@vue/compiler-sfc": "^2.7.16",
-    "c12": "~3.2.0",
+    "c12": "~3.3.2",
     "cac": "^6.7.14",
     "chokidar": "^4.0.3",
     "consola": "^3.4.2",
-    "magic-string": "^0.30.19",
+    "magic-string": "^0.30.21",
     "nypm": "^0.6.2",
     "pathe": "^2.0.3",
     "perfect-debounce": "^2.0.0",
     "postcss": "^8.5.6",
     "postcss-load-config": "^6.0.1",
     "rollup-plugin-external-globals": "^0.13.0",
-    "sass": "^1.93.2",
-    "vite": "^6.3.6",
+    "sass": "^1.94.2",
+    "vite": "^6.4.1",
     "vite-plugin-full-reload": "^1.2.0",
     "vue": "^2.7.16"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.4.1",
-    "@types/node": "^24.6.1",
-    "bumpp": "^10.2.3",
-    "eslint": "^9.36.0",
+    "@antfu/eslint-config": "^6.2.0",
+    "@types/node": "^24.10.1",
+    "bumpp": "^10.3.2",
+    "eslint": "^9.39.1",
     "tinyglobby": "^0.2.15",
-    "tsdown": "^0.15.6",
+    "tsdown": "^0.16.8",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.14"
   }
 }
