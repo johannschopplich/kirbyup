@@ -72,17 +72,14 @@ if (typeof __VUE_HMR_RUNTIME__ !== 'undefined' && !window.__KIRBYUP_HMR_WRAPPED_
   };
 
   function $_getHmrRecord(id) {
-    // Try multiple access patterns for the HMR map
-    if (__VUE_HMR_RUNTIME__.map) {
-      return __VUE_HMR_RUNTIME__.map.get(id);
-    }
-    // Fallback: maintain parallel map
+    // Vue 3's HMR map is not exposed, so we maintain our own parallel map
+    // by wrapping \`createRecord\` to track component definitions
     if (!window.__KIRBYUP_MAP__) {
       window.__KIRBYUP_MAP__ = new Map();
-      const origCreate = __VUE_HMR_RUNTIME__.createRecord;
+      const originalCreate = __VUE_HMR_RUNTIME__.createRecord;
       __VUE_HMR_RUNTIME__.createRecord = function(id, initialDef) {
         window.__KIRBYUP_MAP__.set(id, { initialDef });
-        return origCreate.call(this, id, initialDef);
+        return originalCreate.call(this, id, initialDef);
       };
     }
     return window.__KIRBYUP_MAP__.get(id);
