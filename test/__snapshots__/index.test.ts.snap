@@ -20,8 +20,11 @@ exports[`kirbyup build > builds index.css 2`] = `
 "
 `;
 
-exports[`kirbyup build > builds index.js 1`] = `
-"var kirbyupExport=(function(){"use strict";return"bar"})();
+exports[`builds index.js 1`] = `
+"const o = "bar";
+export {
+  o as default
+};
 "
 `;
 
@@ -43,7 +46,7 @@ const i = (o, e) => {
   }
 }, l = { class: "k-demo-section" };
 function p(o, e, t, n, s, m) {
-  return a(), r("section", l, e[0] || (e[0] = [
+  return a(), r("section", l, [...e[0] || (e[0] = [
     c(
       "header",
       { class: "k-section-header" },
@@ -53,7 +56,7 @@ function p(o, e, t, n, s, m) {
       -1
       /* CACHED */
     )
-  ]));
+  ])]);
 }
 const _ = /* @__PURE__ */ i(d, [["render", p]]);
 window.panel.plugin("kirbyup/test", {
@@ -65,7 +68,10 @@ window.panel.plugin("kirbyup/test", {
 `;
 
 exports[`supports built-in env variables 1`] = `
-"var kirbyupExport=(function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
+"const o = "production";
+export {
+  o as mode
+};
 "
 `;
 
@@ -73,6 +79,7 @@ exports[`supports built-in env variables 1`] = `
 exports[`kirbyup build > injects custom environment variables 1`] = `
 =======
 exports[`supports custom env variables 1`] = `
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -111,11 +118,12 @@ export {
 >>>>>>> 8c8a728 (chore: upgrade dependencies)
 >>>>>>> 0399ff7 (chore: upgrade dependencies)
 =======
+=======
+>>>>>>> 3876823 (chore: rebase on `main`)
 "const o = "bar";
 export {
   o as foo
 };
->>>>>>> 81eaf44 (chore: upgrade Vue 3 support)
 "
 `;
 
@@ -124,14 +132,16 @@ exports[`kirbyup build > loads config file with function export 1`] = `
 =======
 exports[`supports kirbyup.config.js with function 1`] = `
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2040149 (feat!: migrate to Vue 3 & remove deprecated options)
 "var test=(function(){"use strict";return"bar"})();
 =======
+=======
+>>>>>>> 3876823 (chore: rebase on `main`)
 "const o = "bar";
 export {
   o as default
 };
->>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 "
 `;
 
@@ -139,6 +149,7 @@ export {
 exports[`kirbyup build > loads config file with object export 1`] = `
 =======
 exports[`supports kirbyup.config.js with object 1`] = `
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 2040149 (feat!: migrate to Vue 3 & remove deprecated options)
 "var test=(function(){"use strict";return"bar"})();
@@ -148,6 +159,8 @@ exports[`supports kirbyup.config.js with object 1`] = `
 exports[`kirbyup build > resolves path aliases 1`] = `
 "var kirbyupExport=(function(){"use strict";return"bar"})();
 =======
+=======
+>>>>>>> 3876823 (chore: rebase on `main`)
 "const o = "bar";
 export {
   o as default
@@ -160,6 +173,5 @@ exports[`supports resolve aliases 1`] = `
 export {
   o as default
 };
->>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 "
 `;

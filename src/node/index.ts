@@ -1,5 +1,5 @@
-import type { OutputChunk, RollupOutput } from 'rollup'
-import type { InlineConfig, LogLevel } from 'vite'
+import type { OutputChunk, RollupOutput, RollupWatcher } from 'rollup'
+import type { InlineConfig, LogLevel, ViteDevServer } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
