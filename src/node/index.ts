@@ -267,12 +267,15 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))
-    consola.info('Starting development server...')
+    // consola.info('Starting development server...')
+    consola.info(`Development server unavailable. Use watch mode for now: ${colors.cyan(`kirbyup build ${options.entry} --watch`)}`)
+    throw new PrettyError('HMR is not yet implemented for Kirby 6 plugins. Please use watch mode instead.')
   }
 
   const server = await createServer(getViteConfig('serve', options))
 
   await server.listen()
+
   if (!process.env.VITEST)
     consola.success(`Server is listening on :${server.config.server.port}`)
 
