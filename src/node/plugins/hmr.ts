@@ -8,7 +8,7 @@ import { resolve } from 'pathe'
 import { ensureTrailingSlash, resolveOriginFromServerOptions } from '../utils/server'
 import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
 
-export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
+export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
   let entry: string
   let devIndexPath: string
