@@ -2,7 +2,7 @@
   "name": "kirbyup",
   "type": "module",
   "version": "4.0.0-alpha.2",
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.25.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -71,12 +71,12 @@
     "test:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^6.0.0",
-    "@vitejs/plugin-vue-jsx": "^5.0.1",
-    "@vue/compiler-sfc": "^3.5.17",
-    "c12": "^3.0.4",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vitejs/plugin-vue-jsx": "^5.1.2",
+    "@vue/compiler-sfc": "^3.5.25",
+    "c12": "^3.3.2",
     "cac": "^6.7.14",
-    "chokidar": "^4.0.3",
+    "chokidar": "^5.0.0",
     "consola": "^3.4.2",
     "magic-string": "^0.30.21",
     "nypm": "^0.6.2",
@@ -85,19 +85,19 @@
     "postcss": "^8.5.6",
     "postcss-load-config": "^6.0.1",
     "rollup-plugin-external-globals": "^0.13.0",
-    "sass": "^1.94.2",
-    "vite": "^6.4.1",
+    "sass": "^1.95.1",
+    "vite": "^7.2.7",
     "vite-plugin-full-reload": "^1.2.0",
-    "vue": "^3.5.17"
+    "vue": "^3.5.25"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.2.0",
-    "@types/node": "^24.10.1",
+    "@antfu/eslint-config": "^6.6.1",
+    "@types/node": "^24.10.2",
     "bumpp": "^10.3.2",
     "eslint": "^9.39.1",
     "tinyglobby": "^0.2.15",
-    "tsdown": "^0.16.8",
+    "tsdown": "^0.17.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.14"
+    "vitest": "^4.0.15"
   }
 }
