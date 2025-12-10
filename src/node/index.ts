@@ -101,10 +101,7 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [
-      kirbyupBuildCleanupPlugin(options as BuildOptions),
-      ...(options.watch ? [kirbyupRunningMarkerPlugin({ outDir: options.outDir })] : []),
-    ],
+    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
