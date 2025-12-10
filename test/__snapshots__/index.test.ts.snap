@@ -67,6 +67,108 @@ window.panel.plugin("kirbyup/test", {
 "
 `;
 
+exports[`kirbyup build > builds Kirby Panel plugins 1`] = `
+"const e = { extends: "k-info-field" };
+window.panel.plugin("kirbyup/test", {
+  fields: {
+    demo: e
+  }
+});
+"
+`;
+
+exports[`kirbyup build > builds index.css 1`] = `
+"
+"
+`;
+
+exports[`kirbyup build > builds index.css 2`] = `
+".foo{content:"bar"}
+"
+`;
+
+exports[`kirbyup build > builds index.js 1`] = `
+"const o = "bar";
+export {
+  o as default
+};
+"
+`;
+
+exports[`kirbyup build > compiles Vue single-file components 1`] = `
+"import { createElementBlock as r, openBlock as a, createElementVNode as c } from "vue";
+const i = (o, e) => {
+  const t = o.__vccOpts || o;
+  for (const [n, s] of e)
+    t[n] = s;
+  return t;
+}, d = {
+  created() {
+    console.log("created");
+  }
+}, l = { class: "k-demo-section" };
+function p(o, e, t, n, s, m) {
+  return a(), r("section", l, [...e[0] || (e[0] = [
+    c(
+      "header",
+      { class: "k-section-header" },
+      [
+        c("h2", { class: "k-headline" }, "Custom section")
+      ],
+      -1
+      /* CACHED */
+    )
+  ])]);
+}
+const _ = /* @__PURE__ */ i(d, [["render", p]]);
+window.panel.plugin("kirbyup/test", {
+  sections: {
+    demo: _
+  }
+});
+"
+`;
+
+exports[`kirbyup build > injects built-in environment variables 1`] = `
+"const o = "production";
+export {
+  o as mode
+};
+"
+`;
+
+exports[`kirbyup build > injects custom environment variables 1`] = `
+"const o = "bar";
+export {
+  o as foo
+};
+"
+`;
+
+exports[`kirbyup build > loads config file with function export 1`] = `
+"const o = "bar";
+export {
+  o as default
+};
+"
+`;
+
+exports[`kirbyup build > loads config file with object export 1`] = `
+"const o = "bar";
+export {
+  o as default
+};
+"
+`;
+
+exports[`kirbyup build > resolves path aliases 1`] = `
+"const o = "bar";
+export {
+  o as default
+};
+"
+`;
+
 exports[`supports built-in env variables 1`] = `
 "const o = "production";
 export {
