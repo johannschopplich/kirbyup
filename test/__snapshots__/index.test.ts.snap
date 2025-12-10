@@ -168,6 +168,7 @@ export {
 };
 "
 `;
+<<<<<<< HEAD
 
 exports[`supports built-in env variables 1`] = `
 "const o = "production";
@@ -277,3 +278,5 @@ export {
 };
 "
 `;
+=======
+>>>>>>> 12660cc (test: update snapshots)
