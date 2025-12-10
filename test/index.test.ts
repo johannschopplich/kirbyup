@@ -1,72 +1,73 @@
 import * as fsp from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { resolve } from 'pathe'
-import { afterAll, beforeAll, expect, it, vi } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
 
 const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
-beforeAll(async () => {
-  // Unset so kirbyup applies its default environment setting
-  vi.stubEnv('NODE_ENV', '')
-  await fsp.rm(cacheDir, { recursive: true, force: true })
-})
-
-afterAll(async () => {
-  vi.unstubAllEnvs()
-  await fsp.rm(cacheDir, { recursive: true, force: true })
-})
-
-it('builds index.js', async () => {
-  const { output } = await runCli({
-    'src/input.js': 'import foo from \'./foo\'\nexport default foo',
-    'src/foo.js': 'export default \'bar\'',
+describe('kirbyup build', () => {
+  beforeAll(async () => {
+    // Unset so kirbyup applies its default environment setting
+    vi.stubEnv('NODE_ENV', '')
+    await fsp.rm(cacheDir, { recursive: true, force: true })
   })
 
-  expect(output).toMatchSnapshot()
-})
-
-it('builds index.css', async () => {
-  const { output, getFileContent } = await runCli({
-    'src/input.js': 'import \'./input.css\'',
-    'src/input.css': '.foo { content: "bar"; }',
+  afterAll(async () => {
+    vi.unstubAllEnvs()
+    await fsp.rm(cacheDir, { recursive: true, force: true })
   })
 
-  expect(output).toMatchSnapshot()
+  it('builds index.js', async () => {
+    const { output } = await runCli({
+      'src/input.js': 'import foo from \'./foo\'\nexport default foo',
+      'src/foo.js': 'export default \'bar\'',
+    })
 
-  const css = await getFileContent('index.css')
-  expect(css).toMatchSnapshot()
-})
-
-it('supports resolve aliases', async () => {
-  const { output } = await runCli({
-    'src/input.js': 'import foo from \'~/foo\'\nexport default foo',
-    'src/foo.js': 'export default \'bar\'',
+    expect(output).toMatchSnapshot()
   })
 
-  expect(output).toMatchSnapshot()
-})
+  it('builds index.css', async () => {
+    const { output, getFileContent } = await runCli({
+      'src/input.js': 'import \'./input.css\'',
+      'src/input.css': '.foo { content: "bar"; }',
+    })
 
-it('supports built-in env variables', async () => {
-  const { output } = await runCli({
-    'src/input.js': 'export const mode = import.' + 'meta.env.MODE',
+    expect(output).toMatchSnapshot()
+
+    const css = await getFileContent('index.css')
+    expect(css).toMatchSnapshot()
   })
 
-  expect(output).toMatchSnapshot()
-})
+  it('resolves path aliases', async () => {
+    const { output } = await runCli({
+      'src/input.js': 'import foo from \'~/foo\'\nexport default foo',
+      'src/foo.js': 'export default \'bar\'',
+    })
 
-it('supports custom env variables', async () => {
-  const { output } = await runCli({
-    '.env': 'KIRBYUP_FOO=bar',
-    'src/input.js': 'export const foo = import.' + 'meta.env.KIRBYUP_FOO',
+    expect(output).toMatchSnapshot()
   })
 
-  expect(output).toMatchSnapshot()
-})
+  it('injects built-in environment variables', async () => {
+    const { output } = await runCli({
+      'src/input.js': 'export const mode = import.' + 'meta.env.MODE',
+    })
 
-it('builds panel plugins', async () => {
-  const { output } = await runCli({
-    'src/input.js': `
+    expect(output).toMatchSnapshot()
+  })
+
+  it('injects custom environment variables', async () => {
+    const { output } = await runCli({
+      '.env': 'KIRBYUP_FOO=bar',
+      'src/input.js': 'export const foo = import.' + 'meta.env.KIRBYUP_FOO',
+    })
+
+    expect(output).toMatchSnapshot()
+  })
+
+  it('builds Kirby Panel plugins', async () => {
+    const { output } = await runCli({
+      'src/input.js': `
       import Demo from './fields/demo.js'
       window.panel.plugin('kirbyup/test', {
         fields: {
@@ -74,15 +75,15 @@ it('builds panel plugins', async () => {
         }
       })
     `,
-    'src/fields/demo.js': 'export default { extends: \'k-info-field\' }',
+      'src/fields/demo.js': 'export default { extends: \'k-info-field\' }',
+    })
+
+    expect(output).toMatchSnapshot()
   })
 
-  expect(output).toMatchSnapshot()
-})
-
-it('compiles vue templates', async () => {
-  const { output } = await runCli({
-    'src/input.js': `
+  it('compiles Vue single-file components', async () => {
+    const { output } = await runCli({
+      'src/input.js': `
       import DemoSection from './fields/DemoSection.vue'
       window.panel.plugin('kirbyup/test', {
         sections: {
@@ -90,7 +91,7 @@ it('compiles vue templates', async () => {
         }
       })
     `,
-    'src/fields/DemoSection.vue': `
+      'src/fields/DemoSection.vue': `
       <template>
         <section class="k-demo-section">
           <header class="k-section-header">
@@ -113,16 +114,16 @@ it('compiles vue templates', async () => {
       }
       </style>
     `,
+    })
+
+    expect(output).toMatchSnapshot()
   })
 
-  expect(output).toMatchSnapshot()
-})
-
-it('supports kirbyup.config.js with object', async () => {
-  const { output } = await runCli({
-    'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
-    'src/foo.js': 'export default \'bar\'',
-    'kirbyup.config.js': `
+  it('loads config file with object export', async () => {
+    const { output } = await runCli({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+      'src/foo.js': 'export default \'bar\'',
+      'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
       const currentDir = fileURLToPath(new URL('.', import.meta.url))
@@ -139,16 +140,16 @@ it('supports kirbyup.config.js with object', async () => {
         }
       }
     `,
+    })
+
+    expect(output).toMatchSnapshot()
   })
 
-  expect(output).toMatchSnapshot()
-})
-
-it('supports kirbyup.config.js with function', async () => {
-  const { output } = await runCli({
-    'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
-    'src/foo.js': 'export default \'bar\'',
-    'kirbyup.config.js': `
+  it('loads config file with function export', async () => {
+    const { output } = await runCli({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+      'src/foo.js': 'export default \'bar\'',
+      'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
       import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
@@ -166,7 +167,8 @@ it('supports kirbyup.config.js with function', async () => {
         }
       })
     `,
-  })
+    })
 
-  expect(output).toMatchSnapshot()
+    expect(output).toMatchSnapshot()
+  })
 })

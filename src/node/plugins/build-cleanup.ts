@@ -3,7 +3,7 @@ import type { BuildOptions } from '../types'
 import * as fs from 'node:fs'
 import { resolve } from 'pathe'
 
-export default function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
+export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig
   let devIndexPath: string
 

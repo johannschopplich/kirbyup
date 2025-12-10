@@ -15,8 +15,7 @@ import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
-import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
-import kirbyupHmrPlugin from './plugins/hmr'
+import { kirbyupBuildCleanupPlugin, kirbyupHmrPlugin, kirbyupRunningMarkerPlugin } from './plugins'
 import { printFileInfo, toArray } from './utils'
 
 let resolvedKirbyupConfig: UserConfig
@@ -78,6 +77,7 @@ function getViteConfig(
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
+        kirbyupRunningMarkerPlugin({ outDir: options.outDir }),
         watch && fullReloadPlugin(watch),
       ].filter(Boolean),
       // Input needs to be specified so dependency pre-bundling works
@@ -101,7 +101,10 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
+    plugins: [
+      kirbyupBuildCleanupPlugin(options as BuildOptions),
+      ...(options.watch ? [kirbyupRunningMarkerPlugin({ outDir: options.outDir })] : []),
+    ],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
