@@ -11,7 +11,10 @@ exports[`builds index.css 2`] = `
 `;
 
 exports[`builds index.js 1`] = `
-"var kirbyupExport=(function(){"use strict";return"bar"})();
+"const o = "bar";
+export {
+  o as default
+};
 "
 `;
 
@@ -38,7 +41,7 @@ const i = (o, e) => {
   }
 }, l = { class: "k-demo-section" };
 function p(o, e, t, n, s, m) {
-  return a(), r("section", l, e[0] || (e[0] = [
+  return a(), r("section", l, [...e[0] || (e[0] = [
     c(
       "header",
       { class: "k-section-header" },
@@ -48,7 +51,7 @@ function p(o, e, t, n, s, m) {
       -1
       /* CACHED */
     )
-  ]));
+  ])]);
 }
 const _ = /* @__PURE__ */ i(d, [["render", p]]);
 window.panel.plugin("kirbyup/test", {
@@ -60,71 +63,30 @@ window.panel.plugin("kirbyup/test", {
 `;
 
 exports[`supports built-in env variables 1`] = `
-"var kirbyupExport=(function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
+"const o = "production";
+export {
+  o as mode
+};
 "
 `;
 
 exports[`supports custom env variables 1`] = `
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-"var kirbyupExport=(function(o){"use strict";return o.foo="bar",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
-=======
-=======
->>>>>>> 0399ff7 (chore: upgrade dependencies)
-<<<<<<< HEAD
-"var kirbyupExport=function(o){"use strict";const r="bar";return o.foo=r,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o}({});
-=======
-<<<<<<< HEAD
-"var kirbyupExport=function(e){"use strict";var t={BASE_URL:"/",DEV:!1,MODE:"production",PROD:!0,SSR:!1};const o=t.KIRBYUP_FOO;return e.foo=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),e}({});
-=======
-"var e = { BASE_URL: "/", MODE: "production", DEV: !1, PROD: !0, SSR: !1 };
-=======
-"var e = { BASE_URL: "/", DEV: !1, MODE: "production", PROD: !0, SSR: !1 };
->>>>>>> 8c8a728 (chore: upgrade dependencies)
-const o = e.KIRBYUP_FOO;
-export {
-  o as foo
-};
-<<<<<<< HEAD
->>>>>>> 682d144 (feat!: migrate to Vue 3 & remove deprecated options)
->>>>>>> 4af590d (feat!: migrate to Vue 3 & remove deprecated options)
-<<<<<<< HEAD
->>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
-=======
-=======
->>>>>>> 8c8a728 (chore: upgrade dependencies)
->>>>>>> 0399ff7 (chore: upgrade dependencies)
-=======
 "const o = "bar";
 export {
   o as foo
 };
->>>>>>> 81eaf44 (chore: upgrade Vue 3 support)
 "
 `;
 
 exports[`supports kirbyup.config.js with function 1`] = `
-<<<<<<< HEAD
-"var test=(function(){"use strict";return"bar"})();
-=======
 "const o = "bar";
 export {
   o as default
 };
->>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 "
 `;
 
 exports[`supports kirbyup.config.js with object 1`] = `
-<<<<<<< HEAD
-"var test=(function(){"use strict";return"bar"})();
-"
-`;
-
-exports[`supports resolve aliases 1`] = `
-"var kirbyupExport=(function(){"use strict";return"bar"})();
-=======
 "const o = "bar";
 export {
   o as default
@@ -137,6 +99,5 @@ exports[`supports resolve aliases 1`] = `
 export {
   o as default
 };
->>>>>>> 5ad04b6 (feat!: migrate to Vue 3 & remove deprecated options)
 "
 `;

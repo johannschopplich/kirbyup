@@ -8,7 +8,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.2.0",
+    "@antfu/eslint-config": "^6.6.1",
     "autoprefixer": "^10.4.22",
     "eslint": "^9.39.1",
     "eslint-plugin-tailwindcss": "^3.18.2",
