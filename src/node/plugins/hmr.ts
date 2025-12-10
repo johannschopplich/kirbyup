@@ -6,7 +6,7 @@ import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import { detectPackageManager } from 'nypm'
 import { resolve } from 'pathe'
-import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
+import { __HMR_INJECTION_CODE__ } from './utils'
 
 export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
@@ -24,15 +24,24 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     },
 
     transform(code, id) {
-      if (isHmrRuntimeId(id)) {
-        // Call `$_applyKirbyModifications` before instantiating the new component instance
-        // and append our own runtime code *at the end*, so rerender & reload methods on the
-        // `__VUE_HMR_RUNTIME__` are already defined and can be wrapped.
-        return code.replace(
-          // https://github.com/vitejs/vite-plugin-vue2/blob/8de73ea6b8a1df4c14308da2885db195dacc2b14/src/utils/hmrRuntime.ts#L173
-          /^.*=\s*record\.Ctor\.super\.extend\(options\)/m,
-          '$_applyKirbyModifications(record.Ctor.options, options) // injected by kirbyup\n$&',
-        ) + __INJECTED_HMR_CODE__
+      // Vue 3 doesn't have a separate HMR runtime module. Instead, we inject our
+      // wrapper code into each Vue component that has HMR enabled.
+      if (!id.endsWith('.vue'))
+        return
+      if (!code.includes('__VUE_HMR_RUNTIME__.createRecord'))
+        return
+
+      // Find injection point: right before import.meta.hot.accept
+      // This ensures our wrapper is set up before any HMR updates are accepted
+      const injectionPoint = code.indexOf('import.meta.hot.accept')
+
+      if (injectionPoint === -1)
+        return
+
+      // Inject wrapper code before the accept handler
+      return {
+        code: `${code.slice(0, injectionPoint) + __HMR_INJECTION_CODE__}\n${code.slice(injectionPoint)}`,
+        map: null,
       }
     },
 
