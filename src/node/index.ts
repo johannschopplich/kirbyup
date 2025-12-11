@@ -74,10 +74,7 @@ function getViteConfig(
 
   if (command === 'serve') {
     const { port, watch } = options as ServeOptions
-
-    const userServerConfig = userConfig.server || {}
-    const inferredOrigin = userServerConfig.origin
-      ?? resolveOriginFromServerOptions(userServerConfig, port, 'localhost')
+    const inferredOrigin = userConfig.server?.origin ?? resolveOriginFromServerOptions(userConfig.server, port, 'localhost')
 
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
