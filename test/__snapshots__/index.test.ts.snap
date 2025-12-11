@@ -1,56 +1,56 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`builds index.css 1`] = `
-"(function(){"use strict"})();
-"
-`;
-
-exports[`builds index.css 2`] = `
-".foo{content:"bar"}
-"
-`;
-
-exports[`builds index.js 1`] = `
-"var kirbyupExport=(function(){"use strict";return"bar"})();
-"
-`;
-
-exports[`builds panel plugins 1`] = `
-"(function(){"use strict";const e={extends:"k-info-field"};window.panel.plugin("kirbyup/test",{fields:{demo:e}})})();
-"
-`;
-
-exports[`compiles vue templates 1`] = `
-"(function(){"use strict";function o(n,e,_,d,l,u,f,m){var t=typeof n=="function"?n.options:n;return e&&(t.render=e,t.staticRenderFns=_,t._compiled=!0),{exports:n,options:t}}const s={created(){console.log("created")}};var i=function(){var e=this;return e._self._c,e._m(0)},c=[function(){var n=this,e=n._self._c;return e("section",{staticClass:"k-demo-section"},[e("header",{staticClass:"k-section-header"},[e("h2",{staticClass:"k-headline"},[n._v("Custom section")])])])}],a=o(s,i,c);const r=a.exports;window.panel.plugin("kirbyup/test",{sections:{demo:r}})})();
-"
-`;
-
-exports[`supports auto-importing components 1`] = `
+exports[`kirbyup build > auto-imports components with glob patterns 1`] = `
 "(function(){"use strict";function r(e,n,o,_,s,y,k,F){var t=typeof e=="function"?e.options:e;return n&&(t.render=n,t.staticRenderFns=o,t._compiled=!0),{exports:e,options:t}}const c={};var i=function(){var n=this,o=n._self._c;return o("k-header",[n._v("Bar")])},a=[],l=r(c,i,a);const u=l.exports,d=Object.freeze(Object.defineProperty({__proto__:null,default:u},Symbol.toStringTag,{value:"Module"})),f={};var m=function(){var n=this,o=n._self._c;return o("k-header",[n._v("Foo")])},p=[],v=r(f,m,p);const b=v.exports,g=Object.freeze(Object.defineProperty({__proto__:null,default:b},Symbol.toStringTag,{value:"Module"})),O=Object.freeze({import(e){return Object.entries(e).reduce((o,[_,s])=>(o[j(_)]=s.default,o),{})}});function j(e){return e.substring(e.lastIndexOf("/")+1,e.lastIndexOf(".")).toLowerCase()}window.panel.plugin("kirbyup/example",{blocks:O.import(Object.assign({"./components/blocks/Bar.vue":d,"./components/blocks/Foo.vue":g}))})})();
 "
 `;
 
-exports[`supports built-in env variables 1`] = `
+exports[`kirbyup build > builds Kirby Panel plugins 1`] = `
+"(function(){"use strict";const e={extends:"k-info-field"};window.panel.plugin("kirbyup/test",{fields:{demo:e}})})();
+"
+`;
+
+exports[`kirbyup build > builds index.css 1`] = `
+"(function(){"use strict"})();
+"
+`;
+
+exports[`kirbyup build > builds index.css 2`] = `
+".foo{content:"bar"}
+"
+`;
+
+exports[`kirbyup build > builds index.js 1`] = `
+"var kirbyupExport=(function(){"use strict";return"bar"})();
+"
+`;
+
+exports[`kirbyup build > compiles Vue single-file components 1`] = `
+"(function(){"use strict";function o(n,e,_,d,l,u,f,m){var t=typeof n=="function"?n.options:n;return e&&(t.render=e,t.staticRenderFns=_,t._compiled=!0),{exports:n,options:t}}const s={created(){console.log("created")}};var i=function(){var e=this;return e._self._c,e._m(0)},c=[function(){var n=this,e=n._self._c;return e("section",{staticClass:"k-demo-section"},[e("header",{staticClass:"k-section-header"},[e("h2",{staticClass:"k-headline"},[n._v("Custom section")])])])}],a=o(s,i,c);const r=a.exports;window.panel.plugin("kirbyup/test",{sections:{demo:r}})})();
+"
+`;
+
+exports[`kirbyup build > injects built-in environment variables 1`] = `
 "var kirbyupExport=(function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 "
 `;
 
-exports[`supports custom env variables 1`] = `
+exports[`kirbyup build > injects custom environment variables 1`] = `
 "var kirbyupExport=(function(o){"use strict";return o.foo="bar",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
 "
 `;
 
-exports[`supports kirbyup.config.js with function 1`] = `
+exports[`kirbyup build > loads config file with function export 1`] = `
 "var test=(function(){"use strict";return"bar"})();
 "
 `;
 
-exports[`supports kirbyup.config.js with object 1`] = `
+exports[`kirbyup build > loads config file with object export 1`] = `
 "var test=(function(){"use strict";return"bar"})();
 "
 `;
 
-exports[`supports resolve aliases 1`] = `
+exports[`kirbyup build > resolves path aliases 1`] = `
 "var kirbyupExport=(function(){"use strict";return"bar"})();
 "
 `;

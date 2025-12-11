@@ -16,7 +16,6 @@ export interface CliRunResult {
 export async function runCli(files: Record<string, string>): Promise<CliRunResult> {
   const testDir = resolve(cacheDir, Date.now().toString())
 
-  // Retrieve any file's content
   const getFileContent = (filename: string) =>
     fsp.readFile(resolve(testDir, filename), 'utf8')
 
