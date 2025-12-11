@@ -3,22 +3,19 @@ import type { InlineConfig, LogLevel, ViteDevServer } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
-import vuePlugin from '@vitejs/plugin-vue2'
-import vueJsxPlugin from '@vitejs/plugin-vue2-jsx'
+import vuePlugin from '@vitejs/plugin-vue'
+import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { consola } from 'consola'
 import { colors } from 'consola/utils'
 import { basename, dirname, resolve } from 'pathe'
 import { debounce } from 'perfect-debounce'
-import externalGlobals from 'rollup-plugin-external-globals'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
-import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
-import kirbyupGlobImportPlugin from './plugins/glob-import'
-import kirbyupHmrPlugin from './plugins/hmr'
+import { kirbyupBuildCleanupPlugin, kirbyupHmrPlugin, kirbyupRunningMarkerPlugin } from './plugins'
 import { printFileInfo, toArray } from './utils'
 import { resolveOriginFromServerOptions } from './utils/server'
 
@@ -44,8 +41,8 @@ function getViteConfig(
   options: BuildOptions | ServeOptions,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, vite, extendViteConfig } = resolvedKirbyupConfig
-  const userConfig = vite ?? extendViteConfig ?? {}
+  const { alias = {}, vite } = resolvedKirbyupConfig
+  const userConfig = vite ?? {}
 
   const sharedConfig: InlineConfig = {
     resolve: {
@@ -60,8 +57,6 @@ function getViteConfig(
       // looks in the current directory and breaks `npx kirbyup`
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
-      kirbyupGlobImportPlugin(),
-      { ...externalGlobals({ vue: 'Vue' }), enforce: 'post' },
     ],
     build: {
       copyPublicDir: false,
@@ -79,14 +74,12 @@ function getViteConfig(
 
   if (command === 'serve') {
     const { port, watch } = options as ServeOptions
-
-    const userServerConfig = userConfig.server || {}
-    const inferredOrigin = userServerConfig.origin
-      ?? resolveOriginFromServerOptions(userServerConfig, port, 'localhost')
+    const inferredOrigin = userConfig.server?.origin ?? resolveOriginFromServerOptions(userConfig.server, port, 'localhost')
 
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
+        kirbyupRunningMarkerPlugin({ outDir: options.outDir }),
         watch && fullReloadPlugin(watch),
       ].filter(Boolean),
       // Input needs to be specified so dependency pre-bundling works
@@ -110,18 +103,21 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
+    plugins: [
+      kirbyupBuildCleanupPlugin(options as BuildOptions),
+      options.watch && kirbyupRunningMarkerPlugin({ outDir: options.outDir }),
+    ].filter(Boolean),
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
-        formats: ['iife'],
-        name: 'kirbyupExport',
+        formats: ['es'],
         fileName: () => 'index.js',
       },
       minify: mode === 'production',
       outDir: options.outDir,
       emptyOutDir: false,
       rollupOptions: {
+        external: ['vue'],
         output: {
           assetFileNames: 'index.[ext]',
         },
@@ -141,10 +137,10 @@ async function generate(options: BuildOptions): Promise<RollupOutput | RollupOut
     result = await _build(config)
   }
   catch (error) {
-    consola.error('Build failed')
-
     if (config.mode === 'production')
       throw error
+    else
+      consola.error(error)
   }
 
   if (result && !options.watch) {
@@ -210,7 +206,7 @@ export async function build(options: BuildOptions): Promise<void> {
     const ignored = [
       '**/{.git,node_modules}/**',
       // Always ignore dist files
-      'index.{css,js}',
+      'index.{css,js,mjs}',
     ]
 
     const watchPaths = typeof options.watch === 'boolean'
@@ -276,12 +272,15 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))
-    consola.info('Starting development server...')
+    // consola.info('Starting development server...')
+    consola.info(`Development server unavailable. Use watch mode for now: ${colors.cyan(`kirbyup build ${options.entry} --watch`)}`)
+    throw new PrettyError('HMR is not yet implemented for Kirby 6 plugins. Please use watch mode instead.')
   }
 
   const server = await createServer(getViteConfig('serve', options))
 
   await server.listen()
+
   if (!process.env.VITEST)
     consola.success(`Server is listening on :${server.config.server.port}`)
 
