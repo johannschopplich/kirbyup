@@ -20,6 +20,7 @@ import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import kirbyupGlobImportPlugin from './plugins/glob-import'
 import kirbyupHmrPlugin from './plugins/hmr'
 import { printFileInfo, toArray } from './utils'
+import { resolveOriginFromServerOptions } from './utils/server'
 
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult | undefined
@@ -79,6 +80,10 @@ function getViteConfig(
   if (command === 'serve') {
     const { port, watch } = options as ServeOptions
 
+    const userServerConfig = userConfig.server || {}
+    const inferredOrigin = userServerConfig.origin
+      ?? resolveOriginFromServerOptions(userServerConfig, port, 'localhost')
+
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
@@ -94,7 +99,7 @@ function getViteConfig(
       server: {
         port,
         strictPort: true,
-        origin: `http://localhost:${port}`,
+        origin: inferredOrigin,
       },
     })
 

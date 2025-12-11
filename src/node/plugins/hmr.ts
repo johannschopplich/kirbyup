@@ -1,11 +1,11 @@
 import type { AddressInfo } from 'node:net'
 import type { PackageManager } from 'nypm'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { ServeOptions } from '../types'
-import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import { detectPackageManager } from 'nypm'
 import { resolve } from 'pathe'
+import { ensureTrailingSlash, resolveOriginFromServerOptions } from '../utils/server'
 import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
 
 export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
@@ -20,7 +20,7 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     configResolved(resolvedConfig) {
       config = resolvedConfig
       entry = resolve(config.root, options.entry)
-      devIndexPath = resolve(config.root, options.outDir || '', 'index.dev.mjs')
+      devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.mjs')
     },
 
     transform(code, id) {
@@ -42,9 +42,7 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
 
       server.httpServer.once('listening', async () => {
         const entryPath = entry.replace(`${config.root}/`, '')
-        const { address, family, port } = server.httpServer!.address() as AddressInfo
-        const hostname = family === 'IPv6' ? `[${address}]` : address
-        const baseUrl = `http://${hostname}:${port}${config.base}`
+        const baseUrl = getDevBaseUrl(server, config)
         const entryUrl = new URL(entryPath, baseUrl).href
         const pm = await detectPackageManager(config.root)
 
@@ -52,9 +50,8 @@ export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       })
     },
 
-    closeBundle() {
-      if (fs.existsSync(devIndexPath))
-        fs.unlinkSync(devIndexPath)
+    async closeBundle() {
+      await fsp.rm(devIndexPath, { force: true })
     },
   }
 }
@@ -68,11 +65,28 @@ function getViteProxyModule(entryUrl: string, packageManager?: PackageManager) {
   return `
 try {
   await import("${entryUrl}");
-} catch (err) {
+} catch (error) {
   console.error(
-    "[kirbyup] Couldn't connect to the development server. Run \`${pm} run serve\` to start Vite or build the plugin with \`${pm} run build\` so Kirby uses the production version."
+    "[kirbyup] Couldn't connect to the development server at ${entryUrl}. Run \`${pm} run serve\` to start Vite or build the plugin with \`${pm} run build\` so Kirby uses the production version."
   );
-  throw err;
+  throw error;
 }
 `.trimStart()
+}
+function getDevBaseUrl(
+  server: ViteDevServer,
+  config: ResolvedConfig,
+): string {
+  const { address, port } = server.httpServer!.address() as AddressInfo
+
+  const origin
+    = config.server?.origin
+      ?? server.resolvedUrls?.local?.[0]
+      ?? server.resolvedUrls?.network?.[0]
+      ?? resolveOriginFromServerOptions(config.server, port, address)
+
+  const normalizedOrigin = ensureTrailingSlash(origin)
+  const base = config.base ?? '/'
+
+  return new URL(base, normalizedOrigin).href
 }
