@@ -135,10 +135,10 @@ async function generate(options: BuildOptions): Promise<RollupOutput | RollupOut
     result = await _build(config)
   }
   catch (error) {
-    consola.error('Build failed')
-
     if (config.mode === 'production')
       throw error
+    else
+      consola.error(error)
   }
 
   if (result && !options.watch) {
