@@ -5,6 +5,7 @@ import type { ServeOptions } from '../types'
 import * as fsp from 'node:fs/promises'
 import { detectPackageManager } from 'nypm'
 import { resolve } from 'pathe'
+import { ensureTrailingSlash, resolveOriginFromServerOptions } from '../utils/server'
 import { __HMR_INJECTION_CODE__ } from './utils'
 
 export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
@@ -81,6 +82,7 @@ try {
 }
 `.trimStart()
 }
+
 function getDevBaseUrl(
   server: ViteDevServer,
   config: ResolvedConfig,
