@@ -15,9 +15,11 @@ import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
-import { kirbyupBuildCleanupPlugin, kirbyupHmrPlugin, kirbyupRunningMarkerPlugin } from './plugins'
+import { kirbyupBuildCleanupPlugin, kirbyupHmrPlugin } from './plugins'
 import { printFileInfo, toArray } from './utils'
 import { resolveOriginFromServerOptions } from './utils/server'
+
+const DEV_OUTPUT_FILENAME = 'index.dev.js'
 
 let resolvedKirbyupConfig: UserConfig
 let resolvedPostCssConfig: PostCSSConfigResult | undefined
@@ -79,7 +81,6 @@ function getViteConfig(
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
-        kirbyupRunningMarkerPlugin({ outDir: options.outDir }),
         watch && fullReloadPlugin(watch),
       ].filter(Boolean),
       // Input needs to be specified so dependency pre-bundling works
@@ -103,15 +104,12 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [
-      kirbyupBuildCleanupPlugin(options as BuildOptions),
-      options.watch && kirbyupRunningMarkerPlugin({ outDir: options.outDir }),
-    ].filter(Boolean),
+    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
         formats: ['es'],
-        fileName: () => 'index.js',
+        fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
       },
       minify: mode === 'production',
       outDir: options.outDir,
@@ -193,69 +191,82 @@ export async function build(options: BuildOptions): Promise<void> {
   if (options.watch)
     consola.info('Running in watch mode')
 
-  const debouncedBuild = debounce(async () => {
-    generate(options).catch(handleError)
-  }, 100)
-
-  const startWatcher = async () => {
-    if (!options.watch)
-      return
-
-    const { watch } = await import('chokidar')
-
-    const ignored = [
-      '**/{.git,node_modules}/**',
-      // Always ignore dist files
-      'index.{css,js,mjs}',
-    ]
-
-    const watchPaths = typeof options.watch === 'boolean'
-      ? dirname(options.entry)
-      : Array.isArray(options.watch)
-        ? options.watch.filter(
-            (path): path is string => typeof path === 'string',
-          )
-        : options.watch
-
-    consola.info(
-      `Watching for changes in ${toArray(watchPaths)
-        .map(i => colors.cyan(i))
-        .join(', ')}`,
-    )
-
-    const watcher = watch(watchPaths, {
-      ignoreInitial: true,
-      ignorePermissionErrors: true,
-      ignored,
-      cwd,
-    })
-
-    if (configFile)
-      watcher.add(configFile)
-
-    watcher.on('all', async (type, file) => {
-      const absolutePath = resolve(cwd, file)
-
-      if (configFile === absolutePath) {
-        resolvedKirbyupConfig = (await loadConfig(cwd)).config ?? {}
-        consola.info(
-          `${colors.cyan(basename(file))} changed, setting new config`,
-        )
-      }
-      else {
-        consola.log(`${colors.green(type)} ${colors.white(colors.dim(file))}`)
-      }
-
-      debouncedBuild()
-    })
-  }
-
   await generate(options)
 
   if (!process.env.VITEST)
     consola.success('Build successful')
 
-  startWatcher()
+  if (!options.watch)
+    return
+
+  const { watch } = await import('chokidar')
+
+  const debouncedBuild = debounce(async () => {
+    generate(options).catch(handleError)
+  }, 100)
+
+  const ignored = [
+    '**/{.git,node_modules}/**',
+    // Always ignore dist files
+    'index.{css,js}',
+    DEV_OUTPUT_FILENAME,
+  ]
+
+  const watchPaths = typeof options.watch === 'boolean'
+    ? dirname(options.entry)
+    : Array.isArray(options.watch)
+      ? options.watch.filter((path): path is string => typeof path === 'string')
+      : options.watch
+
+  consola.info(
+    `Watching for changes in ${toArray(watchPaths)
+      .map(i => colors.cyan(i))
+      .join(', ')}`,
+  )
+
+  const watcher = watch(watchPaths, {
+    ignoreInitial: true,
+    ignorePermissionErrors: true,
+    ignored,
+    cwd,
+  })
+
+  const devOutputPath = resolve(options.outDir, DEV_OUTPUT_FILENAME)
+
+  const cleanup = async () => {
+    await watcher.close().catch(() => {})
+    await fsp.rm(devOutputPath, { force: true }).catch(() => {})
+  }
+
+  // Sync fallback for abrupt exits
+  process.once('exit', () => {
+    try { fs.rmSync(devOutputPath, { force: true }) }
+    catch {}
+  })
+
+  // Graceful shutdown
+  const onShutdown = () => void cleanup().finally(() => process.exit(0))
+  process.once('SIGINT', onShutdown)
+  process.once('SIGTERM', onShutdown)
+
+  if (configFile)
+    watcher.add(configFile)
+
+  watcher.on('all', async (type, file) => {
+    const absolutePath = resolve(cwd, file)
+
+    if (configFile === absolutePath) {
+      resolvedKirbyupConfig = (await loadConfig(cwd)).config ?? {}
+      consola.info(
+        `${colors.cyan(basename(file))} changed, setting new config`,
+      )
+    }
+    else {
+      consola.log(`${colors.green(type)} ${colors.white(colors.dim(file))}`)
+    }
+
+    debouncedBuild()
+  })
 }
 
 export async function serve(options: ServeOptions): Promise<ViteDevServer> {
