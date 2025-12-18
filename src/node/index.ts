@@ -240,7 +240,9 @@ export async function build(options: BuildOptions): Promise<void> {
 
   // Sync fallback for abrupt exits
   process.once('exit', () => {
-    try { fs.rmSync(devOutputPath, { force: true }) }
+    try {
+      fs.rmSync(devOutputPath, { force: true })
+    }
     catch {}
   })
 
