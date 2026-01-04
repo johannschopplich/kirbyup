@@ -64,7 +64,11 @@ export default defineConfig({
 
 ## More Examples
 
+Here are some common configuration patterns you might find useful.
+
 ### Define Global Constants
+
+Inject build-time constants into your plugin code using Vite's `define` option:
 
 ```js
 import { defineConfig } from 'kirbyup/config'
@@ -78,13 +82,15 @@ export default defineConfig({
 })
 ```
 
-Use the constant in your plugin code:
+Then use it anywhere in your plugin:
 
 ```js
 console.log(`Plugin version: ${__APP_VERSION__}`)
 ```
 
 ### Multiple Path Aliases
+
+Set up multiple aliases to keep your imports clean and organized:
 
 ```js
 import { resolve } from 'node:path'
@@ -99,4 +105,11 @@ export default defineConfig({
     '@utils/': `${resolve(currentDir, 'src/utils')}/`,
   },
 })
+```
+
+Now you can import like this:
+
+```js
+import MyField from '@components/fields/MyField.vue'
+import { formatDate } from '@utils/helpers'
 ```

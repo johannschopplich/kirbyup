@@ -116,7 +116,7 @@ kirbyup serve src/index.js --watch "snippets/*.php" --watch "templates/*.php"
 
 ## Output Files
 
-kirbyup produces the following output files:
+When you build your plugin, kirbyup generates these files:
 
 | File | Description |
 |------|-------------|

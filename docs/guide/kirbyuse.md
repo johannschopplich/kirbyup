@@ -158,6 +158,8 @@ This works in both JavaScript and TypeScript files – no additional configurati
 
 ## All Composables
 
+kirbyuse provides these composables for different use cases:
+
 | Composable | Description |
 |------------|-------------|
 | `usePanel` | Access the reactive Panel object |

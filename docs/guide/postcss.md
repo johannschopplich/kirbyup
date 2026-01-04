@@ -12,7 +12,9 @@ Without a custom configuration, no PostCSS transformations will be applied beyon
 
 ## Example: Autoprefixer
 
-Install autoprefixer:
+Add vendor prefixes automatically with Autoprefixer:
+
+**1. Install the plugin:**
 
 ::: code-group
 ```bash [pnpm]
@@ -23,7 +25,7 @@ npm i -D autoprefixer
 ```
 :::
 
-Create `postcss.config.cjs`:
+**2. Create `postcss.config.cjs`:**
 
 ```js
 module.exports = {
@@ -35,7 +37,9 @@ module.exports = {
 
 ## Example: Tailwind CSS
 
-Install Tailwind CSS and its dependencies:
+Use Tailwind CSS for utility-first styling:
+
+**1. Install the dependencies:**
 
 ::: code-group
 ```bash [pnpm]
@@ -46,7 +50,7 @@ npm i -D tailwindcss autoprefixer
 ```
 :::
 
-Create `postcss.config.cjs`:
+**2. Create `postcss.config.cjs`:**
 
 ```js
 module.exports = {
@@ -57,7 +61,7 @@ module.exports = {
 }
 ```
 
-Create `tailwind.config.cjs`:
+**3. Create `tailwind.config.cjs`:**
 
 ```js
 /** @type {import('tailwindcss').Config} */

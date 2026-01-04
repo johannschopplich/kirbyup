@@ -84,13 +84,15 @@ Your terminal shows the server port:
 
 <<< @/snippets/serve.ansi
 
-This creates `./index.dev.mjs`, telling Kirby to load the development version of the plugin from the dev server started by `kirbyup serve` when the Panel is opened. The serve command provides hot module replacement and auto-reload.
+This creates `./index.dev.mjs`, which tells Kirby to load your plugin from the dev server. You get hot module replacement and auto-reload out of the box.
 
-If you prefer the watch mode to build a development bundle of the final Panel plugin or develop in an older version of Kirby (prior to 3.7.4), run:
+::: details Using watch mode instead?
+If you prefer building a development bundle (without HMR) or need to support Kirby versions prior to 3.7.4, use watch mode:
 
 ```bash
 npx kirbyup src/index.js --watch
 ```
+:::
 
 ### Production
 

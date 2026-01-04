@@ -5,16 +5,18 @@ The [Kirby Panel](https://github.com/getkirby/kirby/tree/main/panel/src) ships w
 To reuse code from the Kirby Panel, you can create a [`kirbyup.config.js` config file](/guide/config-file) with a custom alias that points to the root source folder of Kirby. This way, you can import Kirby components by using a path alias.
 
 ::: tip
-The `@/` path resolve alias is used across the code base of the Panel. When using the same alias, references in the Kirby Panel source code will be resolved correctly.
+The `@/` alias is used throughout the Panel codebase. Using the same alias ensures all internal Panel references resolve correctly.
 :::
 
-Clone the Kirby repository into a folder called `kirby` in the root of your Panel plugin:
+## Setup
+
+**1. Clone the Kirby repository** into your plugin folder:
 
 ```bash
 git clone git@github.com:getkirby/kirby.git
 ```
 
-Then, create a `kirbyup.config.js` in the root of your Panel plugin and define a custom alias that points to the Kirby Panel source folder:
+**2. Create `kirbyup.config.js`** with an alias pointing to the Panel source:
 
 ```js
 // `kirbyup.config.js`
@@ -31,7 +33,9 @@ export default defineConfig({
 })
 ```
 
-Any part of your Panel plugin can now import from the Kirby Panel source. For example, let's import some props from the Kirby base field component. The Panel itself uses imports like `@/components/Forms/Field.vue` all the time. And you can do the same in your Vue component's `<script>` section:
+## Usage
+
+Now you can import directly from the Panel source. For example, reuse the base field props in your custom field:
 
 ```js
 import { props as FieldProps } from '@/components/Forms/Field.vue'
