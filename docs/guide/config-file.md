@@ -27,7 +27,7 @@ When aliasing to file system paths, always use absolute paths. Relative alias va
 
 ### `vite`
 
-You can build upon the defaults kirbup uses and extend the Vite configuration with custom plugins, etc.
+You can build upon the defaults kirbyup uses and extend the Vite configuration with custom plugins, etc.
 
 For a complete list of options, take a look at the [Vite configuration options](https://vitejs.dev/config/).
 
@@ -58,6 +58,45 @@ export default defineConfig({
     plugins: [
       nodePolyfills()
     ],
+  },
+})
+```
+
+## More Examples
+
+### Define Global Constants
+
+```js
+import { defineConfig } from 'kirbyup/config'
+
+export default defineConfig({
+  vite: {
+    define: {
+      __APP_VERSION__: JSON.stringify('1.0.0'),
+    },
+  },
+})
+```
+
+Use the constant in your plugin code:
+
+```js
+console.log(`Plugin version: ${__APP_VERSION__}`)
+```
+
+### Multiple Path Aliases
+
+```js
+import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { defineConfig } from 'kirbyup/config'
+
+const currentDir = fileURLToPath(new URL('.', import.meta.url))
+
+export default defineConfig({
+  alias: {
+    '@components/': `${resolve(currentDir, 'src/components')}/`,
+    '@utils/': `${resolve(currentDir, 'src/utils')}/`,
   },
 })
 ```

@@ -29,3 +29,42 @@ import { myFunction } from '~/utils'
 ::: tip
 The famous `@/` alias is supported as well and will resolve to the same directory as `~/`.
 :::
+
+## IDE Support
+
+For proper IntelliSense in your editor, such as jump to definition, auto-completion for imports, and type checking (if using TypeScript), create a `jsconfig.json` (or `tsconfig.json` for TypeScript projects) in the root of your plugin:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"],
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
+```
+
+## Custom Aliases
+
+You can define additional aliases in your `kirbyup.config.js`:
+
+```js
+import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { defineConfig } from 'kirbyup/config'
+
+const currentDir = fileURLToPath(new URL('.', import.meta.url))
+
+export default defineConfig({
+  alias: {
+    '@components/': `${resolve(currentDir, 'src/components')}/`,
+  },
+})
+```
+
+::: warning
+When using custom aliases, remember to update your `jsconfig.json` accordingly to maintain IDE support.
+:::
