@@ -43,10 +43,10 @@ Use Tailwind CSS for utility-first styling:
 
 ::: code-group
 ```bash [pnpm]
-pnpm add -D tailwindcss autoprefixer
+pnpm add -D tailwindcss@3 autoprefixer
 ```
 ```bash [npm]
-npm i -D tailwindcss autoprefixer
+npm i -D tailwindcss@3 autoprefixer
 ```
 :::
 
