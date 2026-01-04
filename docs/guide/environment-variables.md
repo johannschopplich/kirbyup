@@ -6,7 +6,7 @@ kirbyup exposes environment variables on the special `import.meta.env` object. S
 - **`import.meta.env.PROD`** (`boolean`): Whether kirbyup is running in production.
 - **`import.meta.env.DEV`** (`boolean`): Whether kirbyup is running in development (always the opposite of `import.meta.env.PROD`).
 
-During production, these env variables are **statically replaced**. It is therefore necessary to always reference them using the full static string. For example, dynamic key access like `import.meta.env[key]` will not work.
+During production, these env variables are **statically replaced**. Always use the full static string – dynamic access like `import.meta.env[key]` won't work.
 
 For example, you might want to log something only during development:
 
@@ -20,7 +20,7 @@ if (import.meta.env.DEV) {
 
 ## `.env` Files
 
-kirbyup uses Vite under hood, which uses [dotenv](https://github.com/motdotla/dotenv) to load additional environment variables from the `.env` and `.env.local` files in your plugin's root directory.
+kirbyup uses Vite under the hood, which uses [dotenv](https://github.com/motdotla/dotenv) to load additional environment variables from the `.env` and `.env.local` files in your plugin's root directory.
 
 Loaded env variables are also exposed to your source code via `import.meta.env`.
 

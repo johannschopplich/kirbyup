@@ -4,7 +4,7 @@
 This feature might be removed in future versions of kirbyup. Consider using manual imports instead (see [Recommended Alternative](#recommended-alternative) below).
 :::
 
-If you find yourself in the situation of needing to import multiple **blocks** or **fields** into your Panel plugin, you can use the kirbyup `kirbyup.import` function to ease the process.
+When you have multiple **blocks** or **fields** to import, use the `kirbyup.import` function to simplify the process.
 
 Instead of manually importing each block or field, you can use the `kirbyup.import` function to import all files that match a glob pattern.
 
@@ -36,7 +36,7 @@ window.panel.plugin('kirbyup/example', {
 
 ## Recommended Alternative
 
-For better tree-shaking, explicit dependencies, and IDE support, consider using manual imports:
+For better tree-shaking, explicit dependencies that are easier to trace, and IDE support, use manual imports instead:
 
 ```js
 import Bar from './components/blocks/Bar.vue'

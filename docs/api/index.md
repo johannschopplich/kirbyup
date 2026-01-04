@@ -2,7 +2,7 @@
 
 ::: tip
 
-To conveniently list all available commands and options, run:
+List all commands and options:
 
 ```bash
 kirbyup --help
@@ -18,7 +18,7 @@ kirbyup serve --help
 
 ## `kirbyup <file>`
 
-The `<file>` argument is the entry point of your Kirby plugin, i.e. your main JavaScript file. kirbyup will generate a minified and production-ready version of your plugin and save it in the current working directory.
+The `<file>` argument is the entry point of your plugin. kirbyup bundles and minifies it into production-ready `index.js` and `index.css` files in the current directory.
 
 ### Options
 

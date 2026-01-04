@@ -1,6 +1,6 @@
 # Import From Panel Core
 
-The [Kirby Panel](https://github.com/getkirby/kirby/tree/main/panel/src) is well-written modular code that provides a lot of reusable components, mixins and utilities. You may want to use some of them, e.g. common section props, instead of copying the code into your own project.
+The [Kirby Panel](https://github.com/getkirby/kirby/tree/main/panel/src) ships with reusable components, mixins, and utilities you can use in your plugins – no need to copy code into your own project.
 
 To reuse code from the Kirby Panel, you can create a [`kirbyup.config.js` config file](/guide/config-file) with a custom alias that points to the root source folder of Kirby. This way, you can import Kirby components by using a path alias.
 

@@ -1,6 +1,6 @@
 # PostCSS
 
-To use PostCSS transformations in your project, you will need to create your own PostCSS configuration file and install the necessary plugins.
+Add PostCSS transformations by creating a config file and installing your plugins.
 
 If the project contains a valid PostCSS config (any format supported by [postcss-load-config](https://github.com/postcss/postcss-load-config), e.g. `postcss.config.cjs`), it will be automatically applied to all imported CSS.
 

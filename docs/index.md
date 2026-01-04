@@ -40,9 +40,9 @@ features:
     linkText: Learn More
   - title: Environment Variables
     icon: <span class="i-ri-game-line"></span>
-    details: Run actions based on environment variables.
+    details: Strip debug code in production, keep it in development.
     link: /guide/environment-variables
-    linkText: Conditional Builds
+    linkText: Use Env Variables
   - title: Configuration File
     icon: <span class="i-ri-file-code-line"></span>
     details: Extend Vite with a <code>kirbyup.config.js</code> configuration file.

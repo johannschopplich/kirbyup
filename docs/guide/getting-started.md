@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide will walk you through the steps to get started with `kirbyup`.
+Get up and running with kirbyup in minutes.
 
 [[toc]]
 
@@ -15,7 +15,7 @@ If you want to skip starting from scratch, pick one of the following starters:
 - [`pluginkit` + ESLint](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint)
 - [`pluginkit` + Tailwind CSS](https://github.com/johannschopplich/kirbyup/tree/main/examples/tailwindcss)
 
-The last two examples are based on the default `pluginkit` and include ESLint to find bugs in your code. This will help you write cleaner code and avoid common JavaScript or Vue pitfalls and thus provide a better developer experience. The Tailwind CSS example includes Tailwind CSS to style your Panel plugin.
+The last two examples are based on the default `pluginkit` and include ESLint – it catches bugs early and helps you avoid common JavaScript and Vue pitfalls. The Tailwind CSS example also includes Tailwind CSS to style your Panel plugin.
 :::
 
 ## Installation
@@ -34,7 +34,7 @@ Use a package manager of your choice to install `kirbyup` as a development depen
   ```
 :::
 
-Having installed kirbyup, you can add the following scripts as shortcuts to the commands you will use most often:
+After installation, add these scripts to your `package.json`:
 
 ```json{3-4}
 {
@@ -80,7 +80,7 @@ npm run dev
 # kirbyup serve src/index.js
 ```
 
-The terminal will output the port the server is running on, e.g. `5177`:
+Your terminal shows the server port:
 
 <<< @/snippets/serve.ansi
 
@@ -102,6 +102,6 @@ npm run build
 # kirbyup src/index.js
 ```
 
-The terminal will output the path to the bundled and minified plugin assets:
+Your terminal shows the bundled assets:
 
 <<< @/snippets/build.ansi
