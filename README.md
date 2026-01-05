@@ -2,8 +2,6 @@
 
 # kirbyup
 
-[![npm version](https://img.shields.io/npm/v/kirbyup?color=a1b858&label=)](https://www.npmjs.com/package/kirbyup)
-
 The official bundler for Kirby Panel plugins with zero-config usage and built-in HMR.
 
 - [✨ &nbsp;Release Notes](https://github.com/johannschopplich/kirbyup/releases)
