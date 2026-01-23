@@ -1,55 +1,9 @@
-// Vue 3 doesn't have a separate HMR runtime module to intercept.
-// Instead, we inject wrapper code into each Vue component.
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-/**
- * This code is injected into Vue 3 components to wrap the global HMR runtime.
- *
- * All `.vue` components register themselves with the HMR runtime (`__VUE_HMR_RUNTIME__`),
- * which stores their component definitions in a map. When a module is updated, the runtime
- * applies changes to the stored definition and re-renders component instances.
- *
- * In Vue 3, the HMR map structure is:
- * ```js
- * {
- *   [id]: { initialDef: ComponentDefinition, instances: Set<ComponentInstance> }
- * }
- * ```
- *
- * However, Kirby does not register the exact object exported from a `.vue` file.
- * Instead, it creates a new object and merges the definition in:
- * https://github.com/getkirby/kirby/blob/main/panel/public/js/plugins.js
- *
- * After HMR changes, the runtime updates the stored definition and re-renders instances,
- * but since they are derived from Kirby's modified object (not the stored definition),
- * updates may not apply correctly.
- *
- * To fix this, we wrap `__VUE_HMR_RUNTIME__.rerender()` and `__VUE_HMR_RUNTIME__.reload()`:
- *
- * 1. **Before updates**, we check if the component belongs to a Kirby plugin by matching
- *    the `__hmrId` or `__file` properties against registered plugin components.
- *
- * 2. **If matched**, we look up the actual component definition used by Kirby
- *    (`window.panel.app.config.globalProperties.$root.$options.components`)
- *    and update the HMR map's reference to point to it.
- *
- * 3. **For section components** (detected by `k-*-section` name pattern), we add a
- *    `$_isSection` flag for special treatment in `$_applyKirbyModifications()`.
- *
- * `$_applyKirbyModifications()`:
- *
- * Kirby modifies component definitions before registration:
- * - Adds the section mixin to section components
- * - Gives templates priority over render functions
- * - Resolves component names in `extends` to their definition objects
- *
- * When a module hot reloads, Vue 3 receives a fresh component definition missing
- * these modifications. We re-apply them to ensure the runtime doesn't prune them
- * when patching the stored definition with the updated one.
- *
- * This code uses a singleton pattern (`__KIRBYUP_HMR_WRAPPED__`) to ensure the
- * wrapper is installed only once, even though it's injected into every component.
- */
-export const __HMR_INJECTION_CODE__ = `
+exports[`hmr plugin transform > matches snapshot 1`] = `
+"_sfc_main.__hmrId = "test-id"
+__VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)
+
 /** - injected by kirbyup for Vue 3 HMR - */
 if (typeof __VUE_HMR_RUNTIME__ !== 'undefined' && !window.__KIRBYUP_HMR_WRAPPED__) {
   window.__KIRBYUP_HMR_WRAPPED__ = true;
@@ -147,4 +101,6 @@ if (typeof __VUE_HMR_RUNTIME__ !== 'undefined' && !window.__KIRBYUP_HMR_WRAPPED_
   }
 }
 /** -- */
-`
+
+import.meta.hot.accept(mod => {})"
+`;
