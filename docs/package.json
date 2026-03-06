@@ -8,8 +8,8 @@
     "preview": "vitepress preview"
   },
   "devDependencies": {
-    "@iconify-json/ri": "^1.2.7",
-    "unocss": "^66.5.12",
+    "@iconify-json/ri": "^1.2.10",
+    "unocss": "^66.6.5",
     "vitepress": "^1.6.4"
   }
 }
