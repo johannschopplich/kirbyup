@@ -4,7 +4,7 @@ Import certain modules more easily by using the `~/` path alias. It will resolve
 
 For example, given the following directory structure:
 
-```
+```text
 .
 ├─ src
 │  ├─ components
