@@ -1,6 +1,6 @@
 import * as fsp from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { dirname, join, resolve } from 'pathe'
+import { dirname, join, resolve } from 'node:path'
 import { startCli } from '../src/node/cli-start'
 
 export interface CliRunResult {

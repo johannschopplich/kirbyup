@@ -1,7 +1,7 @@
 import type { Plugin } from 'vite'
+import { relative, resolve } from 'node:path'
 import { colors } from 'consola/utils'
-import { relative, resolve } from 'pathe'
-import { createFilter } from 'vite'
+import { createFilter, normalizePath } from 'vite'
 import { toArray } from '../utils'
 
 /**
@@ -32,7 +32,7 @@ export function kirbyupFullReloadPlugin(paths: string | string[]): Plugin {
         setTimeout(() => ws.send({ type: 'full-reload', path: '*' }), 0)
 
         logger.info(
-          `${colors.green('full reload')} ${colors.dim(relative(root, path))}`,
+          `${colors.green('full reload')} ${colors.dim(normalizePath(relative(root, path)))}`,
           { clear: true, timestamp: true },
         )
       }
