@@ -19,10 +19,8 @@ export const kirbyup: Readonly<KirbyupUtilities> = Object.freeze({
    * kirbyup.import('./components/blocks/*.vue')
    */
   import(glob: string): Record<string, any> {
-    // `kirbyup.import(<path>)` will be transformed by the auto import plugin,
-    // which will change the signature at build-time to:
+    // `kirbyup.import(<path>)` will be transformed at build-time to:
     // `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
-    // Thus, we have to force a type cast here.
     const modules = glob as unknown as Record<string, Module>
     return Object.entries(modules).reduce<Record<string, any>>(
       (accumulator, [path, component]) => {
