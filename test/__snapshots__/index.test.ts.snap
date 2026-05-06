@@ -65,6 +65,7 @@ function m(a, o) {
 	});
 }
 var h = /* @__PURE__ */ s(p, [["render", m]]), g = Object.freeze({ import(e) {
+	if (typeof e == "string") throw TypeError("[kirbyup] kirbyup.import() requires the kirbyup build pipeline. The call must be transformed at build time by the kirbyup:glob-import plugin.");
 	return Object.entries(e).reduce((e, [t, n]) => (e[_(t)] = n.default, e), {});
 } });
 function _(e) {
