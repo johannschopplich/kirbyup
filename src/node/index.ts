@@ -86,11 +86,11 @@ function getViteConfig(
           input: resolve(options.cwd, options.entry),
         },
       },
-      // Specify origin so asset URLs include Vite server host
       server: {
         port,
         strictPort: true,
         origin: inferredOrigin,
+        cors: true,
       },
     })
 

@@ -84,6 +84,9 @@ importers:
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+      unplugin-raw:
+        specifier: ^0.7.0
+        version: 0.7.0
       vitest:
         specifier: ^4.1.5
         version: 4.1.5(@types/node@24.12.2)(vite@8.0.10(@types/node@24.12.2)(jiti@2.7.0)(sass@1.99.0)(yaml@2.8.4))
@@ -2987,6 +2990,15 @@ packages:
       '@unocss/webpack':
         optional: true
 
+  unplugin-raw@0.7.0:
+    resolution: {integrity: sha512-YUhRODjYefyC57RjjWTME2G7cAOHEFRM2gncw0yoKYhMIW4EXbo3TmLCMgHONxDAl6SEC6O4EIPlEOt6XrEZiw==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      esbuild: '>=0.25.0'
+    peerDependenciesMeta:
+      esbuild:
+        optional: true
+
   unplugin-utils@0.3.1:
     resolution: {integrity: sha512-5lWVjgi6vuHhJ526bI4nlCOmkCIF3nnfXkCMDeMJrtdvxTs6ZFCM8oNufGTsDbKv/tJ/xj8RpvXjRuPBZJuJog==}
     engines: {node: '>=20.19.0'}
@@ -2994,6 +3006,10 @@ packages:
   unplugin@2.3.11:
     resolution: {integrity: sha512-5uKD0nqiYVzlmCRs01Fhs2BdkEgBS3SAVP6ndrBsuK42iC2+JHyxM05Rm9G8+5mkmRtzMZGY8Ct5+mliZxU/Ww==}
     engines: {node: '>=18.12.0'}
+
+  unplugin@3.0.0:
+    resolution: {integrity: sha512-0Mqk3AT2TZCXWKdcoaufeXNukv2mTrEZExeXlHIOZXdqYoHHr4n51pymnwV8x2BOVxwXbK2HLlI7usrqMpycdg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
 
   unrun@0.2.37:
     resolution: {integrity: sha512-AA7vDuYsgeSYVzJMm16UKA+aXFKhy7nFqW9z5l7q44K4ppFWZAMqYS58ePRZbugMLPH0fwwMzD5A8nP0avxwZQ==}
@@ -6307,6 +6323,11 @@ snapshots:
       - '@emnapi/runtime'
       - vite
 
+  unplugin-raw@0.7.0:
+    dependencies:
+      unplugin: 3.0.0
+      unplugin-utils: 0.3.1
+
   unplugin-utils@0.3.1:
     dependencies:
       pathe: 2.0.3
@@ -6316,6 +6337,12 @@ snapshots:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       acorn: 8.16.0
+      picomatch: 4.0.4
+      webpack-virtual-modules: 0.6.2
+
+  unplugin@3.0.0:
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.4
       webpack-virtual-modules: 0.6.2
 

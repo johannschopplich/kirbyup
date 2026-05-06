@@ -1,5 +1,6 @@
 import type { UserConfig } from 'tsdown/config'
 import { defineConfig } from 'tsdown/config'
+import UnpluginRaw from 'unplugin-raw/rolldown'
 
 const config: UserConfig = defineConfig({
   entry: {
@@ -12,6 +13,7 @@ const config: UserConfig = defineConfig({
   define: {
     'process.env.VITEST': 'undefined',
   },
+  plugins: [UnpluginRaw()],
 })
 
 export default config
