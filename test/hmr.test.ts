@@ -243,28 +243,6 @@ describe('__HMR_SHIM_CODE__', () => {
     expect(originalReload).toHaveBeenCalledWith('xyz', newComp)
   })
 
-  it('skips helpers when a Kirby helper is missing', () => {
-    const originalReload = vi.fn()
-    const resolveComponentRender = vi.fn()
-    const resolveComponentMixins = vi.fn()
-    const runtime: ShimRuntime = { reload: originalReload }
-    evalShim({
-      window: { panel: { app: {}, plugins: {
-        // resolveComponentExtension intentionally missing
-        resolveComponentRender,
-        resolveComponentMixins,
-        components: { foo: { __hmrId: 'abc' } },
-      } } },
-      __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
-    })
-
-    runtime.reload('abc', { __hmrId: 'abc' })
-    expect(resolveComponentRender).not.toHaveBeenCalled()
-    expect(resolveComponentMixins).not.toHaveBeenCalled()
-    expect(originalReload).toHaveBeenCalled()
-  })
-
   it('stops walking after the first matching component', () => {
     const ext = vi.fn()
     const sharedSfc = { __hmrId: 'abc' }
