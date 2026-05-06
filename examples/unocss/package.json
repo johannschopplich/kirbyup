@@ -9,10 +9,9 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^8.2.0",
-    "autoprefixer": "^10.5.0",
+    "@unocss/eslint-plugin": "^66.6.8",
     "eslint": "^10.3.0",
-    "eslint-plugin-tailwindcss": "^3.18.3",
     "kirbyup": "^3.4.1",
-    "tailwindcss": "^3.4.19"
+    "unocss": "^66.6.8"
   }
 }

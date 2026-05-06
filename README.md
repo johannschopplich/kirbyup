@@ -34,7 +34,14 @@ npm i -D kirbyup
 yarn add -D kirbyup
 ```
 
-After installation, add these scripts to your `package.json`:
+## Basic Usage
+
+> [!TIP]
+> [📖 Read the documentation](https://kirbyup.getkirby.com) or skip starting from scratch and pick one of the following starters:
+> - [`eslint`](./examples/eslint)
+> - [`unocss`](./examples/unocss)
+
+Having installed kirbyup, you can add the following scripts as shortcuts to the commands you will use most often:
 
 ```json
 {
