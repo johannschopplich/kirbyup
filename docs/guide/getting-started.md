@@ -84,7 +84,15 @@ Your terminal shows the server port:
 
 <<< @/snippets/serve.ansi
 
-This creates `./index.dev.mjs`, which tells Kirby to load your plugin from the dev server. You get hot module replacement and auto-reload out of the box.
+This creates `./index.dev.js`, which tells Kirby to load your plugin from the dev server. You get hot module replacement and auto-reload out of the box.
+
+::: details Using watch mode instead?
+If you prefer building a development bundle (without HMR), use watch mode:
+
+```bash
+npx kirbyup src/index.js --watch
+```
+:::
 
 ### Production
 

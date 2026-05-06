@@ -4,6 +4,7 @@ import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { ServeOptions } from '../types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { detectPackageManager } from 'nypm'
 import { resolve } from 'pathe'
 import { normalizePath } from 'vite'
@@ -15,7 +16,7 @@ const SHIM_PUBLIC_ID = SHIM_ID.slice(1)
 const VUE_STUB_ID = '\0kirbyup:vue-stub'
 const VUE_STUB_PUBLIC_ID = VUE_STUB_ID.slice(1)
 
-const VUE_NOT_FOUND_STUB = `throw new Error("[kirbyup] Cannot serve 'vue': failed to read node_modules/vue/dist/vue.esm-browser.js. Make sure 'vue' is installed in the plugin project.")\n`
+const VUE_NOT_FOUND_STUB = `throw new Error("[kirbyup] Cannot resolve 'vue/dist/vue.esm-browser.js' from the plugin project. Make sure 'vue' is installed as a dependency.")\n`
 
 export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
@@ -30,15 +31,12 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     enforce: 'pre',
 
     config() {
-      // Route every `import 'vue'` through our virtual stub. The stub runs in
-      // the browser, reads Kirby's `<script type="importmap">` to find the
-      // panel's vue URL, and dynamic-imports it – so plugin SFCs and Kirby's
-      // own panel code share a single Vue module instance. Without this Vite
-      // would resolve `vue` to the user's local `node_modules/vue`, producing
-      // a parallel runtime with its own `__VUE_HMR_RUNTIME__` and breaking HMR.
-      //
-      // `optimizeDeps.exclude` keeps Vite's pre-bundler from scanning vue
-      // before the alias has a chance to redirect it.
+      // Route every `import 'vue'` through the virtual stub so plugin SFCs
+      // share Kirby's panel Vue module instance. Without this, Vite would
+      // resolve `vue` to the user's local `node_modules/vue`, producing a
+      // parallel runtime with its own `__VUE_HMR_RUNTIME__` and breaking HMR.
+      // `optimizeDeps.exclude` keeps the pre-bundler from baking vue in
+      // before the alias has a chance to redirect.
       return {
         optimizeDeps: { exclude: ['vue'] },
         resolve: {
@@ -51,14 +49,16 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       config = resolvedConfig
       entry = resolve(config.root, options.entry)
       entryId = normalizePath(entry)
-      devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.mjs')
+      devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.js')
 
-      // Parse vue's exports once at startup. The bundle ships a single
-      // trailing `export { ... }` block; we re-emit the same names through
-      // the stub so SFC compiler output finds what it expects.
+      // Parse vue's named exports once so the stub can re-emit them; SFC
+      // compiler output and user code import these names directly.
       try {
-        const vuePath = resolve(config.root, 'node_modules/vue/dist/vue.esm-browser.js')
-        const vueSource = fs.readFileSync(vuePath, 'utf8')
+        const vueUrl = import.meta.resolve(
+          'vue/dist/vue.esm-browser.js',
+          pathToFileURL(`${config.root}/_`).href,
+        )
+        const vueSource = fs.readFileSync(fileURLToPath(vueUrl), 'utf8')
         const namedExports = extractEsmNamedExports(vueSource)
         vueStubCode = namedExports.length > 0 ? buildVueStubCode(namedExports) : undefined
       }
@@ -114,9 +114,6 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   }
 }
 
-/**
- * Proxy the JS file to "forward" the plugin script loaded by Kirby to the Vite server
- */
 function getViteProxyModule(entryUrl: string, packageManager?: PackageManager) {
   const pm = packageManager?.name || 'npm'
 
