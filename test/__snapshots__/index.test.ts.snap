@@ -1,103 +1,66 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`kirbyup build > builds Kirby Panel plugins 1`] = `
-"const e = { extends: "k-info-field" };
-window.panel.plugin("kirbyup/test", {
-  fields: {
-    demo: e
-  }
-});
+"window.panel.plugin("kirbyup/test", { fields: { demo: { extends: "k-info-field" } } });
 "
 `;
 
-exports[`kirbyup build > builds index.css 1`] = `
-"
-"
-`;
+exports[`kirbyup build > builds index.css 1`] = `""`;
 
 exports[`kirbyup build > builds index.css 2`] = `
 ".foo{content:"bar"}
-"
+/*$vite$:1*/"
 `;
 
 exports[`kirbyup build > builds index.js 1`] = `
-"const o = "bar";
-export {
-  o as default
-};
+"var e = "bar";
+export { e as default };
 "
 `;
 
 exports[`kirbyup build > compiles Vue single-file components 1`] = `
-"import { openBlock as r, createElementBlock as a, createElementVNode as c } from "vue";
-const i = (o, e) => {
-  const t = o.__vccOpts || o;
-  for (const [n, s] of e)
-    t[n] = s;
-  return t;
-}, d = {
-  created() {
-    console.log("created");
-  }
-}, l = { class: "k-demo-section" };
-function p(o, e, t, n, s, m) {
-  return r(), a("section", l, [...e[0] || (e[0] = [
-    c(
-      "header",
-      { class: "k-section-header" },
-      [
-        c("h2", { class: "k-headline" }, "Custom section")
-      ],
-      -1
-      /* CACHED */
-    )
-  ])]);
+"import { createElementBlock as e, createElementVNode as t, openBlock as n } from "vue";
+var r = (e, t) => {
+	let n = e.__vccOpts || e;
+	for (let [e, r] of t) n[e] = r;
+	return n;
+}, i = { created() {
+	console.log("created");
+} }, a = { class: "k-demo-section" };
+function o(r, i, o, s, c, l) {
+	return n(), e("section", a, [...i[0] ||= [t("header", { class: "k-section-header" }, [t("h2", { class: "k-headline" }, "Custom section")], -1)]]);
 }
-const _ = /* @__PURE__ */ i(d, [["render", p]]);
-window.panel.plugin("kirbyup/test", {
-  sections: {
-    demo: _
-  }
-});
+var s = /* @__PURE__ */ r(i, [["render", o]]);
+window.panel.plugin("kirbyup/test", { sections: { demo: s } });
 "
 `;
 
 exports[`kirbyup build > injects built-in environment variables 1`] = `
-"const o = "production";
-export {
-  o as mode
-};
+"var e = "production";
+export { e as mode };
 "
 `;
 
 exports[`kirbyup build > injects custom environment variables 1`] = `
-"const o = "bar";
-export {
-  o as foo
-};
+"var e = "bar";
+export { e as foo };
 "
 `;
 
 exports[`kirbyup build > loads config file with function export 1`] = `
-"const o = "bar";
-export {
-  o as default
-};
+"var e = "bar";
+export { e as default };
 "
 `;
 
 exports[`kirbyup build > loads config file with object export 1`] = `
-"const o = "bar";
-export {
-  o as default
-};
+"var e = "bar";
+export { e as default };
 "
 `;
 
 exports[`kirbyup build > resolves path aliases 1`] = `
-"const o = "bar";
-export {
-  o as default
-};
+"var e = "bar";
+export { e as default };
 "
 `;
