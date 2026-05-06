@@ -1,20 +1,15 @@
 import * as fsp from 'node:fs/promises'
-import { dirname } from 'node:path'
-import { resolve } from 'pathe'
-import { glob } from 'tinyglobby'
+import { tmpdir } from 'node:os'
+import { dirname, join, resolve } from 'pathe'
 import { startCli } from '../src/node/cli-start'
-
-export const cacheDir: string = resolve(import.meta.dirname, '.cache')
-export const cli: string = resolve(import.meta.dirname, '../src/node/cli.ts')
 
 export interface CliRunResult {
   output: string
-  outFiles: string[]
   getFileContent: (filename: string) => Promise<string>
 }
 
 export async function runCli(files: Record<string, string>): Promise<CliRunResult> {
-  const testDir = resolve(cacheDir, Date.now().toString())
+  const testDir = await fsp.mkdtemp(join(tmpdir(), 'kirbyup-'))
 
   const getFileContent = async (filename: string) =>
     stripRegionComments(await fsp.readFile(resolve(testDir, filename), 'utf8'))
@@ -28,24 +23,16 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
     }),
   )
 
-  await runAsyncChildProcess(testDir, 'src/input.js')
+  // cac expects argv padded with [node, script] slots before user args
+  await startCli(testDir, ['', '', 'src/input.js'])
 
-  // Get main output and all associated files
   const output = await getFileContent('index.js')
-  const outFiles = await glob('**/*', { cwd: testDir, ignore: ['src'] })
 
-  return {
-    output,
-    outFiles,
-    getFileContent,
-  }
+  return { output, getFileContent }
 }
 
-// Strip Rolldown region comments for stable snapshots
+// Rolldown emits region markers containing the per-run tmpdir path,
+// which would make snapshots unstable across runs.
 function stripRegionComments(source: string) {
   return source.replace(/\/\/#region [^\n]*\n/g, '').replace(/\/\/#endregion\n?/g, '')
-}
-
-function runAsyncChildProcess(cwd: string, ...args: string[]) {
-  return startCli(cwd, ['', '', ...args])
 }
