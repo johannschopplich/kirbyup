@@ -1,6 +1,6 @@
 # UnoCSS
 
-Use [UnoCSS](https://unocss.dev/) for utility-first styling in Kirby Panel plugins. UnoCSS is the recommended utility-CSS solution for kirbyup-built plugins – it integrates as a Vite plugin (no PostCSS required), supports a Tailwind v3-compatible utility set via `presetWind3`, and gives you full control over class prefixing.
+[UnoCSS](https://unocss.dev/) is the recommended utility-CSS solution for Kirby Panel plugins built with kirbyup. It integrates as a Vite plugin (no PostCSS required), supports a Tailwind v3-compatible utility set via `presetWind3`, and gives you full control over class prefixing.
 
 ## Setup
 
@@ -57,7 +57,7 @@ import 'virtual:uno.css'
 Check out the [UnoCSS starter](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss) for a complete example.
 :::
 
-## Why a class prefix?
+## Why a Class Prefix?
 
 Kirby merges every Panel plugin's CSS into a single bundle. If two plugins both define `.p-2`, the second one wins – and the first plugin's `lg:p-2` quietly stops working.
 
