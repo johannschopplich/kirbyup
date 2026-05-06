@@ -12,29 +12,6 @@ import VUE_STUB_SOURCE from './runtime/vue-stub.js?raw'
 export const __HMR_SHIM_CODE__: string = HMR_SHIM_SOURCE
 
 /**
- * Extract public named exports from a Rollup-style ESM bundle. Vue's
- * `dist/vue.esm-browser.js` ships a single trailing `export { ... }` block
- * with a few `internalName as publicName` aliases.
- *
- * Only the last block is read; `as`-aliased entries yield the public name.
- */
-export function extractEsmNamedExports(source: string): string[] {
-  const blockMatches = [...source.matchAll(/export\s*\{([^}]*)\}/g)]
-  if (blockMatches.length === 0)
-    return []
-
-  const lastBlock = blockMatches.at(-1)![1]!
-  return lastBlock
-    .split(',')
-    .map(entry => entry.trim())
-    .filter(Boolean)
-    .map((entry) => {
-      const aliasMatch = entry.match(/^\S+\s+as\s+(\S+)$/)
-      return aliasMatch ? aliasMatch[1]! : entry
-    })
-}
-
-/**
  * Reads Kirby's panel-vue URL at runtime from the page's
  * `<script type="importmap">` and dynamic-imports it; the browser's module
  * map dedups by URL, so plugin SFCs share Kirby's Vue instance (and

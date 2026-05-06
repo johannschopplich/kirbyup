@@ -17,13 +17,10 @@ export function resolveOriginFromServerOptions(
   const configuredHost = normalizeHost(serverOptions?.host)
   const hostname = formatHostname(configuredHost || fallbackHostname || 'localhost')
   const hostAlreadyHasPort = configuredHost ? hostIncludesPort(configuredHost) : false
-  const portSuffix = hostAlreadyHasPort || !needsExplicitPort(protocol, port) ? '' : `:${port}`
+  const isDefaultPort = (protocol === 'http' && port === 80) || (protocol === 'https' && port === 443)
+  const portSuffix = hostAlreadyHasPort || isDefaultPort ? '' : `:${port}`
 
   return `${protocol}://${hostname}${portSuffix}`
-}
-
-export function ensureTrailingSlash(url: string): string {
-  return url.endsWith('/') ? url : `${url}/`
 }
 
 function normalizeHost(host?: HostValue): string | undefined {
@@ -50,10 +47,4 @@ function hostIncludesPort(host: string): boolean {
   if (isIP(host) === 6)
     return false
   return host.includes(':')
-}
-
-function needsExplicitPort(protocol: 'http' | 'https', port: number): boolean {
-  if (protocol === 'http')
-    return port !== 80
-  return port !== 443
 }
