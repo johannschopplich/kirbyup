@@ -131,11 +131,10 @@ function getDevBaseUrl(
 ): string {
   const { address, port } = server.httpServer!.address() as AddressInfo
 
-  const origin
-    = config.server?.origin
-      ?? server.resolvedUrls?.local?.[0]
-      ?? server.resolvedUrls?.network?.[0]
-      ?? resolveOriginFromServerOptions(config.server, port, address)
+  const origin = config.server?.origin
+    ?? server.resolvedUrls?.local?.[0]
+    ?? server.resolvedUrls?.network?.[0]
+    ?? resolveOriginFromServerOptions(config.server, port, address)
 
   const normalizedOrigin = ensureTrailingSlash(origin)
   const base = config.base ?? '/'
