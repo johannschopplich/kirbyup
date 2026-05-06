@@ -1,150 +1,136 @@
-// Vue 3 doesn't have a separate HMR runtime module to intercept.
-// Instead, we inject wrapper code into each Vue component.
-
 /**
- * This code is injected into Vue 3 components to wrap the global HMR runtime.
+ * Code served as the virtual module `\0kirbyup:hmr-shim`. It is imported once
+ * from the top of the user's plugin entry by `kirbyupHmrPlugin`'s `transform`
+ * hook. ESM module dedup guarantees a single shared install point – equivalent
+ * to the `\0plugin-vue2:hmr-runtime` virtual module pattern that gave Vue 2 its
+ * "single shared HMR runtime" property.
  *
- * All `.vue` components register themselves with the HMR runtime (`__VUE_HMR_RUNTIME__`),
- * which stores their component definitions in a map. When a module is updated, the runtime
- * applies changes to the stored definition and re-renders component instances.
+ * Vue 3's `__VUE_HMR_RUNTIME__` lives on `globalThis` and is set up by
+ * `@vue/runtime-core` when first imported. Its records map is module-private,
+ * so we cannot inspect it – we only need to ensure that `reload(id, newComp)`
+ * sees a `newComp` that has already been put through Kirby's plugin
+ * modifications (mixin/extends/render). Otherwise Vue's `Object.assign`-based
+ * reload would clobber Kirby's mutations on the stored definition with the
+ * raw SFC export and the next render would see e.g. an unresolved `'section'`
+ * mixin string or an unresolved `extends` reference.
  *
- * In Vue 3, the HMR map structure is:
- * ```js
- * {
- *   [id]: { initialDef: ComponentDefinition, instances: Set<ComponentInstance> }
- * }
- * ```
+ * Kirby v6 explicitly exposes the helpers we need for this – see
+ * https://github.com/getkirby/kirby/blob/v6/develop/panel/src/panel/plugins.ts
+ * (search for "expose helper functions for kirbyup").
  *
- * However, Kirby does not register the exact object exported from a `.vue` file.
- * Instead, it creates a new object and merges the definition in:
- * https://github.com/getkirby/kirby/blob/main/panel/public/js/plugins.js
+ * The leading `import 'vue'` ensures `__VUE_HMR_RUNTIME__` is initialised
+ * before we try to wrap it. Without it the shim would run before any other
+ * `.vue` import has had a chance to load `@vue/runtime-core`.
  *
- * After HMR changes, the runtime updates the stored definition and re-renders instances,
- * but since they are derived from Kirby's modified object (not the stored definition),
- * updates may not apply correctly.
- *
- * To fix this, we wrap `__VUE_HMR_RUNTIME__.rerender()` and `__VUE_HMR_RUNTIME__.reload()`:
- *
- * 1. **Before updates**, we check if the component belongs to a Kirby plugin by matching
- *    the `__hmrId` or `__file` properties against registered plugin components.
- *
- * 2. **If matched**, we look up the actual component definition used by Kirby
- *    (`window.panel.app.config.globalProperties.$root.$options.components`)
- *    and update the HMR map's reference to point to it.
- *
- * 3. **For section components** (detected by `k-*-section` name pattern), we add a
- *    `$_isSection` flag for special treatment in `$_applyKirbyModifications()`.
- *
- * `$_applyKirbyModifications()`:
- *
- * Kirby modifies component definitions before registration:
- * - Adds the section mixin to section components
- * - Gives templates priority over render functions
- * - Resolves component names in `extends` to their definition objects
- *
- * When a module hot reloads, Vue 3 receives a fresh component definition missing
- * these modifications. We re-apply them to ensure the runtime doesn't prune them
- * when patching the stored definition with the updated one.
- *
- * This code uses a singleton pattern (`__KIRBYUP_HMR_WRAPPED__`) to ensure the
- * wrapper is installed only once, even though it's injected into every component.
+ * `rerender(id, newRender)` is intentionally NOT wrapped. In Vue 3 it only
+ * swaps a render function on existing instances; Kirby's other modifications
+ * are unaffected. (The Vue 2 era wrap was needed because of identity
+ * differences between `Vue.extend` constructors and their `.options`.)
  */
-export const __HMR_INJECTION_CODE__ = `
-/** - injected by kirbyup for Vue 3 HMR - */
-if (typeof __VUE_HMR_RUNTIME__ !== 'undefined' && !window.__KIRBYUP_HMR_WRAPPED__) {
-  window.__KIRBYUP_HMR_WRAPPED__ = true;
+export const __HMR_SHIM_CODE__: string = `
+import 'vue'
 
-  const originalRerender = __VUE_HMR_RUNTIME__.rerender;
-  const originalReload = __VUE_HMR_RUNTIME__.reload;
+if (typeof __VUE_HMR_RUNTIME__ !== 'undefined') {
+  const originalReload = __VUE_HMR_RUNTIME__.reload
 
-  __VUE_HMR_RUNTIME__.rerender = function(id, newRender) {
-    $_syncKirbyComponent(id);
-    return originalRerender.call(this, id, newRender);
-  };
+  __VUE_HMR_RUNTIME__.reload = function (id, newComp) {
+    const plugins = window.panel && window.panel.plugins
+    const app = window.panel && window.panel.app
 
-  __VUE_HMR_RUNTIME__.reload = function(id, newComp) {
-    const record = $_getHmrRecord(id);
-    if (record) {
-      $_syncKirbyComponent(id, record.initialDef);
-      $_applyKirbyModifications(record.initialDef, newComp);
-    }
-    return originalReload.call(this, id, newComp);
-  };
-
-  function $_getHmrRecord(id) {
-    // Vue 3's HMR map is not exposed, so we maintain our own parallel map
-    // by wrapping \`createRecord\` to track component definitions
-    if (!window.__KIRBYUP_MAP__) {
-      window.__KIRBYUP_MAP__ = new Map();
-      const originalCreate = __VUE_HMR_RUNTIME__.createRecord;
-      __VUE_HMR_RUNTIME__.createRecord = function(id, initialDef) {
-        window.__KIRBYUP_MAP__.set(id, { initialDef });
-        return originalCreate.call(this, id, initialDef);
-      };
-    }
-    return window.__KIRBYUP_MAP__.get(id);
-  }
-
-  function $_syncKirbyComponent(id, activeDef) {
-    const pluginComponents = window.panel?.plugins?.components;
-    const usedComponentDefs = window.panel?.app?.config?.globalProperties?.$root?.$options?.components;
-
-    if (!pluginComponents || !usedComponentDefs) return;
-
-    const record = $_getHmrRecord(id);
-    if (!record) return;
-
-    for (const componentName in pluginComponents) {
-      const pluginComp = pluginComponents[componentName];
-
-      if (pluginComp.__hmrId === id || pluginComp.__file === record.initialDef?.__file) {
-        const usedDef = usedComponentDefs[componentName];
-
-        if (usedDef && record.initialDef !== usedDef) {
-          record.initialDef = usedDef;
-        }
-
-        if (activeDef && typeof activeDef.$_isSection !== 'boolean') {
-          activeDef.$_isSection = /^k-.*-section$/.test(componentName);
-        }
-
-        break;
-      }
-    }
-  }
-
-  function $_applyKirbyModifications(activeDef, newDef) {
-    const usedComponentDefs = window.panel?.app?.config?.globalProperties?.$root?.$options?.components;
-
-    if (!usedComponentDefs) return;
-
-    // Give templates priority over render functions
-    if (newDef.template) {
-      newDef.render = null;
-    }
-
-    // Re-apply section mixin for section components
-    if (activeDef.$_isSection) {
-      newDef.$_isSection = true;
-      if (!newDef.mixins?.[0]?.methods?.load) {
-        const sectionMixin = activeDef.mixins?.[0];
-        if (sectionMixin) {
-          newDef.mixins = [sectionMixin, ...(newDef.mixins || [])];
+    if (
+      plugins
+      && app
+      && plugins.components
+      && typeof plugins.resolveComponentExtension === 'function'
+      && typeof plugins.resolveComponentRender === 'function'
+      && typeof plugins.resolveComponentMixins === 'function'
+    ) {
+      for (const name in plugins.components) {
+        const pluginComp = plugins.components[name]
+        if (
+          pluginComp.__hmrId === id
+          || (newComp.__file && pluginComp.__file === newComp.__file)
+        ) {
+          plugins.resolveComponentExtension(app, name, newComp)
+          plugins.resolveComponentRender(newComp)
+          plugins.resolveComponentMixins(newComp)
+          break
         }
       }
     }
 
-    // Resolve component name in extends to definition object
-    if (typeof newDef.extends === 'string') {
-      if (newDef.extends === activeDef.extends?.name) {
-        newDef.extends = activeDef.extends;
-      } else if (usedComponentDefs[newDef.extends]) {
-        newDef.extends = usedComponentDefs[newDef.extends];
-      } else {
-        newDef.extends = null;
-      }
-    }
+    return originalReload.call(this, id, newComp)
   }
 }
-/** -- */
-`
+`.trimStart()
+
+/**
+ * Extract the public named exports from a fully-bundled Rollup-style ESM
+ * source. Vue's `dist/vue.esm-browser.js` is shipped exactly that way: a
+ * single trailing `export { ... }` block listing every public API name, with
+ * a few `internalName as publicName` aliases.
+ *
+ * Only the LAST `export { ... }` block is considered – Vue's bundle has
+ * exactly one such block on the final non-empty line of the file. Names with
+ * `as` aliases yield the public (post-`as`) name; the internal symbol is not
+ * importable from `'vue'` and is intentionally dropped.
+ *
+ * Returns an empty array if no export block is found.
+ */
+export function extractEsmNamedExports(source: string): string[] {
+  const blockMatches = [...source.matchAll(/export\s*\{([^}]*)\}/g)]
+  if (blockMatches.length === 0)
+    return []
+
+  const lastBlock = blockMatches.at(-1)![1]!
+  return lastBlock
+    .split(',')
+    .map(entry => entry.trim())
+    .filter(Boolean)
+    .map((entry) => {
+      const aliasMatch = entry.match(/^\S+\s+as\s+(\S+)$/)
+      return aliasMatch ? aliasMatch[1]! : entry
+    })
+}
+
+/**
+ * Build the source of the virtual `\0kirbyup:vue-stub` module. The stub runs
+ * in the browser, reads the page's `<script type="importmap">` to discover
+ * the URL Kirby's Panel uses for `vue`, dynamic-imports that URL, and
+ * re-exports the requested names.
+ *
+ * The browser's module map dedups by final URL, so plugin SFCs and Kirby's
+ * own panel code end up sharing a single Vue module instance – and a single
+ * `__VUE_HMR_RUNTIME__`. Top-level await keeps the dynamic import inside the
+ * stub's evaluation, so consumers can keep using ordinary
+ * `import { ... } from 'vue'` syntax.
+ *
+ * `/* @vite-ignore *\/` on the dynamic import prevents Vite's static analysis
+ * from trying to resolve the URL at server time.
+ */
+export function buildVueStubCode(namedExports: readonly string[]): string {
+  const exportsDestructure = namedExports.length === 0
+    ? ''
+    : `\nexport const {\n${namedExports.map(name => `  ${name},`).join('\n')}\n} = __kirbyupVueModule\n`
+
+  return `
+const __kirbyupVueImportMapEl = typeof document !== 'undefined'
+  ? document.querySelector('script[type="importmap"]')
+  : null
+const __kirbyupVueImports = __kirbyupVueImportMapEl
+  ? (() => {
+      try { return JSON.parse(__kirbyupVueImportMapEl.textContent || '{}').imports || {} }
+      catch (_) { return {} }
+    })()
+  : {}
+const __kirbyupVueUrl = __kirbyupVueImports.vue
+if (!__kirbyupVueUrl) {
+  throw new Error(
+    "[kirbyup] No 'vue' entry found in the page <script type=\\"importmap\\">. Ensure Kirby's Panel is loaded with v6 import maps enabled."
+  )
+}
+const __kirbyupVueModule = await import(/* @vite-ignore */ __kirbyupVueUrl)
+
+${exportsDestructure}
+`.trimStart()
+}

@@ -1,74 +1,149 @@
+import type { Plugin } from 'vite'
 import { describe, expect, it } from 'vitest'
 import { kirbyupHmrPlugin } from '../src/node/plugins/hmr'
+import { extractEsmNamedExports } from '../src/node/plugins/utils'
 
-describe('hmr plugin transform', () => {
+const SHIM_ID = '\0kirbyup:hmr-shim'
+const VUE_STUB_ID = '\0kirbyup:vue-stub'
+
+function createPlugin(): Plugin {
   const plugin = kirbyupHmrPlugin({
     cwd: process.cwd(),
     entry: 'src/index.ts',
     watch: false,
     port: 3000,
   })
-  const transform = plugin.transform as (code: string, id: string) => { code: string, map: null } | undefined
 
-  it('injects HMR code into Vue components with HMR', () => {
-    const mockCode = `_sfc_main.__hmrId = "abc123"
-typeof __VUE_HMR_RUNTIME__ !== 'undefined' && __VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)
-import.meta.hot.accept(mod => {
-  if (!mod) return
-  const { default: updated, _rerender_only } = mod
-  if (_rerender_only) {
-    __VUE_HMR_RUNTIME__.rerender(updated.__hmrId, updated.render)
-  } else {
-    __VUE_HMR_RUNTIME__.reload(updated.__hmrId, updated)
-  }
-})`
+  ;(plugin.configResolved as (config: any) => void).call(
+    plugin,
+    { root: process.cwd() },
+  )
 
-    const result = transform(mockCode, '/path/to/Component.vue')
+  return plugin
+}
 
-    expect(result).toBeDefined()
-    expect(result!.code).toContain('__KIRBYUP_HMR_WRAPPED__')
-    expect(result!.code).toContain('$_applyKirbyModifications')
-    expect(result!.code).toContain('$_syncKirbyComponent')
-    expect(result!.code).toContain('$_getHmrRecord')
+function callHook<R>(
+  plugin: Plugin,
+  name: 'transform' | 'load' | 'resolveId',
+  ...args: any[]
+): R {
+  const hook = plugin[name] as any
+  const handler = typeof hook === 'function' ? hook : hook.handler
+  return handler.call(plugin, ...args)
+}
 
-    // Verify injection happens before import.meta.hot.accept
-    const injectionIndex = result!.code.indexOf('__KIRBYUP_HMR_WRAPPED__')
-    const acceptIndex = result!.code.indexOf('import.meta.hot.accept')
-    expect(injectionIndex).toBeLessThan(acceptIndex)
-    expect(injectionIndex).toBeGreaterThan(-1)
+describe('kirbyupHmrPlugin', () => {
+  describe('resolveId', () => {
+    it('claims the shim id in both internal and public forms', () => {
+      const plugin = createPlugin()
+      expect(callHook(plugin, 'resolveId', SHIM_ID)).toBe(SHIM_ID)
+      expect(callHook(plugin, 'resolveId', SHIM_ID.slice(1))).toBe(SHIM_ID)
+    })
+
+    it('claims the vue stub id in both internal and public forms', () => {
+      const plugin = createPlugin()
+      expect(callHook(plugin, 'resolveId', VUE_STUB_ID)).toBe(VUE_STUB_ID)
+      expect(callHook(plugin, 'resolveId', VUE_STUB_ID.slice(1))).toBe(VUE_STUB_ID)
+    })
+
+    it('passes through unrelated ids', () => {
+      const plugin = createPlugin()
+      expect(callHook(plugin, 'resolveId', 'vue')).toBeUndefined()
+      expect(callHook(plugin, 'resolveId', '/path/to/Component.vue')).toBeUndefined()
+    })
   })
 
-  it('skips non-Vue files', () => {
-    const mockCode = 'export const foo = "bar"'
-    const result = transform(mockCode, '/path/to/file.ts')
+  describe('load', () => {
+    it('returns shim source for the shim id', () => {
+      const plugin = createPlugin()
+      const result = callHook<{ code: string, map: null }>(plugin, 'load', SHIM_ID)
+      expect(result).toBeDefined()
+      expect(typeof result.code).toBe('string')
+      expect(result.code.length).toBeGreaterThan(0)
+    })
 
-    expect(result).toBeUndefined()
+    it('returns vue stub source for the vue stub id', () => {
+      const plugin = createPlugin()
+      const result = callHook<{ code: string, map: null }>(plugin, 'load', VUE_STUB_ID)
+      expect(result).toBeDefined()
+      expect(typeof result.code).toBe('string')
+      expect(result.code.length).toBeGreaterThan(0)
+    })
+
+    it('passes through unrelated ids', () => {
+      const plugin = createPlugin()
+      expect(callHook(plugin, 'load', '/path/to/Component.vue')).toBeUndefined()
+      expect(callHook(plugin, 'load', '\0other:virtual')).toBeUndefined()
+    })
   })
 
-  it('skips Vue components without HMR createRecord', () => {
-    const mockCode = 'export default { name: "Component" }'
-    const result = transform(mockCode, '/path/to/Component.vue')
+  describe('transform', () => {
+    it('injects the shim import at the top of the entry', () => {
+      const plugin = createPlugin()
+      const entryId = `${process.cwd()}/src/index.ts`
+      const code = `console.log('entry')`
+      const result = callHook<{ code: string, map: null }>(plugin, 'transform', code, entryId)
 
-    expect(result).toBeUndefined()
+      expect(result).toBeDefined()
+      expect(result.code.startsWith(`import ${JSON.stringify(SHIM_ID)}`)).toBe(true)
+      expect(result.code).toContain(code)
+    })
+
+    it('matches the entry id when it carries a query suffix', () => {
+      const plugin = createPlugin()
+      const entryId = `${process.cwd()}/src/index.ts?t=12345`
+      const result = callHook<{ code: string, map: null }>(plugin, 'transform', `x`, entryId)
+
+      expect(result).toBeDefined()
+      expect(result.code.startsWith(`import ${JSON.stringify(SHIM_ID)}`)).toBe(true)
+    })
+
+    it('passes through non-entry files', () => {
+      const plugin = createPlugin()
+      expect(callHook(plugin, 'transform', `x`, '/some/other/file.ts')).toBeUndefined()
+      expect(callHook(plugin, 'transform', `x`, '/path/to/Component.vue')).toBeUndefined()
+    })
+
+    it('skips entries that already import the shim', () => {
+      const plugin = createPlugin()
+      const entryId = `${process.cwd()}/src/index.ts`
+      const code = `import ${JSON.stringify(SHIM_ID)}\nconsole.log('entry')`
+      expect(callHook(plugin, 'transform', code, entryId)).toBeUndefined()
+    })
+  })
+})
+
+describe('extractEsmNamedExports', () => {
+  it('reads names from a single trailing export block', () => {
+    const source = `const ref = ...\nconst computed = ...\nexport { ref, computed }`
+    expect(extractEsmNamedExports(source)).toEqual(['ref', 'computed'])
   })
 
-  it('skips components without import.meta.hot.accept', () => {
-    const mockCode = `_sfc_main.__hmrId = "abc123"
-__VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)`
-
-    const result = transform(mockCode, '/path/to/Component.vue')
-
-    expect(result).toBeUndefined()
+  it('resolves `as` aliases to their public names', () => {
+    const source = `export { compileToFunction as compile, createBaseVNode as createElementVNode, ref }`
+    expect(extractEsmNamedExports(source)).toEqual(['compile', 'createElementVNode', 'ref'])
   })
 
-  it('matches snapshot', () => {
-    const mockCode = `_sfc_main.__hmrId = "test-id"
-__VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)
-import.meta.hot.accept(mod => {})`
+  it('considers only the last export block when multiple are present', () => {
+    const source = `export { internal }\n// later\nexport { ref, reactive }`
+    expect(extractEsmNamedExports(source)).toEqual(['ref', 'reactive'])
+  })
 
-    const result = transform(mockCode, '/path/to/Component.vue')
+  it('returns an empty array when no export block is found', () => {
+    expect(extractEsmNamedExports('const x = 1')).toEqual([])
+    expect(extractEsmNamedExports('')).toEqual([])
+  })
 
-    expect(result).toBeDefined()
-    expect(result!.code).toMatchSnapshot()
+  it('finds Vue 3 exports inside the installed vue.esm-browser.js', async () => {
+    const fs = await import('node:fs/promises')
+    const { resolve } = await import('pathe')
+    const path = resolve(process.cwd(), 'node_modules/vue/dist/vue.esm-browser.js')
+    const source = await fs.readFile(path, 'utf8')
+    const names = extractEsmNamedExports(source)
+
+    // Spot-check a handful of well-known Vue 3 names
+    for (const expected of ['defineComponent', 'ref', 'reactive', 'computed', 'h', 'createApp', 'Fragment', 'Teleport']) {
+      expect(names).toContain(expected)
+    }
   })
 })
