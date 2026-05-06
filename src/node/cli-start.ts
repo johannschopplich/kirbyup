@@ -69,7 +69,7 @@ export async function startCli(cwd: string = process.cwd(), argv: string[] = pro
 
   cli.version(version)
 
-  // Parse without running so command errors can be handled globally.
+  // Parse without running so command errors can be handled globally
   cli.parse(argv, { run: false })
   await cli.runMatchedCommand()
 }

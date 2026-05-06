@@ -1,7 +1,7 @@
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { BuildOptions } from '../types'
 import * as fs from 'node:fs'
-import { resolve } from 'pathe'
+import { resolve } from 'node:path'
 
 export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig
@@ -14,7 +14,7 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
       devIndexPath = resolve(config.root, options.outDir, 'index.dev.js')
     },
     writeBundle() {
-      // Skip in watch mode – `index.dev.js` is the build's own output there.
+      // Skip in watch mode – `index.dev.js` is the build's own output there
       if (options.watch)
         return
 

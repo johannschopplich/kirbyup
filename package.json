@@ -79,7 +79,6 @@
     "chokidar": "^5.0.0",
     "consola": "^3.4.2",
     "magic-string": "^0.30.21",
-    "pathe": "^2.0.3",
     "perfect-debounce": "^2.1.0",
     "postcss": "^8.5.14",
     "postcss-load-config": "^6.0.1",
