@@ -35,48 +35,11 @@ module.exports = {
 }
 ```
 
-## Example: Tailwind CSS
+## Utility-First CSS
 
-Use Tailwind CSS for utility-first styling:
+For utility-first styling, kirbyup recommends [UnoCSS](./unocss) instead of Tailwind via PostCSS. UnoCSS integrates as a Vite plugin (no PostCSS configuration needed), supports a Tailwind v3-compatible utility set via `presetWind3`, and offers per-plugin class prefixing – important when multiple Panel plugins share a single CSS bundle.
 
-**1. Install the dependencies:**
-
-::: code-group
-```bash [pnpm]
-pnpm add -D tailwindcss@3 autoprefixer
-```
-```bash [npm]
-npm i -D tailwindcss@3 autoprefixer
-```
-:::
-
-**2. Create `postcss.config.cjs`:**
-
-```js
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-```
-
-**3. Create `tailwind.config.cjs`:**
-
-```js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.{vue,js}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-::: tip
-Check out the [Tailwind CSS starter](https://github.com/johannschopplich/kirbyup/tree/main/examples/tailwindcss) for a complete example.
-:::
+See the [UnoCSS guide](./unocss) for the full setup.
 
 ## Sass/SCSS Support
 

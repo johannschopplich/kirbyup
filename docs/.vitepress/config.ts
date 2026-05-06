@@ -90,6 +90,7 @@ function nav(): DefaultTheme.NavItem[] {
           items: [
             { text: 'Env Variables', link: '/guide/environment-variables' },
             { text: 'Path Aliases', link: '/guide/path-aliases' },
+            { text: 'UnoCSS', link: '/guide/unocss' },
             { text: 'PostCSS', link: '/guide/postcss' },
             { text: 'kirbyuse', link: '/guide/kirbyuse' },
             { text: 'Glob Imports', link: '/guide/glob-imports' },
@@ -135,6 +136,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         { text: 'Env Variables', link: '/guide/environment-variables' },
         { text: 'Path Aliases', link: '/guide/path-aliases' },
+        { text: 'UnoCSS', link: '/guide/unocss' },
         { text: 'PostCSS', link: '/guide/postcss' },
         { text: 'kirbyuse', link: '/guide/kirbyuse' },
         { text: 'Glob Imports', link: '/guide/glob-imports' },

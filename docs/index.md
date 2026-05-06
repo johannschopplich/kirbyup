@@ -4,7 +4,7 @@ titleTemplate: Bundler for Kirby Panel Plugins
 hero:
   name: kirbyup
   text: Bundler for Kirby Panel Plugins
-  tagline: Zero-config usage, built-in HMR.
+  tagline: Zero-config, built-in HMR.
   image:
     light:
       src: /logo-shadow-light.svg
