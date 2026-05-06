@@ -4,8 +4,8 @@ import { resolve } from 'pathe'
 import { glob } from 'tinyglobby'
 import { startCli } from '../src/node/cli-start'
 
-export const cacheDir: string = new URL('./.cache', import.meta.url).pathname
-export const cli: string = new URL('../src/node/cli.ts', import.meta.url).pathname
+export const cacheDir: string = resolve(import.meta.dirname, '.cache')
+export const cli: string = resolve(import.meta.dirname, '../src/node/cli.ts')
 
 export interface CliRunResult {
   output: string
@@ -15,10 +15,6 @@ export interface CliRunResult {
 
 export async function runCli(files: Record<string, string>): Promise<CliRunResult> {
   const testDir = resolve(cacheDir, Date.now().toString())
-
-  // Strip Rolldown region comments for stable snapshots
-  const stripRegionComments = (source: string) =>
-    source.replace(/\/\/#region [^\n]*\n/g, '').replace(/\/\/#endregion\n?/g, '')
 
   const getFileContent = async (filename: string) =>
     stripRegionComments(await fsp.readFile(resolve(testDir, filename), 'utf8'))
@@ -43,6 +39,11 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
     outFiles,
     getFileContent,
   }
+}
+
+// Strip Rolldown region comments for stable snapshots
+function stripRegionComments(source: string) {
+  return source.replace(/\/\/#region [^\n]*\n/g, '').replace(/\/\/#endregion\n?/g, '')
 }
 
 function runAsyncChildProcess(cwd: string, ...args: string[]) {
