@@ -16,8 +16,12 @@ export interface CliRunResult {
 export async function runCli(files: Record<string, string>): Promise<CliRunResult> {
   const testDir = resolve(cacheDir, Date.now().toString())
 
-  const getFileContent = (filename: string) =>
-    fsp.readFile(resolve(testDir, filename), 'utf8')
+  // Strip Rolldown region comments for stable snapshots
+  const stripRegionComments = (source: string) =>
+    source.replace(/\/\/#region [^\n]*\n/g, '').replace(/\/\/#endregion\n?/g, '')
+
+  const getFileContent = async (filename: string) =>
+    stripRegionComments(await fsp.readFile(resolve(testDir, filename), 'utf8'))
 
   // Write entry files on disk
   await Promise.all(

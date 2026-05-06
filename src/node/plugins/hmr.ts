@@ -31,12 +31,9 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     enforce: 'pre',
 
     config() {
-      // Route every `import 'vue'` through the virtual stub so plugin SFCs
-      // share Kirby's panel Vue module instance. Without this, Vite would
-      // resolve `vue` to the user's local `node_modules/vue`, producing a
-      // parallel runtime with its own `__VUE_HMR_RUNTIME__` and breaking HMR.
-      // `optimizeDeps.exclude` keeps the pre-bundler from baking vue in
-      // before the alias has a chance to redirect.
+      // Route `vue` through the stub so plugin SFCs share Kirby's panel Vue;
+      // a parallel local copy would split `__VUE_HMR_RUNTIME__` and break HMR.
+      // `optimizeDeps.exclude` stops the pre-bundler from circumventing the alias.
       return {
         optimizeDeps: { exclude: ['vue'] },
         resolve: {
@@ -51,8 +48,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       entryId = normalizePath(entry)
       devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.js')
 
-      // Parse vue's named exports once so the stub can re-emit them; SFC
-      // compiler output and user code import these names directly.
+      // Parse vue's named exports so the stub can re-emit them.
       try {
         const vueUrl = import.meta.resolve(
           'vue/dist/vue.esm-browser.js',
@@ -76,9 +72,9 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
 
     load(id) {
       if (id === SHIM_ID)
-        return { code: __HMR_SHIM_CODE__, map: null }
+        return { code: __HMR_SHIM_CODE__, map: null, moduleType: 'js' }
       if (id === VUE_STUB_ID)
-        return { code: vueStubCode ?? VUE_NOT_FOUND_STUB, map: null }
+        return { code: vueStubCode ?? VUE_NOT_FOUND_STUB, map: null, moduleType: 'js' }
     },
 
     transform(code, id) {

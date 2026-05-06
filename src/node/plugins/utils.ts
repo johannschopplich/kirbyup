@@ -1,20 +1,16 @@
 /**
- * Source of the virtual `\0kirbyup:hmr-shim` module, injected once at the top
- * of the user's plugin entry.
+ * Source of the virtual `\0kirbyup:hmr-shim` module, injected at the top of
+ * the user's plugin entry.
  *
- * Vue 3's `reload(id, newComp)` does `Object.assign(record.initialDef, newComp)`,
- * which would clobber Kirby's in-place mutations on the stored definition
- * (resolved mixins, resolved `extends`, deleted `render`) with the raw SFC
- * export. The wrap re-Kirby-fies `newComp` via the helpers Kirby exposes for
- * us – https://github.com/getkirby/kirby/blob/v6/develop/panel/src/panel/plugins.ts
- * (search for "expose helper functions for kirbyup") – before delegating.
+ * Vue's `reload` does `Object.assign(record.initialDef, newComp)`, which
+ * would overwrite Kirby's in-place mutations on the stored definition. The
+ * wrap re-runs Kirby's plugin helpers on `newComp` first; see
+ * https://github.com/getkirby/kirby/blob/v6/develop/panel/src/panel/plugins.ts
+ * ("expose helper functions for kirbyup").
  *
- * The leading `import 'vue'` forces `@vue/runtime-core` to initialise – and
- * thus `globalThis.__VUE_HMR_RUNTIME__` to be set – before the wrap runs.
- *
- * `rerender(id, newRender)` is intentionally NOT wrapped: in Vue 3 it only
- * swaps a render function on existing instances; Kirby's other modifications
- * are unaffected.
+ * `import 'vue'` first ensures `__VUE_HMR_RUNTIME__` exists before the wrap
+ * installs. `rerender` is not wrapped: in Vue 3 it only swaps a render
+ * function, leaving Kirby's mutations untouched.
  */
 export const __HMR_SHIM_CODE__: string = `
 import 'vue'
@@ -59,14 +55,11 @@ else {
 `.trimStart()
 
 /**
- * Extract the public named exports from a Rollup-style ESM bundle. Vue's
+ * Extract public named exports from a Rollup-style ESM bundle. Vue's
  * `dist/vue.esm-browser.js` ships a single trailing `export { ... }` block
- * listing every public API name, with a few `internalName as publicName`
- * aliases.
+ * with a few `internalName as publicName` aliases.
  *
- * Only the last block is considered. `as`-aliased entries yield the public
- * (post-`as`) name; the internal symbol is not importable from `'vue'` and is
- * intentionally dropped.
+ * Only the last block is read; `as`-aliased entries yield the public name.
  */
 export function extractEsmNamedExports(source: string): string[] {
   const blockMatches = [...source.matchAll(/export\s*\{([^}]*)\}/g)]
@@ -85,16 +78,13 @@ export function extractEsmNamedExports(source: string): string[] {
 }
 
 /**
- * Source of the virtual `\0kirbyup:vue-stub` module. The browser's module map
- * dedups by final URL, so resolving Kirby's panel-vue URL at runtime (via the
- * page's `<script type="importmap">`) and dynamic-importing it makes plugin
- * SFCs share a single Vue module – and a single `__VUE_HMR_RUNTIME__` – with
- * the rest of the panel. Top-level await keeps the dynamic import inside the
- * stub's evaluation, so consumers can keep using ordinary
- * `import { ... } from 'vue'` syntax.
+ * Source of the virtual `\0kirbyup:vue-stub` module. Reads Kirby's panel-vue
+ * URL at runtime from the page's `<script type="importmap">` and dynamic-imports
+ * it; the browser's module map dedups by URL, so plugin SFCs share Kirby's
+ * Vue instance (and `__VUE_HMR_RUNTIME__`). Top-level await lets consumers
+ * keep using ordinary `import { ... } from 'vue'` syntax.
  *
- * `/* @vite-ignore *\/` on the dynamic import prevents Vite's static analysis
- * from trying to resolve the URL at server time.
+ * `/* @vite-ignore *\/` stops Vite from trying to resolve the URL statically.
  */
 export function buildVueStubCode(namedExports: readonly string[]): string {
   const exportsDestructure = namedExports.length === 0

@@ -1,5 +1,4 @@
-import type { OutputChunk, RollupOutput, RollupWatcher } from 'rollup'
-import type { InlineConfig, LogLevel, ViteDevServer } from 'vite'
+import type { InlineConfig, LogLevel, Rolldown, ViteDevServer } from 'vite'
 import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
@@ -54,8 +53,7 @@ function getViteConfig(
       },
     },
     plugins: [
-      // Explicitly pass the compiler, since the plugin's resolving of the compiler
-      // looks in the current directory and breaks `npx kirbyup`
+      // Pass compiler explicitly – plugin-vue's auto-resolution looks in cwd and breaks `npx kirbyup`.
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
     ],
@@ -125,7 +123,7 @@ function getViteConfig(
   return mergeConfig(buildConfig, userConfig)
 }
 
-async function generate(options: BuildOptions): Promise<RollupOutput | RollupOutput[] | RollupWatcher | undefined> {
+async function generate(options: BuildOptions): Promise<Rolldown.RolldownOutput | Rolldown.RolldownOutput[] | Rolldown.RolldownWatcher | undefined> {
   const config = getViteConfig('build', options)
 
   let result: Awaited<ReturnType<typeof _build>> | undefined
@@ -141,7 +139,7 @@ async function generate(options: BuildOptions): Promise<RollupOutput | RollupOut
   }
 
   if (result && !options.watch) {
-    const { output } = toArray(result as RollupOutput)[0]!
+    const { output } = toArray(result as Rolldown.RolldownOutput)[0]!
 
     let maxLength = 0
     for (const chunkFile in output) {
@@ -150,7 +148,7 @@ async function generate(options: BuildOptions): Promise<RollupOutput | RollupOut
         maxLength = fileNameLength
     }
 
-    for (const { fileName, type, code } of (output as OutputChunk[])) {
+    for (const { fileName, type, code } of (output as Rolldown.OutputChunk[])) {
       const content = code || (await fsp.readFile(resolve(options.outDir, fileName), 'utf8'))
 
       await printFileInfo(
