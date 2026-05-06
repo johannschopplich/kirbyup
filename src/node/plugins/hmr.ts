@@ -16,7 +16,7 @@ const SHIM_PUBLIC_ID = SHIM_ID.slice(1)
 const VUE_STUB_ID = '\0kirbyup:vue-stub'
 const VUE_STUB_PUBLIC_ID = VUE_STUB_ID.slice(1)
 
-const VUE_NOT_FOUND_STUB = `throw new Error("[kirbyup] Cannot resolve 'vue/dist/vue.esm-browser.js' from the plugin project. Make sure 'vue' is installed as a dependency.")\n`
+const VUE_NOT_FOUND_STUB = `throw new Error('[kirbyup] Cannot resolve "vue/dist/vue.esm-browser.js" from the plugin project. Make sure "vue" is installed as a dependency.')\n`
 
 export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
