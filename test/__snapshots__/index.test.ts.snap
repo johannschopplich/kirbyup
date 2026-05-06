@@ -35,6 +35,48 @@ window.panel.plugin("kirbyup/test", { sections: { demo: s } });
 "
 `;
 
+exports[`kirbyup build > expands kirbyup.import() into a component map 1`] = `
+"import { createBlock as e, createTextVNode as t, openBlock as n, resolveComponent as r, withCtx as i } from "vue";
+var a = Object.defineProperty, o = (e, t) => {
+	let n = {};
+	for (var r in e) a(n, r, {
+		get: e[r],
+		enumerable: !0
+	});
+	return t || a(n, Symbol.toStringTag, { value: "Module" }), n;
+}, s = (e, t) => {
+	let n = e.__vccOpts || e;
+	for (let [e, r] of t) n[e] = r;
+	return n;
+}, c = /* @__PURE__ */ o({ default: () => d }), l = {};
+function u(a, o) {
+	let s = r("k-header");
+	return n(), e(s, null, {
+		default: i(() => [...o[0] ||= [t("Bar", -1)]]),
+		_: 1
+	});
+}
+var d = /* @__PURE__ */ s(l, [["render", u]]), f = /* @__PURE__ */ o({ default: () => h }), p = {};
+function m(a, o) {
+	let s = r("k-header");
+	return n(), e(s, null, {
+		default: i(() => [...o[0] ||= [t("Foo", -1)]]),
+		_: 1
+	});
+}
+var h = /* @__PURE__ */ s(p, [["render", m]]), g = Object.freeze({ import(e) {
+	return Object.entries(e).reduce((e, [t, n]) => (e[_(t)] = n.default, e), {});
+} });
+function _(e) {
+	return e.substring(e.lastIndexOf("/") + 1, e.lastIndexOf(".")).toLowerCase();
+}
+window.panel.plugin("kirbyup/example", { blocks: g.import(/* @__PURE__ */ Object.assign({
+	"./components/blocks/Bar.vue": c,
+	"./components/blocks/Foo.vue": f
+})) });
+"
+`;
+
 exports[`kirbyup build > injects built-in environment variables 1`] = `
 "var e = "production";
 export { e as mode };

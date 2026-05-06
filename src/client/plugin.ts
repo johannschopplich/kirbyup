@@ -1,6 +1,3 @@
-// Exports are ESM and not part of the kirbyup CLI,
-// but importable when writing a Kirby Panel plugin.
-
 type Module = Record<string, any>
 
 export interface KirbyupUtilities {
@@ -19,8 +16,15 @@ export const kirbyup: Readonly<KirbyupUtilities> = Object.freeze({
    * kirbyup.import('./components/blocks/*.vue')
    */
   import(glob: string): Record<string, any> {
-    // `kirbyup.import(<path>)` will be transformed at build-time to:
-    // `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
+    // `kirbyup.import(<path>)` is transformed at build-time to:
+    // `kirbyup.import(import.meta.glob(<path>, { eager: true }))`.
+    // If we still see a string here, the kirbyup build pipeline didn't run.
+    if (typeof glob === 'string') {
+      throw new TypeError(
+        '[kirbyup] kirbyup.import() requires the kirbyup build pipeline. The call must be transformed at build time by the kirbyup:glob-import plugin.',
+      )
+    }
+
     const modules = glob as unknown as Record<string, Module>
     return Object.entries(modules).reduce<Record<string, any>>(
       (accumulator, [path, component]) => {

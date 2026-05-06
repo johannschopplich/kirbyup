@@ -14,7 +14,7 @@ import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
-import { kirbyupBuildCleanupPlugin, kirbyupHmrPlugin } from './plugins'
+import { kirbyupBuildCleanupPlugin, kirbyupGlobImportPlugin, kirbyupHmrPlugin } from './plugins'
 import { printFileInfo, toArray } from './utils'
 import { resolveOriginFromServerOptions } from './utils/server'
 
@@ -56,6 +56,7 @@ function getViteConfig(
       // Pass compiler explicitly – plugin-vue's auto-resolution looks in cwd and breaks `npx kirbyup`.
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
+      kirbyupGlobImportPlugin(),
     ],
     build: {
       copyPublicDir: false,

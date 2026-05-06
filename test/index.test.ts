@@ -119,6 +119,37 @@ describe('kirbyup build', () => {
     expect(output).toMatchSnapshot()
   })
 
+  it('expands kirbyup.import() into a component map', async () => {
+    const { output } = await runCli({
+      'src/input.js': `
+      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
+
+      window.panel.plugin('kirbyup/example', {
+        blocks: kirbyup.import('./components/blocks/*.vue')
+      })
+    `,
+      'src/components/blocks/Foo.vue': '<template><k-header>Foo</k-header></template>',
+      'src/components/blocks/Bar.vue': '<template><k-header>Bar</k-header></template>',
+    })
+
+    expect(output).not.toMatch(/kirbyup\.import\(\s*['"`]/)
+    expect(output).toContain('Foo')
+    expect(output).toContain('Bar')
+    expect(output).toMatchSnapshot()
+  })
+
+  it('skips kirbyup.import() inside string literals', async () => {
+    const { output } = await runCli({
+      'src/input.js': `
+      const helpText = "Call kirbyup.import('./blocks/*.vue') to load all blocks"
+      window.panel.plugin('kirbyup/example', { help: helpText })
+    `,
+    })
+
+    expect(output).not.toContain('import.meta.glob')
+    expect(output).toMatch(/Call kirbyup\.import\(/)
+  })
+
   it('loads config file with object export', async () => {
     const { output } = await runCli({
       'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
