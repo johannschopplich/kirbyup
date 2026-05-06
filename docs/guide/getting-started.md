@@ -6,8 +6,8 @@ Get up and running with kirbyup in minutes.
 
 ## Prerequisites
 
-- **Node.js 24+** with a package manager (pnpm, npm, or yarn).
-- **Kirby 6 or newer**. kirbyup 4.x targets the Vue 3-based Panel runtime introduced in Kirby 6. For Kirby 4 or 5 plugins, use kirbyup 3.x.
+- **Node.js 24+**: paired with a package manager (pnpm, npm, or yarn).
+- **Kirby 6 or newer**: kirbyup 4.x targets the Vue 3-based Panel runtime introduced in Kirby 6. For Kirby 4 or 5 plugins, use kirbyup 3.x.
 
 ::: tip
 If you want to skip starting from scratch, pick one of the following starters:
