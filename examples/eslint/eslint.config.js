@@ -1,9 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
-export default antfu(
-  {
-    ignores: ['**/vendor/**', 'index.js'],
-  },
+export default antfu({
   ignores: ['**/vendor/**', 'index.js'],
 }, {
   files: ['**/*.vue'],
