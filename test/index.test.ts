@@ -1,10 +1,7 @@
 import * as fsp from 'node:fs/promises'
-import { fileURLToPath } from 'node:url'
 import { resolve } from 'pathe'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { cacheDir, runCli } from './utils'
-
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 describe('kirbyup build', () => {
   beforeAll(async () => {
@@ -122,7 +119,7 @@ describe('kirbyup build', () => {
   it('expands kirbyup.import() into a component map', async () => {
     const { output } = await runCli({
       'src/input.js': `
-      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
+      import { kirbyup } from '${resolve(import.meta.dirname, '../dist/client/plugin.mjs')}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')
@@ -183,7 +180,7 @@ describe('kirbyup build', () => {
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
-      import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
+      import { defineConfig } from '${resolve(import.meta.dirname, '../dist/client/config.mjs')}'
       const currentDir = fileURLToPath(new URL('.', import.meta.url))
       export default defineConfig({
         alias: {
