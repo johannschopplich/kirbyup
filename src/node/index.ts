@@ -28,7 +28,6 @@ const logLevel: LogLevel = 'warn'
 const logger = createLogger(logLevel)
 const loggerWarn = logger.warn
 
-// Overwrite log function to ignore output directory warning
 logger.warn = (msg, options) => {
   if (msg.includes('(!) build.outDir'))
     return
@@ -175,15 +174,12 @@ export async function build(options: BuildOptions): Promise<void> {
 
   const { cwd } = options
 
-  // Resolve kirbyup config
   const { config, configFile } = await loadConfig(cwd)
   resolvedKirbyupConfig = config ?? {}
 
-  // Resolve PostCSS config
   resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
 
   if (!process.env.VITEST) {
-    // Start kirbyup
     consola.log(colors.green(`${name} v${version}`))
     consola.start(`Building ${colors.cyan(options.entry)}`)
   }
@@ -207,7 +203,6 @@ export async function build(options: BuildOptions): Promise<void> {
 
   const ignored = [
     '**/{.git,node_modules}/**',
-    // Always ignore dist files
     'index.{css,js}',
     DEV_OUTPUT_FILENAME,
   ]
@@ -246,7 +241,6 @@ export async function build(options: BuildOptions): Promise<void> {
     catch {}
   })
 
-  // Graceful shutdown
   const onShutdown = () => void cleanup().finally(() => process.exit(0))
   process.once('SIGINT', onShutdown)
   process.once('SIGTERM', onShutdown)
@@ -276,11 +270,9 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
 
   const { cwd } = options
 
-  // Resolve kirbyup config
   const { config } = await loadConfig(cwd)
   resolvedKirbyupConfig = config ?? {}
 
-  // Resolve PostCSS config
   resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
 
   if (!process.env.VITEST) {

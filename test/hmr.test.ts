@@ -1,7 +1,7 @@
 import type { Plugin } from 'vite'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { kirbyupHmrPlugin } from '../src/node/plugins/hmr'
-import { extractEsmNamedExports } from '../src/node/plugins/utils'
+import { __HMR_SHIM_CODE__, extractEsmNamedExports } from '../src/node/plugins/utils'
 
 const SHIM_ID = '\0kirbyup:hmr-shim'
 const VUE_STUB_ID = '\0kirbyup:vue-stub'
@@ -110,6 +110,193 @@ describe('kirbyupHmrPlugin', () => {
       const code = `import ${JSON.stringify(SHIM_ID)}\nconsole.log('entry')`
       expect(callHook(plugin, 'transform', code, entryId)).toBeUndefined()
     })
+  })
+})
+
+interface ShimWindow {
+  panel?: {
+    app?: any
+    plugins?: {
+      components?: Record<string, any>
+      resolveComponentExtension?: (...args: any[]) => any
+      resolveComponentRender?: (...args: any[]) => any
+      resolveComponentMixins?: (...args: any[]) => any
+    }
+  }
+}
+
+interface ShimRuntime {
+  reload: (id: string, newComp: any) => any
+}
+
+interface ShimGlobals {
+  window: ShimWindow
+  __VUE_HMR_RUNTIME__: ShimRuntime | undefined
+  console: { warn: (...args: any[]) => void }
+}
+
+function evalShim(globals: ShimGlobals): void {
+  // The shim's first line is `import 'vue'`, which is only legal in module
+  // scope. Strip it; in tests we drive the runtime directly instead of
+  // letting the shim ensure it's initialised.
+  const body = __HMR_SHIM_CODE__.replace(/^import 'vue'\s*/, '')
+  // eslint-disable-next-line no-new-func
+  new Function('window', '__VUE_HMR_RUNTIME__', 'console', body)(
+    globals.window,
+    globals.__VUE_HMR_RUNTIME__,
+    globals.console,
+  )
+}
+
+describe('__HMR_SHIM_CODE__', () => {
+  it('replaces __VUE_HMR_RUNTIME__.reload with a wrapper', () => {
+    const originalReload = vi.fn()
+    const runtime: ShimRuntime = { reload: originalReload }
+    evalShim({
+      window: { panel: { app: {}, plugins: { components: {} } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    expect(runtime.reload).not.toBe(originalReload)
+  })
+
+  it('runs Kirby helpers in extension → render → mixins order on __hmrId match, then delegates to the original reload', () => {
+    const calls: string[] = []
+    const sfc = { __hmrId: 'abc' }
+    const helpers = {
+      resolveComponentExtension: vi.fn(() => { calls.push('ext') }),
+      resolveComponentRender: vi.fn(() => { calls.push('render') }),
+      resolveComponentMixins: vi.fn(() => { calls.push('mix') }),
+    }
+    const originalReload = vi.fn()
+    const runtime: ShimRuntime = { reload: originalReload }
+    evalShim({
+      window: { panel: { app: {}, plugins: { ...helpers, components: { foo: sfc } } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    runtime.reload('abc', sfc)
+    expect(calls).toEqual(['ext', 'render', 'mix'])
+    expect(originalReload).toHaveBeenCalledWith('abc', sfc)
+  })
+
+  it('passes the panel app, matching name, and newComp to resolveComponentExtension', () => {
+    const helpers = {
+      resolveComponentExtension: vi.fn(),
+      resolveComponentRender: vi.fn(),
+      resolveComponentMixins: vi.fn(),
+    }
+    const app = { id: 'panel-app' }
+    const newComp = { __hmrId: 'abc' }
+    const runtime: ShimRuntime = { reload: vi.fn() }
+    evalShim({
+      window: { panel: { app, plugins: { ...helpers, components: { 'k-foo': { __hmrId: 'abc' } } } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    runtime.reload('abc', newComp)
+    expect(helpers.resolveComponentExtension).toHaveBeenCalledWith(app, 'k-foo', newComp)
+    expect(helpers.resolveComponentRender).toHaveBeenCalledWith(newComp)
+    expect(helpers.resolveComponentMixins).toHaveBeenCalledWith(newComp)
+  })
+
+  it('matches by __file when __hmrId differs', () => {
+    const helpers = {
+      resolveComponentExtension: vi.fn(),
+      resolveComponentRender: vi.fn(),
+      resolveComponentMixins: vi.fn(),
+    }
+    const stale = { __hmrId: 'old-hash', __file: '/src/MyComp.vue' }
+    const fresh = { __hmrId: 'new-hash', __file: '/src/MyComp.vue' }
+    const runtime: ShimRuntime = { reload: vi.fn() }
+    evalShim({
+      window: { panel: { app: {}, plugins: { ...helpers, components: { foo: stale } } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    runtime.reload('new-hash', fresh)
+    expect(helpers.resolveComponentExtension).toHaveBeenCalledWith({}, 'foo', fresh)
+  })
+
+  it('skips helpers but still delegates to original reload when no plugin component matches', () => {
+    const originalReload = vi.fn()
+    const helpers = {
+      resolveComponentExtension: vi.fn(),
+      resolveComponentRender: vi.fn(),
+      resolveComponentMixins: vi.fn(),
+    }
+    const runtime: ShimRuntime = { reload: originalReload }
+    evalShim({
+      window: { panel: { app: {}, plugins: { ...helpers, components: { foo: { __hmrId: 'unrelated', __file: '/foo.vue' } } } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    const newComp = { __hmrId: 'xyz', __file: '/xyz.vue' }
+    runtime.reload('xyz', newComp)
+    expect(helpers.resolveComponentExtension).not.toHaveBeenCalled()
+    expect(helpers.resolveComponentRender).not.toHaveBeenCalled()
+    expect(helpers.resolveComponentMixins).not.toHaveBeenCalled()
+    expect(originalReload).toHaveBeenCalledWith('xyz', newComp)
+  })
+
+  it('skips helpers when a Kirby helper is missing', () => {
+    const originalReload = vi.fn()
+    const resolveComponentRender = vi.fn()
+    const resolveComponentMixins = vi.fn()
+    const runtime: ShimRuntime = { reload: originalReload }
+    evalShim({
+      window: { panel: { app: {}, plugins: {
+        // resolveComponentExtension intentionally missing
+        resolveComponentRender,
+        resolveComponentMixins,
+        components: { foo: { __hmrId: 'abc' } },
+      } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    runtime.reload('abc', { __hmrId: 'abc' })
+    expect(resolveComponentRender).not.toHaveBeenCalled()
+    expect(resolveComponentMixins).not.toHaveBeenCalled()
+    expect(originalReload).toHaveBeenCalled()
+  })
+
+  it('stops walking after the first matching component', () => {
+    const ext = vi.fn()
+    const sharedSfc = { __hmrId: 'abc' }
+    const runtime: ShimRuntime = { reload: vi.fn() }
+    evalShim({
+      window: { panel: { app: {}, plugins: {
+        resolveComponentExtension: ext,
+        resolveComponentRender: vi.fn(),
+        resolveComponentMixins: vi.fn(),
+        // Same SFC registered under two names – iteration is insertion-ordered.
+        components: { first: sharedSfc, second: sharedSfc },
+      } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    runtime.reload('abc', { __hmrId: 'abc' })
+    expect(ext).toHaveBeenCalledTimes(1)
+    expect(ext.mock.calls[0]![1]).toBe('first')
+  })
+
+  it('logs a warning when __VUE_HMR_RUNTIME__ is undefined', () => {
+    const warn = vi.fn()
+    evalShim({
+      window: {},
+      __VUE_HMR_RUNTIME__: undefined,
+      console: { warn },
+    })
+
+    expect(warn).toHaveBeenCalledTimes(1)
+    expect(String(warn.mock.calls[0]![0])).toMatch(/Vue HMR runtime not detected/)
   })
 })
 

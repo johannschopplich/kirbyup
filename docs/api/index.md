@@ -122,8 +122,8 @@ When you build your plugin, kirbyup generates these files:
 |------|-------------|
 | `index.js` | Bundled and minified JavaScript (production) |
 | `index.css` | Bundled CSS (if your plugin includes styles) |
-| `index.dev.mjs` | Dev server proxy (development only, created by `serve`) |
+| `index.dev.js` | Dev server proxy (development only, created by `serve`) |
 
 ::: tip
-The `index.dev.mjs` file tells Kirby to load assets from the development server instead of the bundled files. It's automatically created when running `kirbyup serve` and should be git-ignored.
+The `index.dev.js` file tells Kirby to load assets from the development server instead of the bundled files. It's automatically created when running `kirbyup serve` and should be git-ignored.
 :::

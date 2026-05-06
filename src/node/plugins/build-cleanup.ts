@@ -11,9 +11,15 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
     name: 'kirbyup:build-cleanup',
     configResolved(resolvedConfig) {
       config = resolvedConfig
-      devIndexPath = resolve(config.root, options.outDir, 'index.dev.mjs')
+      devIndexPath = resolve(config.root, options.outDir, 'index.dev.js')
     },
     writeBundle() {
+      // In watch mode `index.dev.js` is the build's own output. Only clean up
+      // in production builds, where a stale dev artifact would otherwise
+      // shadow the freshly built `index.js` in Kirby.
+      if (options.watch)
+        return
+
       if (fs.existsSync(devIndexPath))
         fs.unlinkSync(devIndexPath)
     },
