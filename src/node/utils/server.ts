@@ -11,10 +11,9 @@ export function resolveOriginFromServerOptions(
   port: number,
   fallbackHostname?: string,
 ): string {
-  const protocol: 'http' | 'https'
-    = serverOptions?.https && (typeof serverOptions.https === 'boolean' || Object.keys(serverOptions.https).length > 0)
-      ? 'https'
-      : 'http'
+  const protocol: 'http' | 'https' = serverOptions?.https && (typeof serverOptions.https === 'boolean' || Object.keys(serverOptions.https).length > 0)
+    ? 'https'
+    : 'http'
   const configuredHost = normalizeHost(serverOptions?.host)
   const hostname = formatHostname(configuredHost || fallbackHostname || 'localhost')
   const hostAlreadyHasPort = configuredHost ? hostIncludesPort(configuredHost) : false
