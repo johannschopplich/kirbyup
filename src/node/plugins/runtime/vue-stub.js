@@ -3,9 +3,13 @@ const __kirbyupVueImportMapEl = typeof document !== 'undefined'
   : null
 const __kirbyupVueImports = __kirbyupVueImportMapEl
   ? (() => {
-      try { return JSON.parse(__kirbyupVueImportMapEl.textContent || '{}').imports || {} }
+      try {
+        return JSON.parse(__kirbyupVueImportMapEl.textContent || '{}').imports || {}
+      }
       // eslint-disable-next-line unused-imports/no-unused-vars
-      catch (_) { return {} }
+      catch (_) {
+        return {}
+      }
     })()
   : {}
 const __kirbyupVueUrl = __kirbyupVueImports.vue
