@@ -16,6 +16,11 @@ The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 - 🦔 [Configuration File](https://kirbyup.getkirby.com/guide/config-file)
 - 🧭 [Path Aliases](https://kirbyup.getkirby.com/guide/path-aliases)
 
+## Requirements
+
+- **Node.js 24+** with a package manager (pnpm, npm, or yarn).
+- **Kirby 6 or newer**. kirbyup 4.x targets the Vue 3-based Panel runtime introduced in Kirby 6. For Kirby 4 or 5 plugins, use kirbyup 3.x.
+
 ## Setup
 
 > [!TIP]
@@ -34,14 +39,7 @@ npm i -D kirbyup
 yarn add -D kirbyup
 ```
 
-## Basic Usage
-
-> [!TIP]
-> [📖 Read the documentation](https://kirbyup.getkirby.com) or skip starting from scratch and pick one of the following starters:
-> - [`eslint`](./examples/eslint)
-> - [`unocss`](./examples/unocss)
-
-Having installed kirbyup, you can add the following scripts as shortcuts to the commands you will use most often:
+After installation, add these scripts to your `package.json`:
 
 ```json
 {
@@ -50,7 +48,7 @@ Having installed kirbyup, you can add the following scripts as shortcuts to the 
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^3.4.0"
+    "kirbyup": "^4.0.0-alpha.6"
   }
 }
 ```
