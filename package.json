@@ -39,16 +39,6 @@
     }
   },
   "types": "./dist/node/index.d.mts",
-  "typesVersions": {
-    "*": {
-      "config": [
-        "./dist/client/config.d.mts"
-      ],
-      "plugin": [
-        "./dist/client/plugin.d.mts"
-      ]
-    }
-  },
   "bin": {
     "kirbyup": "bin/kirbyup.mjs"
   },
