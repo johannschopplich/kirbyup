@@ -1,22 +1,19 @@
 import type { AddressInfo } from 'node:net'
-import type { PackageManager } from 'nypm'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
 import type { ServeOptions } from '../types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
-import { fileURLToPath, pathToFileURL } from 'node:url'
-import { detectPackageManager } from 'nypm'
 import { resolve } from 'pathe'
 import { normalizePath } from 'vite'
-import { ensureTrailingSlash, resolveOriginFromServerOptions } from '../utils/server'
-import { __HMR_SHIM_CODE__, buildVueStubCode, extractEsmNamedExports } from './utils'
+import { resolveOriginFromServerOptions } from '../utils/server'
+import { __HMR_SHIM_CODE__, buildVueStubCode } from './utils'
 
 const SHIM_ID = '\0kirbyup:hmr-shim'
 const SHIM_PUBLIC_ID = SHIM_ID.slice(1)
 const VUE_STUB_ID = '\0kirbyup:vue-stub'
 const VUE_STUB_PUBLIC_ID = VUE_STUB_ID.slice(1)
 
-const VUE_NOT_FOUND_STUB = `throw new Error('[kirbyup] Cannot resolve "vue/dist/vue.esm-browser.js" from the plugin project. Make sure "vue" is installed as a dependency.')\n`
+const VUE_NOT_FOUND_STUB = `throw new Error('[kirbyup] Cannot resolve "vue" from the plugin project. Make sure "vue" is installed as a dependency.')\n`
 
 export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
@@ -42,20 +39,16 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       }
     },
 
-    configResolved(resolvedConfig) {
+    async configResolved(resolvedConfig) {
       config = resolvedConfig
       entry = resolve(config.root, options.entry)
       entryId = normalizePath(entry)
       devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.js')
 
-      // Parse vue's named exports so the stub can re-emit them.
+      // Introspect Vue's named exports so the stub can re-emit them
       try {
-        const vueUrl = import.meta.resolve(
-          'vue/dist/vue.esm-browser.js',
-          pathToFileURL(`${config.root}/_`).href,
-        )
-        const vueSource = fs.readFileSync(fileURLToPath(vueUrl), 'utf8')
-        const namedExports = extractEsmNamedExports(vueSource)
+        const vueModule = await import('vue')
+        const namedExports = Object.keys(vueModule).filter(name => name !== 'default')
         vueStubCode = namedExports.length > 0 ? buildVueStubCode(namedExports) : undefined
       }
       catch {
@@ -98,7 +91,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
         const entryPath = entry.replace(`${config.root}/`, '')
         const baseUrl = getDevBaseUrl(server, config)
         const entryUrl = new URL(entryPath, baseUrl).href
-        const pm = await detectPackageManager(config.root)
+        const pm = detectPackageManager(config.root)
 
         await fsp.writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
       })
@@ -110,15 +103,13 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   }
 }
 
-function getViteProxyModule(entryUrl: string, packageManager?: PackageManager) {
-  const pm = packageManager?.name || 'npm'
-
+function getViteProxyModule(entryUrl: string, packageManager: string) {
   return `
 try {
   await import("${entryUrl}");
 } catch (error) {
   console.error(
-    "[kirbyup] Couldn't connect to the development server at ${entryUrl}. Run \`${pm} run serve\` to start Vite or build the plugin with \`${pm} run build\` so Kirby uses the production version."
+    "[kirbyup] Couldn't connect to the development server at ${entryUrl}. Run \`${packageManager} run serve\` to start Vite or build the plugin with \`${packageManager} run build\` so Kirby uses the production version."
   );
   throw error;
 }
@@ -136,8 +127,19 @@ function getDevBaseUrl(
     ?? server.resolvedUrls?.network?.[0]
     ?? resolveOriginFromServerOptions(config.server, port, address)
 
-  const normalizedOrigin = ensureTrailingSlash(origin)
+  // Vite enforces `config.base` to start with `/`
   const base = config.base ?? '/'
+  return new URL(base, origin).href
+}
 
-  return new URL(base, normalizedOrigin).href
+function detectPackageManager(cwd: string): string {
+  if (fs.existsSync(resolve(cwd, 'pnpm-lock.yaml')))
+    return 'pnpm'
+  if (fs.existsSync(resolve(cwd, 'bun.lock')) || fs.existsSync(resolve(cwd, 'bun.lockb')))
+    return 'bun'
+  if (fs.existsSync(resolve(cwd, 'yarn.lock')))
+    return 'yarn'
+  if (fs.existsSync(resolve(cwd, 'deno.lock')))
+    return 'deno'
+  return 'npm'
 }
