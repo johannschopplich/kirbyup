@@ -18,8 +18,8 @@ The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 
 ## Requirements
 
-- **Node.js 24+** with a package manager (pnpm, npm, or yarn).
-- **Kirby 6 or newer**. kirbyup 4.x targets the Vue 3-based Panel runtime introduced in Kirby 6. For Kirby 4 or 5 plugins, use kirbyup 3.x.
+- **Node.js 24+**: paired with a package manager (pnpm, npm, or yarn).
+- **Kirby 6 or newer**: kirbyup 4.x targets the Vue 3-based Panel runtime introduced in Kirby 6. For Kirby 4 or 5 plugins, use kirbyup 3.x.
 
 ## Setup
 
