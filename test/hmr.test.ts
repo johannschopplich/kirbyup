@@ -1,4 +1,5 @@
 import type { Plugin } from 'vite'
+import vm from 'node:vm'
 import { describe, expect, it, vi } from 'vitest'
 import { kirbyupHmrPlugin } from '../src/node/plugins/hmr'
 import { __HMR_SHIM_CODE__, extractEsmNamedExports } from '../src/node/plugins/utils'
@@ -136,14 +137,14 @@ interface ShimGlobals {
 }
 
 function evalShim(globals: ShimGlobals): void {
-  // Strip the `import 'vue'` so the body is legal inside `new Function`
-  const body = __HMR_SHIM_CODE__.replace(/import\s+['"]vue['"];?\s*/, '')
-  // eslint-disable-next-line no-new-func
-  new Function('window', '__VUE_HMR_RUNTIME__', 'console', body)(
-    globals.window,
-    globals.__VUE_HMR_RUNTIME__,
-    globals.console,
-  )
+  // Strip the side-effect `import 'vue'` – vm runs this as a Script, not a Module
+  const code = __HMR_SHIM_CODE__.replace(/import\s+['"]vue['"];?\s*/, '')
+  const context = vm.createContext({
+    window: globals.window,
+    __VUE_HMR_RUNTIME__: globals.__VUE_HMR_RUNTIME__,
+    console: globals.console,
+  })
+  vm.runInContext(code, context)
 }
 
 describe('__HMR_SHIM_CODE__', () => {
