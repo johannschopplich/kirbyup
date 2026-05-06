@@ -1,5 +1,6 @@
-import type { InlineConfig, LogLevel, Rolldown, ViteDevServer } from 'vite'
-import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
+import type { InlineConfig, Logger, LogLevel, Rolldown, ViteDevServer } from 'vite'
+import type { PostCSSConfigResult } from './config'
+import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import vuePlugin from '@vitejs/plugin-vue'
@@ -9,39 +10,39 @@ import { colors } from 'consola/utils'
 import { basename, dirname, resolve } from 'pathe'
 import { debounce } from 'perfect-debounce'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
-import fullReloadPlugin from 'vite-plugin-full-reload'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
-import { kirbyupBuildCleanupPlugin, kirbyupGlobImportPlugin, kirbyupHmrPlugin } from './plugins'
+import {
+  kirbyupBuildCleanupPlugin,
+  kirbyupFullReloadPlugin,
+  kirbyupGlobImportPlugin,
+  kirbyupHmrPlugin,
+} from './plugins'
 import { printFileInfo, toArray } from './utils'
 import { resolveOriginFromServerOptions } from './utils/server'
 
 const DEV_OUTPUT_FILENAME = 'index.dev.js'
-
-let resolvedKirbyupConfig: UserConfig
-let resolvedPostCssConfig: PostCSSConfigResult | undefined
+const SUPPRESSED_WARNING_PREFIX = '\n(!) build.outDir'
 
 const logLevel: LogLevel = 'warn'
-const logger = createLogger(logLevel)
-const loggerWarn = logger.warn
 
-logger.warn = (msg, options) => {
-  if (msg.includes('(!) build.outDir'))
-    return
-
-  loggerWarn(msg, options)
+interface ConfigContext {
+  kirbyupConfig: UserConfig
+  postCssConfig: PostCSSConfigResult | undefined
+  logger: Logger
 }
 
-function getViteConfig(command: 'build', options: BuildOptions): InlineConfig
-function getViteConfig(command: 'serve', options: ServeOptions): InlineConfig
+function getViteConfig(command: 'build', options: BuildOptions, context: ConfigContext): InlineConfig
+function getViteConfig(command: 'serve', options: ServeOptions, context: ConfigContext): InlineConfig
 function getViteConfig(
   command: string,
   options: BuildOptions | ServeOptions,
+  { kirbyupConfig, postCssConfig, logger }: ConfigContext,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, vite } = resolvedKirbyupConfig
+  const { alias = {}, vite } = kirbyupConfig
   const userConfig = vite ?? {}
 
   const sharedConfig: InlineConfig = {
@@ -53,7 +54,8 @@ function getViteConfig(
       },
     },
     plugins: [
-      // Pass compiler explicitly – plugin-vue's auto-resolution looks in cwd and breaks `npx kirbyup`.
+      // Inject the SFC compiler explicitly – `plugin-vue` resolves it
+      // relative to cwd by default, which breaks npx kirbyup
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
       kirbyupGlobImportPlugin(),
@@ -61,9 +63,12 @@ function getViteConfig(
     build: {
       copyPublicDir: false,
     },
-    ...(resolvedPostCssConfig && {
+    ...(postCssConfig && {
       css: {
-        postcss: resolvedPostCssConfig,
+        postcss: {
+          ...postCssConfig.options,
+          plugins: postCssConfig.plugins,
+        },
       },
     }),
     envDir: options.cwd,
@@ -79,7 +84,7 @@ function getViteConfig(
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
         kirbyupHmrPlugin(options as ServeOptions),
-        watch && fullReloadPlugin(watch),
+        watch && kirbyupFullReloadPlugin(watch),
       ].filter(Boolean),
       // Input needs to be specified so dependency pre-bundling works
       build: {
@@ -124,8 +129,8 @@ function getViteConfig(
   return mergeConfig(buildConfig, userConfig)
 }
 
-async function generate(options: BuildOptions): Promise<Rolldown.RolldownOutput | Rolldown.RolldownOutput[] | Rolldown.RolldownWatcher | undefined> {
-  const config = getViteConfig('build', options)
+async function generate(options: BuildOptions, context: ConfigContext): Promise<void> {
+  const config = getViteConfig('build', options, context)
 
   let result: Awaited<ReturnType<typeof _build>> | undefined
 
@@ -133,39 +138,32 @@ async function generate(options: BuildOptions): Promise<Rolldown.RolldownOutput 
     result = await _build(config)
   }
   catch (error) {
-    if (config.mode === 'production')
+    if (!options.watch)
       throw error
-    else
-      consola.error(error)
+    consola.error(error)
   }
 
-  if (result && !options.watch) {
-    const { output } = toArray(result as Rolldown.RolldownOutput)[0]!
+  if (!result || options.watch)
+    return
 
-    let maxLength = 0
-    for (const chunkFile in output) {
-      const fileNameLength = output[chunkFile]!.fileName.length
-      if (fileNameLength > maxLength)
-        maxLength = fileNameLength
-    }
+  const outputs = toArray(result as Rolldown.RolldownOutput | Rolldown.RolldownOutput[])
+  const { output } = outputs[0]!
+  const maxLength = Math.max(0, ...output.map(item => item.fileName.length))
 
-    for (const { fileName, type, code } of (output as Rolldown.OutputChunk[])) {
-      const content = code || (await fsp.readFile(resolve(options.outDir, fileName), 'utf8'))
+  for (const item of output) {
+    const content = item.type === 'chunk'
+      ? item.code
+      : await fsp.readFile(resolve(options.outDir, item.fileName), 'utf8')
 
-      await printFileInfo(
-        {
-          root: options.cwd,
-          outDir: options.outDir,
-          filePath: fileName,
-          content,
-          type,
-          maxLength,
-        },
-      )
-    }
+    await printFileInfo({
+      root: options.cwd,
+      outDir: options.outDir,
+      filePath: item.fileName,
+      content,
+      type: item.type,
+      maxLength,
+    })
   }
-
-  return result
 }
 
 export async function build(options: BuildOptions): Promise<void> {
@@ -174,19 +172,19 @@ export async function build(options: BuildOptions): Promise<void> {
   const { cwd } = options
 
   const { config, configFile } = await loadConfig(cwd)
-  resolvedKirbyupConfig = config ?? {}
-
-  resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
+  const postCssConfig = await resolvePostCSSConfig(cwd)
+  const context: ConfigContext = {
+    kirbyupConfig: config ?? {},
+    postCssConfig,
+    logger: createKirbyupLogger(),
+  }
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))
     consola.start(`Building ${colors.cyan(options.entry)}`)
   }
 
-  if (options.watch)
-    consola.info('Running in watch mode')
-
-  await generate(options)
+  await generate(options, context)
 
   if (!process.env.VITEST)
     consola.success('Build successful')
@@ -196,8 +194,8 @@ export async function build(options: BuildOptions): Promise<void> {
 
   const { watch } = await import('chokidar')
 
-  const debouncedBuild = debounce(async () => {
-    generate(options).catch(handleError)
+  const debouncedBuild = debounce(() => {
+    generate(options, context).catch(handleError)
   }, 100)
 
   const ignored = [
@@ -206,11 +204,9 @@ export async function build(options: BuildOptions): Promise<void> {
     DEV_OUTPUT_FILENAME,
   ]
 
-  const watchPaths = typeof options.watch === 'boolean'
+  const watchPaths = options.watch === true
     ? dirname(options.entry)
-    : Array.isArray(options.watch)
-      ? options.watch.filter((path): path is string => typeof path === 'string')
-      : options.watch
+    : toArray(options.watch)
 
   consola.info(
     `Watching for changes in ${toArray(watchPaths)
@@ -240,7 +236,9 @@ export async function build(options: BuildOptions): Promise<void> {
     catch {}
   })
 
-  const onShutdown = () => void cleanup().finally(() => process.exit(0))
+  const onShutdown = () => {
+    cleanup().finally(() => process.exit(0))
+  }
   process.once('SIGINT', onShutdown)
   process.once('SIGTERM', onShutdown)
 
@@ -251,7 +249,7 @@ export async function build(options: BuildOptions): Promise<void> {
     const absolutePath = resolve(cwd, file)
 
     if (configFile === absolutePath) {
-      resolvedKirbyupConfig = (await loadConfig(cwd)).config ?? {}
+      context.kirbyupConfig = (await loadConfig(cwd)).config ?? {}
       consola.info(
         `${colors.cyan(basename(file))} changed, setting new config`,
       )
@@ -270,16 +268,19 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   const { cwd } = options
 
   const { config } = await loadConfig(cwd)
-  resolvedKirbyupConfig = config ?? {}
-
-  resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
+  const postCssConfig = await resolvePostCSSConfig(cwd)
+  const context: ConfigContext = {
+    kirbyupConfig: config ?? {},
+    postCssConfig,
+    logger: createKirbyupLogger(),
+  }
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))
     consola.info('Starting development server…')
   }
 
-  const server = await createServer(getViteConfig('serve', options))
+  const server = await createServer(getViteConfig('serve', options, context))
 
   await server.listen()
 
@@ -287,6 +288,18 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
     consola.success(`Server is listening on :${server.config.server.port}`)
 
   return server
+}
+
+function createKirbyupLogger(): Logger {
+  const baseLogger = createLogger(logLevel)
+  return {
+    ...baseLogger,
+    warn(msg, options) {
+      if (msg.startsWith(SUPPRESSED_WARNING_PREFIX))
+        return
+      baseLogger.warn(msg, options)
+    },
+  }
 }
 
 function assertEntryExists(options: BaseOptions): void {
