@@ -1,6 +1,10 @@
 # kirbyuse Integration
 
-[kirbyuse](https://github.com/johannschopplich/kirbyuse) provides Vue Composition utilities and TypeScript support for Kirby Panel plugins. It works seamlessly with kirbyup and is the recommended way to write Panel plugins using the Composition API.
+[kirbyuse](https://github.com/johannschopplich/kirbyuse) provides Vue Composition utilities and Panel type hints for Kirby Panel plugins. It is the recommended companion to kirbyup.
+
+::: info
+`kirbyuse` 2.x targets Kirby 6+ and the Vue 3-based Panel runtime, paired with kirbyup 4.x. For Kirby 4 or 5 plugins, use `kirbyuse` 1.x with kirbyup 3.x.
+:::
 
 ## Installation
 
@@ -18,12 +22,25 @@ yarn add -D kirbyuse
 
 ## Why kirbyuse?
 
-Kirby uses Vue 2's UMD build, which means Composition API functions like `ref` and `computed` are not available as named exports. kirbyuse provides:
+Kirby 6 ships the Panel as native Vue 3 with an import map. kirbyup 4.x externalizes `vue`, so plugins share the Panel's runtime. kirbyuse layers Kirby-specific ergonomics on top:
 
-- **Composition API aliases**: Use `ref`, `computed`, `watch` etc. directly.
 - **Type-safe Panel access**: IntelliSense for `window.panel` and its services.
-- **Useful composables**: Ready-to-use utilities for common Panel operations.
-- **Kirby 4 & 5 compatibility**: Works with both versions seamlessly.
+- **Composables**: Ready-to-use utilities for common Panel operations (`usePanel`, `useSection`, `useDialog`, …).
+- **Props helpers**: Pre-defined prop sets for sections, blocks, and fields.
+
+## Imports
+
+Import the Composition API directly from `vue`:
+
+```js
+import { computed, ref, watch } from 'vue'
+```
+
+kirbyup externalizes `vue`, so these imports resolve to Kirby's shared Vue runtime at load time – no extra setup required. Use `kirbyuse` for everything Kirby-specific:
+
+```js
+import { usePanel, useSection } from 'kirbyuse'
+```
 
 ## Key Composables
 
@@ -48,7 +65,8 @@ Work with content of the current Panel view reactively:
 
 ```vue
 <script setup>
-import { useContent, watch } from 'kirbyuse'
+import { useContent } from 'kirbyuse'
+import { watch } from 'vue'
 
 const { currentContent, contentChanges, hasChanges, update } = useContent()
 
@@ -64,35 +82,28 @@ function updateTitle() {
 </script>
 ```
 
-::: tip
-`useContent` is compatible with both Kirby 4 and Kirby 5. The returned getters and methods are automatically shimmed based on the Kirby version.
-:::
-
 ### `useSection`
 
 Load section data from the backend – essential for custom sections:
 
 ```vue
-<script>
-import { ref, useSection } from 'kirbyuse'
-import { section } from 'kirbyuse/props'
-
-const propsDefinition = { ...section }
-
-export default {
-  inheritAttrs: false,
-}
-</script>
-
 <script setup>
-const props = defineProps(propsDefinition)
+import { useSection } from 'kirbyuse'
+import { section } from 'kirbyuse/props'
+import { ref } from 'vue'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = defineProps({ ...section })
 
 const label = ref('')
 const items = ref([])
 
 const { load } = useSection()
 
-// Load section data (async IIFE since Vue 2 doesn't support async setup)
+// Load section data immediately
 ;(async () => {
   const response = await load({
     parent: props.parent,
@@ -117,7 +128,8 @@ Build custom block components with access to field configuration:
 
 ```vue
 <script setup>
-import { computed, useBlock } from 'kirbyuse'
+import { useBlock } from 'kirbyuse'
+import { computed } from 'vue'
 
 const props = defineProps({
   content: Object,
@@ -158,12 +170,10 @@ This works in both JavaScript and TypeScript files – no additional configurati
 
 ## All Composables
 
-kirbyuse provides these composables for different use cases:
-
 | Composable | Description |
 |------------|-------------|
 | `usePanel` | Access the reactive Panel object |
-| `useContent` | Work with view content (Kirby 4 & 5 compatible) |
+| `useContent` | Work with view content |
 | `useSection` | Load section data |
 | `useBlock` | Block component utilities |
 | `useDialog` | Open text and field dialogs |
@@ -178,19 +188,16 @@ kirbyuse provides these composables for different use cases:
 Here's a complete example of a custom Panel section using kirbyuse:
 
 ```vue
-<script>
-import { ref, useContent, usePanel, useSection, watch } from 'kirbyuse'
-import { section } from 'kirbyuse/props'
-
-const propsDefinition = { ...section }
-
-export default {
-  inheritAttrs: false,
-}
-</script>
-
 <script setup>
-const props = defineProps(propsDefinition)
+import { useContent, usePanel, useSection } from 'kirbyuse'
+import { section } from 'kirbyuse/props'
+import { ref, watch } from 'vue'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const props = defineProps({ ...section })
 
 const label = ref('')
 const { currentContent, hasChanges } = useContent()

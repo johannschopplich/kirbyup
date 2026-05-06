@@ -136,10 +136,8 @@ interface ShimGlobals {
 }
 
 function evalShim(globals: ShimGlobals): void {
-  // The shim's first line is `import 'vue'`, which is only legal in module
-  // scope. Strip it; in tests we drive the runtime directly instead of
-  // letting the shim ensure it's initialised.
-  const body = __HMR_SHIM_CODE__.replace(/^import 'vue'\s*/, '')
+  // Strip the `import 'vue'` so the body is legal inside `new Function`
+  const body = __HMR_SHIM_CODE__.replace(/import\s+['"]vue['"];?\s*/, '')
   // eslint-disable-next-line no-new-func
   new Function('window', '__VUE_HMR_RUNTIME__', 'console', body)(
     globals.window,
