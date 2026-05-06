@@ -13,9 +13,9 @@ If you want to skip starting from scratch, pick one of the following starters:
 
 - [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel)
 - [`pluginkit` + ESLint](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint)
-- [`pluginkit` + Tailwind CSS](https://github.com/johannschopplich/kirbyup/tree/main/examples/tailwindcss)
+- [`pluginkit` + UnoCSS](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss)
 
-The last two examples are based on the default `pluginkit` and include ESLint – it catches bugs early and helps you avoid common JavaScript and Vue pitfalls. The Tailwind CSS example also includes Tailwind CSS to style your Panel plugin.
+The last two examples are based on the default `pluginkit` and include ESLint – it catches bugs early and helps you avoid common JavaScript and Vue pitfalls. The UnoCSS example also includes [UnoCSS](https://unocss.dev/) (with `presetWind3` for Tailwind v3-compatible utilities) to style your Panel plugin.
 :::
 
 ## Installation
@@ -85,14 +85,6 @@ Your terminal shows the server port:
 <<< @/snippets/serve.ansi
 
 This creates `./index.dev.mjs`, which tells Kirby to load your plugin from the dev server. You get hot module replacement and auto-reload out of the box.
-
-::: details Using watch mode instead?
-If you prefer building a development bundle (without HMR) or need to support Kirby versions prior to 3.7.4, use watch mode:
-
-```bash
-npx kirbyup src/index.js --watch
-```
-:::
 
 ### Production
 

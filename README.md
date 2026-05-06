@@ -2,23 +2,26 @@
 
 # kirbyup
 
-The official bundler for Kirby Panel plugins with zero-config usage and built-in HMR.
+The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 
 - [✨ &nbsp;Release Notes](https://github.com/johannschopplich/kirbyup/releases)
 - [📖 &nbsp;Read the documentation](https://kirbyup.getkirby.com)
 
 ## Key Features
 
-- 🔄 [Hot module replacement](https://kirbyup.getkirby.com/guide/getting-started.html#development)
-- 🎒 PostCSS support
-- 🧭 Add custom path aliases
-- 🔌 Run actions based on environment variables
-- 🦔 [Extends Vite with `kirbyup.config.js`](https://kirbyup.getkirby.com/guide/config-file)
+- 🔄 [Hot Module Replacement](https://kirbyup.getkirby.com/guide/getting-started.html#development)
+- 🎒 [PostCSS & Sass](https://kirbyup.getkirby.com/guide/postcss)
+- 🧩 [kirbyuse Integration](https://kirbyup.getkirby.com/guide/kirbyuse)
+- 🔌 [Environment Variables](https://kirbyup.getkirby.com/guide/environment-variables)
+- 🦔 [Configuration File](https://kirbyup.getkirby.com/guide/config-file)
+- 🧭 [Path Aliases](https://kirbyup.getkirby.com/guide/path-aliases)
 
 ## Setup
 
 > [!TIP]
-> [📖 Read the documentation](https://kirbyup.getkirby.com)
+> Skip starting from scratch and pick one of the following starters:
+> - [`eslint`](./examples/eslint)
+> - [`unocss`](./examples/unocss)
 
 ```bash
 # pnpm
@@ -26,16 +29,12 @@ pnpm add -D kirbyup
 
 # npm
 npm i -D kirbyup
+
+# yarn
+yarn add -D kirbyup
 ```
 
-## Basic Usage
-
-> [!TIP]
-> [📖 Read the documentation](https://kirbyup.getkirby.com) or skip starting from scratch and pick one of the following starters:
-> - [`eslint`](./examples/eslint)
-> - [`tailwindcss`](./examples/tailwindcss)
-
-Having installed kirbyup, you can add the following scripts as shortcuts to the commands you will use most often:
+After installation, add these scripts to your `package.json`:
 
 ```json
 {
@@ -49,13 +48,13 @@ Having installed kirbyup, you can add the following scripts as shortcuts to the 
 }
 ```
 
-## 💻 Development
+## Development
 
 1. Clone this repository
 2. Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
 3. Install dependencies using `pnpm install`
-4. Run `pnpm run dev:prepare`
-5. Start development server using `pnpm run dev`
+4. Build with `pnpm run build`
+5. Run tests with `pnpm test`
 
 ## License
 

@@ -1,13 +1,9 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu({
+  unocss: true,
   vue: {
     vueVersion: 2,
   },
   ignores: ['**/vendor/**', 'index.js'],
-}, {
-  files: ['**/*.vue'],
-  rules: {
-    'vue/html-self-closing': 'off',
-  },
 })
