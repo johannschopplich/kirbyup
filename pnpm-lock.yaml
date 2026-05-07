@@ -14,9 +14,6 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^5.1.5
         version: 5.1.5(vite@8.0.10(@types/node@24.12.2)(jiti@2.7.0)(sass@1.99.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
-      '@vue/compiler-sfc':
-        specifier: ^3.5.34
-        version: 3.5.34
       c12:
         specifier: ^4.0.0-beta.4
         version: 4.0.0-beta.4(chokidar@5.0.0)(jiti@2.7.0)
