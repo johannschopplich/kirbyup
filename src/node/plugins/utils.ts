@@ -22,6 +22,11 @@ export function buildVueStubCode(namedExports: readonly string[]): string {
   if (namedExports.length === 0)
     return VUE_STUB_SOURCE
 
-  const exportsDestructure = `\nexport const {\n${namedExports.map(name => `  ${name},`).join('\n')}\n} = __kirbyupVueModule\n`
-  return VUE_STUB_SOURCE + exportsDestructure
+  const exportsDestructure = `
+export const {
+${namedExports.map(name => `  ${name},`).join('\n')}
+} = __kirbyupVueModule
+`.trimStart()
+
+  return [VUE_STUB_SOURCE, exportsDestructure].join('\n')
 }
