@@ -22,11 +22,11 @@ export function buildVueStubCode(namedExports: readonly string[]): string {
   if (namedExports.length === 0)
     return VUE_STUB_SOURCE
 
-  const exportsDestructure = `
+  const vueModuleExports = `
 export const {
 ${namedExports.map(name => `  ${name},`).join('\n')}
 } = __kirbyupVueModule
 `.trimStart()
 
-  return [VUE_STUB_SOURCE, exportsDestructure].join('\n')
+  return [VUE_STUB_SOURCE, vueModuleExports].join('\n')
 }
