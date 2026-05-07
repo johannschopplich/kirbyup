@@ -10,7 +10,6 @@ import { consola } from 'consola'
 import { colors } from 'consola/utils'
 import { debounce } from 'perfect-debounce'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
-import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
 import { loadConfig, resolvePostCSSConfig } from './config'
 import { handleError, PrettyError } from './errors'
@@ -54,9 +53,7 @@ function getViteConfig(
       },
     },
     plugins: [
-      // Inject the SFC compiler explicitly – `plugin-vue` resolves it
-      // relative to cwd by default, which breaks npx kirbyup
-      vuePlugin({ compiler: vueCompilerSfc }),
+      vuePlugin(),
       vueJsxPlugin(),
       kirbyupGlobImportPlugin(),
     ],
