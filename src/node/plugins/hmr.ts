@@ -48,7 +48,10 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       // Introspect Vue's named exports so the stub can re-emit them
       try {
         const vueModule = await import('vue')
-        const namedExports = Object.keys(vueModule).filter(name => name !== 'default')
+        const namedExports = Object.keys(vueModule).filter(
+          // Skip CJS-interop keys like `module.exports` that aren't valid identifiers
+          name => name !== 'default' && /^[A-Z_$][\w$]*$/i.test(name),
+        )
         vueStubCode = namedExports.length > 0 ? buildVueStubCode(namedExports) : undefined
       }
       catch {
