@@ -14,7 +14,7 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
       devIndexPath = resolve(config.root, options.outDir, 'index.dev.js')
     },
     writeBundle() {
-      // Skip in watch mode – `index.dev.js` is the build's own output there
+      // Skip in watch mode – `index.dev.js` is the build's own output there.
       if (options.watch)
         return
 

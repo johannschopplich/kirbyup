@@ -14,7 +14,6 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
   const getFileContent = async (filename: string) =>
     stripRegionComments(await fsp.readFile(resolve(testDir, filename), 'utf8'))
 
-  // Write entry files on disk
   await Promise.all(
     Object.entries(files).map(async ([path, content]) => {
       const filePath = resolve(testDir, path)
@@ -23,7 +22,7 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
     }),
   )
 
-  // cac expects argv padded with [node, script] slots before user args
+  // cac expects argv padded with [node, script] slots before user args.
   await startCli(testDir, ['', '', 'src/input.js'])
 
   const output = await getFileContent('index.js')

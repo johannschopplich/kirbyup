@@ -137,7 +137,7 @@ interface ShimGlobals {
 }
 
 function evalShim(globals: ShimGlobals): void {
-  // Strip the side-effect `import 'vue'` – vm runs this as a Script, not a Module
+  // Strip the side-effect `import 'vue'` – vm runs this as a Script, not a Module.
   const code = __HMR_SHIM_CODE__.replace(/import\s+['"]vue['"];?\s*/, '')
   const context = vm.createContext({
     window: globals.window,

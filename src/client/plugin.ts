@@ -4,12 +4,9 @@ export interface KirbyupUtilities {
   import: (glob: string) => Record<string, any>
 }
 
-/*
- * Set of utils for Kirby Panel plugins.
- */
 export const kirbyup: Readonly<KirbyupUtilities> = Object.freeze({
   /**
-   * Auto-import Kirby Panel components, transformed by
+   * Auto-imports Kirby Panel components, transformed by
    * kirbyup's glob-import plugin for Vite.
    *
    * @example

@@ -4,7 +4,7 @@ import { runCli } from './utils'
 
 describe('kirbyup build', () => {
   beforeAll(() => {
-    // Unset so kirbyup applies its default environment setting
+    // Unset so kirbyup applies its default environment setting.
     vi.stubEnv('NODE_ENV', '')
   })
 

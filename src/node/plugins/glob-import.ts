@@ -24,13 +24,13 @@ export function kirbyupGlobImportPlugin(): Plugin {
         return
 
       const kirbyupImportRE = /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/dg
-      // Skip false matches inside string literals
+      // Skip false matches inside string literals.
       const cleanCode = stripLiteral(code)
       let s: MagicString | undefined
 
       for (const match of cleanCode.matchAll(kirbyupImportRE)) {
         const { 0: exp, index } = match
-        // `cleanCode` blanked the path; read it from the original
+        // `cleanCode` blanked the path; read it from the original.
         const [argStart, argEnd] = match.indices![1]!
         const rawPath = code.slice(argStart, argEnd)
 

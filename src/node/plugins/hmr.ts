@@ -45,11 +45,11 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       entryId = normalizePath(entry)
       devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.js')
 
-      // Introspect Vue's named exports so the stub can re-emit them
+      // Introspect Vue's named exports so the stub can re-emit them.
       try {
         const vueModule = await import('vue')
         const namedExports = Object.keys(vueModule).filter(
-          // Skip CJS-interop keys like `module.exports` that aren't valid identifiers
+          // Skip CJS-interop keys like `module.exports` that aren't valid identifiers.
           name => name !== 'default' && /^[A-Z_$][\w$]*$/i.test(name),
         )
         vueStubCode = namedExports.length > 0 ? buildVueStubCode(namedExports) : undefined
@@ -130,7 +130,7 @@ function getDevBaseUrl(
     ?? server.resolvedUrls?.network?.[0]
     ?? resolveOriginFromServerOptions(config.server, port, address)
 
-  // Vite enforces `config.base` to start with `/`
+  // Vite enforces `config.base` to start with `/`.
   const base = config.base ?? '/'
   return new URL(base, origin).href
 }

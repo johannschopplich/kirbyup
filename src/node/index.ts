@@ -83,7 +83,7 @@ function getViteConfig(
         kirbyupHmrPlugin(options as ServeOptions),
         watch && kirbyupFullReloadPlugin(watch),
       ].filter(Boolean),
-      // Input needs to be specified so dependency pre-bundling works
+      // Input needs to be specified so dependency pre-bundling works.
       build: {
         rollupOptions: {
           input: resolve(options.cwd, options.entry),
@@ -225,7 +225,7 @@ export async function build(options: BuildOptions): Promise<void> {
     await fsp.rm(devOutputPath, { force: true }).catch(() => {})
   }
 
-  // Sync fallback for abrupt exits
+  // Sync fallback for abrupt exits.
   process.once('exit', () => {
     try {
       fs.rmSync(devOutputPath, { force: true })
