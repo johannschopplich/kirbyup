@@ -4,5 +4,5 @@ exports[`kirbyup build > compiles Vue single-file components 1`] = `"(function(e
 
 exports[`kirbyup build > emits imported CSS as index.css 1`] = `
 ".foo{content:"bar"}
-/*$vite$:1*/"
+"
 `;
