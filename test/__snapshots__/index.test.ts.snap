@@ -1,23 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`kirbyup build > builds index.css 1`] = `
+exports[`kirbyup build > compiles Vue single-file components 1`] = `"(function(e){var t=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},n={created(){console.log(\`created\`)}},r={class:\`k-demo-section\`};function i(t,n,i,a,o,s){return(0,e.openBlock)(),(0,e.createElementBlock)(\`section\`,r,[...n[0]||=[(0,e.createElementVNode)(\`header\`,{class:\`k-section-header\`},[(0,e.createElementVNode)(\`h2\`,{class:\`k-headline\`},\`Custom section\`)],-1)]])}var a=t(n,[[\`render\`,i]]);window.panel.plugin(\`kirbyup/test\`,{sections:{demo:a}})})(await import(\`vue\`));"`;
+
+exports[`kirbyup build > emits imported CSS as index.css 1`] = `
 ".foo{content:"bar"}
 /*$vite$:1*/"
-`;
-
-exports[`kirbyup build > compiles Vue single-file components 1`] = `
-"import { createElementBlock as e, createElementVNode as t, openBlock as n } from "vue";
-var r = (e, t) => {
-	let n = e.__vccOpts || e;
-	for (let [e, r] of t) n[e] = r;
-	return n;
-}, i = { created() {
-	console.log("created");
-} }, a = { class: "k-demo-section" };
-function o(r, i, o, s, c, l) {
-	return n(), e("section", a, [...i[0] ||= [t("header", { class: "k-section-header" }, [t("h2", { class: "k-headline" }, "Custom section")], -1)]]);
-}
-var s = /*#__PURE__*/ r(i, [["render", o]]);
-window.panel.plugin("kirbyup/test", { sections: { demo: s } });
-"
 `;

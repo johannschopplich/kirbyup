@@ -109,7 +109,10 @@ function getViteConfig(
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
-        formats: ['es'],
+        formats: ['iife'],
+        // Required by Vite for the IIFE format, but never emitted: `exports:
+        // 'none'` leaves the wrapper unassigned.
+        name: 'kirbyupPlugin',
         fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
       },
       minify: mode === 'production',
@@ -119,6 +122,12 @@ function getViteConfig(
         external: ['vue'],
         output: {
           assetFileNames: 'index.[ext]',
+          // Kirby loads plugins for their side effects only, so an export would
+          // be unreadable anyway. Refusing them keeps the IIFE unassigned.
+          exports: 'none',
+          // Kirby 6 has no Vue global; `vue` resolves through the Panel's import
+          // map. The IIFE therefore takes the module namespace as its argument.
+          globals: (id: string) => `await import(${JSON.stringify(id)})`,
         },
       },
     },

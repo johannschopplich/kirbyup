@@ -12,7 +12,7 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
   const testDir = await fsp.mkdtemp(join(tmpdir(), 'kirbyup-'))
 
   const getFileContent = async (filename: string) =>
-    stripRegionComments(await fsp.readFile(resolve(testDir, filename), 'utf8'))
+    normalizeOutput(await fsp.readFile(resolve(testDir, filename), 'utf8'))
 
   await Promise.all(
     Object.entries(files).map(async ([path, content]) => {
@@ -30,8 +30,9 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
   return { output, getFileContent }
 }
 
-// Rolldown emits region markers containing the per-run tmpdir path,
-// which would make snapshots unstable across runs.
-function stripRegionComments(source: string) {
-  return source.replace(/\/\/#region [^\n]*\n/g, '').replace(/\/\/#endregion\n?/g, '')
+/** Removes Rolldown's region markers, which carry the per-run tmpdir path. */
+function normalizeOutput(source: string) {
+  return source
+    .replace(/\/\/#region [^\n]*\n/g, '')
+    .replace(/\/\/#endregion\n?/g, '')
 }

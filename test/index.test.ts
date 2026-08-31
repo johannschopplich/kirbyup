@@ -12,18 +12,33 @@ describe('kirbyup build', () => {
     vi.unstubAllEnvs()
   })
 
-  it('builds index.js', async () => {
+  it('inlines a relative import', async () => {
     const { output } = await runCli({
-      'src/input.js': 'import foo from \'./foo\'\nexport default foo',
+      'src/input.js': 'import foo from \'./foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
 
-    expect.soft(output).toContain('"bar"')
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
     expect.soft(output).not.toMatch(/from\s+['"]\.\/foo/)
-    expect.soft(output).toMatch(/export\s*\{/)
   })
 
-  it('builds index.css', async () => {
+  it('rejects an entry that exports', async () => {
+    // Kirby loads plugins for their side effects only, so an export is dead
+    // weight the author is better off learning about at build time.
+    await expect(runCli({
+      'src/input.js': 'export default \'bar\'',
+    })).rejects.toThrow(/INVALID_EXPORT_OPTION/)
+  })
+
+  it('rejects top-level await in the entry', async () => {
+    // The IIFE that keeps plugins out of each other's scope is synchronous, so
+    // Rolldown refuses the entry outright.
+    await expect(runCli({
+      'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+    })).rejects.toThrow(/Top-level await/)
+  })
+
+  it('emits imported CSS as index.css', async () => {
     const { getFileContent } = await runCli({
       'src/input.js': 'import \'./input.css\'',
       'src/input.css': '.foo { content: "bar"; }',
@@ -33,36 +48,36 @@ describe('kirbyup build', () => {
     expect(css).toMatchSnapshot()
   })
 
-  it('resolves path aliases', async () => {
+  it('resolves the ~/ alias', async () => {
     const { output } = await runCli({
-      'src/input.js': 'import foo from \'~/foo\'\nexport default foo',
+      'src/input.js': 'import foo from \'~/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
 
-    expect.soft(output).toContain('"bar"')
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
     expect.soft(output).not.toContain('~/foo')
   })
 
-  it('injects built-in environment variables', async () => {
+  it('inlines import.meta.env.MODE as production', async () => {
     const { output } = await runCli({
-      'src/input.js': 'export const mode = import.' + 'meta.env.MODE',
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { mode: import.' + 'meta.env.MODE })',
     })
 
-    expect.soft(output).toContain('"production"')
+    expect.soft(output).toMatch(/["'`]production["'`]/)
     expect.soft(output).not.toMatch(/import\.meta\.env/)
   })
 
-  it('injects custom environment variables', async () => {
+  it('inlines a KIRBYUP_-prefixed variable from .env', async () => {
     const { output } = await runCli({
       '.env': 'KIRBYUP_FOO=bar',
-      'src/input.js': 'export const foo = import.' + 'meta.env.KIRBYUP_FOO',
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { foo: import.' + 'meta.env.KIRBYUP_FOO })',
     })
 
-    expect.soft(output).toContain('"bar"')
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
     expect.soft(output).not.toContain('KIRBYUP_FOO')
   })
 
-  it('builds Kirby Panel plugins', async () => {
+  it('inlines a field component into the panel.plugin call', async () => {
     const { output } = await runCli({
       'src/input.js': `
       import Demo from './fields/demo.js'
@@ -75,7 +90,7 @@ describe('kirbyup build', () => {
       'src/fields/demo.js': 'export default { extends: \'k-info-field\' }',
     })
 
-    expect.soft(output).toMatch(/panel\.plugin\(["']kirbyup\/test/)
+    expect.soft(output).toMatch(/panel\.plugin\(["'`]kirbyup\/test/)
     expect.soft(output).toContain('k-info-field')
     expect.soft(output).not.toMatch(/from\s+['"]\.\/fields\/demo/)
   })
@@ -148,9 +163,9 @@ describe('kirbyup build', () => {
     expect(output).toMatch(/Call kirbyup\.import\(/)
   })
 
-  it('loads config file with object export', async () => {
+  it('applies the alias from a config exporting an object', async () => {
     const { output } = await runCli({
-      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
@@ -171,13 +186,13 @@ describe('kirbyup build', () => {
     `,
     })
 
-    expect.soft(output).toContain('"bar"')
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
     expect.soft(output).not.toContain('__ALIAS__/foo')
   })
 
-  it('loads config file with function export', async () => {
+  it('applies the alias from a config exporting defineConfig()', async () => {
     const { output } = await runCli({
-      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
@@ -199,7 +214,7 @@ describe('kirbyup build', () => {
     `,
     })
 
-    expect.soft(output).toContain('"bar"')
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
     expect.soft(output).not.toContain('__ALIAS__/foo')
   })
 })
