@@ -28,7 +28,7 @@ export function kirbyupFullReloadPlugin(paths: string | string[]): Plugin {
         if (!matches(path))
           return
 
-        // Preserve the async gap from the original vite-plugin-full-reload
+        // Preserves the async gap from the original vite-plugin-full-reload.
         setTimeout(() => ws.send({ type: 'full-reload', path: '*' }), 0)
 
         logger.info(

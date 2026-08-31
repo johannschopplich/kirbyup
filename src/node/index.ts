@@ -235,7 +235,7 @@ export async function build(options: BuildOptions): Promise<void> {
     await fsp.rm(devOutputPath, { force: true }).catch(() => {})
   }
 
-  // Sync fallback for abrupt exits.
+  // An `exit` handler cannot await, so `cleanup` is repeated synchronously here.
   process.once('exit', () => {
     try {
       fs.rmSync(devOutputPath, { force: true })

@@ -6,16 +6,14 @@ export interface KirbyupUtilities {
 
 export const kirbyup: Readonly<KirbyupUtilities> = Object.freeze({
   /**
-   * Auto-imports Kirby Panel components, transformed by
-   * kirbyup's glob-import plugin for Vite.
+   * Auto-imports the Kirby Panel components matching a glob.
    *
    * @example
    * kirbyup.import('./components/blocks/*.vue')
    */
   import(glob: string): Record<string, any> {
-    // `kirbyup.import(<path>)` is transformed at build-time to:
-    // `kirbyup.import(import.meta.glob(<path>, { eager: true }))`.
-    // If we still see a string here, the kirbyup build pipeline didn't run.
+    // `kirbyupGlobImportPlugin` rewrites the argument to an eager
+    // `import.meta.glob` at build time, so a string here means it never ran.
     if (typeof glob === 'string') {
       throw new TypeError(
         '[kirbyup] kirbyup.import() requires the kirbyup build pipeline. The call must be transformed at build time by the kirbyup:glob-import plugin.',

@@ -15,7 +15,7 @@ const __kirbyupVueImports = __kirbyupVueImportMapEl
 const __kirbyupVueUrl = __kirbyupVueImports.vue
 if (!__kirbyupVueUrl) {
   throw new Error(
-    '[kirbyup] No "vue" entry found in the page <script type="importmap">. Ensure Kirby\'s Panel is loaded with v6 import maps enabled.',
+    '[kirbyup] No "vue" entry found in the page <script type="importmap">. Ensure the Kirby 6 Panel is loaded.',
   )
 }
 // eslint-disable-next-line no-unused-vars, antfu/no-top-level-await
