@@ -17,7 +17,7 @@ var r = (e, t) => {
 function o(r, i, o, s, c, l) {
 	return n(), e("section", a, [...i[0] ||= [t("header", { class: "k-section-header" }, [t("h2", { class: "k-headline" }, "Custom section")], -1)]]);
 }
-var s = /* @__PURE__ */ r(i, [["render", o]]);
+var s = /*#__PURE__*/ r(i, [["render", o]]);
 window.panel.plugin("kirbyup/test", { sections: { demo: s } });
 "
 `;
