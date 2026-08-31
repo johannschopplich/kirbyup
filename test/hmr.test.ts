@@ -25,7 +25,7 @@ async function createPlugin(): Promise<Plugin> {
 
 function callHook<R>(
   plugin: Plugin,
-  name: 'transform' | 'load' | 'resolveId',
+  name: 'transform' | 'load',
   ...args: any[]
 ): R {
   const hook = plugin[name] as any
@@ -34,41 +34,20 @@ function callHook<R>(
 }
 
 describe('kirbyupHmrPlugin', () => {
-  describe('resolveId', () => {
-    it('claims the shim id in both internal and public forms', async () => {
+  describe('vue stub', () => {
+    it('re-exports ref and computed as named bindings', async () => {
       const plugin = await createPlugin()
-      expect(callHook(plugin, 'resolveId', SHIM_ID)).toBe(SHIM_ID)
-      expect(callHook(plugin, 'resolveId', SHIM_ID.slice(1))).toBe(SHIM_ID)
+      const { code } = callHook<{ code: string }>(plugin, 'load', VUE_STUB_ID)
+
+      expect.soft(code).toMatch(/^\s*ref,$/m)
+      expect.soft(code).toMatch(/^\s*computed,$/m)
     })
 
-    it('claims the vue stub id in both internal and public forms', async () => {
+    it('omits a default export, as vue.esm-browser.js does', async () => {
       const plugin = await createPlugin()
-      expect(callHook(plugin, 'resolveId', VUE_STUB_ID)).toBe(VUE_STUB_ID)
-      expect(callHook(plugin, 'resolveId', VUE_STUB_ID.slice(1))).toBe(VUE_STUB_ID)
-    })
+      const { code } = callHook<{ code: string }>(plugin, 'load', VUE_STUB_ID)
 
-    it('passes through unrelated ids', async () => {
-      const plugin = await createPlugin()
-      expect(callHook(plugin, 'resolveId', 'vue')).toBeUndefined()
-      expect(callHook(plugin, 'resolveId', '/path/to/Component.vue')).toBeUndefined()
-    })
-  })
-
-  describe('load', () => {
-    it('returns shim source for the shim id', async () => {
-      const plugin = await createPlugin()
-      const result = callHook<{ code: string, map: null }>(plugin, 'load', SHIM_ID)
-      expect(result).toBeDefined()
-      expect(typeof result.code).toBe('string')
-      expect(result.code.length).toBeGreaterThan(0)
-    })
-
-    it('returns vue stub source for the vue stub id', async () => {
-      const plugin = await createPlugin()
-      const result = callHook<{ code: string, map: null }>(plugin, 'load', VUE_STUB_ID)
-      expect(result).toBeDefined()
-      expect(typeof result.code).toBe('string')
-      expect(result.code.length).toBeGreaterThan(0)
+      expect(code).not.toMatch(/\bexport\s+default\b/)
     })
 
     it('passes through unrelated ids', async () => {
@@ -160,24 +139,41 @@ describe('__HMR_SHIM_CODE__', () => {
     expect(runtime.reload).not.toBe(originalReload)
   })
 
-  it('runs Kirby helpers in extension → render → mixins order on __hmrId match, then delegates to the original reload', () => {
+  it('runs the Kirby helpers in extension → render → mixins order', () => {
     const calls: string[] = []
     const sfc = { __hmrId: 'abc' }
-    const helpers = {
-      resolveComponentExtension: vi.fn(() => { calls.push('ext') }),
-      resolveComponentRender: vi.fn(() => { calls.push('render') }),
-      resolveComponentMixins: vi.fn(() => { calls.push('mix') }),
-    }
-    const originalReload = vi.fn()
-    const runtime: ShimRuntime = { reload: originalReload }
+    const runtime: ShimRuntime = { reload: vi.fn() }
     evalShim({
-      window: { panel: { app: {}, plugins: { ...helpers, components: { foo: sfc } } } },
+      window: { panel: { app: {}, plugins: {
+        resolveComponentExtension: vi.fn(() => { calls.push('ext') }),
+        resolveComponentRender: vi.fn(() => { calls.push('render') }),
+        resolveComponentMixins: vi.fn(() => { calls.push('mix') }),
+        components: { foo: sfc },
+      } } },
       __VUE_HMR_RUNTIME__: runtime,
       console: { warn: vi.fn() },
     })
 
     runtime.reload('abc', sfc)
     expect(calls).toEqual(['ext', 'render', 'mix'])
+  })
+
+  it('delegates to the original reload after the helpers ran', () => {
+    const sfc = { __hmrId: 'abc' }
+    const originalReload = vi.fn()
+    const runtime: ShimRuntime = { reload: originalReload }
+    evalShim({
+      window: { panel: { app: {}, plugins: {
+        resolveComponentExtension: vi.fn(),
+        resolveComponentRender: vi.fn(),
+        resolveComponentMixins: vi.fn(),
+        components: { foo: sfc },
+      } } },
+      __VUE_HMR_RUNTIME__: runtime,
+      console: { warn: vi.fn() },
+    })
+
+    runtime.reload('abc', sfc)
     expect(originalReload).toHaveBeenCalledWith('abc', sfc)
   })
 
@@ -221,7 +217,7 @@ describe('__HMR_SHIM_CODE__', () => {
     expect(helpers.resolveComponentExtension).toHaveBeenCalledWith({}, 'foo', fresh)
   })
 
-  it('skips helpers but still delegates to original reload when no plugin component matches', () => {
+  it('skips the helpers when no plugin component matches, and still delegates', () => {
     const originalReload = vi.fn()
     const helpers = {
       resolveComponentExtension: vi.fn(),

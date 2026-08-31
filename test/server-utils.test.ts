@@ -12,12 +12,12 @@ describe('resolveOriginFromServerOptions', () => {
     expect(origin).toBe('http://sandbox.test')
   })
 
-  it('preserves custom port in host configuration', () => {
+  it('preserves a port already spelled in host', () => {
     const origin = resolveOriginFromServerOptions({ host: 'sandbox.test:8443', https: true }, 8443)
     expect(origin).toBe('https://sandbox.test:8443')
   })
 
-  it('uses fallback hostname when server options undefined', () => {
+  it('uses the fallback hostname when serverOptions is undefined', () => {
     const origin = resolveOriginFromServerOptions(undefined, 5173, 'devbox.test')
     expect(origin).toBe('http://devbox.test:5173')
   })
@@ -32,7 +32,7 @@ describe('resolveOriginFromServerOptions', () => {
     expect(origin).toBe('http://0.0.0.0:3000')
   })
 
-  it('uses http protocol for empty https configuration', () => {
+  it('uses http when https is an empty object', () => {
     const origin = resolveOriginFromServerOptions({ host: 'sandbox.test', https: {} }, 3000)
     expect(origin).toBe('http://sandbox.test:3000')
   })
