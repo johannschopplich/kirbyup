@@ -2,6 +2,14 @@
 publish = "docs/.vitepress/dist"
 command = "pnpm run docs:build"
 
+# The docs site ships from `main` only. `ignore` cancels the build when it exits
+# 0, so preview and branch deploys stop before they run.
+[context.deploy-preview]
+ignore = "exit 0"
+
+[context.branch-deploy]
+ignore = "exit 0"
+
 [[redirects]]
 from = "/*"
 to = "/index.html"
