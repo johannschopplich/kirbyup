@@ -15,6 +15,14 @@ const VUE_STUB_PUBLIC_ID = VUE_STUB_ID.slice(1)
 
 const VUE_NOT_FOUND_STUB = `throw new Error('[kirbyup] Cannot resolve "vue" from the plugin project. Make sure "vue" is installed as a dependency.')\n`
 
+export interface KirbyupHmrApi {
+  /**
+   * Settles once `index.dev.js` is on disk. The file is written from the
+   * server's `listening` handler, which nothing else awaits.
+   */
+  devIndexWritten: Promise<void>
+}
+
 export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
   let entry: string
@@ -22,10 +30,19 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let devIndexPath: string
   let vueStubCode: string | undefined
 
+  let markWritten: () => void
+  let markFailed: (error: unknown) => void
+  const devIndexWritten = new Promise<void>((resolve, reject) => {
+    markWritten = resolve
+    markFailed = reject
+  })
+
   return {
     name: 'kirbyup:hmr',
     apply: 'serve',
     enforce: 'pre',
+
+    api: { devIndexWritten } satisfies KirbyupHmrApi,
 
     config() {
       // Route `vue` through the stub so plugin SFCs share Kirby's panel Vue;
@@ -87,20 +104,32 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     },
 
     configureServer(server) {
-      if (!server.httpServer)
+      // Middleware mode has no server to listen on, so no dev index is written.
+      if (!server.httpServer) {
+        markWritten()
         return
+      }
 
       server.httpServer.once('listening', async () => {
-        const entryPath = entry.replace(`${config.root}/`, '')
-        const baseUrl = getDevBaseUrl(server, config)
-        const entryUrl = new URL(entryPath, baseUrl).href
-        const pm = detectPackageManager(config.root)
+        try {
+          const entryPath = entry.replace(`${config.root}/`, '')
+          const baseUrl = getDevBaseUrl(server, config)
+          const entryUrl = new URL(entryPath, baseUrl).href
+          const pm = detectPackageManager(config.root)
 
-        await fsp.writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
+          await fsp.writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
+          markWritten()
+        }
+        catch (error) {
+          markFailed(error)
+        }
       })
     },
 
     async closeBundle() {
+      // Removing the file before the `listening` handler writes it would leave
+      // Kirby loading a dev index that points at a server already gone.
+      await devIndexWritten.catch(() => {})
       await fsp.rm(devIndexPath, { force: true })
     },
   }

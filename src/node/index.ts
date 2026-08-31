@@ -1,5 +1,6 @@
 import type { InlineConfig, Logger, LogLevel, Rolldown, ViteDevServer } from 'vite'
 import type { PostCSSConfigResult } from './config'
+import type { KirbyupHmrApi } from './plugins'
 import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
@@ -280,6 +281,14 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   const server = await createServer(getViteConfig('serve', options, context))
 
   await server.listen()
+
+  // `server.listen()` resolves as soon as the port is bound, which is before
+  // the HMR plugin has written `index.dev.js`. Kirby reads that file to decide
+  // whether a plugin is in development, so callers must not race it.
+  const hmrApi = server.config.plugins.find(
+    plugin => plugin.name === 'kirbyup:hmr',
+  )?.api as KirbyupHmrApi | undefined
+  await hmrApi?.devIndexWritten
 
   if (!process.env.VITEST)
     consola.success(`Server is listening on :${server.config.server.port}`)
