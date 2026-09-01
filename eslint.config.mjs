@@ -11,7 +11,7 @@ export default antfu({
     },
     vueVersion: 2,
   },
-  ignores: ['examples/**/*.vue'],
+  ignores: ['examples/**/*'],
 }).append({
   rules: {
     'node/prefer-global/process': 'off',
