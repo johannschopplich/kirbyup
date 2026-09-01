@@ -80,8 +80,9 @@ function getViteConfig(
     const { port, watch } = options as ServeOptions
 
     const userServerConfig = userConfig.server || {}
+    const resolvedPort = userServerConfig.port ?? port
     const inferredOrigin = userServerConfig.origin
-      ?? resolveOriginFromServerOptions(userServerConfig, port, 'localhost')
+      ?? resolveOriginFromServerOptions(userServerConfig, resolvedPort, 'localhost')
 
     const serveConfig: InlineConfig = mergeConfig(sharedConfig, {
       plugins: [
@@ -96,7 +97,7 @@ function getViteConfig(
       },
       // Specify origin so asset URLs include Vite server host
       server: {
-        port,
+        port: resolvedPort,
         strictPort: true,
         origin: inferredOrigin,
       },
