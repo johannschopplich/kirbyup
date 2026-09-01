@@ -8,7 +8,6 @@ const config: UserConfig = defineConfig({
     'client/config': 'src/client/config.ts',
     'client/plugin': 'src/client/plugin.ts',
   },
-  external: ['rollup'],
   define: {
     'process.env.VITEST': 'undefined',
   },
