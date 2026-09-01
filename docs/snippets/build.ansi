@@ -1,5 +1,5 @@
-[0;32mkirbyup v3.4.1[0m
-[0;35m◐[0m Building [0;36msrc/index.js[0m
-[0;37;2m./[0;36mindex.js   [0;2m22.27 kB / gzip: 8.79 KiB[0m
-[0;37;2m./[0;35mindex.css  [0;2m0.30 kB / gzip: 0.17 KiB[0m
-[0;32m✔[0m Build successful
+[32mkirbyup v4.0.0-alpha.8[39m
+[35m◐[39m Building [36msrc/index.js[39m
+[37m[2m./[22m[39m[36mindex.js   [39m[2m0.76 kB / gzip: 0.39 KiB[22m
+[37m[2m./[22m[39m[35mindex.css  [39m[2m0.42 kB / gzip: 0.22 KiB[22m
+[32m✔[39m Build successful
