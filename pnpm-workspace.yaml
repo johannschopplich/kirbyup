@@ -1,9 +1,17 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+
+shellEmulator: true
+
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - chokidar@4.0.3
+  - semver@6.3.1
+  - vite@6.4.3
+
 packages:
   - docs
 
 overrides:
   vite: ^6.4.1
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
