@@ -1,6 +1,6 @@
 import type { Plugin, ResolvedConfig } from 'vite'
 import MagicString from 'magic-string'
-import { multilineCommentsRE, singlelineCommentsRE } from './utils'
+import { stripLiteral } from 'strip-literal'
 
 /**
  * Transforms `kirbyup.import(<path>)` to `kirbyup.import(import.meta.glob(<path>, { eager: true }))`.
@@ -19,20 +19,20 @@ export default function kirbyupGlobImportPlugin(): Plugin {
       config = resolvedConfig
     },
 
-    async transform(code) {
+    transform(code) {
       if (!code.includes('kirbyup.import'))
         return
 
-      const kirbyupImportRE = /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/g
-      const noCommentsCode = code
-        .replace(multilineCommentsRE, m => ' '.repeat(m.length))
-        .replace(singlelineCommentsRE, m => ' '.repeat(m.length))
+      const kirbyupImportRE = /\bkirbyup\.import\s*\(\s*('[^']+'|"[^"]+"|`[^`]+`)\s*\)/dg
+      // Skip false matches inside string literals.
+      const cleanCode = stripLiteral(code)
       let s: MagicString | undefined
-      let match: RegExpExecArray | null
 
-      // eslint-disable-next-line no-cond-assign
-      while ((match = kirbyupImportRE.exec(noCommentsCode))) {
-        const { 0: exp, 1: rawPath, index } = match
+      for (const match of cleanCode.matchAll(kirbyupImportRE)) {
+        const { 0: exp, index } = match
+        // `cleanCode` blanked the path; read it from the original.
+        const [argStart, argEnd] = match.indices![1]!
+        const rawPath = code.slice(argStart, argEnd)
 
         if (!s)
           s = new MagicString(code)
