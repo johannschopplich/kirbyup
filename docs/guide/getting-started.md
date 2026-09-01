@@ -43,7 +43,7 @@ After installation, add these scripts to your `package.json`:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^3.4.0"
+    "kirbyup": "^3.5.0"
   }
 }
 ```
