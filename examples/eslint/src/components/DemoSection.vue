@@ -3,15 +3,15 @@ export default {
   data() {
     return {
       label: undefined,
-    };
+    }
   },
 
   async created() {
     // `load` is provided by Kirby in section components
-    const response = await this.load();
-    this.label = response.label || "Demo Section";
+    const response = await this.load()
+    this.label = response.label || 'Demo Section'
   },
-};
+}
 </script>
 
 <template>
