@@ -141,7 +141,7 @@ async function generate(options: BuildOptions): Promise<RollupOutput | RollupOut
     result = await _build(config)
   }
   catch (error) {
-    consola.error('Build failed')
+    consola.error(error)
 
     if (config.mode === 'production')
       throw error
@@ -276,7 +276,7 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))
-    consola.info('Starting development server...')
+    consola.info('Starting development server…')
   }
 
   const server = await createServer(getViteConfig('serve', options))
