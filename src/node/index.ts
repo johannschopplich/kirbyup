@@ -24,7 +24,7 @@ import { printFileInfo, toArray } from './utils'
 import { resolveOriginFromServerOptions } from './utils/server'
 
 const DEV_OUTPUT_FILENAME = 'index.dev.js'
-const SUPPRESSED_WARNING_PREFIX = '\n(!) build.outDir'
+const SUPPRESSED_WARNING = '(!) build.outDir'
 
 const logLevel: LogLevel = 'warn'
 
@@ -310,7 +310,7 @@ function createKirbyupLogger(): Logger {
   return {
     ...baseLogger,
     warn(msg, options) {
-      if (msg.startsWith(SUPPRESSED_WARNING_PREFIX))
+      if (msg.includes(SUPPRESSED_WARNING))
         return
       baseLogger.warn(msg, options)
     },
