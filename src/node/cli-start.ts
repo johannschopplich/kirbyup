@@ -49,7 +49,7 @@ export async function startCli(cwd: string = process.cwd(), argv: string[] = pro
 
       const server = await serve({ cwd, entry: file, ...options })
 
-      // Vite handles SIGTERM and end of stdin (Ctrl+D) itself, but not SIGINT
+      // Vite handles SIGTERM and end of stdin (Ctrl+D) itself, but not SIGINT.
       const exitProcess = async () => {
         try {
           await server.close()
@@ -62,15 +62,14 @@ export async function startCli(cwd: string = process.cwd(), argv: string[] = pro
       process.once('SIGINT', exitProcess)
     })
 
-  // Filter out unnecessary `default` output for negated options (zerobyte acts as marker)
+  // Filter out unnecessary `default` output for negated options (`\0` acts as the marker).
   cli.help(s =>
     s.map(msg => ({ ...msg, body: msg.body.replace(' (default: \0)', '') })),
   )
 
   cli.version(version)
 
-  // Parse CLI args without running the command to
-  // handle command errors globally
+  // Parse without running so command errors can be handled globally.
   cli.parse(argv, { run: false })
   await cli.runMatchedCommand()
 }

@@ -19,16 +19,15 @@ export interface BuildOptions extends BaseOptions {
 
 export interface UserConfig {
   /**
-   * Specifies an object or an array of objects, which defines aliases
-   * used to replace values in `import` statements.
-   * With either format, the order of the entries is important,
-   * in that the first defined rules are applied first.
+   * Object or array of objects defining aliases that replace values in
+   * `import` statements. With either format, the order of the entries
+   * matters: the first defined rules are applied first.
    */
   alias?: AliasOptions
 
   /**
-   * Extends Vite's configuration. Will be merged with kirbyup's
-   * default configuration. For example, you can define global constant replacements.
+   * Additional Vite configuration, merged into kirbyup's defaults – for
+   * example, to define global constant replacements.
    *
    * @example
    * export default defineConfig({
