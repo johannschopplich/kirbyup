@@ -3,13 +3,17 @@ import MagicString from 'magic-string'
 import { multilineCommentsRE, singlelineCommentsRE } from './utils'
 
 /**
- * Transforms `kirbyup.import(<path>)` to `kirbyup.import(import.meta.glob(<path>, { eager: true }))`
+ * Transforms `kirbyup.import(<path>)` to `kirbyup.import(import.meta.glob(<path>, { eager: true }))`.
+ *
+ * Must run before Vite's own `import.meta.glob` plugin (also `enforce: 'pre'`),
+ * otherwise the emitted call is never expanded.
  */
 export default function kirbyupGlobImportPlugin(): Plugin {
   let config: ResolvedConfig
 
   return {
     name: 'kirbyup:glob-import',
+    enforce: 'pre',
 
     configResolved(resolvedConfig) {
       config = resolvedConfig
