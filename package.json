@@ -2,7 +2,7 @@
   "name": "kirbyup",
   "type": "module",
   "version": "3.4.1",
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@11.25.0",
   "description": "Zero-config bundler for Kirby Panel plugins",
   "author": {
     "name": "Johann Schopplich",
@@ -76,7 +76,7 @@
     "postcss-load-config": "^6.0.1",
     "rollup-plugin-external-globals": "^0.13.0",
     "sass": "^1.103.1",
-    "vite": "^6.4.1",
+    "vite": "^6.4.3",
     "vite-plugin-full-reload": "^1.2.0",
     "vue": "^2.7.16"
   },

@@ -8,10 +8,10 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^8.2.0",
-    "@unocss/eslint-plugin": "^66.6.8",
-    "eslint": "^10.3.0",
+    "@antfu/eslint-config": "^8.3.0",
+    "@unocss/eslint-plugin": "^66.8.1",
+    "eslint": "^10.9.1",
     "kirbyup": "^3.4.1",
-    "unocss": "^66.6.8"
+    "unocss": "^66.8.1"
   }
 }
