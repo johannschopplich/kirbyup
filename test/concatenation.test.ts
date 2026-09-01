@@ -132,8 +132,8 @@ interface EvaluationResult {
 
 /**
  * Joins the bundles the way `Plugins::read()` does and imports the result as one
- * module, in a Node process of its own. An empty bundle registers nothing, so
- * this also catches a `globals` expression that silently failed to parse.
+ * module. An empty bundle registers nothing, so this also catches a `globals`
+ * expression that silently failed to parse.
  */
 async function evaluate(root: string, bundles: string[]): Promise<EvaluationResult> {
   const directory = await fsp.mkdtemp(join(root, 'run-'))
