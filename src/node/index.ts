@@ -193,9 +193,6 @@ export async function build(options: BuildOptions): Promise<void> {
     consola.start(`Building ${colors.cyan(options.entry)}`)
   }
 
-  if (options.watch)
-    consola.info('Running in watch mode')
-
   const debouncedBuild = debounce(async () => {
     generate(options).catch(handleError)
   }, 100)
