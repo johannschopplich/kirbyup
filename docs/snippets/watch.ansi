@@ -1,4 +1,5 @@
-[32mkirbyup v4.0.0-alpha.8[39m
-[35m◐[39m Building [36msrc/index.js[39m
-[32m✔[39m Build successful
-[36mℹ[39m Watching for changes in [36msrc[39m
+[48;2;246;127;47m[30m kirbyup [39m[49m [38;2;246;127;47mv4.0.0-alpha.8[39m  [2mbuilding[22m [36msrc/index.js[39m
+
+  [2mbuilt in 20 ms[22m
+  [32m➜[39m  [1mWatching:[22m [2msrc[22m
+  [32m➜[39m  [1msrc/index.js[22m [2mchange[22m

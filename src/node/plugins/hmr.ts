@@ -1,12 +1,12 @@
 import type { AddressInfo } from 'node:net'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
-import type { ServeOptions } from '../types'
+import type { ServeOptions } from '../types.ts'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { normalizePath } from 'vite'
-import { resolveOriginFromServerOptions } from '../utils/server'
-import { __HMR_SHIM_CODE__, buildVueStubCode } from './utils'
+import { resolveOriginFromServerOptions } from '../utils/server.ts'
+import { __HMR_SHIM_CODE__, buildVueStubCode } from './utils.ts'
 
 const SHIM_ID = '\0kirbyup:hmr-shim'
 const SHIM_PUBLIC_ID = SHIM_ID.slice(1)

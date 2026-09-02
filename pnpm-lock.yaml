@@ -14,18 +14,18 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^5.1.6
         version: 5.1.6(vite@8.2.2(@types/node@26.4.0)(jiti@2.7.0)(sass@1.103.1)(yaml@2.9.0))(vue@3.5.42(typescript@6.0.3))
+      ansis:
+        specifier: ^4.3.1
+        version: 4.3.1
       c12:
         specifier: ^4.0.0-beta.5
         version: 4.0.0-beta.5(chokidar@5.0.0)(jiti@2.7.0)
-      cac:
-        specifier: ^7.0.0
-        version: 7.0.0
       chokidar:
         specifier: ^5.0.0
         version: 5.0.0
-      consola:
-        specifier: ^3.4.2
-        version: 3.4.2
+      citty:
+        specifier: ^0.2.2
+        version: 0.2.2
       magic-string:
         specifier: ^1.2.3
         version: 1.2.3
@@ -1782,6 +1782,9 @@ packages:
   ci-info@4.4.0:
     resolution: {integrity: sha512-77PSwercCZU2Fc4sX94eF8k8Pxte6JAwL4/ICZLFjJLqegs7kCuAsqqj/70NQF6TvDpgFjkubQB2FW2ZZddvQg==}
     engines: {node: '>=8'}
+
+  citty@0.2.2:
+    resolution: {integrity: sha512-+6vJA3L98yv+IdfKGZHBNiGW5KHn22e/JwID0Strsz8h4S/csAu/OuICwxrg44k5MRiZHWIo8XXuJgQTriRP4w==}
 
   colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
@@ -4977,6 +4980,8 @@ snapshots:
       readdirp: 5.1.1
 
   ci-info@4.4.0: {}
+
+  citty@0.2.2: {}
 
   colorette@2.0.20: {}
 

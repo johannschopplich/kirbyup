@@ -4,8 +4,8 @@ import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { promisify } from 'node:util'
 import { describe, expect, it } from 'vitest'
-import { startCli } from '../src/node/cli-start'
-import { serve } from '../src/node/index'
+import { serve } from '../src/node/index.ts'
+import { runCli } from './utils.ts'
 
 const execFileAsync = promisify(execFile)
 
@@ -94,7 +94,9 @@ async function evaluateDeadDevBundle() {
 
 async function createRoot() {
   const root = await fsp.mkdtemp(join(tmpdir(), 'kirbyup-concat-'))
-  await write(resolve(root, 'node_modules/vue/package.json'), '{ "name": "vue", "type": "module", "main": "index.js" }')
+  // `plugin-vue` reads the major from whichever `vue` sits next to the entry
+  // before falling back to its own. Without a version it never gets that far.
+  await write(resolve(root, 'node_modules/vue/package.json'), '{ "name": "vue", "version": "3.5.42", "type": "module", "main": "index.js" }')
   await write(resolve(root, 'node_modules/vue/index.js'), VUE_STUB_SOURCE)
   return root
 }
@@ -103,8 +105,7 @@ async function buildPlugin(root: string, name: string, entry = pluginEntry(name)
   const cwd = resolve(root, name)
   await write(resolve(cwd, 'package.json'), `{ "name": "test-${name}", "type": "module" }`)
   await write(resolve(cwd, 'src/input.js'), entry)
-  // cac expects argv padded with [node, script] slots before user args.
-  await startCli(cwd, ['', '', 'src/input.js'])
+  await runCli(['src/input.js'], { cwd })
 }
 
 function readBundle(root: string, name: string) {

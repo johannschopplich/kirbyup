@@ -40,7 +40,7 @@ After installation, add these scripts to your `package.json`:
 ```json{3-4}
 {
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
@@ -56,7 +56,7 @@ If you want to use kirbyup right away and don't want to track it as a dependency
 ```json{3-4}
 {
   "scripts": {
-    "dev": "npx -y kirbyup serve src/index.js",
+    "dev": "npx -y kirbyup dev src/index.js",
     "build": "npx -y kirbyup src/index.js"
   }
 }
@@ -78,12 +78,12 @@ Start a development server for the Panel plugin:
 ```bash
 npm run dev
 # Which will run:
-# kirbyup serve src/index.js
+# kirbyup dev src/index.js
 ```
 
 Your terminal shows the server port:
 
-<<< @/snippets/serve.ansi
+<<< @/snippets/dev.ansi
 
 This creates `./index.dev.js`, which tells Kirby to load your plugin from the dev server. You get hot module replacement and auto-reload out of the box.
 

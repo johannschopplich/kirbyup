@@ -1,6 +1,6 @@
 import type { ConfigLayerMeta, ResolvedConfig } from 'c12'
 import type postcssrc from 'postcss-load-config'
-import type { UserConfig } from './types'
+import type { UserConfig } from './types.ts'
 import { loadConfig as _loadConfig } from 'c12'
 import postcssrcLoad from 'postcss-load-config'
 

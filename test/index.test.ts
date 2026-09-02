@@ -1,6 +1,9 @@
 import { resolve } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { runCli } from './utils'
+import { runCli, useBuildFixtures, useTemporaryDirectories } from './utils.ts'
+
+const buildFixture = useBuildFixtures()
+const createDirectory = useTemporaryDirectories()
 
 describe('kirbyup build', () => {
   beforeAll(() => {
@@ -13,7 +16,7 @@ describe('kirbyup build', () => {
   })
 
   it('inlines a relative import', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': 'import foo from \'./foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
@@ -25,21 +28,29 @@ describe('kirbyup build', () => {
   it('rejects an entry that exports', async () => {
     // Kirby loads plugins for their side effects only, so an export is dead
     // weight the author is better off learning about at build time.
-    await expect(runCli({
-      'src/input.js': 'export default \'bar\'',
-    })).rejects.toThrow(/INVALID_EXPORT_OPTION/)
+    const { stderr, exitCode } = await runCli(['src/input.js'], {
+      cwd: createDirectory({ 'src/input.js': 'export default \'bar\'' }),
+    })
+
+    expect(stderr).toMatch(/INVALID_EXPORT_OPTION/)
+    expect(exitCode).toBe(1)
   })
 
   it('rejects top-level await in the entry', async () => {
     // The IIFE that keeps plugins out of each other's scope is synchronous, so
     // Rolldown refuses the entry outright.
-    await expect(runCli({
-      'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
-    })).rejects.toThrow(/Top-level await/)
+    const { stderr, exitCode } = await runCli(['src/input.js'], {
+      cwd: createDirectory({
+        'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+      }),
+    })
+
+    expect(stderr).toMatch(/Top-level await/)
+    expect(exitCode).toBe(1)
   })
 
   it('emits imported CSS as index.css', async () => {
-    const { getFileContent } = await runCli({
+    const { getFileContent } = await buildFixture({
       'src/input.js': 'import \'./input.css\'',
       'src/input.css': '.foo { content: "bar"; }',
     })
@@ -49,7 +60,7 @@ describe('kirbyup build', () => {
   })
 
   it('resolves the ~/ alias', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': 'import foo from \'~/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
@@ -59,7 +70,7 @@ describe('kirbyup build', () => {
   })
 
   it('inlines import.meta.env.MODE as production', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { mode: import.' + 'meta.env.MODE })',
     })
 
@@ -68,7 +79,7 @@ describe('kirbyup build', () => {
   })
 
   it('inlines a KIRBYUP_-prefixed variable from .env', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       '.env': 'KIRBYUP_FOO=bar',
       'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { foo: import.' + 'meta.env.KIRBYUP_FOO })',
     })
@@ -78,7 +89,7 @@ describe('kirbyup build', () => {
   })
 
   it('inlines a field component into the panel.plugin call', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       import Demo from './fields/demo.js'
       window.panel.plugin('kirbyup/test', {
@@ -96,7 +107,7 @@ describe('kirbyup build', () => {
   })
 
   it('compiles Vue single-file components', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       import DemoSection from './fields/DemoSection.vue'
       window.panel.plugin('kirbyup/test', {
@@ -134,7 +145,7 @@ describe('kirbyup build', () => {
   })
 
   it('expands kirbyup.import() into a component map', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       import { kirbyup } from '${resolve(import.meta.dirname, '../src/client/plugin.ts')}'
 
@@ -152,7 +163,7 @@ describe('kirbyup build', () => {
   })
 
   it('skips kirbyup.import() inside string literals', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       const helpText = "Call kirbyup.import('./blocks/*.vue') to load all blocks"
       window.panel.plugin('kirbyup/example', { help: helpText })
@@ -164,7 +175,7 @@ describe('kirbyup build', () => {
   })
 
   it('applies the alias from a config exporting an object', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
@@ -191,7 +202,7 @@ describe('kirbyup build', () => {
   })
 
   it('applies the alias from a config exporting defineConfig()', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `

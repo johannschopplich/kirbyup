@@ -5,7 +5,7 @@ import UnpluginRaw from 'unplugin-raw/rolldown'
 const config: UserConfig = defineConfig({
   entry: {
     'node/index': 'src/node/index.ts',
-    'node/cli': 'src/node/cli.ts',
+    'node/entry': 'src/node/entry.ts',
     'client/config': 'src/client/config.ts',
     'client/plugin': 'src/client/plugin.ts',
   },

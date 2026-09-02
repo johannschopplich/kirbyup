@@ -1,5 +1,5 @@
 import type { Plugin, ResolvedConfig } from 'vite'
-import type { BuildOptions } from '../types'
+import type { BuildOptions } from '../types.ts'
 import * as fs from 'node:fs'
 import { resolve } from 'node:path'
 

@@ -1,27 +1,25 @@
 import type { InlineConfig, Logger, LogLevel, Rolldown, ViteDevServer } from 'vite'
-import type { PostCSSConfigResult } from './config'
-import type { KirbyupHmrApi } from './plugins'
-import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types'
+import type { PostCSSConfigResult } from './config.ts'
+import type { KirbyupHmrApi } from './plugins/index.ts'
+import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types.ts'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import { basename, dirname, resolve } from 'node:path'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
-import { consola } from 'consola'
-import { colors } from 'consola/utils'
 import { debounce } from 'perfect-debounce'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
-import { name, version } from '../../package.json'
-import { loadConfig, resolvePostCSSConfig } from './config'
-import { handleError, PrettyError } from './errors'
+import { loadConfig, resolvePostCSSConfig } from './config.ts'
+import { CliError, reportFailure } from './errors.ts'
+import * as output from './output.ts'
 import {
   kirbyupBuildCleanupPlugin,
   kirbyupFullReloadPlugin,
   kirbyupGlobImportPlugin,
   kirbyupHmrPlugin,
-} from './plugins'
-import { printFileInfo, toArray } from './utils'
-import { resolveOriginFromServerOptions } from './utils/server'
+} from './plugins/index.ts'
+import { toArray } from './utils.ts'
+import { resolveOriginFromServerOptions } from './utils/server.ts'
 
 const DEV_OUTPUT_FILENAME = 'index.dev.js'
 const SUPPRESSED_WARNING = '(!) build.outDir'
@@ -148,22 +146,22 @@ async function generate(options: BuildOptions, context: ConfigContext): Promise<
   catch (error) {
     if (!options.watch)
       throw error
-    consola.error(error)
+    reportFailure(error)
   }
 
   if (!result || options.watch)
     return
 
   const outputs = toArray(result as Rolldown.RolldownOutput | Rolldown.RolldownOutput[])
-  const { output } = outputs[0]!
-  const maxLength = Math.max(0, ...output.map(item => item.fileName.length))
+  const { output: bundle } = outputs[0]!
+  const maxLength = Math.max(0, ...bundle.map(item => item.fileName.length))
 
-  for (const item of output) {
+  for (const item of bundle) {
     const content = item.type === 'chunk'
       ? item.code
       : await fsp.readFile(resolve(options.outDir, item.fileName), 'utf8')
 
-    await printFileInfo({
+    output.fileWritten({
       root: options.cwd,
       outDir: options.outDir,
       filePath: item.fileName,
@@ -187,15 +185,14 @@ export async function build(options: BuildOptions): Promise<void> {
     logger: createKirbyupLogger(),
   }
 
-  if (!process.env.VITEST) {
-    consola.log(colors.green(`${name} v${version}`))
-    consola.start(`Building ${colors.cyan(options.entry)}`)
-  }
+  const startedAt = performance.now()
+
+  output.banner('building', options.entry)
+  output.blankLine()
 
   await generate(options, context)
 
-  if (!process.env.VITEST)
-    consola.success('Build successful')
+  output.aside(`built in ${output.elapsed(startedAt)}`)
 
   if (!options.watch)
     return
@@ -203,7 +200,7 @@ export async function build(options: BuildOptions): Promise<void> {
   const { watch } = await import('chokidar')
 
   const debouncedBuild = debounce(() => {
-    generate(options, context).catch(handleError)
+    generate(options, context).catch(reportFailure)
   }, 100)
 
   const ignored = [
@@ -216,11 +213,7 @@ export async function build(options: BuildOptions): Promise<void> {
     ? dirname(options.entry)
     : toArray(options.watch)
 
-  consola.info(
-    `Watching for changes in ${toArray(watchPaths)
-      .map(i => colors.cyan(i))
-      .join(', ')}`,
-  )
+  output.watching(toArray(watchPaths))
 
   const watcher = watch(watchPaths, {
     ignoreInitial: true,
@@ -258,12 +251,10 @@ export async function build(options: BuildOptions): Promise<void> {
 
     if (configFile === absolutePath) {
       context.kirbyupConfig = (await loadConfig(cwd)).config ?? {}
-      consola.info(
-        `${colors.cyan(basename(file))} changed, setting new config`,
-      )
+      output.configChanged(basename(file))
     }
     else {
-      consola.log(`${colors.green(type)} ${colors.white(colors.dim(file))}`)
+      output.fileChanged(type, file)
     }
 
     debouncedBuild()
@@ -283,10 +274,10 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
     logger: createKirbyupLogger(),
   }
 
-  if (!process.env.VITEST) {
-    consola.log(colors.green(`${name} v${version}`))
-    consola.info('Starting development server…')
-  }
+  const startedAt = performance.now()
+
+  output.banner('starting the development server')
+  output.blankLine()
 
   const server = await createServer(getViteConfig('serve', options, context))
 
@@ -300,8 +291,16 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   )?.api as KirbyupHmrApi | undefined
   await hmrApi?.devIndexWritten
 
-  if (!process.env.VITEST)
-    consola.success(`Server is listening on :${server.config.server.port}`)
+  const port = server.config.server.port ?? options.port
+  output.serverReady({
+    root: cwd,
+    url: server.config.server.origin
+      ?? resolveOriginFromServerOptions(server.config.server, port, 'localhost'),
+    outDir: options.outDir,
+    devFilename: DEV_OUTPUT_FILENAME,
+    watchPaths: options.watch === false ? [] : toArray(options.watch),
+    startedAt,
+  })
 
   return server
 }
@@ -320,5 +319,5 @@ function createKirbyupLogger(): Logger {
 
 function assertEntryExists(options: BaseOptions): void {
   if (!fs.existsSync(resolve(options.cwd, options.entry)))
-    throw new PrettyError(`Cannot find "${options.entry}"`)
+    throw new CliError(`Cannot find "${options.entry}"`)
 }

@@ -44,7 +44,7 @@ After installation, add these scripts to your `package.json`:
 ```json
 {
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {

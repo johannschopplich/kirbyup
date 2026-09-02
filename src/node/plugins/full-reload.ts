@@ -1,28 +1,21 @@
 import type { Plugin } from 'vite'
 import { relative, resolve } from 'node:path'
-import { colors } from 'consola/utils'
 import { createFilter, normalizePath } from 'vite'
-import { toArray } from '../utils'
+import * as output from '../output.ts'
+import { toArray } from '../utils.ts'
 
 /**
- * Triggers a full browser reload when files matching the given globs change.
- * Vite forces chokidar's `disableGlobbing: true` by default; this plugin
- * resets it so glob strings passed to `watcher.add` are expanded by chokidar.
+ * Triggers a full browser reload when a watched file changes. The matching is
+ * `createFilter`, not the watcher: Vite already watches the project root, and
+ * chokidar has expanded no globs since v4, so adding a pattern to it does nothing.
  */
 export function kirbyupFullReloadPlugin(paths: string | string[]): Plugin {
   return {
     name: 'kirbyup:full-reload',
     apply: 'serve',
 
-    config() {
-      return { server: { watch: { disableGlobbing: false } } }
-    },
-
-    configureServer({ watcher, ws, config: { root, logger } }) {
-      const files = toArray(paths).map(p => resolve(root, p))
-      const matches = createFilter(files)
-
-      watcher.add(files)
+    configureServer({ watcher, ws, config: { root } }) {
+      const matches = createFilter(toArray(paths).map(path => resolve(root, path)))
 
       const reload = (path: string) => {
         if (!matches(path))
@@ -31,10 +24,7 @@ export function kirbyupFullReloadPlugin(paths: string | string[]): Plugin {
         // Preserves the async gap from the original vite-plugin-full-reload.
         setTimeout(() => ws.send({ type: 'full-reload', path: '*' }), 0)
 
-        logger.info(
-          `${colors.green('full reload')} ${colors.dim(normalizePath(relative(root, path)))}`,
-          { clear: true, timestamp: true },
-        )
+        output.fullReload(normalizePath(relative(root, path)))
       }
 
       watcher.on('add', reload)

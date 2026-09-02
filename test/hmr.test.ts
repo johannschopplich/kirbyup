@@ -1,8 +1,8 @@
 import type { Plugin } from 'vite'
 import vm from 'node:vm'
 import { describe, expect, it, vi } from 'vitest'
-import { kirbyupHmrPlugin } from '../src/node/plugins/hmr'
-import { __HMR_SHIM_CODE__ } from '../src/node/plugins/utils'
+import { kirbyupHmrPlugin } from '../src/node/plugins/hmr.ts'
+import { __HMR_SHIM_CODE__ } from '../src/node/plugins/utils.ts'
 
 const SHIM_ID = '\0kirbyup:hmr-shim'
 const VUE_STUB_ID = '\0kirbyup:vue-stub'
