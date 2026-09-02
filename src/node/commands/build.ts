@@ -6,17 +6,17 @@ import { resolveWatchPaths } from './watch-paths.ts'
 
 export interface BuildArgs extends ArgsDef {
   'file': { type: 'positional', description: string, required: true }
-  'out-dir': { type: 'string', alias: string, description: string }
+  'out-dir': { type: 'string', alias: string, description: string, valueHint: string }
   'watch': { type: 'boolean', alias: string, description: string }
-  'watch-path': { type: 'string', description: string }
+  'watch-path': { type: 'string', description: string, valueHint: string }
 }
 
 export const buildArgs: BuildArgs = {
   ...commonArgs,
   'file': { type: 'positional', description: 'Entry file of the plugin', required: true },
-  'out-dir': { type: 'string', alias: 'd', description: 'Output directory' },
+  'out-dir': { type: 'string', alias: 'd', description: 'Output directory', valueHint: 'dir' },
   'watch': { type: 'boolean', alias: 'w', description: 'Rebuild when the folder of the entry file changes' },
-  'watch-path': { type: 'string', description: 'Comma-separated files and folders to watch instead' },
+  'watch-path': { type: 'string', description: 'Comma-separated files and folders to watch instead', valueHint: 'paths' },
 }
 
 export const buildCommand: CommandDef<BuildArgs> = defineCommand({

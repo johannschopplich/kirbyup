@@ -9,18 +9,18 @@ const DEFAULT_WATCH = './**/*.php'
 
 export interface DevArgs extends ArgsDef {
   'file': { type: 'positional', description: string, required: true }
-  'out-dir': { type: 'string', alias: string, description: string }
+  'out-dir': { type: 'string', alias: string, description: string, valueHint: string }
   'watch': { type: 'boolean', alias: string, default: boolean, description: string }
-  'watch-path': { type: 'string', default: string, description: string }
+  'watch-path': { type: 'string', default: string, description: string, valueHint: string }
   'port': { type: 'string', alias: string, default: string, description: string }
 }
 
 export const devArgs: DevArgs = {
   ...commonArgs,
   'file': { type: 'positional', description: 'Entry file of the plugin', required: true },
-  'out-dir': { type: 'string', alias: 'd', description: 'Output directory' },
+  'out-dir': { type: 'string', alias: 'd', description: 'Output directory', valueHint: 'dir' },
   'watch': { type: 'boolean', alias: 'w', default: true, description: 'Reload the Panel when a watched file changes' },
-  'watch-path': { type: 'string', default: DEFAULT_WATCH, description: 'Comma-separated files, folders and globs to watch' },
+  'watch-path': { type: 'string', default: DEFAULT_WATCH, description: 'Comma-separated files, folders and globs to watch', valueHint: 'paths' },
   'port': { type: 'string', alias: 'p', default: String(DEFAULT_PORT), description: 'Port for the development server' },
 }
 
