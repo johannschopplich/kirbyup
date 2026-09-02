@@ -41,9 +41,6 @@ importers:
       strip-literal:
         specifier: ^4.0.0
         version: 4.0.0
-      utilful:
-        specifier: link:../utils
-        version: link:../utils
       vite:
         specifier: ^8.2.2
         version: 8.2.2(@types/node@26.4.0)(jiti@2.7.0)(sass@1.103.1)(yaml@2.9.0)
@@ -75,6 +72,9 @@ importers:
       unplugin-raw:
         specifier: ^0.8.0
         version: 0.8.0(rolldown@1.2.6)(rollup@4.63.1)(vite@8.2.2(@types/node@26.4.0)(jiti@2.7.0)(sass@1.103.1)(yaml@2.9.0))
+      utilful:
+        specifier: link:../utils
+        version: link:../utils
       vitest:
         specifier: ^4.1.11
         version: 4.1.11(@types/node@26.4.0)(vite@8.2.2(@types/node@26.4.0)(jiti@2.7.0)(sass@1.103.1)(yaml@2.9.0))
