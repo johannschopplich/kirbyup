@@ -1,4 +1,4 @@
-import { CliError } from '../errors.ts'
+import { CliError } from 'utilful/cli'
 
 const GLOB_CHARACTERS = /[*?[\]{}]/
 

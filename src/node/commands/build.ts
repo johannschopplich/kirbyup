@@ -1,7 +1,6 @@
-import type { ArgsDef, CommandDef } from 'citty'
+import type { ArgsDef, CommandDef } from 'utilful/cli'
 import process from 'node:process'
-import { defineCommand } from 'citty'
-import { commonArgs } from '../errors.ts'
+import { commonArgs, defineCommand } from 'utilful/cli'
 import { build } from '../index.ts'
 import { resolveWatchPaths } from './watch-paths.ts'
 
@@ -30,7 +29,7 @@ export const buildCommand: CommandDef<BuildArgs> = defineCommand({
     const cwd = process.cwd()
     // Naming a path is asking to watch it, so `--watch-path` stands on its own.
     const paths = resolveWatchPaths(args['watch-path'], { allowGlobs: false })
-    const watch = paths.length > 0 ? paths : args.watch === true
+    const watch = paths.length > 0 ? paths : args.watch
 
     process.env.NODE_ENV ||= watch === false ? 'production' : 'development'
 

@@ -1,9 +1,7 @@
-import type { ArgsDef, CommandDef, ParsedArgs } from 'citty'
+import type { ArgsDef, CommandDef, ParsedArgs } from 'utilful/cli'
 import process from 'node:process'
-import { defineCommand } from 'citty'
-import { CliError, commonArgs } from '../errors.ts'
+import { CliError, commonArgs, defineCommand, log } from 'utilful/cli'
 import { serve } from '../index.ts'
-import * as log from '../log.ts'
 import { resolveWatchPaths } from './watch-paths.ts'
 
 const DEFAULT_PORT = 5177
@@ -35,7 +33,7 @@ async function run({ args }: { args: ParsedArgs<DevArgs> }): Promise<void> {
     cwd: process.cwd(),
     entry: args.file,
     outDir: args['out-dir'] ?? process.cwd(),
-    watch: args.watch === false || paths.length === 0 ? false : paths,
+    watch: args.watch && paths.length > 0 ? paths : false,
     port: parsePort(args.port),
   })
 
@@ -71,7 +69,7 @@ export const serveCommand: CommandDef<DevArgs> = defineCommand({
   },
 })
 
-/** citty has no numeric argument type, so the port arrives as a string. */
+/** The parser knows strings and booleans only, so the port arrives as a string. */
 function parsePort(value: string): number {
   const port = Number(value)
 

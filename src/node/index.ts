@@ -8,9 +8,9 @@ import { basename, dirname, resolve } from 'node:path'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { debounce } from 'perfect-debounce'
+import { CliError, reportFailure } from 'utilful/cli'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
 import { loadConfig, resolvePostCSSConfig } from './config.ts'
-import { CliError, reportFailure } from './errors.ts'
 import * as output from './output.ts'
 import {
   kirbyupBuildCleanupPlugin,
@@ -144,9 +144,12 @@ async function generate(options: BuildOptions, context: ConfigContext): Promise<
     result = await _build(config)
   }
   catch (error) {
+    // Vite and Rolldown report a broken entry as a plain `Error`, which the
+    // boundary would take for a defect and print with its stack.
+    const buildError = new CliError(error instanceof Error ? error.message : String(error), { cause: error })
     if (!options.watch)
-      throw error
-    reportFailure(error)
+      throw buildError
+    reportFailure(buildError)
   }
 
   if (!result || options.watch)

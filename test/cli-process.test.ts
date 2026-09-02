@@ -98,7 +98,7 @@ describe('kirbyup CLI as a child process', () => {
       cwd: createDirectory(PLUGIN),
     })
 
-    expect(stderr).toContain('Unknown argument(s): --wtach')
+    expect(stderr).toContain('Unknown option \'--wtach\'')
     expect(exitCode).toBe(1)
   })
 })
