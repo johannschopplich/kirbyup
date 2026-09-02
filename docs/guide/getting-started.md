@@ -93,6 +93,8 @@ If you prefer building a development bundle (without HMR), use watch mode:
 ```bash
 npx kirbyup src/index.js --watch
 ```
+
+<<< @/snippets/watch.ansi
 :::
 
 ### Production
