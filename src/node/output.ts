@@ -1,11 +1,27 @@
 import { relative, resolve } from 'node:path'
+import process from 'node:process'
+import { WriteStream } from 'node:tty'
 import { gzipSync } from 'node:zlib'
-import * as ansis from 'ansis'
+import { Ansis } from 'ansis'
 import { normalizePath } from 'vite'
 import { name, version } from '../../package.json'
 
 // Every line goes to stderr, matching `log.ts`.
 
+/**
+ * Follows the rule `styleText` applies, so this output and utilful's `log`
+ * agree: a terminal or `FORCE_COLOR`, never `NO_COLOR`. On its own, ansis
+ * would color a pipe as soon as `COLORTERM` is set.
+ */
+function colorLevel(stream: NodeJS.WriteStream): 0 | 1 | 2 | 3 {
+  if (!stream.isTTY && process.env.FORCE_COLOR === undefined)
+    return 0
+
+  const depth = WriteStream.prototype.getColorDepth.call(stream)
+  return depth >= 24 ? 3 : depth >= 8 ? 2 : depth >= 4 ? 1 : 0
+}
+
+const ansis = new Ansis(colorLevel(process.stderr))
 const brand = ansis.hex('#f67f2f')
 const badge = ansis.bgHex('#f67f2f').black
 
