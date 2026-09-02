@@ -84,7 +84,7 @@
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
     "unplugin-raw": "^0.8.0",
-    "utilful": "link:../utils",
+    "utilful": "^3.2.0",
     "vitest": "^4.1.11"
   }
 }
