@@ -1,4 +1,3 @@
-import type * as PostCSS from 'postcss'
 import type { AliasOptions, InlineConfig } from 'vite'
 
 export interface BaseOptions {
@@ -43,9 +42,4 @@ export interface UserConfig {
    * @deprecated Use `vite` instead.
    */
   extendViteConfig?: InlineConfig
-}
-
-export interface PostCSSConfigResult {
-  options: PostCSS.ProcessOptions
-  plugins: PostCSS.AcceptedPlugin[]
 }

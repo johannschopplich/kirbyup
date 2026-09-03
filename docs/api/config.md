@@ -37,7 +37,6 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `resolve.alias` | `~/` and `@/` to the entry file's folder | Extend via `alias` |
 | `plugins` | Vue, Vue JSX, auto-imports, `vue` mapped to the Panel's global | Yours are appended |
 | `envPrefix` | `['VITE_', 'KIRBYUP_']` | See [Env Variables](/guide/environment-variables) |
-| `css.postcss` | Loaded from a PostCSS config file | See [PostCSS](/guide/postcss) |
 | `build.lib` | IIFE from the entry file | Fixed |
 | `build.minify` | `true` for production, `false` for watch builds | |
 | `server.port` | `--port`, default `5177` | Config wins over the flag |

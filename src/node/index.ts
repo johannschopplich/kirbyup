@@ -1,5 +1,5 @@
 import type { InlineConfig, LogLevel, Rollup, ViteDevServer } from 'vite'
-import type { BaseOptions, BuildOptions, PostCSSConfigResult, ServeOptions, UserConfig } from './types'
+import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import vuePlugin from '@vitejs/plugin-vue2'
@@ -13,7 +13,7 @@ import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
 import fullReloadPlugin from 'vite-plugin-full-reload'
 import * as vueCompilerSfc from 'vue/compiler-sfc'
 import { name, version } from '../../package.json'
-import { loadConfig, resolvePostCSSConfig } from './config'
+import { loadConfig } from './config'
 import { handleError, PrettyError } from './errors'
 import kirbyupBuildCleanupPlugin from './plugins/build-cleanup'
 import kirbyupGlobImportPlugin from './plugins/glob-import'
@@ -22,7 +22,6 @@ import { printFileInfo, toArray } from './utils'
 import { resolveOriginFromServerOptions } from './utils/server'
 
 let resolvedKirbyupConfig: UserConfig
-let resolvedPostCssConfig: PostCSSConfigResult | undefined
 
 const logLevel: LogLevel = 'warn'
 const logger = createLogger(logLevel)
@@ -65,11 +64,6 @@ function getViteConfig(
     build: {
       copyPublicDir: false,
     },
-    ...(resolvedPostCssConfig && {
-      css: {
-        postcss: resolvedPostCssConfig,
-      },
-    }),
     envDir: options.cwd,
     envPrefix: ['VITE_', 'KIRBYUP_'],
     customLogger: logger,
@@ -185,9 +179,6 @@ export async function build(options: BuildOptions): Promise<void> {
   const { config, configFile } = await loadConfig(cwd)
   resolvedKirbyupConfig = config ?? {}
 
-  // Resolve PostCSS config
-  resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
-
   if (!process.env.VITEST) {
     // Start kirbyup
     consola.log(colors.green(`${name} v${version}`))
@@ -267,9 +258,6 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   // Resolve kirbyup config
   const { config } = await loadConfig(cwd)
   resolvedKirbyupConfig = config ?? {}
-
-  // Resolve PostCSS config
-  resolvedPostCssConfig = await resolvePostCSSConfig(cwd)
 
   if (!process.env.VITEST) {
     consola.log(colors.green(`${name} v${version}`))

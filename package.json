@@ -72,8 +72,6 @@
     "nypm": "^0.6.9",
     "pathe": "^2.0.3",
     "perfect-debounce": "^2.1.0",
-    "postcss": "^8.5.26",
-    "postcss-load-config": "^6.0.1",
     "rollup-plugin-external-globals": "^0.13.0",
     "sass": "^1.103.1",
     "strip-literal": "^4.0.0",
