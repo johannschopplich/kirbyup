@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { resolveOriginFromServerOptions } from '../src/node/utils/server'
+import { resolveOriginFromServerOptions } from '../src/node/utils/server.ts'
 
 describe('resolveOriginFromServerOptions', () => {
   it('resolves https origin omitting default port 443', () => {

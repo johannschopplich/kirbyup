@@ -1,9 +1,9 @@
 import type { Plugin, ResolvedConfig } from 'vite'
-import type { BuildOptions } from '../types'
+import type { BuildOptions } from '../types.ts'
 import * as fs from 'node:fs'
-import { resolve } from 'pathe'
+import { resolve } from 'node:path'
 
-export default function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
+export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig
   let devIndexPath: string
 

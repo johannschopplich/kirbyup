@@ -1,8 +1,7 @@
 import * as fsp from 'node:fs/promises'
-import { dirname } from 'node:path'
-import { resolve } from 'pathe'
+import { dirname, resolve } from 'node:path'
 import { glob } from 'tinyglobby'
-import { startCli } from '../src/node/cli-start'
+import { startCli } from '../src/node/cli-start.ts'
 
 export const cacheDir: string = new URL('./.cache', import.meta.url).pathname
 export const cli: string = new URL('../src/node/cli.ts', import.meta.url).pathname

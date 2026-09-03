@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { kirbyup } from '../src/client/plugin'
+import { kirbyup } from '../src/client/plugin.ts'
 
 describe('kirbyup.import', () => {
   it('throws when called outside the kirbyup build pipeline', () => {

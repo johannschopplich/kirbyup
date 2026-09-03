@@ -70,7 +70,6 @@
     "consola": "^3.4.2",
     "magic-string": "^0.30.21",
     "nypm": "^0.6.9",
-    "pathe": "^2.0.3",
     "perfect-debounce": "^2.1.0",
     "rollup-plugin-external-globals": "^0.13.0",
     "sass": "^1.103.1",

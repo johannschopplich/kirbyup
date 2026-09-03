@@ -38,9 +38,6 @@ importers:
       nypm:
         specifier: ^0.6.9
         version: 0.6.9
-      pathe:
-        specifier: ^2.0.3
-        version: 2.0.3
       perfect-debounce:
         specifier: ^2.1.0
         version: 2.1.0

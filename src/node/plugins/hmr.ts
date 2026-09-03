@@ -1,14 +1,14 @@
 import type { AddressInfo } from 'node:net'
 import type { PackageManager } from 'nypm'
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite'
-import type { ServeOptions } from '../types'
+import type { ServeOptions } from '../types.ts'
 import * as fsp from 'node:fs/promises'
+import { resolve } from 'node:path'
 import { detectPackageManager } from 'nypm'
-import { resolve } from 'pathe'
-import { ensureTrailingSlash, resolveOriginFromServerOptions } from '../utils/server'
-import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils'
+import { ensureTrailingSlash, resolveOriginFromServerOptions } from '../utils/server.ts'
+import { __INJECTED_HMR_CODE__, isHmrRuntimeId } from './utils.ts'
 
-export default function kirbyupHmrPlugin(options: ServeOptions): Plugin {
+export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let config: ResolvedConfig
   let entry: string
   let devIndexPath: string

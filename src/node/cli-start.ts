@@ -1,6 +1,6 @@
 import { cac } from 'cac'
 import { name, version } from '../../package.json'
-import { build, serve } from './index'
+import { build, serve } from './index.ts'
 
 export async function startCli(cwd: string = process.cwd(), argv: string[] = process.argv): Promise<void> {
   const cli = cac(name)

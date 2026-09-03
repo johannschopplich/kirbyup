@@ -1,8 +1,8 @@
 import * as fsp from 'node:fs/promises'
+import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { resolve } from 'pathe'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { cacheDir, runCli } from './utils'
+import { cacheDir, runCli } from './utils.ts'
 
 const currentDir = fileURLToPath(new URL('.', import.meta.url))
 

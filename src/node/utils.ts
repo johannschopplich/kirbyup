@@ -1,9 +1,9 @@
 import { Buffer } from 'node:buffer'
+import { normalize, relative, resolve } from 'node:path'
 import { promisify } from 'node:util'
 import { gzip } from 'node:zlib'
 import { consola } from 'consola'
 import { colors } from 'consola/utils'
-import { normalize, relative, resolve } from 'pathe'
 
 const compress = promisify(gzip)
 

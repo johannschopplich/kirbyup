@@ -8,7 +8,7 @@ import { stripLiteral } from 'strip-literal'
  * Must run before Vite's own `import.meta.glob` plugin (also `enforce: 'pre'`),
  * otherwise the emitted call is never expanded.
  */
-export default function kirbyupGlobImportPlugin(): Plugin {
+export function kirbyupGlobImportPlugin(): Plugin {
   let config: ResolvedConfig
 
   return {
