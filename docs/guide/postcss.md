@@ -68,8 +68,8 @@ You can also import external Sass files:
 
 ```vue
 <style lang="scss">
-@import './variables.scss';
-@import './mixins.scss';
+@use './variables' as *;
+@use './mixins' as *;
 
 .my-component {
   @include card-shadow;
