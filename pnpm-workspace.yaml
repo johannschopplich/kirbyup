@@ -1,6 +1,6 @@
 minimumReleaseAgeExclude:
   - unplugin-raw@0.8.0
-  - utilful@3.2.0 || 3.3.0
+  - utilful@3.3.0
 
 shellEmulator: true
 trustPolicy: no-downgrade
