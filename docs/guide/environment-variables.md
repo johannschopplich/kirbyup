@@ -31,9 +31,9 @@ DB_PASSWORD=foobar
 KIRBYUP_SOME_KEY=123
 ```
 
-Only `KIRBYUP_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to your plugin's source code, but `DB_PASSWORD` will not.
+Only `KIRBYUP_SOME_KEY` will be exposed as `import.meta.env.KIRBYUP_SOME_KEY` to your plugin's source code, but `DB_PASSWORD` will not.
 
 ```js
-console.log(import.meta.env.VITE_SOME_KEY) // 123
-console.log(import.meta.env.VITE_DB_PASSWORD) // undefined
+console.log(import.meta.env.KIRBYUP_SOME_KEY) // 123
+console.log(import.meta.env.DB_PASSWORD) // undefined
 ```
