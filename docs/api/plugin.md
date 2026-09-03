@@ -15,6 +15,6 @@ window.panel.plugin('my/plugin', {
 })
 ```
 
-`glob` must be a string literal, relative to the file that calls it. At build time the call is rewritten to `import.meta.glob(glob, { eager: true })`, so every matching file ends up in the bundle. A dynamic string is not expanded.
+`glob` must be a string literal, relative to the file that calls it. At build time the call is rewritten to `import.meta.glob(glob, { eager: true })`, so every matching file ends up in the bundle. A dynamic string is not expanded, and the runtime throws to make that visible.
 
 See [Auto-Imports](/guide/glob-imports) for when explicit imports are the better choice.
