@@ -61,7 +61,7 @@ describe('concatenated plugin bundles', () => {
     const { stderr } = await withDeadDevBundle()
 
     expect.soft(stderr).toContain('development server at http://localhost:5199')
-    expect.soft(stderr).toMatch(/run serve/)
+    expect.soft(stderr).toMatch(/run dev/)
   })
 })
 

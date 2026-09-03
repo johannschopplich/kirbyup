@@ -143,7 +143,7 @@ try {
   await import("${entryUrl}");
 } catch (error) {
   console.error(
-    "[kirbyup] Couldn't connect to the development server at ${entryUrl}. Run \`${packageManager} run serve\` to start Vite or build the plugin with \`${packageManager} run build\` so Kirby uses the production version.",
+    "[kirbyup] Couldn't connect to the development server at ${entryUrl}. Run \`${packageManager} run dev\` to start Vite or build the plugin with \`${packageManager} run build\` so Kirby uses the production version.",
     error
   );
 }
