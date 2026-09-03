@@ -1,56 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`kirbyup build > auto-imports components with glob patterns 1`] = `
-"(function(){"use strict";function r(e,t,n,i,k,O,j,h){var o=typeof e=="function"?e.options:e;return t&&(o.render=t,o.staticRenderFns=n,o._compiled=!0),{exports:e,options:o}}const _={};var s=function(){var t=this,n=t._self._c;return n("k-header",[t._v("Bar")])},c=[],u=r(_,s,c);const a=u.exports,l=Object.freeze(Object.defineProperty({__proto__:null,default:a},Symbol.toStringTag,{value:"Module"})),f={};var p=function(){var t=this,n=t._self._c;return n("k-header",[t._v("Foo")])},d=[],b=r(f,p,d);const m=b.exports,v=Object.freeze(Object.defineProperty({__proto__:null,default:m},Symbol.toStringTag,{value:"Module"})),y=Object.freeze({import(e){if(typeof e=="string")throw new TypeError("[kirbyup] kirbyup.import() requires the kirbyup build pipeline. The call must be transformed at build time by the kirbyup:glob-import plugin.");return Object.entries(e).reduce((t,[n,i])=>(t[g(n)]=i.default,t),{})}});function g(e){return e.substring(e.lastIndexOf("/")+1,e.lastIndexOf(".")).toLowerCase()}window.panel.plugin("kirbyup/example",{blocks:y.import(Object.assign({"./components/blocks/Bar.vue":l,"./components/blocks/Foo.vue":v}))})})();
-"
-`;
+exports[`kirbyup build > compiles Vue single-file components 1`] = `"(function(e){var t=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},n={created(){console.log(\`created\`)}},r={class:\`k-demo-section\`};function i(t,n,i,a,o,s){return(0,e.openBlock)(),(0,e.createElementBlock)(\`section\`,r,[...n[0]||=[(0,e.createElementVNode)(\`header\`,{class:\`k-section-header\`},[(0,e.createElementVNode)(\`h2\`,{class:\`k-headline\`},\`Custom section\`)],-1)]])}var a=t(n,[[\`render\`,i]]);window.panel.plugin(\`kirbyup/test\`,{sections:{demo:a}})})(await import(\`vue\`));"`;
 
-exports[`kirbyup build > builds Kirby Panel plugins 1`] = `
-"(function(){"use strict";const e={extends:"k-info-field"};window.panel.plugin("kirbyup/test",{fields:{demo:e}})})();
-"
-`;
-
-exports[`kirbyup build > builds index.css 1`] = `
-"(function(){"use strict"})();
-"
-`;
-
-exports[`kirbyup build > builds index.css 2`] = `
+exports[`kirbyup build > emits imported CSS as index.css 1`] = `
 ".foo{content:"bar"}
-"
-`;
-
-exports[`kirbyup build > builds index.js 1`] = `
-"var kirbyupExport=(function(){"use strict";return"bar"})();
-"
-`;
-
-exports[`kirbyup build > compiles Vue single-file components 1`] = `
-"(function(){"use strict";function o(n,e,_,d,l,u,f,m){var t=typeof n=="function"?n.options:n;return e&&(t.render=e,t.staticRenderFns=_,t._compiled=!0),{exports:n,options:t}}const s={created(){console.log("created")}};var i=function(){var e=this;return e._self._c,e._m(0)},c=[function(){var n=this,e=n._self._c;return e("section",{staticClass:"k-demo-section"},[e("header",{staticClass:"k-section-header"},[e("h2",{staticClass:"k-headline"},[n._v("Custom section")])])])}],a=o(s,i,c);const r=a.exports;window.panel.plugin("kirbyup/test",{sections:{demo:r}})})();
-"
-`;
-
-exports[`kirbyup build > injects built-in environment variables 1`] = `
-"var kirbyupExport=(function(o){"use strict";const t="production";return o.mode=t,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
-"
-`;
-
-exports[`kirbyup build > injects custom environment variables 1`] = `
-"var kirbyupExport=(function(o){"use strict";return o.foo="bar",Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),o})({});
-"
-`;
-
-exports[`kirbyup build > loads config file with function export 1`] = `
-"var test=(function(){"use strict";return"bar"})();
-"
-`;
-
-exports[`kirbyup build > loads config file with object export 1`] = `
-"var test=(function(){"use strict";return"bar"})();
-"
-`;
-
-exports[`kirbyup build > resolves path aliases 1`] = `
-"var kirbyupExport=(function(){"use strict";return"bar"})();
 "
 `;

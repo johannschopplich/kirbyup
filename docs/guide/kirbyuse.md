@@ -3,7 +3,7 @@
 [kirbyuse](https://github.com/johannschopplich/kirbyuse) adds the Kirby-specific layer on top of Vue: types for `window.panel`, composables for common Panel tasks and prop sets for sections, fields and blocks.
 
 ::: info Versions
-kirbyuse 1 pairs with kirbyup 3 and Kirby 4 or 5.
+kirbyuse 2 pairs with kirbyup 4 and Kirby 6. Kirby 4 and 5 plugins use kirbyuse 1 with kirbyup 3.
 :::
 
 ## Installation
@@ -22,13 +22,17 @@ yarn add -D kirbyuse
 
 ## Imports
 
-Kirby 4 and 5 load Vue 2 as a global script without named exports, so `import { ref } from 'vue'` has nothing to resolve to. kirbyuse re-exports the Composition API, so everything comes from one package:
+Kirby 6 exposes `vue` through an import map, and kirbyup leaves `vue` out of the bundle. The Composition API comes from `vue`, everything Kirby-specific from `kirbyuse`:
+
+<!-- eslint-skip -->
 
 ```js
-import { computed, ref, usePanel, useSection } from 'kirbyuse'
+import { computed, ref, usePanel, useSection } from 'kirbyuse' // [!code --]
+import { usePanel, useSection } from 'kirbyuse' // [!code ++]
+import { computed, ref } from 'vue' // [!code ++]
 ```
 
-At runtime, the exports point at the Panel's own Vue. Your plugin and the Panel share one Vue.
+At runtime, `vue` resolves to the Panel's own copy. Your plugin and the Panel share one Vue.
 
 ## Panel Types
 
@@ -62,19 +66,14 @@ No TypeScript required, the hints work in JavaScript files as well.
 
 Loads the section data Kirby prepared on the server. Together with the `section` prop set this is all a custom section needs:
 
-<!-- eslint-skip -->
-
 ```vue
 <!-- src/components/DemoSection.vue -->
-<script>
-export default {
-  inheritAttrs: false,
-}
-</script>
-
 <script setup>
-import { ref, useSection } from 'kirbyuse'
+import { useSection } from 'kirbyuse'
 import { section } from 'kirbyuse/props'
+import { ref } from 'vue'
+
+defineOptions({ inheritAttrs: false })
 
 const props = defineProps({ ...section })
 
@@ -107,7 +106,8 @@ loadSection()
 Reactive access to the content of the current view:
 
 ```js
-import { useContent, watch } from 'kirbyuse'
+import { useContent } from 'kirbyuse'
+import { watch } from 'vue'
 
 const { currentContent, contentChanges, hasChanges, update } = useContent()
 
@@ -119,7 +119,7 @@ watch(hasChanges, (changed) => {
 update({ title: 'New title' })
 ```
 
-`currentContent` reflects the editor state including unsaved changes, `contentChanges` holds only the diff and `update` writes into it. Kirby 4 and 5 store content differently, the composable hides that.
+`currentContent` reflects the editor state including unsaved changes, `contentChanges` holds only the diff and `update` writes into it.
 
 ### `useDialog`
 
@@ -170,14 +170,13 @@ For Kirby's own translation strings, `panel.t()` is the right call.
 | `useI18n` | `{ t }` |
 | `useHelpers` | Kirby's `$helper` utilities |
 | `useLibrary` | Kirby's `$library` bundle, such as dayjs |
-| `useStore` | The Vuex store, Kirby 4 only |
 
 ## Prop Sets
 
 `kirbyuse/props` exports the props Kirby passes to a component, so you spread them instead of copying them:
 
 ```js
-import { section } from 'kirbyuse/props'
+import { field, section } from 'kirbyuse/props'
 
 defineProps({ ...section })
 ```

@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -10,6 +10,6 @@
   "devDependencies": {
     "@antfu/eslint-config": "^9.3.0",
     "eslint": "^10.9.1",
-    "kirbyup": "^3.5.0"
+    "kirbyup": "^4.0.0-alpha.8"
   }
 }

@@ -1,17 +1,16 @@
-allowBuilds:
-  '@parcel/watcher': true
-  esbuild: true
+minimumReleaseAgeExclude:
+  - unplugin-raw@0.8.0
+  - utilful@3.3.0
 
 shellEmulator: true
-
 trustPolicy: no-downgrade
 trustPolicyExclude:
-  - chokidar@4.0.3
   - semver@6.3.1
-  - vite@6.4.3
+  - vite@5.4.21
 
 packages:
   - docs
 
-overrides:
-  vite: ^6.4.3
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true

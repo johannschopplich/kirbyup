@@ -6,13 +6,14 @@ Your source lives in `src/`, split into as many files as you like. kirbyup turns
 
 ## Prerequisites
 
-- **Node.js 22 or newer** with pnpm, npm or yarn.
-- **Kirby 4 or newer.** Kirby 4 and 5 run the Panel on Vue 2, and kirbyup 3 builds for that runtime.
+- **Node.js 24 or newer** with pnpm, npm or yarn.
+- **Kirby 6 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
+
+Upgrading an existing plugin? Read the [migration guide](/guide/migration).
 
 ::: tip Starters
 Skip the setup with one of the starters:
 
-- [`pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel): Kirby's own starter.
 - [`eslint`](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint): a section plugin with ESLint configured.
 - [`unocss`](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss): the same, plus [UnoCSS](/guide/unocss) utilities.
 :::
@@ -36,11 +37,11 @@ Add the two scripts to `package.json`:
 ```json{3-4}
 {
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^3.5.0"
+    "kirbyup": "^4.0.0"
   }
 }
 ```
@@ -68,11 +69,11 @@ window.panel.plugin('my/plugin', {
 npm run dev
 ```
 
-<<< @/snippets/serve.ansi
+<<< @/snippets/dev.ansi
 
-The dev server writes `index.dev.mjs` next to your plugin. Kirby loads that file instead of `index.js` and pulls the plugin from the dev server. Edit a component and the Panel updates in place. Changes to PHP files reload the page. Stop the server and the file is removed.
+The dev server writes `index.dev.js` next to your plugin. Kirby loads that file instead of `index.js` and pulls the plugin from the dev server. Edit a component and the Panel updates in place. Changes to PHP files reload the page. Stop the server and the file is removed.
 
-Add `index.dev.mjs` to `.gitignore`.
+Add `index.dev.js` to `.gitignore`.
 
 ::: details Watch mode without HMR
 When the Panel cannot reach the dev server, for example on a remote host, rebuild on change instead:
@@ -83,7 +84,7 @@ kirbyup src/index.js --watch
 
 <<< @/snippets/watch.ansi
 
-Watch builds write an unminified `index.js` in place of the production bundle.
+Watch builds write an unminified `index.dev.js`, which Kirby picks up the same way.
 :::
 
 ## Production
@@ -94,4 +95,4 @@ npm run build
 
 <<< @/snippets/build.ansi
 
-`index.js` and `index.css` land in the project root, minified. A leftover `index.dev.mjs` is removed so Kirby uses the production files.
+`index.js` and `index.css` land in the project root, minified. A leftover `index.dev.js` is removed so Kirby uses the production files.

@@ -1,10 +1,10 @@
 # CLI
 
-`kirbyup --help` lists the commands, `kirbyup serve --help` the options of the dev server.
+`kirbyup --help` lists the commands, `kirbyup <command> --help` the options of one command. `--verbose` prints the cause chain and stack trace when a command fails.
 
 ## `kirbyup <file>`
 
-Bundles `<file>` and everything it imports into `index.js` and `index.css`, minified.
+Bundles `<file>` and everything it imports into `index.js` and `index.css`, minified. `kirbyup build <file>` is the explicit spelling of the same command.
 
 ### Options
 
@@ -12,9 +12,15 @@ Bundles `<file>` and everything it imports into `index.js` and `index.css`, mini
 
 Directory for the output files. Defaults to the current working directory.
 
-#### `-w, --watch [path]`
+#### `-w, --watch`
 
-Rebuilds when a file changes. Without a path, the entry file's folder is watched. Pass a path or glob pattern to watch something else, and repeat the flag for several. Watch builds are unminified and written to `index.js`. The config file is reloaded on change.
+Rebuilds when a file in the entry file's folder changes. Watch builds are unminified and written to `index.dev.js`, which is removed when the process exits. The config file is reloaded on change.
+
+#### `--watch-path <paths>`
+
+Comma-separated files and folders to watch instead of the entry file's folder. Implies `--watch`.
+
+Glob patterns are rejected. Folders are watched recursively, so name the folder instead of a pattern.
 
 ### Examples
 
@@ -35,12 +41,12 @@ kirbyup src/index.js --watch
 <<< @/snippets/watch.ansi
 
 ```bash
-kirbyup src/index.js --watch "src/**/*.{js,vue,css}" --watch "assets/*"
+kirbyup src/index.js --watch-path src,assets
 ```
 
-## `kirbyup serve <file>`
+## `kirbyup dev <file>`
 
-Starts a Vite dev server for `<file>` and writes `index.dev.mjs`, which tells Kirby to load the plugin from that server. Component edits apply through hot module replacement. The file is removed when the server stops.
+Starts a Vite dev server for `<file>` and writes `index.dev.js`, which tells Kirby to load the plugin from that server. Component edits apply through hot module replacement. The file is removed when the server stops.
 
 ### Options
 
@@ -50,13 +56,13 @@ Port of the dev server. Defaults to `5177`. A `server.port` in the [config file]
 
 #### `-d, --out-dir <dir>`
 
-Directory for `index.dev.mjs`. Defaults to the current working directory.
+Directory for `index.dev.js`. Defaults to the current working directory.
 
-#### `-w, --watch <path>`
+#### `--watch-path <paths>`
 
-File, folder or glob pattern that reloads the page on change. Repeat the flag for several. Defaults to `./**/*.php`.
+Comma-separated files, folders and glob patterns that reload the page when they change. Defaults to `./**/*.php`.
 
-The value replaces the default. Keep the PHP pattern if you still want it: `--watch "snippets/*.php" --watch "./**/*.php"`.
+The value replaces the default. Keep the PHP pattern if you still want it: `--watch-path "snippets/*.php,./**/*.php"`.
 
 #### `--no-watch`
 
@@ -65,22 +71,26 @@ Turns page reloads off. Hot module replacement stays on.
 ### Examples
 
 ```bash
-kirbyup serve src/index.js
+kirbyup dev src/index.js
 ```
 
-<<< @/snippets/serve.ansi
+<<< @/snippets/dev.ansi
 
 ```bash
-kirbyup serve src/index.js --port 3000
-```
-
-```bash
-kirbyup serve src/index.js --no-watch
+kirbyup dev src/index.js --port 3000
 ```
 
 ```bash
-kirbyup serve src/index.js --watch "snippets/*.php" --watch "templates/*.php"
+kirbyup dev src/index.js --no-watch
 ```
+
+```bash
+kirbyup dev src/index.js --watch-path "snippets/*.php,templates/*.php"
+```
+
+## `kirbyup serve <file>`
+
+The name of `dev` before v4. It takes the same options and prints a hint to rename the script.
 
 ## Output Files
 
@@ -88,6 +98,6 @@ kirbyup serve src/index.js --watch "snippets/*.php" --watch "templates/*.php"
 | --- | --- | --- |
 | `index.js` | `kirbyup <file>` | Minified plugin bundle |
 | `index.css` | `kirbyup <file>` | Styles, if the plugin has any |
-| `index.dev.mjs` | `serve` | Loader for the dev server |
+| `index.dev.js` | `dev`, `--watch` | Loader for the dev server, or the unminified watch build |
 
-Kirby loads `index.dev.mjs` when it exists. A production build removes it, `serve` removes it on exit. Add it to `.gitignore`.
+Kirby loads `index.dev.js` when it exists. A production build removes it, `dev` and watch builds remove it on exit. Add it to `.gitignore`.

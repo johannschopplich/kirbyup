@@ -1,72 +1,95 @@
-import * as fsp from 'node:fs/promises'
 import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { cacheDir, runCli } from './utils.ts'
+import { runCli, useBuildFixtures, useTemporaryDirectories } from './utils.ts'
 
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
+const buildFixture = useBuildFixtures()
+const createDirectory = useTemporaryDirectories()
 
 describe('kirbyup build', () => {
-  beforeAll(async () => {
-    // Unset so kirbyup applies its default environment setting
+  beforeAll(() => {
+    // Unset so kirbyup applies its default environment setting.
     vi.stubEnv('NODE_ENV', '')
-    await fsp.rm(cacheDir, { recursive: true, force: true })
   })
 
-  afterAll(async () => {
+  afterAll(() => {
     vi.unstubAllEnvs()
-    await fsp.rm(cacheDir, { recursive: true, force: true })
   })
 
-  it('builds index.js', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'./foo\'\nexport default foo',
+  it('inlines a relative import', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'./foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toMatch(/from\s+['"]\.\/foo/)
   })
 
-  it('builds index.css', async () => {
-    const { output, getFileContent } = await runCli({
+  it('rejects an entry that exports', async () => {
+    // Kirby loads plugins for their side effects only, so an export is dead
+    // weight the author is better off learning about at build time.
+    const { stderr, exitCode } = await runCli(['src/input.js'], {
+      cwd: createDirectory({ 'src/input.js': 'export default \'bar\'' }),
+    })
+
+    expect(stderr).toMatch(/INVALID_EXPORT_OPTION/)
+    expect(exitCode).toBe(1)
+  })
+
+  it('rejects top-level await in the entry', async () => {
+    // The IIFE that keeps plugins out of each other's scope is synchronous, so
+    // Rolldown refuses the entry outright.
+    const { stderr, exitCode } = await runCli(['src/input.js'], {
+      cwd: createDirectory({
+        'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+      }),
+    })
+
+    expect(stderr).toMatch(/Top-level await/)
+    expect(exitCode).toBe(1)
+  })
+
+  it('emits imported CSS as index.css', async () => {
+    const { getFileContent } = await buildFixture({
       'src/input.js': 'import \'./input.css\'',
       'src/input.css': '.foo { content: "bar"; }',
     })
-
-    expect(output).toMatchSnapshot()
 
     const css = await getFileContent('index.css')
     expect(css).toMatchSnapshot()
   })
 
-  it('resolves path aliases', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'~/foo\'\nexport default foo',
+  it('resolves the ~/ alias', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'~/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('~/foo')
   })
 
-  it('injects built-in environment variables', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'export const mode = import.' + 'meta.env.MODE',
+  it('inlines import.meta.env.MODE as production', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { mode: import.' + 'meta.env.MODE })',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]production["'`]/)
+    expect.soft(output).not.toMatch(/import\.meta\.env/)
   })
 
-  it('injects custom environment variables', async () => {
-    const { output } = await runCli({
+  it('inlines a KIRBYUP_-prefixed variable from .env', async () => {
+    const { output } = await buildFixture({
       '.env': 'KIRBYUP_FOO=bar',
-      'src/input.js': 'export const foo = import.' + 'meta.env.KIRBYUP_FOO',
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { foo: import.' + 'meta.env.KIRBYUP_FOO })',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('KIRBYUP_FOO')
   })
 
-  it('builds Kirby Panel plugins', async () => {
-    const { output } = await runCli({
+  it('inlines a field component into the panel.plugin call', async () => {
+    const { output } = await buildFixture({
       'src/input.js': `
       import Demo from './fields/demo.js'
       window.panel.plugin('kirbyup/test', {
@@ -78,11 +101,13 @@ describe('kirbyup build', () => {
       'src/fields/demo.js': 'export default { extends: \'k-info-field\' }',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/panel\.plugin\(["'`]kirbyup\/test/)
+    expect.soft(output).toContain('k-info-field')
+    expect.soft(output).not.toMatch(/from\s+['"]\.\/fields\/demo/)
   })
 
   it('compiles Vue single-file components', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       import DemoSection from './fields/DemoSection.vue'
       window.panel.plugin('kirbyup/test', {
@@ -119,10 +144,10 @@ describe('kirbyup build', () => {
     expect(output).toMatchSnapshot()
   })
 
-  it('auto-imports components with glob patterns', async () => {
-    const { output } = await runCli({
+  it('expands kirbyup.import() into a component map', async () => {
+    const { output } = await buildFixture({
       'src/input.js': `
-      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
+      import { kirbyup } from '${resolve(import.meta.dirname, '../src/client/plugin.ts')}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')
@@ -132,11 +157,13 @@ describe('kirbyup build', () => {
       'src/components/blocks/Bar.vue': '<template><k-header>Bar</k-header></template>',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).not.toMatch(/kirbyup\.import\(\s*['"`]/)
+    expect.soft(output).toContain('Foo')
+    expect.soft(output).toContain('Bar')
   })
 
   it('skips kirbyup.import() inside string literals', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       const helpText = "Call kirbyup.import('./blocks/*.vue') to load all blocks"
       window.panel.plugin('kirbyup/example', { help: helpText })
@@ -147,9 +174,9 @@ describe('kirbyup build', () => {
     expect(output).toMatch(/Call kirbyup\.import\(/)
   })
 
-  it('loads config file with object export', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+  it('applies the alias from a config exporting an object', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
@@ -170,17 +197,18 @@ describe('kirbyup build', () => {
     `,
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('__ALIAS__/foo')
   })
 
-  it('loads config file with function export', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+  it('applies the alias from a config exporting defineConfig()', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
-      import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
+      import { defineConfig } from '${resolve(import.meta.dirname, '../src/client/config.ts')}'
       const currentDir = fileURLToPath(new URL('.', import.meta.url))
       export default defineConfig({
         alias: {
@@ -197,6 +225,7 @@ describe('kirbyup build', () => {
     `,
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('__ALIAS__/foo')
   })
 })

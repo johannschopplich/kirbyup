@@ -18,8 +18,8 @@ The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 
 ## Requirements
 
-- **Node.js 22 or newer** with pnpm, npm or yarn.
-- **Kirby 4 or newer.** kirbyup 3 builds for the Vue 2 Panel of Kirby 4 and 5.
+- **Node.js 24 or newer** with pnpm, npm or yarn.
+- **Kirby 6 or newer.** kirbyup 4 builds for the Vue 3 Panel. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs). Upgrading? Read the [migration guide](https://kirbyup.getkirby.com/guide/migration).
 
 ## Setup
 
@@ -44,11 +44,11 @@ Add the two scripts to `package.json`:
 ```json
 {
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^3.5.0"
+    "kirbyup": "^4.0.0"
   }
 }
 ```

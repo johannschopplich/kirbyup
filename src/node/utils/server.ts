@@ -23,10 +23,6 @@ export function resolveOriginFromServerOptions(
   return `${protocol}://${hostname}${portSuffix}`
 }
 
-export function ensureTrailingSlash(url: string): string {
-  return url.endsWith('/') ? url : `${url}/`
-}
-
 function normalizeHost(host?: HostValue): string | undefined {
   if (host === false || host === undefined)
     return

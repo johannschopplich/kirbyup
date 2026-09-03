@@ -1,0 +1,8 @@
+[48;2;246;127;47m[30m kirbyup [39m[49m [38;2;246;127;47mv4.0.0-alpha.8[39m  [2mstarting the development server[22m
+
+  [32m➜[39m  [1mServer:  [22m [36mhttp://localhost:5177[39m
+  [32m➜[39m  [1mPlugin:  [22m [2mindex.dev.js[22m
+  [32m➜[39m  [1mWatching:[22m [2m./**/*.php[22m
+
+  [2mready in 23 ms – open the Panel and your changes appear as you save[22m
+  [2mstop with [1mCtrl-C[2m[22m
