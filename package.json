@@ -68,8 +68,6 @@
     "chokidar": "^5.0.0",
     "magic-string": "^1.2.3",
     "perfect-debounce": "^2.1.0",
-    "postcss": "^8.5.26",
-    "postcss-load-config": "^6.0.1",
     "sass": "^1.103.1",
     "strip-literal": "^4.0.0",
     "vite": "^8.2.2",

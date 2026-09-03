@@ -1,5 +1,4 @@
 import type { InlineConfig, Logger, LogLevel, Rolldown, ViteDevServer } from 'vite'
-import type { PostCSSConfigResult } from './config.ts'
 import type { KirbyupHmrApi } from './plugins/index.ts'
 import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types.ts'
 import * as fs from 'node:fs'
@@ -10,7 +9,7 @@ import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { debounce } from 'perfect-debounce'
 import { CliError, reportFailure } from 'utilful/cli'
 import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
-import { loadConfig, resolvePostCSSConfig } from './config.ts'
+import { loadConfig } from './config.ts'
 import * as output from './output.ts'
 import {
   kirbyupBuildCleanupPlugin,
@@ -28,7 +27,6 @@ const logLevel: LogLevel = 'warn'
 
 interface ConfigContext {
   kirbyupConfig: UserConfig
-  postCssConfig: PostCSSConfigResult | undefined
   logger: Logger
 }
 
@@ -37,7 +35,7 @@ function getViteConfig(command: 'serve', options: ServeOptions, context: ConfigC
 function getViteConfig(
   command: string,
   options: BuildOptions | ServeOptions,
-  { kirbyupConfig, postCssConfig, logger }: ConfigContext,
+  { kirbyupConfig, logger }: ConfigContext,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
   const { alias = {}, vite } = kirbyupConfig
@@ -59,14 +57,6 @@ function getViteConfig(
     build: {
       copyPublicDir: false,
     },
-    ...(postCssConfig && {
-      css: {
-        postcss: {
-          ...postCssConfig.options,
-          plugins: postCssConfig.plugins,
-        },
-      },
-    }),
     envDir: options.cwd,
     envPrefix: ['VITE_', 'KIRBYUP_'],
     customLogger: logger,
@@ -181,10 +171,8 @@ export async function build(options: BuildOptions): Promise<void> {
   const { cwd } = options
 
   const { config, configFile } = await loadConfig(cwd)
-  const postCssConfig = await resolvePostCSSConfig(cwd)
   const context: ConfigContext = {
     kirbyupConfig: config ?? {},
-    postCssConfig,
     logger: createKirbyupLogger(),
   }
 
@@ -270,10 +258,8 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   const { cwd } = options
 
   const { config } = await loadConfig(cwd)
-  const postCssConfig = await resolvePostCSSConfig(cwd)
   const context: ConfigContext = {
     kirbyupConfig: config ?? {},
-    postCssConfig,
     logger: createKirbyupLogger(),
   }
 
