@@ -1,38 +1,22 @@
-# CLI API
+# CLI
 
-::: tip
-
-List all commands and options:
-
-```bash
-kirbyup --help
-```
-
-And for more detailed information about the serve command:
-
-```bash
-kirbyup serve --help
-```
-
-:::
+`kirbyup --help` lists the commands, `kirbyup serve --help` the options of the dev server.
 
 ## `kirbyup <file>`
 
-The `<file>` argument is the entry point of your plugin. kirbyup bundles and minifies it into production-ready `index.js` and `index.css` files in the current directory.
+Bundles `<file>` and everything it imports into `index.js` and `index.css`, minified.
 
 ### Options
 
-#### `--out-dir <dir>`
+#### `-d, --out-dir <dir>`
 
-The output directory to save the final Plugin bundle into. Defaults to the current working directory.
+Directory for the output files. Defaults to the current working directory.
 
-#### `--watch [path]`
+#### `-w, --watch [path]`
 
-Enables watch mode. If no path is specified, kirbyup watches the folder of the input file. Repeat `--watch` for multiple paths.
+Rebuilds when a file changes. Without a path, the entry file's folder is watched. Pass a path or glob pattern to watch something else, and repeat the flag for several. Watch builds are unminified and written to `index.js`. The config file is reloaded on change.
 
 ### Examples
-
-**Basic production build:**
 
 ```bash
 kirbyup src/index.js
@@ -40,13 +24,9 @@ kirbyup src/index.js
 
 <<< @/snippets/build.ansi
 
-**Build to a specific directory:**
-
 ```bash
 kirbyup src/index.js --out-dir ../site/plugins/my-plugin
 ```
-
-**Watch mode for development (without HMR):**
 
 ```bash
 kirbyup src/index.js --watch
@@ -54,41 +34,35 @@ kirbyup src/index.js --watch
 
 <<< @/snippets/watch.ansi
 
-**Watch specific paths:**
-
 ```bash
 kirbyup src/index.js --watch "src/**/*.{js,vue,css}" --watch "assets/*"
 ```
 
 ## `kirbyup serve <file>`
 
-Starts a development server with Hot Module Replacement (HMR). This is the recommended way to develop Panel plugins.
+Starts a Vite dev server for `<file>` and writes `index.dev.mjs`, which tells Kirby to load the plugin from that server. Component edits apply through hot module replacement. The file is removed when the server stops.
 
 ### Options
 
-#### `--port <port>`
+#### `-p, --port <port>`
 
-The port for the development server to run on. Defaults to `5177`.
+Port of the dev server. Defaults to `5177`. A `server.port` in the [config file](/api/config#vite) takes precedence.
 
-#### `--out-dir <dir>`
+#### `-d, --out-dir <dir>`
 
-The output directory where the plugin file read by Kirby is saved. Defaults to the project root.
+Directory for `index.dev.mjs`. Defaults to the current working directory.
 
-#### `--watch <path>`
+#### `-w, --watch <path>`
 
-Specifies additional files that should be watched for changes, with changes causing the page to reload. Repeat `--watch` for multiple paths.
+File, folder or glob pattern that reloads the page on change. Repeat the flag for several. Defaults to `./**/*.php`.
 
-::: info
-By default, kirbyup will watch all PHP files (`./**/*.php`) in the plugin directory and reload the page if it detects changes. Using `--watch` to set your own path overrides this setting, so you need to add the PHP glob explicitly if you want to keep the behavior: `--watch ./my/files/* --watch ./**/*.php`
-:::
+The value replaces the default. Keep the PHP pattern if you still want it: `--watch "snippets/*.php" --watch "./**/*.php"`.
 
 #### `--no-watch`
 
-Disables the default behavior of watching all PHP files for changes.
+Turns page reloads off. Hot module replacement stays on.
 
 ### Examples
-
-**Start development server:**
 
 ```bash
 kirbyup serve src/index.js
@@ -96,19 +70,13 @@ kirbyup serve src/index.js
 
 <<< @/snippets/serve.ansi
 
-**Custom port:**
-
 ```bash
 kirbyup serve src/index.js --port 3000
 ```
 
-**Disable PHP file watching:**
-
 ```bash
 kirbyup serve src/index.js --no-watch
 ```
-
-**Watch additional file types:**
 
 ```bash
 kirbyup serve src/index.js --watch "snippets/*.php" --watch "templates/*.php"
@@ -116,14 +84,10 @@ kirbyup serve src/index.js --watch "snippets/*.php" --watch "templates/*.php"
 
 ## Output Files
 
-When you build your plugin, kirbyup generates these files:
+| File | Written by | Content |
+| --- | --- | --- |
+| `index.js` | `kirbyup <file>` | Minified plugin bundle |
+| `index.css` | `kirbyup <file>` | Styles, if the plugin has any |
+| `index.dev.mjs` | `serve` | Loader for the dev server |
 
-| File | Description |
-|------|-------------|
-| `index.js` | Bundled and minified JavaScript (production) |
-| `index.css` | Bundled CSS (if your plugin includes styles) |
-| `index.dev.mjs` | Dev server proxy (development only, created by `serve`) |
-
-::: tip
-The `index.dev.mjs` file tells Kirby to load assets from the development server instead of the bundled files. It's automatically created when running `kirbyup serve` and should be git-ignored.
-:::
+Kirby loads `index.dev.mjs` when it exists. A production build removes it, `serve` removes it on exit. Add it to `.gitignore`.
