@@ -51,7 +51,7 @@ export default defineConfig({
     sidebar: {
       '/guide/': sidebarGuide(),
       '/cookbook/': sidebarGuide(),
-      '/api/': sidebarGuide(),
+      '/api/': sidebarApi(),
     },
 
     socialLinks: [
@@ -76,33 +76,11 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Guide',
-      activeMatch: '^/guide/',
+      activeMatch: '^/(guide|cookbook)/',
       items: [
-        {
-          text: 'Guide',
-          items: [
-            { text: 'Getting Started', link: '/guide/getting-started' },
-            { text: 'Config File', link: '/guide/config-file' },
-          ],
-        },
-        {
-          text: 'Usage',
-          items: [
-            { text: 'Env Variables', link: '/guide/environment-variables' },
-            { text: 'Path Aliases', link: '/guide/path-aliases' },
-            { text: 'UnoCSS', link: '/guide/unocss' },
-            { text: 'PostCSS', link: '/guide/postcss' },
-            { text: 'kirbyuse', link: '/guide/kirbyuse' },
-            { text: 'Glob Imports', link: '/guide/glob-imports' },
-          ],
-        },
-      ],
-    },
-    {
-      text: 'Cookbook',
-      activeMatch: '^/cookbook/',
-      items: [
-        { text: 'Import From Panel', link: '/cookbook/import-from-panel' },
+        { text: 'Getting Started', link: '/guide/getting-started' },
+        { text: 'Config File', link: '/guide/config-file' },
+        { text: 'kirbyuse', link: '/guide/kirbyuse' },
       ],
     },
     {
@@ -113,10 +91,7 @@ function nav(): DefaultTheme.NavItem[] {
     {
       text: `v${version}`,
       items: [
-        {
-          text: 'Release Notes ',
-          link: releases,
-        },
+        { text: 'Release Notes', link: releases },
       ],
     },
   ]
@@ -128,18 +103,28 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Guide',
       items: [
         { text: 'Getting Started', link: '/guide/getting-started' },
-        { text: 'Config File', link: '/guide/config-file' },
       ],
     },
     {
-      text: 'Usage',
+      text: 'Features',
       items: [
+        { text: 'Config File', link: '/guide/config-file' },
         { text: 'Env Variables', link: '/guide/environment-variables' },
         { text: 'Path Aliases', link: '/guide/path-aliases' },
+        { text: 'Auto-Imports', link: '/guide/glob-imports' },
+      ],
+    },
+    {
+      text: 'Styling',
+      items: [
+        { text: 'PostCSS & Sass', link: '/guide/postcss' },
         { text: 'UnoCSS', link: '/guide/unocss' },
-        { text: 'PostCSS', link: '/guide/postcss' },
+      ],
+    },
+    {
+      text: 'Ecosystem',
+      items: [
         { text: 'kirbyuse', link: '/guide/kirbyuse' },
-        { text: 'Glob Imports', link: '/guide/glob-imports' },
       ],
     },
     {
@@ -149,6 +134,20 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       ],
     },
     { text: 'API', link: '/api/' },
-    { text: 'Starters', link: 'https://github.com/johannschopplich/kirbyup/tree/main/examples' },
+    { text: 'Starters', link: `${github}/tree/main/examples` },
+  ]
+}
+
+function sidebarApi(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'API',
+      items: [
+        { text: 'CLI', link: '/api/' },
+        { text: 'Config', link: '/api/config' },
+        { text: 'Plugin Helpers', link: '/api/plugin' },
+      ],
+    },
+    { text: 'Guide', link: '/guide/getting-started' },
   ]
 }
