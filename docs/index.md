@@ -25,32 +25,32 @@ hero:
 features:
   - title: Hot Module Replacement
     icon: <span class="i-ri-speed-up-line"></span>
-    details: Instantly see changes in the Panel without a page reload.
-    link: /guide/getting-started.html#development
-    linkText: Development Usage
-  - title: PostCSS & Sass
-    icon: <span class="i-ri-layout-masonry-line"></span>
-    details: Built-in Sass support and PostCSS plugin integration.
-    link: /guide/postcss
-    linkText: Use PostCSS
-  - title: kirbyuse Integration
-    icon: <span class="i-ri-code-box-line"></span>
-    details: Vue Composition utilities and TypeScript support for Panel plugins.
-    link: /guide/kirbyuse
-    linkText: Learn More
+    details: Edit a component and the Panel updates in place. No page reload, no rebuild.
+    link: /guide/getting-started#development
+    linkText: Start the dev server
+  - title: Native Vue 3
+    icon: <span class="i-ri-vuejs-line"></span>
+    details: Import from <code>vue</code> and share the Panel's runtime. Nothing ships twice.
+    link: /guide/kirbyuse#imports
+    linkText: See how imports resolve
+  - title: Config File
+    icon: <span class="i-ri-file-code-line"></span>
+    details: Add Vite plugins and options through <code>kirbyup.config.js</code>.
+    link: /guide/config-file
+    linkText: Extend Vite
   - title: Environment Variables
     icon: <span class="i-ri-game-line"></span>
-    details: Strip debug code in production, keep it in development.
+    details: Keep debug code in development and drop it from the production bundle.
     link: /guide/environment-variables
-    linkText: Use Env Variables
-  - title: Configuration File
-    icon: <span class="i-ri-file-code-line"></span>
-    details: Extend Vite with a <code>kirbyup.config.js</code> configuration file.
-    link: /guide/config-file
-    linkText: Create a Config File
-  - title: Path Aliases
-    icon: <span class="i-ri-links-line"></span>
-    details: Built-in <code>~/</code> and <code>@/</code> aliases for cleaner imports.
-    link: /guide/path-aliases
-    linkText: Use Aliases
+    linkText: Use env variables
+  - title: Styling
+    icon: <span class="i-ri-palette-line"></span>
+    details: Sass works out of the box. Add PostCSS with a config file or UnoCSS as a Vite plugin.
+    link: /guide/postcss
+    linkText: Style your plugin
+  - title: kirbyuse
+    icon: <span class="i-ri-code-box-line"></span>
+    details: Typed <code>window.panel</code>, composables and prop helpers for sections, fields and blocks.
+    link: /guide/kirbyuse
+    linkText: Meet kirbyuse
 ---

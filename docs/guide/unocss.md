@@ -1,23 +1,22 @@
 # UnoCSS
 
-[UnoCSS](https://unocss.dev/) is the recommended utility-CSS solution for Kirby Panel plugins built with kirbyup. It integrates as a Vite plugin (no PostCSS required), supports a Tailwind v3-compatible utility set via `presetWind3`, and gives you full control over class prefixing.
+[UnoCSS](https://unocss.dev/) is the recommended way to write utility classes in a Panel plugin. It runs as a Vite plugin, ships a Tailwind-compatible preset and lets you prefix every class so plugins do not collide.
+
+The [`unocss` starter](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss) has all of this set up.
 
 ## Setup
-
-**1. Install the dependency:**
 
 ::: code-group
 ```bash [pnpm]
 pnpm add -D unocss
 ```
 ```bash [npm]
-npm i -D unocss
+npm install -D unocss
 ```
 :::
 
-**2. Create `uno.config.js`:**
-
 ```js
+// uno.config.js
 import { defineConfig, presetWind3 } from 'unocss'
 
 export default defineConfig({
@@ -33,9 +32,8 @@ export default defineConfig({
 })
 ```
 
-**3. Register the Vite plugin in `kirbyup.config.js`:**
-
 ```js
+// kirbyup.config.js
 import { defineConfig } from 'kirbyup/config'
 import UnoCSS from 'unocss/vite'
 
@@ -46,33 +44,19 @@ export default defineConfig({
 })
 ```
 
-**4. Import the virtual stylesheet in your entry:**
-
 ```js
 // src/index.js
 import 'virtual:uno.css'
 ```
 
-::: tip
-Check out the [UnoCSS starter](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss) for a complete example.
-:::
+## Why a Prefix
 
-## Why a Class Prefix?
+Kirby merges the CSS of every Panel plugin into one bundle. When two plugins both emit `.p-2`, the later one wins, and variants like `lg:p-2` silently break for the other. A prefix keeps each plugin's utilities in their own namespace:
 
-Kirby merges every Panel plugin's CSS into a single bundle. If two plugins both define `.p-2`, the second one wins – and the first plugin's `lg:p-2` quietly stops working.
-
-Set a `prefix` per plugin to keep utilities in their own namespace:
-
-```js
-presetWind3({ prefix: 'demo-' })
+```html
+<div class="demo-p-2 demo-lg:p-4">
 ```
 
-Then prefix your classes in templates: `class="demo-p-2 demo-lg:p-4"`.
+## Why `preflight: false`
 
-## Why `preflight: false`?
-
-`presetWind3` ships a Tailwind-style preflight (CSS reset) by default. Inside the Kirby Panel, that reset would override the host application's styles and break unrelated UI. Disable it:
-
-```js
-presetWind3({ preflight: false })
-```
+The preset ships a CSS reset. Inside the Panel that reset would restyle Kirby's own UI, so keep it off.

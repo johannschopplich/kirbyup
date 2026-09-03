@@ -1,76 +1,47 @@
-# Extend Vite With `kirbyup.config.js`
+# Config File
 
-Since kirbyup uses Vite under the hood, you might want to add Vite plugins or customize the Vite configuration. You can do this by creating a `kirbyup.config.js` or `kirbyup.config.ts` file in the root of your project:
+kirbyup runs Vite with defaults that fit a Panel plugin. To add Vite plugins or change options, create `kirbyup.config.js` (or `.ts`) in the project root:
 
 ```js
+// kirbyup.config.js
 import { defineConfig } from 'kirbyup/config'
 
 export default defineConfig({
   alias: {
-    // Custom aliases
+    // Extra import aliases
   },
   vite: {
-    // Custom Vite options to be merged with the default config
-  }
+    // Vite options, merged into kirbyup's defaults
+  },
 })
 ```
 
-::: tip
-To target build environments, like `development` or `production`, use [`import.meta.env.DEV` and `import.meta.env.PROD`](/guide/environment-variables) to conditionally execute code.
-:::
+`defineConfig` only adds types. Both keys are optional. The [config reference](/api/config) lists what they accept and which defaults kirbyup sets.
 
-## Configuration Options
+Watch builds reload the file when it changes. The dev server reads it once, so restart after editing.
 
-### `alias`
+## Add a Vite Plugin
 
-When aliasing to file system paths, always use absolute paths. Relative alias values will be used as-is and will not be resolved into file system paths.
-
-### `vite`
-
-You can build upon the defaults kirbyup uses and extend the Vite configuration with custom plugins, etc.
-
-For a complete list of options, take a look at the [Vite configuration options](https://vitejs.dev/config/).
-
-## Example
-
-Let's say a plugin has the following requirements:
-
-- Set up an alias for the path `@/` to resolve to Kirby's Panel source directory.
-- Extend the Vite configuration with a plugin to polyfill Node.js built-in modules. This is needed for an imaginary library we're importing in a component (which would break in the browser without the polyfills).
-
-To achieve this, create a `kirbyup.config.js` file in the root of your project with the following content:
+Plugins in `vite.plugins` are appended to kirbyup's own. This example polyfills Node.js built-ins for a library that expects them:
 
 ```js
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+// kirbyup.config.js
 import { defineConfig } from 'kirbyup/config'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
-
 export default defineConfig({
   vite: {
-    resolve: {
-      alias: {
-        '@/': `${resolve(currentDir, 'kirby/panel/src')}/`,
-      },
-    },
-    plugins: [
-      nodePolyfills()
-    ],
+    plugins: [nodePolyfills()],
   },
 })
 ```
 
-## More Examples
+## Define Global Constants
 
-Here are some common configuration patterns you might find useful.
-
-### Define Global Constants
-
-Inject build-time constants into your plugin code using Vite's `define` option:
+Vite's `define` replaces identifiers at build time:
 
 ```js
+// kirbyup.config.js
 import { defineConfig } from 'kirbyup/config'
 
 export default defineConfig({
@@ -82,17 +53,18 @@ export default defineConfig({
 })
 ```
 
-Then use it anywhere in your plugin:
-
 ```js
 console.log(`Plugin version: ${__APP_VERSION__}`)
 ```
 
-### Multiple Path Aliases
+To branch on the build mode instead, use [`import.meta.env.DEV`](/guide/environment-variables).
 
-Set up multiple aliases to keep your imports clean and organized:
+## Add Aliases
+
+`alias` extends the built-in `~/` and `@/`. Use absolute paths for file system targets:
 
 ```js
+// kirbyup.config.js
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'kirbyup/config'
@@ -107,9 +79,43 @@ export default defineConfig({
 })
 ```
 
-Now you can import like this:
-
 ```js
 import MyField from '@components/fields/MyField.vue'
 import { formatDate } from '@utils/helpers'
+```
+
+Mirror new aliases in `jsconfig.json` so the editor resolves them, see [Path Aliases](/guide/path-aliases#ide-support):
+
+<!-- eslint-skip -->
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"],
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"], // [!code ++]
+      "@utils/*": ["src/utils/*"] // [!code ++]
+    }
+  },
+  "include": ["src/**/*"]
+}
+```
+
+## Change the Dev Server
+
+`vite.server` reaches Vite's dev server. `port` takes precedence over `--port`, and `origin` sets the URL Kirby loads the plugin from. Set `origin` when the Panel runs on another host or behind a proxy:
+
+```js
+// kirbyup.config.js
+import { defineConfig } from 'kirbyup/config'
+
+export default defineConfig({
+  vite: {
+    server: {
+      origin: 'https://plugin.example.test',
+    },
+  },
+})
 ```

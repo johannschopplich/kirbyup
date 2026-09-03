@@ -1,41 +1,38 @@
 # Getting Started
 
-Get up and running with kirbyup in minutes.
+kirbyup bundles a Kirby Panel plugin with Vite. One command builds for production, one starts a dev server with hot module replacement.
 
-[[toc]]
+Your source lives in `src/`, split into as many files as you like. kirbyup turns it into the `index.js` and `index.css` in the plugin root, which are the two files Kirby loads.
 
 ## Prerequisites
 
-- **Node.js 24+**: paired with a package manager (pnpm, npm, or yarn).
-- **Kirby 6 or newer**: kirbyup 4.x targets the Vue 3-based Panel runtime introduced in Kirby 6. For Kirby 4 or 5 plugins, use kirbyup 3.x.
+- **Node.js 24 or newer** with pnpm, npm or yarn.
+- **Kirby 6 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
 
-::: tip
-If you want to skip starting from scratch, pick one of the following starters:
+Upgrading an existing plugin? Read the [migration guide](/guide/migration).
 
-- [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel)
-- [`pluginkit` + ESLint](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint)
-- [`pluginkit` + UnoCSS](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss)
+::: tip Starters
+Skip the setup with one of the starters:
 
-The last two examples are based on the default `pluginkit` and include ESLint – it catches bugs early and helps you avoid common JavaScript and Vue pitfalls. The UnoCSS example also includes [UnoCSS](https://unocss.dev/) (with `presetWind3` for Tailwind v3-compatible utilities) to style your Panel plugin.
+- [`eslint`](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint): a section plugin with ESLint configured.
+- [`unocss`](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss): the same, plus [UnoCSS](/guide/unocss) utilities.
 :::
 
 ## Installation
 
-Use a package manager of your choice to install `kirbyup` as a development dependency:
-
 ::: code-group
-  ```bash [pnpm]
-  pnpm add -D kirbyup
-  ```
-  ```bash [yarn]
-  yarn add -D kirbyup
-  ```
-  ```bash [npm]
-  npm install -D kirbyup
-  ```
+```bash [pnpm]
+pnpm add -D kirbyup
+```
+```bash [npm]
+npm install -D kirbyup
+```
+```bash [yarn]
+yarn add -D kirbyup
+```
 :::
 
-After installation, add these scripts to your `package.json`:
+Add the two scripts to `package.json`:
 
 ```json{3-4}
 {
@@ -44,69 +41,58 @@ After installation, add these scripts to your `package.json`:
     "build": "kirbyup src/index.js"
   },
   "devDependencies": {
-    "kirbyup": "^4.0.0-alpha.6"
+    "kirbyup": "^4.0.0"
   }
 }
 ```
 
-### Without the Installation Step
+The entry file registers the plugin as usual:
 
-If you want to use kirbyup right away and don't want to track it as a dependency in your project, simply call it with `npx`:
+```js
+// src/index.js
+import DemoSection from './components/DemoSection.vue'
 
-```json{3-4}
-{
-  "scripts": {
-    "dev": "npx -y kirbyup dev src/index.js",
-    "build": "npx -y kirbyup src/index.js"
-  }
-}
+window.panel.plugin('my/plugin', {
+  sections: {
+    demo: DemoSection,
+  },
+})
 ```
 
-::: info
-`npx` may cache a certain version of kirbyup. If `npx` doesn't use the latest kirbyup version, run `npx -y kirbyup@latest` instead or delete the `~/.npm/_npx` cache folder.
-Because of the caching, it's recommended to install kirbyup as a development dependency.
+::: details Run without installing
+`npx -y kirbyup src/index.js` works without a dependency. npx caches versions, so run `npx -y kirbyup@latest` when the output looks stale. A dev dependency avoids the issue.
 :::
 
-## Usage
-
-kirbyup provides a CLI to build and serve your Panel plugin. It uses Vite under the hood, so you can use all of Vite's features.
-
-### Development
-
-Start a development server for the Panel plugin:
+## Development
 
 ```bash
 npm run dev
-# Which will run:
-# kirbyup dev src/index.js
 ```
-
-Your terminal shows the server port:
 
 <<< @/snippets/dev.ansi
 
-This creates `./index.dev.js`, which tells Kirby to load your plugin from the dev server. You get hot module replacement and auto-reload out of the box.
+The dev server writes `index.dev.js` next to your plugin. Kirby loads that file instead of `index.js` and pulls the plugin from the dev server. Edit a component and the Panel updates in place. Changes to PHP files reload the page. Stop the server and the file is removed.
 
-::: details Using watch mode instead?
-If you prefer building a development bundle (without HMR), use watch mode:
+Add `index.dev.js` to `.gitignore`.
+
+::: details Watch mode without HMR
+When the Panel cannot reach the dev server, for example on a remote host, rebuild on change instead:
 
 ```bash
-npx kirbyup src/index.js --watch
+kirbyup src/index.js --watch
 ```
 
 <<< @/snippets/watch.ansi
+
+Watch builds write an unminified `index.dev.js`, which Kirby picks up the same way.
 :::
 
-### Production
-
-To compile the final Panel plugin for production, run:
+## Production
 
 ```bash
 npm run build
-# Which will run:
-# kirbyup src/index.js
 ```
 
-Your terminal shows the bundled assets:
-
 <<< @/snippets/build.ansi
+
+`index.js` and `index.css` land in the project root, minified. A leftover `index.dev.js` is removed so Kirby uses the production files.

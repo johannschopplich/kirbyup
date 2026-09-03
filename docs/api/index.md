@@ -1,46 +1,28 @@
-# CLI API
+# CLI
 
-::: tip
-
-List all commands and options:
-
-```bash
-kirbyup --help
-```
-
-And for more detailed information about the dev command:
-
-```bash
-kirbyup dev --help
-```
-
-:::
+`kirbyup --help` lists the commands, `kirbyup <command> --help` the options of one command. `--verbose` prints the cause chain and stack trace when a command fails.
 
 ## `kirbyup <file>`
 
-The `<file>` argument is the entry point of your plugin. kirbyup bundles and minifies it into production-ready `index.js` and `index.css` files in the current directory.
+Bundles `<file>` and everything it imports into `index.js` and `index.css`, minified. `kirbyup build <file>` is the explicit spelling of the same command.
 
 ### Options
 
-#### `--out-dir <dir>`
+#### `-d, --out-dir <dir>`
 
-The output directory to save the final Plugin bundle into. Defaults to the current working directory.
+Directory for the output files. Defaults to the current working directory.
 
-#### `--watch`
+#### `-w, --watch`
 
-Enables watch mode, rebuilding when the folder of the entry file changes.
+Rebuilds when a file in the entry file's folder changes. Watch builds are unminified and written to `index.dev.js`, which is removed when the process exits. The config file is reloaded on change.
 
 #### `--watch-path <paths>`
 
-Watches the given files and folders instead of the folder of the entry file, as a comma-separated list. Implies `--watch`.
+Comma-separated files and folders to watch instead of the entry file's folder. Implies `--watch`.
 
-::: warning
-`--watch-path` takes files and folders here, not glob patterns – folders are watched recursively. The underlying watcher stopped expanding globs in chokidar 4, so a pattern is rejected rather than silently matching nothing.
-:::
+Glob patterns are rejected. Folders are watched recursively, so name the folder instead of a pattern.
 
 ### Examples
-
-**Basic production build:**
 
 ```bash
 kirbyup src/index.js
@@ -48,13 +30,9 @@ kirbyup src/index.js
 
 <<< @/snippets/build.ansi
 
-**Build to a specific directory:**
-
 ```bash
 kirbyup src/index.js --out-dir ../site/plugins/my-plugin
 ```
-
-**Watch mode for development (without HMR):**
 
 ```bash
 kirbyup src/index.js --watch
@@ -62,45 +40,35 @@ kirbyup src/index.js --watch
 
 <<< @/snippets/watch.ansi
 
-**Watch specific paths:**
-
 ```bash
 kirbyup src/index.js --watch-path src,assets
 ```
 
 ## `kirbyup dev <file>`
 
-Starts a development server with Hot Module Replacement (HMR). This is the recommended way to develop Panel plugins.
-
-::: info
-This command was called `kirbyup serve` before v4. That name still works and does the same thing.
-:::
+Starts a Vite dev server for `<file>` and writes `index.dev.js`, which tells Kirby to load the plugin from that server. Component edits apply through hot module replacement. The file is removed when the server stops.
 
 ### Options
 
-#### `--port <port>`
+#### `-p, --port <port>`
 
-The port for the development server to run on. Defaults to `5177`.
+Port of the dev server. Defaults to `5177`. A `server.port` in the [config file](/api/config#vite) takes precedence.
 
-#### `--out-dir <dir>`
+#### `-d, --out-dir <dir>`
 
-The output directory where the plugin file read by Kirby is saved. Defaults to the project root.
+Directory for `index.dev.js`. Defaults to the current working directory.
 
 #### `--watch-path <paths>`
 
-Files, folders and glob patterns that reload the page when they change, as a comma-separated list. Defaults to `./**/*.php`.
+Comma-separated files, folders and glob patterns that reload the page when they change. Defaults to `./**/*.php`.
 
-::: info
-Setting `--watch-path` replaces the default rather than adding to it, so keep the PHP glob if you still want it: `--watch-path "snippets/*.php,./**/*.php"`. Unlike `build`, glob patterns work here – the dev server matches through Vite's own watcher.
-:::
+The value replaces the default. Keep the PHP pattern if you still want it: `--watch-path "snippets/*.php,./**/*.php"`.
 
 #### `--no-watch`
 
-Disables the default behavior of watching all PHP files for changes.
+Turns page reloads off. Hot module replacement stays on.
 
 ### Examples
-
-**Start development server:**
 
 ```bash
 kirbyup dev src/index.js
@@ -108,34 +76,28 @@ kirbyup dev src/index.js
 
 <<< @/snippets/dev.ansi
 
-**Custom port:**
-
 ```bash
 kirbyup dev src/index.js --port 3000
 ```
-
-**Disable PHP file watching:**
 
 ```bash
 kirbyup dev src/index.js --no-watch
 ```
 
-**Watch additional file types:**
-
 ```bash
 kirbyup dev src/index.js --watch-path "snippets/*.php,templates/*.php"
 ```
 
+## `kirbyup serve <file>`
+
+The name of `dev` before v4. It takes the same options and prints a hint to rename the script.
+
 ## Output Files
 
-When you build your plugin, kirbyup generates these files:
+| File | Written by | Content |
+| --- | --- | --- |
+| `index.js` | `kirbyup <file>` | Minified plugin bundle |
+| `index.css` | `kirbyup <file>` | Styles, if the plugin has any |
+| `index.dev.js` | `dev`, `--watch` | Loader for the dev server, or the unminified watch build |
 
-| File | Description |
-|------|-------------|
-| `index.js` | Bundled and minified JavaScript (production) |
-| `index.css` | Bundled CSS (if your plugin includes styles) |
-| `index.dev.js` | Dev server proxy (development only, created by `dev`) |
-
-::: tip
-The `index.dev.js` file tells Kirby to load assets from the development server instead of the bundled files. It's automatically created when running `kirbyup dev` and should be git-ignored.
-:::
+Kirby loads `index.dev.js` when it exists. A production build removes it, `dev` and watch builds remove it on exit. Add it to `.gitignore`.
