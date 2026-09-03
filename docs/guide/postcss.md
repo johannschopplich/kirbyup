@@ -37,27 +37,16 @@ Shared files load with `@use`:
 
 ## PostCSS
 
-Any format [postcss-load-config](https://github.com/postcss/postcss-load-config) understands is picked up, for example `postcss.config.cjs` or a `postcss` key in `package.json`. The plugins apply to every stylesheet in the bundle.
-
-Autoprefixer as an example:
-
-::: code-group
-```bash [pnpm]
-pnpm add -D autoprefixer
-```
-```bash [npm]
-npm install -D autoprefixer
-```
-:::
+Create `postcss.config.js` in the project root and list the plugins. They apply to every stylesheet in the bundle:
 
 ```js
-// postcss.config.cjs
-module.exports = {
-  plugins: {
-    autoprefixer: {},
-  },
+// postcss.config.js
+export default {
+  plugins: [],
 }
 ```
+
+Any format [postcss-load-config](https://github.com/postcss/postcss-load-config) understands works, including a `postcss` key in `package.json`. Without `"type": "module"` in `package.json`, name the file `postcss.config.mjs` so Node loads it as ESM without a warning.
 
 ## Utility Classes
 
