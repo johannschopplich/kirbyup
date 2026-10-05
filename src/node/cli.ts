@@ -1,11 +1,10 @@
 import type { CommandDef } from 'utilful/cli'
-import type { BuildArgs } from './commands/build.ts'
 import { defineCommand } from 'utilful/cli'
 import packageJson from '../../package.json' with { type: 'json' }
 import { buildArgs, buildCommand } from './commands/build.ts'
 import { devCommand, serveCommand } from './commands/dev.ts'
 
-export const mainCommand: CommandDef<BuildArgs> = defineCommand({
+export const mainCommand: CommandDef<typeof buildArgs> = defineCommand({
   meta: {
     name: packageJson.name,
     version: packageJson.version,

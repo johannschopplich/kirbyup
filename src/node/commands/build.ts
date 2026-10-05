@@ -1,25 +1,17 @@
-import type { ArgsDef, CommandDef } from 'utilful/cli'
+import type { CommandDef } from 'utilful/cli'
 import process from 'node:process'
-import { commonArgs, defineCommand } from 'utilful/cli'
+import { defineCommand } from 'utilful/cli'
 import { build } from '../index.ts'
 import { resolveWatchPaths } from './watch-paths.ts'
 
-export interface BuildArgs extends ArgsDef {
-  'file': { type: 'positional', description: string, required: true }
-  'out-dir': { type: 'string', alias: string, description: string, valueHint: string }
-  'watch': { type: 'boolean', alias: string, description: string }
-  'watch-path': { type: 'string', description: string, valueHint: string }
-}
-
-export const buildArgs: BuildArgs = {
-  ...commonArgs,
+export const buildArgs = {
   'file': { type: 'positional', description: 'Entry file of the plugin', required: true },
   'out-dir': { type: 'string', alias: 'd', description: 'Output directory', valueHint: 'dir' },
   'watch': { type: 'boolean', alias: 'w', description: 'Rebuild when the folder of the entry file changes' },
   'watch-path': { type: 'string', description: 'Comma-separated files and folders to watch instead', valueHint: 'paths' },
-}
+} as const
 
-export const buildCommand: CommandDef<BuildArgs> = defineCommand({
+export const buildCommand: CommandDef<typeof buildArgs> = defineCommand({
   meta: {
     name: 'build',
     description: 'Compile the Kirby Panel plugin to index.js and index.css',

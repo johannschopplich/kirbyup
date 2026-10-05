@@ -1,30 +1,18 @@
-import type { ArgsDef, CommandDef, ParsedArgs } from 'utilful/cli'
+import type { CommandDef, ParsedArgs } from 'utilful/cli'
 import process from 'node:process'
-import { CliError, commonArgs, defineCommand, log } from 'utilful/cli'
+import { CliError, defineCommand, log } from 'utilful/cli'
 import { serve } from '../index.ts'
 import { resolveWatchPaths } from './watch-paths.ts'
 
-const DEFAULT_PORT = 5177
-const DEFAULT_WATCH = './**/*.php'
-
-export interface DevArgs extends ArgsDef {
-  'file': { type: 'positional', description: string, required: true }
-  'out-dir': { type: 'string', alias: string, description: string, valueHint: string }
-  'watch': { type: 'boolean', alias: string, default: boolean, description: string }
-  'watch-path': { type: 'string', default: string, description: string, valueHint: string }
-  'port': { type: 'string', alias: string, default: string, description: string }
-}
-
-export const devArgs: DevArgs = {
-  ...commonArgs,
+export const devArgs = {
   'file': { type: 'positional', description: 'Entry file of the plugin', required: true },
   'out-dir': { type: 'string', alias: 'd', description: 'Output directory', valueHint: 'dir' },
   'watch': { type: 'boolean', alias: 'w', default: true, description: 'Reload the Panel when a watched file changes' },
-  'watch-path': { type: 'string', default: DEFAULT_WATCH, description: 'Comma-separated files, folders and globs to watch', valueHint: 'paths' },
-  'port': { type: 'string', alias: 'p', default: String(DEFAULT_PORT), description: 'Port for the development server' },
-}
+  'watch-path': { type: 'string', default: './**/*.php', description: 'Comma-separated files, folders and globs to watch', valueHint: 'paths' },
+  'port': { type: 'string', alias: 'p', default: '5177', description: 'Port for the development server' },
+} as const
 
-async function run({ args }: { args: ParsedArgs<DevArgs> }): Promise<void> {
+async function run({ args }: { args: ParsedArgs<typeof devArgs> }): Promise<void> {
   process.env.NODE_ENV ||= 'development'
 
   const paths = resolveWatchPaths(args['watch-path'], { allowGlobs: true })
@@ -48,7 +36,7 @@ async function run({ args }: { args: ParsedArgs<DevArgs> }): Promise<void> {
   })
 }
 
-export const devCommand: CommandDef<DevArgs> = defineCommand({
+export const devCommand: CommandDef<typeof devArgs> = defineCommand({
   meta: {
     name: 'dev',
     description: 'Start a development server with live reload',
@@ -57,7 +45,7 @@ export const devCommand: CommandDef<DevArgs> = defineCommand({
   run,
 })
 
-export const serveCommand: CommandDef<DevArgs> = defineCommand({
+export const serveCommand: CommandDef<typeof devArgs> = defineCommand({
   meta: {
     name: 'serve',
     description: 'Former name of dev, kept so existing scripts keep working',
