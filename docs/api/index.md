@@ -1,6 +1,6 @@
 # CLI
 
-`kirbyup --help` lists the commands, `kirbyup <command> --help` the options of one command. `--verbose` prints the cause chain and stack trace when a command fails.
+`kirbyup --help` lists the commands, `kirbyup <command> --help` the options of one command. `--verbose` adds the stack trace when a command fails.
 
 ## `kirbyup <file>`
 

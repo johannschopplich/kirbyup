@@ -69,7 +69,7 @@ export const serveCommand: CommandDef<DevArgs> = defineCommand({
   },
 })
 
-/** The parser knows strings and booleans only, so the port arrives as a string. */
+/** The parser has no number type, so the port arrives as a string. */
 function parsePort(value: string): number {
   const port = Number(value)
 
