@@ -37,9 +37,4 @@ export interface UserConfig {
    * })
    */
   vite?: InlineConfig
-
-  /**
-   * @deprecated Use `vite` instead.
-   */
-  extendViteConfig?: InlineConfig
 }

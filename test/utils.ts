@@ -1,45 +1,53 @@
+import type { CliHarness, FileMap } from 'utilful/cli/testing'
 import * as fsp from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
-import { glob } from 'tinyglobby'
-import { startCli } from '../src/node/cli-start.ts'
+import * as path from 'node:path'
+import { createCliHarness, useTemporaryDirectories } from 'utilful/cli/testing'
+import { mainCommand } from '../src/node/cli.ts'
 
-export const cacheDir: string = new URL('./.cache', import.meta.url).pathname
-export const cli: string = new URL('../src/node/cli.ts', import.meta.url).pathname
+export { useTemporaryDirectories } from 'utilful/cli/testing'
 
-export interface CliRunResult {
+const harness = createCliHarness(mainCommand, {
+  // The published entry point, so a run covers `bin` and `dist` as a user gets them.
+  entry: path.join(import.meta.dirname, '../bin/kirbyup.mjs'),
+})
+
+export const runCli: CliHarness['runCli'] = harness.runCli
+export const runCliProcess: CliHarness['runCliProcess'] = harness.runCliProcess
+
+export interface BuildFixtureResult {
   output: string
-  outFiles: string[]
   getFileContent: (filename: string) => Promise<string>
 }
 
-export async function runCli(files: Record<string, string>): Promise<CliRunResult> {
-  const testDir = resolve(cacheDir, Date.now().toString())
+/**
+ * Returns a factory that writes a plugin source tree, builds it, and hands back
+ * what landed on disk – the shape most of kirbyup's tests assert against. Call
+ * it at the top level of a test file, like `useTemporaryDirectories`.
+ */
+export function useBuildFixtures(): (files: FileMap) => Promise<BuildFixtureResult> {
+  const createDirectory = useTemporaryDirectories()
 
-  const getFileContent = (filename: string) =>
-    fsp.readFile(resolve(testDir, filename), 'utf8')
+  return async (files: FileMap) => {
+    // Vite reads the name from the nearest `package.json` when it has to name
+    // the CSS bundle, so a fixture without one is not a plugin folder Vite can
+    // build – the same failure a real plugin without a manifest would hit.
+    const directory = createDirectory({
+      'package.json': '{ "name": "kirbyup-fixture", "type": "module" }',
+      ...files,
+    })
 
-  // Write entry files on disk
-  await Promise.all(
-    Object.entries(files).map(async ([path, content]) => {
-      const filePath = resolve(testDir, path)
-      await fsp.mkdir(dirname(filePath), { recursive: true })
-      await fsp.writeFile(filePath, content, 'utf8')
-    }),
-  )
+    const getFileContent = async (filename: string) =>
+      normalizeOutput(await fsp.readFile(path.resolve(directory, filename), 'utf8'))
 
-  await runAsyncChildProcess(testDir, 'src/input.js')
+    await runCli(['src/input.js'], { cwd: directory })
 
-  // Get main output and all associated files
-  const output = await getFileContent('index.js')
-  const outFiles = await glob('**/*', { cwd: testDir, ignore: ['src'] })
-
-  return {
-    output,
-    outFiles,
-    getFileContent,
+    return { output: await getFileContent('index.js'), getFileContent }
   }
 }
 
-function runAsyncChildProcess(cwd: string, ...args: string[]) {
-  return startCli(cwd, ['', '', ...args])
+/** Removes Rolldown's region markers, which carry the per-run tmpdir path. */
+function normalizeOutput(source: string): string {
+  return source
+    .replace(/\/\/#region [^\n]*\n/g, '')
+    .replace(/\/\/#endregion\n?/g, '')
 }

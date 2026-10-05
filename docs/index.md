@@ -28,11 +28,11 @@ features:
     details: Edit a component and the Panel updates in place. No page reload, no rebuild.
     link: /guide/getting-started#development
     linkText: Start the dev server
-  - title: Path Aliases
-    icon: <span class="i-ri-links-line"></span>
-    details: Built-in <code>~/</code> and <code>@/</code> aliases for shorter imports.
-    link: /guide/path-aliases
-    linkText: Use aliases
+  - title: Native Vue 3
+    icon: <span class="i-ri-vuejs-line"></span>
+    details: Import from <code>vue</code> and share the Panel's runtime. Nothing ships twice.
+    link: /guide/kirbyuse#imports
+    linkText: See how imports resolve
   - title: Config File
     icon: <span class="i-ri-file-code-line"></span>
     details: Add Vite plugins and options through <code>kirbyup.config.js</code>.
