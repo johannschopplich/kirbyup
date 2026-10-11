@@ -37,8 +37,9 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `resolve.alias` | `~/` and `@/` to the entry file's folder | Extend via `alias` |
 | `plugins` | Vue, Vue JSX, auto-imports | Yours are appended |
 | `envPrefix` | `['VITE_', 'KIRBYUP_']` | See [Env Variables](/guide/environment-variables) |
-| `build.lib` | IIFE from the entry file | Fixed |
+| `build.lib` | ES module from the entry file | Fixed |
 | `build.rollupOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
+| `build.rollupOptions.output.codeSplitting` | `false` | Fixed, Kirby serves no script beside `index.js` or `index.dev.js` |
 | `build.minify` | `true` for production, `false` for watch builds | |
 | `server.port` | `--port`, default `5177` | Config wins over the flag |
 | `server.origin` | Derived from `server.host`, `server.https` and the port | The URL written into `index.dev.js` |

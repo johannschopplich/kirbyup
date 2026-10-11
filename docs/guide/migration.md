@@ -16,13 +16,12 @@ The Panel moves from Vue 2 to Vue 3. What that means for your components is Kirb
 4. Replace `index.dev.mjs` with `index.dev.js` in `.gitignore`.
 5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`.
 6. Replace `extendViteConfig` with `vite` in the config file.
-7. Remove top-level `await` and `export` from the entry file.
 
 The rest of this page explains each step.
 
 ## Requirements
 
-kirbyup 4 requires Node.js 24 and Kirby 6. Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
+kirbyup 4 requires Node.js 24 and Kirby 6.0.0-beta.1 or later. Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
 
 ## CLI
 
@@ -87,16 +86,17 @@ import { computed, ref, watch } from 'vue' // [!code ++]
 
 `window.Vue` no longer exists in the Panel. Code that reached for it has to import from `vue` as well.
 
+Import `vue` by name or as a namespace (`import * as Vue from 'vue'`). A default import builds but fails to load, as the Panel's Vue has no default export.
+
 kirbyuse 2 drops the re-exports and keeps the Kirby-specific parts. See the [kirbyuse page](/guide/kirbyuse) for what remains.
 
 ## Entry File
 
-Kirby 6 concatenates every plugin's `index.js` into one module. kirbyup therefore wraps the bundle in an IIFE, which adds no top-level names that could collide with another plugin. Two things stop working in the entry file:
+Kirby 6 imports each plugin's `index.js` as its own ES module, and kirbyup 4 builds one. The entry file can use top-level `await` and `export`, though Kirby reads no export.
 
-- **Top-level `await`.** Move it into an async function.
-- **`export`.** Kirby loads plugins for their side effects only, so nothing reads an export anyway.
+Kirby loads the plugins one after another, so a top-level `await` holds up the Panel until it settles. Keep slow work like a network request out of it.
 
-Both fail the build with a clear message rather than breaking the Panel at runtime.
+A dynamic `import()` is bundled into `index.js`, as Kirby serves no other script for a plugin.
 
 ## Styling
 

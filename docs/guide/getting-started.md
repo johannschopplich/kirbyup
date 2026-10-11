@@ -7,7 +7,7 @@ Your source lives in `src/`, split into as many files as you like. kirbyup turns
 ## Prerequisites
 
 - **Node.js 24 or newer** with pnpm, npm or yarn.
-- **Kirby 6 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
+- **Kirby 6.0.0-beta.1 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
 
 Upgrading an existing plugin? Read the [migration guide](/guide/migration).
 
