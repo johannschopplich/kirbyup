@@ -45,7 +45,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     api: { devIndexWritten } satisfies KirbyupHmrApi,
 
     config() {
-      // Route `vue` through the stub so plugin SFCs share Kirby's panel Vue;
+      // Route `vue` through the stub so plugin SFCs share the Panel's Vue;
       // a parallel local copy would split `__VUE_HMR_RUNTIME__` and break HMR.
       // `optimizeDeps.exclude` stops the pre-bundler from circumventing the alias.
       return {

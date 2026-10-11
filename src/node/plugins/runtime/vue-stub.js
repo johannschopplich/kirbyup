@@ -1,22 +1,6 @@
-const __kirbyupVueImportMapEl = typeof document !== 'undefined'
-  ? document.querySelector('script[type="importmap"]')
-  : null
-const __kirbyupVueImports = __kirbyupVueImportMapEl
-  ? (() => {
-      try {
-        return JSON.parse(__kirbyupVueImportMapEl.textContent || '{}').imports || {}
-      }
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      catch (_) {
-        return {}
-      }
-    })()
-  : {}
-const __kirbyupVueUrl = __kirbyupVueImports.vue
-if (!__kirbyupVueUrl) {
-  throw new Error(
-    '[kirbyup] No "vue" entry found in the page <script type="importmap">. Ensure the Kirby 6 Panel is loaded.',
-  )
-}
+// A literal `'vue'` would resolve back to this stub. Vite only wraps a variable
+// specifier in `injectQuery`, which leaves a bare one unchanged, so the browser
+// resolves `vue` through the Panel's import map.
+const __kirbyupVueSpecifier = 'vue'
 // eslint-disable-next-line no-unused-vars, antfu/no-top-level-await
-const __kirbyupVueModule = await import(/* @vite-ignore */ __kirbyupVueUrl)
+const __kirbyupVueModule = await import(/* @vite-ignore */ __kirbyupVueSpecifier)

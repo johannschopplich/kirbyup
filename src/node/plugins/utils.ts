@@ -12,11 +12,11 @@ import VUE_STUB_SOURCE from './runtime/vue-stub.js?raw'
 export const __HMR_SHIM_CODE__: string = HMR_SHIM_SOURCE
 
 /**
- * Reads Kirby's panel-vue URL at runtime from the page's
- * `<script type="importmap">` and dynamic-imports it; the browser's module
- * map dedups by URL, so plugin SFCs share Kirby's Vue instance (and
- * `__VUE_HMR_RUNTIME__`). Top-level await lets consumers keep using ordinary
- * `import { ... } from 'vue'` syntax.
+ * Builds the dev module standing in for `vue`: it imports `vue` through the
+ * Panel's `<script type="importmap">` and re-exports `namedExports`. The
+ * browser's module map dedups by URL, so plugin SFCs share the Panel's Vue instance
+ * (and `__VUE_HMR_RUNTIME__`). Top-level await lets consumers keep using
+ * ordinary `import { ... } from 'vue'` syntax.
  */
 export function buildVueStubCode(namedExports: readonly string[]): string {
   if (namedExports.length === 0)

@@ -43,6 +43,15 @@ describe('kirbyupHmrPlugin', () => {
       expect.soft(code).toMatch(/^\s*computed,$/m)
     })
 
+    it('leaves vue for the import map to resolve', async () => {
+      const plugin = await createPlugin()
+      const { code } = callHook<{ code: string }>(plugin, 'load', VUE_STUB_ID)
+      const [, specifier] = code.match(/await import\(\/\* @vite-ignore \*\/ (\w+)\)/) ?? []
+
+      expect(specifier).toBeDefined()
+      expect(code).toMatch(new RegExp(`const ${specifier} = ['"]vue['"]`))
+    })
+
     it('omits a default export, as vue.esm-browser.js does', async () => {
       const plugin = await createPlugin()
       const { code } = callHook<{ code: string }>(plugin, 'load', VUE_STUB_ID)
