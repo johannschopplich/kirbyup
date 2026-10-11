@@ -213,13 +213,6 @@ describe('kirbyup build', () => {
       export default {
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
-        },
-        vite: {
-          build: {
-            lib: {
-              name: 'test'
-            }
-          }
         }
       }
     `,
@@ -241,13 +234,6 @@ describe('kirbyup build', () => {
       export default defineConfig({
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
-        },
-        vite: {
-          build: {
-            lib: {
-              name: 'test'
-            }
-          }
         }
       })
     `,
