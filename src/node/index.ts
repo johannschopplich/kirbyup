@@ -75,7 +75,7 @@ function getViteConfig(
       ].filter(Boolean),
       // Input needs to be specified so dependency pre-bundling works.
       build: {
-        rollupOptions: {
+        rolldownOptions: {
           input: resolve(options.cwd, options.entry),
         },
       },
@@ -104,7 +104,7 @@ function getViteConfig(
       minify: mode === 'production',
       outDir: options.outDir,
       emptyOutDir: false,
-      rollupOptions: {
+      rolldownOptions: {
         // The Panel's import map resolves `vue`, so every plugin shares the
         // Panel's Vue instance.
         external: ['vue'],
@@ -119,15 +119,15 @@ function getViteConfig(
   })
 
   const config = mergeConfig(buildConfig, userConfig)
-  const output = config.build?.rollupOptions?.output
+  const rolldownOutput = config.build?.rolldownOptions?.output
 
   // Vite's library mode skips whitespace removal for ES output. Restored only
   // for Vite's own minifier, and only when the config sets no `output.minify`.
   if (
     (config.build?.minify === true || config.build?.minify === 'oxc')
-    && output && !Array.isArray(output) && output.minify === undefined
+    && rolldownOutput && !Array.isArray(rolldownOutput) && rolldownOutput.minify === undefined
   ) {
-    output.minify = true
+    rolldownOutput.minify = true
   }
 
   return config

@@ -202,6 +202,25 @@ describe('kirbyup build', () => {
     expect(output.trimEnd()).toContain('\n')
   })
 
+  it('keeps whitespace when the config sets output.minify to false', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nconst count = ref(1)\nwindow.panel.plugin(\'kirbyup/test\', { count })',
+      'kirbyup.config.js': 'export default { vite: { build: { rolldownOptions: { output: { minify: false } } } } }',
+    })
+
+    expect(output.trimEnd()).toContain('\n')
+  })
+
+  it('merges the deprecated rollupOptions from the config', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nimport foo from \'some-external\'\nwindow.panel.plugin(\'kirbyup/test\', { count: ref(1), foo })',
+      'kirbyup.config.js': 'export default { vite: { build: { rollupOptions: { external: [\'some-external\'] } } } }',
+    })
+
+    expect.soft(output).toMatch(/from\s*["'`]some-external["'`]/)
+    expect.soft(output).toMatch(/from\s*["'`]vue["'`]/)
+  })
+
   it('applies the alias from a config exporting an object', async () => {
     const { output } = await buildFixture({
       'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
