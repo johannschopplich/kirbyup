@@ -1,13 +1,13 @@
 import { execFile } from 'node:child_process'
 import * as fsp from 'node:fs/promises'
-import { tmpdir } from 'node:os'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import { promisify } from 'node:util'
 import { describe, expect, it } from 'vitest'
 import { serve } from '../src/node/index.ts'
-import { runCli } from './utils.ts'
+import { runCli, useTemporaryDirectories } from './utils.ts'
 
 const execFileAsync = promisify(execFile)
+const createDirectory = useTemporaryDirectories('kirbyup-modules-')
 
 // Script for a real Node process that imports each bundle as its own module, in
 // order and each in its own `try`, the way the Panel loads plugins. `vue`
@@ -24,27 +24,34 @@ for (const modulePath of process.argv.slice(2)) {
     failed.push(modulePath)
   }
 }
-process.stdout.write(JSON.stringify({ registered, failed }))
+process.stdout.write(JSON.stringify({ registered, failed, vueEvaluations: globalThis.vueEvaluations ?? 0 }))
 `
 
 // Shaped like `vue.esm-browser.js`, which the Panel's import map points `vue`
-// at: named exports, no default export.
-const VUE_STUB_SOURCE = `export const ref = value => ({ value })
+// at: named exports, no default export. Counts its evaluations, so a bundled
+// copy shows up as a second one.
+const VUE_STUB_SOURCE = `globalThis.vueEvaluations = (globalThis.vueEvaluations ?? 0) + 1
+export const ref = value => ({ value })
 `
 
 describe('plugin modules', () => {
-  it('a built plugin registers with `vue` resolved from outside the bundle', async () => {
-    const root = await createRoot()
+  it('two built plugins share one evaluation of vue', async () => {
+    const root = createRoot()
     await buildPlugin(root, 'alpha')
+    await buildPlugin(root, 'beta')
 
-    const { registered } = await evaluate(root, [bundlePath(root, 'alpha')])
+    const { registered, vueEvaluations } = await evaluate(root, [
+      bundlePath(root, 'alpha'),
+      bundlePath(root, 'beta'),
+    ])
 
-    expect(registered).toEqual(['test/alpha'])
+    expect.soft(registered).toEqual(['test/alpha', 'test/beta'])
+    expect.soft(vueEvaluations).toBe(1)
   })
 
   // Node rejects the dev bundle's `http:` import before connecting, so this
   // covers the rethrow, not a dead server as such.
-  it('a failing dev bundle rejects its own import and leaves alpha registered', async () => {
+  it('a failing dev bundle rejects its own import and leaves the other plugin registered', async () => {
     const { registered, failed } = await withDeadDevBundle()
 
     expect.soft(registered).toEqual(['test/alpha'])
@@ -52,15 +59,15 @@ describe('plugin modules', () => {
     expect.soft(failed[0]).toMatch(/index\.dev\.js$/)
   })
 
-  it('a dead dev bundle names the serve command in its console error', async () => {
+  it('a failing dev bundle names the serve command in its console error', async () => {
     const { stderr } = await withDeadDevBundle()
 
-    expect.soft(stderr).toContain('development server at http://localhost:5199')
+    expect.soft(stderr).toContain('Couldn\'t load the plugin from the development server at http://localhost:5199')
     expect.soft(stderr).toMatch(/run dev/)
   })
 })
 
-/** Memoised, because the two cases share one Vite server start. */
+/** Memoized, because the two cases share one Vite server start. */
 let deadDevBundleRun: Promise<EvaluationResult> | undefined
 function withDeadDevBundle() {
   deadDevBundleRun ??= evaluateDeadDevBundle()
@@ -68,7 +75,7 @@ function withDeadDevBundle() {
 }
 
 async function evaluateDeadDevBundle() {
-  const root = await createRoot()
+  const root = createRoot()
   await buildPlugin(root, 'alpha')
 
   const devDirectory = resolve(root, 'beta')
@@ -82,27 +89,33 @@ async function evaluateDeadDevBundle() {
   })
   // Kept for the run, since closing the server removes the dev bundle.
   const devBundlePath = resolve(root, 'beta-index.dev.js')
-  await fsp.copyFile(resolve(devDirectory, 'index.dev.js'), devBundlePath)
-  // Leaves the dev bundle pointing at a dead URL.
-  await server.close()
+  try {
+    await fsp.copyFile(resolve(devDirectory, 'index.dev.js'), devBundlePath)
+  }
+  finally {
+    await server.close()
+  }
 
   return evaluate(root, [devBundlePath, bundlePath(root, 'alpha')])
 }
 
-async function createRoot() {
-  const root = await fsp.mkdtemp(join(tmpdir(), 'kirbyup-modules-'))
-  // `plugin-vue` reads the major from whichever `vue` sits next to the entry
-  // before falling back to its own. Without a version it never gets that far.
-  await write(resolve(root, 'node_modules/vue/package.json'), '{ "name": "vue", "version": "3.5.42", "type": "module", "main": "index.js" }')
-  await write(resolve(root, 'node_modules/vue/index.js'), VUE_STUB_SOURCE)
-  return root
+function createRoot() {
+  return createDirectory({
+    // `plugin-vue` reads `version` from whichever `vue` sits next to the entry
+    // and throws without one, before falling back to the `vue` it resolves
+    // from itself.
+    'node_modules/vue/package.json': '{ "name": "vue", "version": "3.5.42", "type": "module", "main": "index.js" }',
+    'node_modules/vue/index.js': VUE_STUB_SOURCE,
+  })
 }
 
-async function buildPlugin(root: string, name: string, entry = pluginEntry(name)) {
+async function buildPlugin(root: string, name: string) {
   const cwd = resolve(root, name)
   await write(resolve(cwd, 'package.json'), `{ "name": "test-${name}", "type": "module" }`)
-  await write(resolve(cwd, 'src/input.js'), entry)
-  await runCli(['src/input.js'], { cwd })
+  await write(resolve(cwd, 'src/input.js'), pluginEntry(name))
+  const { exitCode, stderr } = await runCli(['src/input.js'], { cwd })
+  if (exitCode !== 0)
+    throw new Error(`Building ${name} failed: ${stderr}`)
 }
 
 function bundlePath(root: string, name: string) {
@@ -121,6 +134,7 @@ window.panel.plugin('test/${name}', { components: { '${name}': { count } } })
 interface EvaluationResult {
   registered: string[]
   failed: string[]
+  vueEvaluations: number
   stderr: string
 }
 
