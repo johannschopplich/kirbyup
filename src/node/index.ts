@@ -98,31 +98,39 @@ function getViteConfig(
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
-        formats: ['iife'],
-        // Required by Vite for the IIFE format, but never emitted: `exports:
-        // 'none'` leaves the wrapper unassigned.
-        name: 'kirbyupPlugin',
+        formats: ['es'],
         fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
       },
       minify: mode === 'production',
       outDir: options.outDir,
       emptyOutDir: false,
       rollupOptions: {
+        // The Panel's import map resolves `vue`, so every plugin shares the
+        // Panel's Vue instance.
         external: ['vue'],
         output: {
           assetFileNames: 'index.[ext]',
-          // Kirby loads plugins for their side effects only, so an export would
-          // be unreadable anyway. Refusing them keeps the IIFE unassigned.
-          exports: 'none',
-          // Kirby 6 has no Vue global; `vue` resolves through the Panel's import
-          // map. The IIFE therefore takes the module namespace as its argument.
-          globals: (id: string) => `await import(${JSON.stringify(id)})`,
+          // Kirby serves a plugin's `index.js` or `index.dev.js` and no other script,
+          // so a chunk would 404.
+          codeSplitting: false,
         },
       },
     },
   })
 
-  return mergeConfig(buildConfig, userConfig)
+  const config = mergeConfig(buildConfig, userConfig)
+  const output = config.build?.rollupOptions?.output
+
+  // Vite's library mode skips whitespace removal for ES output. Restored only
+  // for Vite's own minifier, and only when the config sets no `output.minify`.
+  if (
+    (config.build?.minify === true || config.build?.minify === 'oxc')
+    && output && !Array.isArray(output) && output.minify === undefined
+  ) {
+    output.minify = true
+  }
+
+  return config
 }
 
 async function generate(options: BuildOptions, context: ConfigContext): Promise<void> {

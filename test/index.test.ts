@@ -1,9 +1,8 @@
 import { resolve } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { runCli, useBuildFixtures, useTemporaryDirectories } from './utils.ts'
+import { useBuildFixtures } from './utils.ts'
 
 const buildFixture = useBuildFixtures()
-const createDirectory = useTemporaryDirectories()
 
 describe('kirbyup build', () => {
   beforeAll(() => {
@@ -25,28 +24,48 @@ describe('kirbyup build', () => {
     expect.soft(output).not.toMatch(/from\s+['"]\.\/foo/)
   })
 
-  it('rejects an entry that exports', async () => {
-    // Kirby loads plugins for their side effects only, so an export is dead
-    // weight the author is better off learning about at build time.
-    const { stderr, exitCode } = await runCli(['src/input.js'], {
-      cwd: createDirectory({ 'src/input.js': 'export default \'bar\'' }),
+  it('imports vue as a bare specifier', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nwindow.panel.plugin(\'kirbyup/test\', { count: ref(1) })',
     })
 
-    expect(stderr).toMatch(/INVALID_EXPORT_OPTION/)
-    expect(exitCode).toBe(1)
+    expect.soft(output).toMatch(/from\s*["'`]vue["'`]/)
+    expect.soft(output).not.toMatch(/import\(\s*["'`]vue/)
   })
 
-  it('rejects top-level await in the entry', async () => {
-    // The IIFE that keeps plugins out of each other's scope is synchronous, so
-    // Rolldown refuses the entry outright.
-    const { stderr, exitCode } = await runCli(['src/input.js'], {
-      cwd: createDirectory({
-        'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
-      }),
+  it('keeps an export in the entry', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'export const foo = \'bar\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
     })
 
-    expect(stderr).toMatch(/Top-level await/)
-    expect(exitCode).toBe(1)
+    expect(output).toMatch(/export\s*\{/)
+  })
+
+  it('keeps top-level await in the entry', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+    })
+
+    expect(output).toMatch(/await\s*Promise\.resolve/)
+  })
+
+  it('inlines a dynamic import into index.js', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'const { foo } = await import(\'./lazy.js\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+      'src/lazy.js': 'export const foo = \'bar\'',
+    })
+
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toMatch(/import\(/)
+  })
+
+  it('strips whitespace from index.js', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nconst count = ref(1)\nwindow.panel.plugin(\'kirbyup/test\', { count })',
+    })
+
+    expect.soft(output).toContain('panel.plugin')
+    expect.soft(output.trimEnd()).not.toContain('\n')
   })
 
   it('emits imported CSS as index.css', async () => {
@@ -172,6 +191,15 @@ describe('kirbyup build', () => {
 
     expect(output).not.toContain('import.meta.glob')
     expect(output).toMatch(/Call kirbyup\.import\(/)
+  })
+
+  it('keeps whitespace when the config turns minify off', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nconst count = ref(1)\nwindow.panel.plugin(\'kirbyup/test\', { count })',
+      'kirbyup.config.js': 'export default { vite: { build: { minify: false } } }',
+    })
+
+    expect(output.trimEnd()).toContain('\n')
   })
 
   it('applies the alias from a config exporting an object', async () => {

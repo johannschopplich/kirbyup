@@ -9,13 +9,22 @@ import { runCli } from './utils.ts'
 
 const execFileAsync = promisify(execFile)
 
-// Vitest resolves a dynamic import through Vite's module runner, which
-// transforms the source and never reaches the duplicate-declaration early error
-// these tests exist to catch. Only a real Node process does.
+// Script for a real Node process that imports each bundle as its own module, in
+// order and each in its own `try`, the way the Panel loads plugins. `vue`
+// resolves from `node_modules` as the import map would resolve it, outside
+// Vite's module runner.
 const RUNNER_SOURCE = `const registered = []
+const failed = []
 globalThis.window = { panel: { plugin: name => registered.push(name) } }
-await import('./bundle.mjs')
-process.stdout.write(JSON.stringify(registered))
+for (const modulePath of process.argv.slice(2)) {
+  try {
+    await import(modulePath)
+  }
+  catch {
+    failed.push(modulePath)
+  }
+}
+process.stdout.write(JSON.stringify({ registered, failed }))
 `
 
 // Shaped like `vue.esm-browser.js`, which the Panel's import map points `vue`
@@ -23,38 +32,24 @@ process.stdout.write(JSON.stringify(registered))
 const VUE_STUB_SOURCE = `export const ref = value => ({ value })
 `
 
-describe('concatenated plugin bundles', () => {
-  it('register two plugins that import the same vue binding', async () => {
+describe('plugin modules', () => {
+  it('a built plugin registers with `vue` resolved from outside the bundle', async () => {
     const root = await createRoot()
     await buildPlugin(root, 'alpha')
-    await buildPlugin(root, 'beta')
 
-    const { registered } = await evaluate(root, [
-      await readBundle(root, 'alpha'),
-      await readBundle(root, 'beta'),
-    ])
+    const { registered } = await evaluate(root, [bundlePath(root, 'alpha')])
 
-    expect(registered).toEqual(['test/alpha', 'test/beta'])
-  })
-
-  it('register a plugin that imports no vue beside one that does', async () => {
-    const root = await createRoot()
-    await buildPlugin(root, 'alpha')
-    // Rolldown passes an argument only for externals the entry actually
-    // imports, so this bundle's IIFE has a different arity from alpha's.
-    await buildPlugin(root, 'gamma', standalonePluginEntry('gamma'))
-
-    const { registered } = await evaluate(root, [
-      await readBundle(root, 'alpha'),
-      await readBundle(root, 'gamma'),
-    ])
-
-    expect(registered).toEqual(['test/alpha', 'test/gamma'])
-  })
-
-  it('a dead dev bundle leaves the other plugins registered', async () => {
-    const { registered } = await withDeadDevBundle()
     expect(registered).toEqual(['test/alpha'])
+  })
+
+  // Node rejects the dev bundle's `http:` import before connecting, so this
+  // covers the rethrow, not a dead server as such.
+  it('a failing dev bundle rejects its own import and leaves alpha registered', async () => {
+    const { registered, failed } = await withDeadDevBundle()
+
+    expect.soft(registered).toEqual(['test/alpha'])
+    expect.soft(failed).toHaveLength(1)
+    expect.soft(failed[0]).toMatch(/index\.dev\.js$/)
   })
 
   it('a dead dev bundle names the serve command in its console error', async () => {
@@ -85,15 +80,17 @@ async function evaluateDeadDevBundle() {
     port: 5199,
     watch: false,
   })
-  const devBundle = await fsp.readFile(resolve(devDirectory, 'index.dev.js'), 'utf8')
+  // Kept for the run, since closing the server removes the dev bundle.
+  const devBundlePath = resolve(root, 'beta-index.dev.js')
+  await fsp.copyFile(resolve(devDirectory, 'index.dev.js'), devBundlePath)
   // Leaves the dev bundle pointing at a dead URL.
   await server.close()
 
-  return evaluate(root, [devBundle, await readBundle(root, 'alpha')])
+  return evaluate(root, [devBundlePath, bundlePath(root, 'alpha')])
 }
 
 async function createRoot() {
-  const root = await fsp.mkdtemp(join(tmpdir(), 'kirbyup-concat-'))
+  const root = await fsp.mkdtemp(join(tmpdir(), 'kirbyup-modules-'))
   // `plugin-vue` reads the major from whichever `vue` sits next to the entry
   // before falling back to its own. Without a version it never gets that far.
   await write(resolve(root, 'node_modules/vue/package.json'), '{ "name": "vue", "version": "3.5.42", "type": "module", "main": "index.js" }')
@@ -108,8 +105,8 @@ async function buildPlugin(root: string, name: string, entry = pluginEntry(name)
   await runCli(['src/input.js'], { cwd })
 }
 
-function readBundle(root: string, name: string) {
-  return fsp.readFile(resolve(root, name, 'index.js'), 'utf8')
+function bundlePath(root: string, name: string) {
+  return resolve(root, name, 'index.js')
 }
 
 function pluginEntry(name: string) {
@@ -121,30 +118,19 @@ window.panel.plugin('test/${name}', { components: { '${name}': { count } } })
 `
 }
 
-function standalonePluginEntry(name: string) {
-  return `window.panel.plugin('test/${name}', { components: { '${name}': {} } })
-`
-}
-
 interface EvaluationResult {
   registered: string[]
+  failed: string[]
   stderr: string
 }
 
-/**
- * Joins the bundles the way `Plugins::read()` does and imports the result as one
- * module. An empty bundle registers nothing, so this also catches a `globals`
- * expression that silently failed to parse.
- */
-async function evaluate(root: string, bundles: string[]): Promise<EvaluationResult> {
-  const directory = await fsp.mkdtemp(join(root, 'run-'))
+async function evaluate(root: string, bundlePaths: string[]): Promise<EvaluationResult> {
+  const runner = resolve(root, 'runner.mjs')
+  await write(runner, RUNNER_SOURCE)
 
-  await write(resolve(directory, 'bundle.mjs'), bundles.join('\n\n'))
-  await write(resolve(directory, 'runner.mjs'), RUNNER_SOURCE)
+  const { stdout, stderr } = await execFileAsync(process.execPath, [runner, ...bundlePaths])
 
-  const { stdout, stderr } = await execFileAsync(process.execPath, [resolve(directory, 'runner.mjs')])
-
-  return { registered: JSON.parse(stdout) as string[], stderr }
+  return { ...JSON.parse(stdout) as Omit<EvaluationResult, 'stderr'>, stderr }
 }
 
 async function write(path: string, content: string) {

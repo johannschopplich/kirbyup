@@ -136,16 +136,16 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
 }
 
 function getViteProxyModule(entryUrl: string, packageManager: string) {
-  // Kirby splices this module into the same concatenated bundle as every other
-  // plugin, so rethrowing would abort evaluation and take the rest down with it.
+  // Rethrown for Kirby to log with the plugin's URL; it imports each plugin in
+  // its own `try`, so the others still load.
   return `
 try {
   await import("${entryUrl}");
 } catch (error) {
   console.error(
-    "[kirbyup] Couldn't connect to the development server at ${entryUrl}. Run \`${packageManager} run dev\` to start Vite or build the plugin with \`${packageManager} run build\` so Kirby uses the production version.",
-    error
+    "[kirbyup] Couldn't load the plugin from the development server at ${entryUrl}. If it isn't running, run \`${packageManager} run dev\` to start Vite, or build the plugin with \`${packageManager} run build\` so Kirby uses the production version."
   );
+  throw error;
 }
 `.trimStart()
 }
