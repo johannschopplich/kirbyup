@@ -39,7 +39,9 @@ export function useBuildFixtures(): (files: FileMap) => Promise<BuildFixtureResu
     const getFileContent = async (filename: string) =>
       normalizeOutput(await fsp.readFile(path.resolve(directory, filename), 'utf8'))
 
-    await runCli(['src/input.js'], { cwd: directory })
+    const { exitCode, stderr } = await runCli(['src/input.js'], { cwd: directory })
+    if (exitCode !== 0)
+      throw new Error(`The fixture build exited with ${exitCode}: ${stderr}`)
 
     return { output: await getFileContent('index.js'), getFileContent }
   }
