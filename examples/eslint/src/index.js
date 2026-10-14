@@ -1,7 +1,7 @@
-import DemoSection from './components/DemoSection.vue'
+import DemoField from './components/DemoField.vue'
 
 window.panel.plugin('kirbyup/pluginkit', {
-  sections: {
-    demo: DemoSection,
+  fields: {
+    demo: DemoField,
   },
 })
