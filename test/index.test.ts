@@ -149,20 +149,18 @@ describe('kirbyup build', () => {
   it('compiles Vue single-file components', async () => {
     const { output } = await buildFixture({
       'src/input.js': `
-      import DemoSection from './fields/DemoSection.vue'
+      import DemoField from './fields/DemoField.vue'
       window.panel.plugin('kirbyup/test', {
-        sections: {
-          demo: DemoSection
+        fields: {
+          demo: DemoField
         }
       })
     `,
-      'src/fields/DemoSection.vue': `
+      'src/fields/DemoField.vue': `
       <template>
-        <section class="k-demo-section">
-          <header class="k-section-header">
-            <h2 class="k-headline">Custom section</h2>
-          </header>
-        </section>
+        <div class="k-demo-field">
+          <h2 class="k-headline">Custom field</h2>
+        </div>
       </template>
 
       <script>
@@ -174,7 +172,7 @@ describe('kirbyup build', () => {
       </script>
 
       <style>
-      .k-demo-section {
+      .k-demo-field {
         padding: 20px;
       }
       </style>
