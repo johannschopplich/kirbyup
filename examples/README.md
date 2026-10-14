@@ -1,6 +1,6 @@
 # Starters
 
-The following starters recommended instead of [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel). They provide a better developer experience out of the box, like ESLint and UnoCSS:
+The following starters are recommended instead of [Kirby's default `pluginkit`](https://github.com/getkirby/pluginkit/tree/4-panel). They provide a better developer experience out of the box, like ESLint and UnoCSS:
 
 - [`eslint`](./eslint)
 - [`unocss`](./unocss)
