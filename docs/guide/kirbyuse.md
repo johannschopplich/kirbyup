@@ -1,6 +1,6 @@
 # kirbyuse
 
-[kirbyuse](https://github.com/johannschopplich/kirbyuse) adds the Kirby-specific layer on top of Vue: types for `window.panel`, composables for common Panel tasks and prop sets for sections, fields and blocks.
+[kirbyuse](https://github.com/johannschopplich/kirbyuse) adds the Kirby-specific layer on top of Vue: types for `window.panel`, composables for common Panel tasks and prop sets for fields and blocks.
 
 ::: info Versions
 kirbyuse 2 pairs with kirbyup 4 and Kirby 6. Kirby 4 and 5 plugins use kirbyuse 1 with kirbyup 3.
@@ -27,8 +27,8 @@ Kirby 6 exposes `vue` through an import map, and kirbyup leaves `vue` out of the
 <!-- eslint-skip -->
 
 ```js
-import { computed, ref, usePanel, useSection } from 'kirbyuse' // [!code --]
-import { usePanel, useSection } from 'kirbyuse' // [!code ++]
+import { computed, ref, usePanel } from 'kirbyuse' // [!code --]
+import { usePanel } from 'kirbyuse' // [!code ++]
 import { computed, ref } from 'vue' // [!code ++]
 ```
 
@@ -61,45 +61,6 @@ window.panel.notification.success('Types work')
 No TypeScript required, the hints work in JavaScript files as well.
 
 ## Composables
-
-### `useSection`
-
-Loads the section data Kirby prepared on the server. Together with the `section` prop set this is all a custom section needs:
-
-```vue
-<!-- src/components/DemoSection.vue -->
-<script setup>
-import { useSection } from 'kirbyuse'
-import { section } from 'kirbyuse/props'
-import { ref } from 'vue'
-
-defineOptions({ inheritAttrs: false })
-
-const props = defineProps({ ...section })
-
-const label = ref('')
-const items = ref([])
-
-const { load } = useSection()
-
-async function loadSection() {
-  const response = await load({
-    parent: props.parent,
-    name: props.name,
-  })
-  label.value = response.label
-  items.value = response.items
-}
-
-loadSection()
-</script>
-
-<template>
-  <k-section :label="label">
-    <k-items :items="items" />
-  </k-section>
-</template>
-```
 
 ### `useContent`
 
@@ -163,7 +124,6 @@ For Kirby's own translation strings, `panel.t()` is the right call.
 | `usePanel` | The typed `window.panel` |
 | `useApi` | `panel.api` for requests to the backend |
 | `useApp` | `panel.app`, the Vue application instance |
-| `useSection` | `{ load }` |
 | `useContent` | `{ content, currentContent, contentChanges, hasChanges, update }` |
 | `useDialog` | `{ openTextDialog, openFieldsDialog }` |
 | `useBlock` | `{ field, open, update }` for custom block components |
@@ -176,9 +136,9 @@ For Kirby's own translation strings, `panel.t()` is the right call.
 `kirbyuse/props` exports the props Kirby passes to a component, so you spread them instead of copying them:
 
 ```js
-import { field, section } from 'kirbyuse/props'
+import { field } from 'kirbyuse/props'
 
-defineProps({ ...section })
+defineProps({ ...field })
 ```
 
 The individual field props such as `label`, `disabled` and `required` are available as well.

@@ -14,7 +14,7 @@ Upgrading an existing plugin? Read the [migration guide](/guide/migration).
 ::: tip Starters
 Skip the setup with one of the starters:
 
-- [`eslint`](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint): a section plugin with ESLint configured.
+- [`eslint`](https://github.com/johannschopplich/kirbyup/tree/main/examples/eslint): a field plugin with ESLint configured.
 - [`unocss`](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss): the same, plus [UnoCSS](/guide/unocss) utilities.
 :::
 
@@ -50,11 +50,11 @@ The entry file registers the plugin as usual:
 
 ```js
 // src/index.js
-import DemoSection from './components/DemoSection.vue'
+import DemoField from './components/DemoField.vue'
 
 window.panel.plugin('my/plugin', {
-  sections: {
-    demo: DemoSection,
+  fields: {
+    demo: DemoField,
   },
 })
 ```

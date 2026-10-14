@@ -50,7 +50,7 @@ features:
     linkText: Style your plugin
   - title: kirbyuse
     icon: <span class="i-ri-code-box-line"></span>
-    details: Typed <code>window.panel</code>, composables and prop helpers for sections, fields and blocks.
+    details: Typed <code>window.panel</code>, composables and prop helpers for fields and blocks.
     link: /guide/kirbyuse
     linkText: Meet kirbyuse
 ---
