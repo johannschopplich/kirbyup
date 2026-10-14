@@ -41,6 +41,7 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `build.rolldownOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
 | `build.rolldownOptions.output.codeSplitting` | `false` | Fixed, Kirby serves no script beside `index.js` or `index.dev.js` |
 | `build.minify` | `true` for production, `false` for watch builds | With Vite's own minifier, kirbyup also sets `build.rolldownOptions.output.minify`, which Vite's library mode leaves without whitespace removal. Set it yourself to override. `'esbuild'` keeps the whitespace. |
+| `build.target` | The browsers the Kirby Panel supports | Yours replaces it |
 | `server.port` | `--port`, default `5177` | Config wins over the flag |
 | `server.origin` | Derived from `server.host`, `server.https` and the port | The URL written into `index.dev.js` |
 | `server.strictPort` | `true` | Fails instead of picking another port |
