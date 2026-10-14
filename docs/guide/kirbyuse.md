@@ -153,5 +153,7 @@ For assets that should load on demand, register them once and resolve them by fi
 | `resolvePluginAsset(filename)` | Returns the registered asset |
 | `loadPluginModule(filename)` | Imports a registered JavaScript module, cached |
 
+## Resources
+
 - [kirbyuse on GitHub](https://github.com/johannschopplich/kirbyuse): every composable with examples.
-- [Kirby Minimap](https://github.com/johannschopplich/kirby-minimap) and [Kirby SERP Preview](https://github.com/johannschopplich/kirby-serp-preview): plugins built with kirbyup and kirbyuse.
+- [Kirby Minimap](https://github.com/johannschopplich/kirby-minimap), [Kirby Content Translator](https://github.com/kirby-tools/kirby-content-translator) and [Kirby SERP Preview](https://github.com/johannschopplich/kirby-serp-preview): plugins built with kirbyup and kirbyuse.
