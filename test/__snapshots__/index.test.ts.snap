@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`kirbyup build > compiles Vue single-file components 1`] = `"import{createElementBlock as e,createElementVNode as t,openBlock as n}from"vue";var r=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},i={created(){console.log(\`created\`)}},a={class:\`k-demo-field\`};function o(r,i,o,s,c,l){return n(),e(\`div\`,a,[...i[0]||=[t(\`h2\`,{class:\`k-headline\`},\`Custom field\`,-1)]])}var s=r(i,[[\`render\`,o]]);window.panel.plugin(\`kirbyup/test\`,{fields:{demo:s}});"`;
+exports[`kirbyup build > compiles Vue single-file components 1`] = `"import{createElementBlock as e,createElementVNode as t,openBlock as n}from"vue";var r=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},i={created(){console.log(\`created\`)}},a={class:\`k-demo-field\`};function o(r,i,o,s,c,l){return n(),e(\`div\`,a,[...i[0]||=[t(\`h2\`,{class:\`k-headline\`},\`Custom field\`,-1)]])}var s=/*#__PURE__*/ r(i,[[\`render\`,o]]);window.panel.plugin(\`kirbyup/test\`,{fields:{demo:s}});"`;
 
 exports[`kirbyup build > emits imported CSS as index.css 1`] = `
 ".foo{content:"bar"}
