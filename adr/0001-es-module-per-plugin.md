@@ -8,7 +8,7 @@ Kirby 6 imports each plugin's `index.js` as its own module ([getkirby/kirby#8603
 
 ## Consequences
 
-The build stays one script (`output.codeSplitting: false`). Kirby serves a plugin's script at `media/plugins/{vendor}/{name}.js` and no other script beside it, so a chunk from a dynamic `import()` would 404.
+The build stays one script (`output.codeSplitting: false`). Kirby serves a plugin's script at `media/plugins/{vendor}/{name}.{hash}.js` and no other script beside it, so a chunk from a dynamic `import()` would 404.
 
 Kirby awaits the plugins in order, so a top-level `await` in one plugin delays the Panel's mount.
 
