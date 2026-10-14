@@ -124,7 +124,7 @@ For Kirby's own translation strings, `panel.t()` is the right call.
 | `usePanel` | The typed `window.panel` |
 | `useApi` | `panel.api` for requests to the backend |
 | `useApp` | `panel.app`, the Vue application instance |
-| `useContent` | `{ content, currentContent, contentChanges, hasChanges, update }` |
+| `useContent` | `{ content, currentContent, contentChanges, hasChanges, isEditable, update }` |
 | `useDialog` | `{ openTextDialog, openFieldsDialog }` |
 | `useBlock` | `{ field, open, update }` for custom block components |
 | `useI18n` | `{ t }` |
