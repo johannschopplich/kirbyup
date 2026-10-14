@@ -1,12 +1,11 @@
-minimumReleaseAgeExclude:
-  - unplugin-raw@0.8.0
-  - utilful@3.5.1
+minimumReleaseAgeExcludePrune: true
 
-shellEmulator: true
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - semver@6.3.1
   - vite@5.4.21
+
+shellEmulator: true
 
 packages:
   - docs
