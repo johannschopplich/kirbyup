@@ -13,6 +13,7 @@ import { loadConfig } from './config.ts'
 import * as output from './output.ts'
 import {
   kirbyupBuildCleanupPlugin,
+  kirbyupBuildTargetPlugin,
   kirbyupFullReloadPlugin,
   kirbyupGlobImportPlugin,
   kirbyupHmrPlugin,
@@ -94,7 +95,7 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
+    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions), kirbyupBuildTargetPlugin()],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),

@@ -78,6 +78,27 @@ describe('kirbyup build', () => {
     expect(css).toMatchSnapshot()
   })
 
+  it('keeps light-dark() in index.css', async () => {
+    const { getFileContent } = await buildFixture({
+      'src/input.js': 'import \'./input.css\'',
+      'src/input.css': '.foo { color: light-dark(#111, #eee); }',
+    })
+
+    const css = await getFileContent('index.css')
+    expect(css).toContain('light-dark(#111,#eee)')
+  })
+
+  it('lowers light-dark() for the build.target in vite.config.js', async () => {
+    const { getFileContent } = await buildFixture({
+      'src/input.js': 'import \'./input.css\'',
+      'src/input.css': '.foo { color: light-dark(#111, #eee); }',
+      'vite.config.js': 'export default { build: { target: [\'chrome111\'] } }',
+    })
+
+    const css = await getFileContent('index.css')
+    expect(css).not.toContain('light-dark(')
+  })
+
   it('resolves the ~/ alias', async () => {
     const { output } = await buildFixture({
       'src/input.js': 'import foo from \'~/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
