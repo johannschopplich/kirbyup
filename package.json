@@ -17,12 +17,11 @@
   },
   "bugs": "https://github.com/johannschopplich/kirbyup/issues",
   "keywords": [
-    "kirby-cms",
-    "kirby-plugin",
     "kirby",
-    "cli",
-    "panel",
-    "bundler"
+    "kirby-cms",
+    "getkirby",
+    "kirby-panel",
+    "vite"
   ],
   "exports": {
     ".": {
