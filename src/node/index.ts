@@ -22,6 +22,7 @@ import { toArray } from './utils.ts'
 import { resolveOriginFromServerOptions } from './utils/server.ts'
 
 const DEV_OUTPUT_FILENAME = 'index.dev.js'
+const DEV_STYLESHEET_FILENAME = 'index.dev.css'
 const SUPPRESSED_WARNING = '(!) build.outDir'
 
 const logLevel: LogLevel = 'warn'
@@ -101,9 +102,10 @@ function getViteConfig(
         entry: resolve(options.cwd, options.entry),
         formats: ['es'],
         fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
-        // Without it, Vite names the stylesheet after the `package.json` name
-        // and fails the build for a plugin that has none.
-        cssFileName: 'index',
+        // Kirby pairs `index.dev.css` with `index.dev.js`, so a watch build
+        // leaves the shipped `index.css` alone. Naming the stylesheet also
+        // keeps Vite from requiring a `package.json` name.
+        cssFileName: options.watch ? 'index.dev' : 'index',
       },
       minify: mode === 'production',
       outDir: options.outDir,
@@ -206,8 +208,9 @@ export async function build(options: BuildOptions): Promise<void> {
     generate(options, context).catch(reportFailure)
   }, 100)
 
-  const ignoredPaths = [DEV_OUTPUT_FILENAME, 'index.css']
-    .map(filename => normalizePath(resolve(cwd, options.outDir, filename)))
+  const devOutputPaths = [DEV_OUTPUT_FILENAME, DEV_STYLESHEET_FILENAME]
+    .map(filename => resolve(cwd, options.outDir, filename))
+  const ignoredPaths = devOutputPaths.map(normalizePath)
 
   // chokidar matches a string only as an exact path, never as a glob, and
   // hands the function an absolute path with forward slashes.
@@ -227,19 +230,19 @@ export async function build(options: BuildOptions): Promise<void> {
     cwd,
   })
 
-  const devOutputPath = resolve(options.outDir, DEV_OUTPUT_FILENAME)
-
   const cleanup = async () => {
     await watcher.close().catch(() => {})
-    await fsp.rm(devOutputPath, { force: true }).catch(() => {})
+    await Promise.all(devOutputPaths.map(path => fsp.rm(path, { force: true }).catch(() => {})))
   }
 
   // An `exit` handler cannot await, so `cleanup` is repeated synchronously here.
   process.once('exit', () => {
-    try {
-      fs.rmSync(devOutputPath, { force: true })
+    for (const path of devOutputPaths) {
+      try {
+        fs.rmSync(path, { force: true })
+      }
+      catch {}
     }
-    catch {}
   })
 
   const onShutdown = () => {

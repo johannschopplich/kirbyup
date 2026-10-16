@@ -28,6 +28,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let entry: string
   let entryId: string
   let devIndexPath: string
+  let devStylesheetPath: string
   let vueStubCode: string | undefined
 
   let markWritten: () => void
@@ -61,6 +62,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       entry = resolve(config.root, options.entry)
       entryId = normalizePath(entry)
       devIndexPath = resolve(config.root, options.outDir ?? '', 'index.dev.js')
+      devStylesheetPath = resolve(config.root, options.outDir ?? '', 'index.dev.css')
 
       // Introspect Vue's named exports so the stub can re-emit them.
       try {
@@ -117,6 +119,9 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
           const entryUrl = new URL(entryPath, baseUrl).href
           const pm = detectPackageManager(config.root)
 
+          // Kirby pairs a stylesheet a killed watch build left behind with
+          // `index.dev.js`, next to the styles Vite injects.
+          await fsp.rm(devStylesheetPath, { force: true })
           await fsp.writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
           markWritten()
         }

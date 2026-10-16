@@ -13,7 +13,7 @@ The Panel moves from Vue 2 to Vue 3, and fields replace sections. What that mean
 1. Node.js 24 or newer.
 2. `pnpm add -D kirbyup@^4 kirbyuse@^2`
 3. Rename the `serve` script to `dev`.
-4. Replace `index.dev.mjs` with `index.dev.js` in `.gitignore`.
+4. Replace `index.dev.mjs` with `index.dev.*` in `.gitignore`.
 5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`.
 6. Replace `extendViteConfig` with `vite` in the config file.
 
@@ -46,14 +46,14 @@ kirbyup 4 requires Node.js 24 and Kirby 6.0.0-beta.1 or later. Kirby 4 and 5 sta
 
 ## Output Files
 
-`index.dev.mjs` is now `index.dev.js`. Update `.gitignore`:
+`index.dev.mjs` is now `index.dev.js`, and watch builds add `index.dev.css`. Update `.gitignore`:
 
 ```ini
 # .gitignore
-index.dev.js
+index.dev.*
 ```
 
-Watch builds write to `index.dev.js` as well, not to `index.js`. Kirby prefers the dev file when it exists, and the next production build removes it.
+Watch builds write to `index.dev.js` and `index.dev.css` as well, not to `index.js` and `index.css`. Kirby prefers the dev files when they exist, and the next production build removes them.
 
 ## Config File
 
