@@ -7,8 +7,3 @@ ignore = "exit 0"
 
 [context.branch-deploy]
 ignore = "exit 0"
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
