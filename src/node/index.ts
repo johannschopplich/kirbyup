@@ -101,6 +101,9 @@ function getViteConfig(
         entry: resolve(options.cwd, options.entry),
         formats: ['es'],
         fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
+        // Without it, Vite names the stylesheet after the `package.json` name
+        // and fails the build for a plugin that has none.
+        cssFileName: 'index',
       },
       minify: mode === 'production',
       outDir: options.outDir,
@@ -110,7 +113,7 @@ function getViteConfig(
         // Panel's Vue instance.
         external: ['vue'],
         output: {
-          assetFileNames: 'index.[ext]',
+          assetFileNames: '[name][extname]',
           // Kirby serves a plugin's `index.js` or `index.dev.js` and no other script,
           // so a chunk would 404.
           codeSplitting: false,

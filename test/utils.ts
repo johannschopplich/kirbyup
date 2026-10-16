@@ -28,9 +28,6 @@ export function useBuildFixtures(): (files: FileMap) => Promise<BuildFixtureResu
   const createDirectory = useTemporaryDirectories()
 
   return async (files: FileMap) => {
-    // Vite reads the name from the nearest `package.json` when it has to name
-    // the CSS bundle, so a fixture without one is not a plugin folder Vite can
-    // build – the same failure a real plugin without a manifest would hit.
     const directory = createDirectory({
       'package.json': '{ "name": "kirbyup-fixture", "type": "module" }',
       ...files,
