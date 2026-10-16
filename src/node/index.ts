@@ -8,7 +8,7 @@ import vuePlugin from '@vitejs/plugin-vue'
 import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { debounce } from 'perfect-debounce'
 import { CliError, reportFailure } from 'utilful/cli'
-import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
+import { build as _build, createLogger, createServer, mergeConfig, normalizePath } from 'vite'
 import { loadConfig } from './config.ts'
 import * as output from './output.ts'
 import {
@@ -206,11 +206,13 @@ export async function build(options: BuildOptions): Promise<void> {
     generate(options, context).catch(reportFailure)
   }, 100)
 
-  const ignored = [
-    '**/{.git,node_modules}/**',
-    'index.{css,js}',
-    DEV_OUTPUT_FILENAME,
-  ]
+  const ignoredPaths = [DEV_OUTPUT_FILENAME, 'index.css']
+    .map(filename => normalizePath(resolve(cwd, options.outDir, filename)))
+
+  // chokidar matches a string only as an exact path, never as a glob, and
+  // hands the function an absolute path with forward slashes.
+  const ignored = (file: string) =>
+    /\/(?:\.git|node_modules)(?:\/|$)/.test(file) || ignoredPaths.includes(file)
 
   const watchPaths = options.watch === true
     ? dirname(options.entry)

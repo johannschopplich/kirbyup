@@ -1,3 +1,5 @@
+import type { ChildProcess } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import * as path from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -102,3 +104,53 @@ describe('kirbyup CLI as a child process', () => {
     expect(exitCode).toBe(1)
   })
 })
+
+describe('watch builds', () => {
+  const CSS_PLUGIN: Record<string, string> = {
+    ...PLUGIN,
+    'src/input.js': 'import \'./input.css\'',
+    'src/input.css': '.live { color: red; }',
+  }
+
+  it('ignores its own output when --watch-path covers the plugin root', async () => {
+    const directory = createDirectory(CSS_PLUGIN)
+    const watcher = startWatchBuild(directory, ['--watch-path', '.'])
+    let log = ''
+    watcher.stderr!.on('data', chunk => log += chunk)
+    watcher.stdout!.on('data', chunk => log += chunk)
+
+    try {
+      await waitForFile(path.join(directory, 'index.dev.js'), true)
+      await new Promise(resolve => setTimeout(resolve, 500))
+      expect(log).not.toMatch(/ (?:add|change)$/m)
+    }
+    finally {
+      await stopProcess(watcher)
+    }
+  })
+})
+
+function startWatchBuild(cwd: string, args: string[] = ['--watch']): ChildProcess {
+  return spawn(process.execPath, [path.join(import.meta.dirname, '../bin/kirbyup.mjs'), 'src/input.js', ...args], {
+    cwd,
+    stdio: ['ignore', 'pipe', 'pipe'],
+    env: { ...process.env, NO_COLOR: '1' },
+  })
+}
+
+async function stopProcess(child: ChildProcess): Promise<void> {
+  if (child.exitCode !== null)
+    return
+  const exited = new Promise(resolve => child.once('exit', resolve))
+  child.kill('SIGINT')
+  await exited
+}
+
+async function waitForFile(filePath: string, shouldExist: boolean): Promise<void> {
+  const deadline = Date.now() + 4_000
+  while (existsSync(filePath) !== shouldExist) {
+    if (Date.now() > deadline)
+      throw new Error(`Timed out waiting for ${filePath} to ${shouldExist ? 'appear' : 'disappear'}`)
+    await new Promise(resolve => setTimeout(resolve, 50))
+  }
+}
