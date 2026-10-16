@@ -14,7 +14,7 @@ Directory for the output files. Defaults to the current working directory.
 
 #### `-w, --watch`
 
-Rebuilds when a file in the entry file's folder changes. Watch builds are unminified and written to `index.dev.js`, which is removed when the process exits. The config file is reloaded on change.
+Rebuilds when a file in the entry file's folder changes. Watch builds are unminified and written to `index.dev.js` and `index.dev.css`, which are removed when the process exits. The config file is reloaded on change.
 
 #### `--watch-path <paths>`
 
@@ -99,5 +99,6 @@ The name of `dev` before v4. It takes the same options and prints a hint to rena
 | `index.js` | `kirbyup <file>` | Minified plugin bundle |
 | `index.css` | `kirbyup <file>` | Styles, if the plugin has any |
 | `index.dev.js` | `dev`, `--watch` | Loader for the dev server, or the unminified watch build |
+| `index.dev.css` | `--watch` | Styles of the watch build, if the plugin has any |
 
-Kirby loads `index.dev.js` when it exists. A production build removes it, `dev` and watch builds remove it on exit. Add it to `.gitignore`.
+Kirby loads `index.dev.js` when it exists and skips `index.css`, taking `index.dev.css` instead if there is one. A production build removes both, a watch build removes both on exit, and `dev` removes `index.dev.js` on exit and a leftover `index.dev.css` on start. Add `index.dev.*` to `.gitignore`.

@@ -78,6 +78,25 @@ describe('kirbyup build', () => {
     expect(css).toMatchSnapshot()
   })
 
+  it('emits index.css for a plugin without a package name', async () => {
+    const { getFileContent } = await buildFixture({
+      'package.json': '{ "type": "module" }',
+      'src/input.js': 'import \'./input.css\'',
+      'src/input.css': '.foo { content: "bar"; }',
+    })
+
+    expect(await getFileContent('index.css')).toContain('.foo')
+  })
+
+  it('removes a leftover index.dev.css', async () => {
+    const { getFileContent } = await buildFixture({
+      'index.dev.css': '.stale {}',
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', {})',
+    })
+
+    await expect(getFileContent('index.dev.css')).rejects.toThrow(/ENOENT/)
+  })
+
   it('keeps light-dark() in index.css', async () => {
     const { getFileContent } = await buildFixture({
       'src/input.js': 'import \'./input.css\'',

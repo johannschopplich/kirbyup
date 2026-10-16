@@ -12,6 +12,7 @@ const VITE_HASH_UPDATE_MARKER_RE = /\/\*\$vite\$:\d+\*\/\s*$/
 export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig
   let devIndexPath: string
+  let devStylesheetPath: string
 
   return {
     name: 'kirbyup:build-cleanup',
@@ -21,6 +22,7 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
     configResolved(resolvedConfig) {
       config = resolvedConfig
       devIndexPath = resolve(config.root, options.outDir, 'index.dev.js')
+      devStylesheetPath = resolve(config.root, options.outDir, 'index.dev.css')
     },
 
     generateBundle(_outputOptions, bundle) {
@@ -30,13 +32,17 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
       }
     },
 
-    writeBundle() {
-      // Skip in watch mode – `index.dev.js` is the build's own output there.
-      if (options.watch)
+    writeBundle(_outputOptions, bundle) {
+      // A watch build without CSS removes the stylesheet an earlier one wrote,
+      // which Kirby would still pair with `index.dev.js`.
+      if (options.watch) {
+        if (!('index.dev.css' in bundle))
+          fs.rmSync(devStylesheetPath, { force: true })
         return
+      }
 
-      if (fs.existsSync(devIndexPath))
-        fs.unlinkSync(devIndexPath)
+      fs.rmSync(devIndexPath, { force: true })
+      fs.rmSync(devStylesheetPath, { force: true })
     },
   }
 }
