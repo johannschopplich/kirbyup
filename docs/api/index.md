@@ -101,4 +101,4 @@ The name of `dev` before v4. It takes the same options and prints a hint to rena
 | `index.dev.js` | `dev`, `--watch` | Loader for the dev server, or the unminified watch build |
 | `index.dev.css` | `--watch` | Styles of the watch build, if the plugin has any |
 
-Kirby loads `index.dev.js` when it exists and skips `index.css`, taking `index.dev.css` instead if there is one. A production build removes both, `dev` and watch builds remove them on exit. Add `index.dev.*` to `.gitignore`.
+Kirby loads `index.dev.js` when it exists and skips `index.css`, taking `index.dev.css` instead if there is one. A production build removes both, a watch build removes both on exit, and `dev` removes `index.dev.js` on exit and a leftover `index.dev.css` on start. Add `index.dev.*` to `.gitignore`.

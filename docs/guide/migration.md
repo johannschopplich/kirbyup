@@ -46,14 +46,14 @@ kirbyup 4 requires Node.js 24 and Kirby 6.0.0-beta.1 or later. Kirby 4 and 5 sta
 
 ## Output Files
 
-`index.dev.mjs` is now `index.dev.js`, and watch builds add `index.dev.css`. Update `.gitignore`:
+`index.dev.mjs` is now `index.dev.js`. Update `.gitignore`:
 
 ```ini
 # .gitignore
 index.dev.*
 ```
 
-Watch builds write to `index.dev.js` and `index.dev.css` as well, not to `index.js` and `index.css`. Kirby prefers the dev files when they exist, and the next production build removes them.
+Watch builds write `index.dev.js` and `index.dev.css` instead of `index.js` and `index.css`. Kirby prefers the dev files when they exist, and the next production build removes them.
 
 ## Config File
 
