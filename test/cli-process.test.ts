@@ -137,11 +137,9 @@ describe('watch builds', () => {
 
     try {
       await vi.waitFor(() => expect(existsSync(devStylesheetPath)).toBe(true), { timeout: 4_000 })
-      // Rewritten on every retry, since chokidar may still be scanning.
-      await vi.waitFor(async () => {
-        await fsp.writeFile(path.join(directory, 'src/input.js'), PLUGIN['src/input.js']!)
+      await rewriteUntil(path.join(directory, 'src/input.js'), PLUGIN['src/input.js']!, () => {
         expect(existsSync(devStylesheetPath)).toBe(false)
-      }, { timeout: 4_000, interval: 300 })
+      })
     }
     finally {
       await stopProcess(watchBuild.child)
@@ -159,7 +157,7 @@ describe('watch builds', () => {
       await new Promise(resolve => setTimeout(resolve, 500))
 
       const changedFiles = [...watchBuild.getOutput().matchAll(/(\S+) (?:add|change)$/gm)].map(match => match[1]!)
-      expect(changedFiles.filter(file => !file.startsWith('src/'))).toEqual([])
+      expect(changedFiles.filter(file => !/^src[/\\]/.test(file))).toEqual([])
     }
     finally {
       await stopProcess(watchBuild.child)
@@ -194,11 +192,17 @@ function startWatchBuild(cwd: string, args: string[] = ['--watch']): { child: Ch
   return { child, getOutput: () => output }
 }
 
-/** Rewrites `src/input.css` on every retry, since chokidar may still be scanning. */
 async function editStylesheetUntilRebuilt(directory: string): Promise<void> {
-  await vi.waitFor(async () => {
-    await fsp.writeFile(path.join(directory, 'src/input.css'), '.edited {}')
+  await rewriteUntil(path.join(directory, 'src/input.css'), '.edited {}', async () => {
     expect(await fsp.readFile(path.join(directory, 'index.dev.css'), 'utf8')).toContain('.edited')
+  })
+}
+
+/** Rewrites `filePath` on every retry until `assertion` passes, since chokidar may still be scanning. */
+async function rewriteUntil(filePath: string, content: string, assertion: () => void | Promise<void>): Promise<void> {
+  await vi.waitFor(async () => {
+    await fsp.writeFile(filePath, content)
+    await assertion()
   }, { timeout: 4_000, interval: 300 })
 }
 
