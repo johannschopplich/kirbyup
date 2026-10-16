@@ -79,6 +79,7 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '^/(guide|cookbook)/',
       items: [
         { text: 'Getting Started', link: '/guide/getting-started' },
+        { text: 'Migration to v4', link: '/guide/migration' },
         { text: 'Config File', link: '/guide/config-file' },
         { text: 'kirbyuse', link: '/guide/kirbyuse' },
       ],
@@ -92,6 +93,8 @@ function nav(): DefaultTheme.NavItem[] {
       text: `v${version}`,
       items: [
         { text: 'Release Notes', link: releases },
+        { text: 'Migration to v4', link: '/guide/migration' },
+        { text: 'v3 Docs', link: `${github}/tree/v3.5.0/docs` },
       ],
     },
   ]
@@ -103,6 +106,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Guide',
       items: [
         { text: 'Getting Started', link: '/guide/getting-started' },
+        { text: 'Migration to v4', link: '/guide/migration' },
       ],
     },
     {

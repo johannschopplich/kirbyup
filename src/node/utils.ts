@@ -1,47 +1,4 @@
-import { Buffer } from 'node:buffer'
-import { normalize, relative, resolve } from 'node:path'
-import { promisify } from 'node:util'
-import { gzip } from 'node:zlib'
-import { consola } from 'consola'
-import { colors } from 'consola/utils'
-
-const compress = promisify(gzip)
-
 export function toArray<T>(array?: T | T[]): T[] {
   array ??= []
   return Array.isArray(array) ? array : [array]
-}
-
-export async function getCompressedSize(code: string | Uint8Array): Promise<string> {
-  const size = (await compress(typeof code === 'string' ? code : Buffer.from(code))).length / 1024
-  return ` / gzip: ${size.toFixed(2)} KiB`
-}
-
-export async function printFileInfo(
-  {
-    root,
-    outDir,
-    filePath,
-    content,
-    type,
-    maxLength,
-  }: {
-    root: string
-    outDir: string
-    filePath: string
-    content: string
-    type: string
-    maxLength: number
-  },
-): Promise<void> {
-  const prettyOutDir = `${normalize(relative(root, resolve(root, outDir)))}/`
-  const kibs = content.length / 1024
-  const compressedSize = await getCompressedSize(content)
-  const writeColor = type === 'chunk' ? colors.cyan : colors.magenta
-
-  consola.log(
-    colors.white(colors.dim(prettyOutDir))
-    + writeColor(filePath.padEnd(maxLength + 2))
-    + colors.dim(`${kibs.toFixed(2)} kB${compressedSize}`),
-  )
 }

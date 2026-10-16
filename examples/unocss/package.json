@@ -2,16 +2,16 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "kirbyup serve src/index.js",
+    "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^9.3.0",
-    "@unocss/eslint-plugin": "^66.8.1",
-    "eslint": "^10.9.1",
-    "kirbyup": "^3.5.0",
-    "unocss": "^66.8.1"
+    "@antfu/eslint-config": "^9.5.1",
+    "@unocss/eslint-plugin": "^66.11.0",
+    "eslint": "^10.12.0",
+    "kirbyup": "^4.0.0-alpha.9",
+    "unocss": "^66.11.0"
   }
 }

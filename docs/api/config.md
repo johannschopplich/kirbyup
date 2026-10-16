@@ -1,6 +1,6 @@
 # Config
 
-`kirbyup.config.js` in the project root configures both the build and `serve`. The file is loaded with [c12](https://github.com/unjs/c12), so `.ts`, `.mjs` and `.js` all work. Neither `.kirbyuprc` nor a `package.json` key is read.
+`kirbyup.config.js` in the project root configures both `build` and `dev`. The file is loaded with [c12](https://github.com/unjs/c12), so `.ts`, `.mjs` and `.js` all work. Neither `.kirbyuprc` nor a `package.json` key is read.
 
 ```js
 // kirbyup.config.js
@@ -35,12 +35,16 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | Option | kirbyup default | Notes |
 | --- | --- | --- |
 | `resolve.alias` | `~/` and `@/` to the entry file's folder | Extend via `alias` |
-| `plugins` | Vue, Vue JSX, auto-imports, `vue` mapped to the Panel's global | Yours are appended |
+| `plugins` | Vue, Vue JSX, auto-imports | Yours are appended |
 | `envPrefix` | `['VITE_', 'KIRBYUP_']` | See [Env Variables](/guide/environment-variables) |
-| `build.lib` | IIFE from the entry file | Fixed |
-| `build.minify` | `true` for production, `false` for watch builds | |
+| `build.lib` | ES module from the entry file | Fixed |
+| `build.rolldownOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
+| `build.rolldownOptions.output.codeSplitting` | `false` | Fixed, Kirby serves no script beside `index.js` or `index.dev.js` |
+| `build.minify` | `true` for production, `false` for watch builds | With Vite's own minifier, kirbyup also sets `build.rolldownOptions.output.minify`, which Vite's library mode leaves without whitespace removal. Set it yourself to override. `'esbuild'` keeps the whitespace. |
+| `build.target` | The browsers the Kirby Panel supports | Yours replaces it |
 | `server.port` | `--port`, default `5177` | Config wins over the flag |
-| `server.origin` | Derived from `server.host`, `server.https` and the port | The URL written into `index.dev.mjs` |
+| `server.origin` | Derived from `server.host`, `server.https` and the port | The URL written into `index.dev.js` |
 | `server.strictPort` | `true` | Fails instead of picking another port |
+| `server.cors` | `true` | The Panel runs on another origin |
 
 Set `server.origin` when the Panel cannot reach the dev server under the derived URL, for example on another host or behind a proxy.

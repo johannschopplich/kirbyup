@@ -1,8 +1,8 @@
-import DemoSection from './components/DemoSection.vue'
+import DemoField from './components/DemoField.vue'
 import 'virtual:uno.css'
 
 window.panel.plugin('kirbyup/unocss', {
-  sections: {
-    demo: DemoSection,
+  fields: {
+    demo: DemoField,
   },
 })

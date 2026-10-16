@@ -1,72 +1,135 @@
-import * as fsp from 'node:fs/promises'
 import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { cacheDir, runCli } from './utils.ts'
+import { useBuildFixtures } from './utils.ts'
 
-const currentDir = fileURLToPath(new URL('.', import.meta.url))
+const buildFixture = useBuildFixtures()
 
 describe('kirbyup build', () => {
-  beforeAll(async () => {
-    // Unset so kirbyup applies its default environment setting
+  beforeAll(() => {
+    // Unset so kirbyup applies its default environment setting.
     vi.stubEnv('NODE_ENV', '')
-    await fsp.rm(cacheDir, { recursive: true, force: true })
   })
 
-  afterAll(async () => {
+  afterAll(() => {
     vi.unstubAllEnvs()
-    await fsp.rm(cacheDir, { recursive: true, force: true })
   })
 
-  it('builds index.js', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'./foo\'\nexport default foo',
+  it('inlines a relative import', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'./foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toMatch(/from\s+['"]\.\/foo/)
   })
 
-  it('builds index.css', async () => {
-    const { output, getFileContent } = await runCli({
+  it('imports vue as a bare specifier', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nwindow.panel.plugin(\'kirbyup/test\', { count: ref(1) })',
+    })
+
+    expect.soft(output).toMatch(/from\s*["'`]vue["'`]/)
+    expect.soft(output).not.toMatch(/import\(\s*["'`]vue/)
+  })
+
+  it('keeps an export in the entry', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'export const foo = \'bar\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+    })
+
+    expect(output).toMatch(/export\s*\{/)
+  })
+
+  it('keeps top-level await in the entry', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'const foo = await Promise.resolve(\'bar\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+    })
+
+    expect(output).toMatch(/await\s*Promise\.resolve/)
+  })
+
+  it('inlines a dynamic import into index.js', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'const { foo } = await import(\'./lazy.js\')\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+      'src/lazy.js': 'export const foo = \'bar\'',
+    })
+
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toMatch(/import\(/)
+  })
+
+  it('strips whitespace from index.js', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nconst count = ref(1)\nwindow.panel.plugin(\'kirbyup/test\', { count })',
+    })
+
+    expect.soft(output).toContain('panel.plugin')
+    expect.soft(output.trimEnd()).not.toContain('\n')
+  })
+
+  it('emits imported CSS as index.css', async () => {
+    const { getFileContent } = await buildFixture({
       'src/input.js': 'import \'./input.css\'',
       'src/input.css': '.foo { content: "bar"; }',
     })
-
-    expect(output).toMatchSnapshot()
 
     const css = await getFileContent('index.css')
     expect(css).toMatchSnapshot()
   })
 
-  it('resolves path aliases', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'~/foo\'\nexport default foo',
+  it('keeps light-dark() in index.css', async () => {
+    const { getFileContent } = await buildFixture({
+      'src/input.js': 'import \'./input.css\'',
+      'src/input.css': '.foo { color: light-dark(#111, #eee); }',
+    })
+
+    const css = await getFileContent('index.css')
+    expect(css).toContain('light-dark(#111,#eee)')
+  })
+
+  it('lowers light-dark() for the build.target in vite.config.js', async () => {
+    const { getFileContent } = await buildFixture({
+      'src/input.js': 'import \'./input.css\'',
+      'src/input.css': '.foo { color: light-dark(#111, #eee); }',
+      'vite.config.js': 'export default { build: { target: [\'chrome111\'] } }',
+    })
+
+    const css = await getFileContent('index.css')
+    expect(css).not.toContain('light-dark(')
+  })
+
+  it('resolves the ~/ alias', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'~/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('~/foo')
   })
 
-  it('injects built-in environment variables', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'export const mode = import.' + 'meta.env.MODE',
+  it('inlines import.meta.env.MODE as production', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { mode: import.' + 'meta.env.MODE })',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]production["'`]/)
+    expect.soft(output).not.toMatch(/import\.meta\.env/)
   })
 
-  it('injects custom environment variables', async () => {
-    const { output } = await runCli({
+  it('inlines a KIRBYUP_-prefixed variable from .env', async () => {
+    const { output } = await buildFixture({
       '.env': 'KIRBYUP_FOO=bar',
-      'src/input.js': 'export const foo = import.' + 'meta.env.KIRBYUP_FOO',
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', { foo: import.' + 'meta.env.KIRBYUP_FOO })',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('KIRBYUP_FOO')
   })
 
-  it('builds Kirby Panel plugins', async () => {
-    const { output } = await runCli({
+  it('inlines a field component into the panel.plugin call', async () => {
+    const { output } = await buildFixture({
       'src/input.js': `
       import Demo from './fields/demo.js'
       window.panel.plugin('kirbyup/test', {
@@ -78,26 +141,26 @@ describe('kirbyup build', () => {
       'src/fields/demo.js': 'export default { extends: \'k-info-field\' }',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/panel\.plugin\(["'`]kirbyup\/test/)
+    expect.soft(output).toContain('k-info-field')
+    expect.soft(output).not.toMatch(/from\s+['"]\.\/fields\/demo/)
   })
 
   it('compiles Vue single-file components', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
-      import DemoSection from './fields/DemoSection.vue'
+      import DemoField from './fields/DemoField.vue'
       window.panel.plugin('kirbyup/test', {
-        sections: {
-          demo: DemoSection
+        fields: {
+          demo: DemoField
         }
       })
     `,
-      'src/fields/DemoSection.vue': `
+      'src/fields/DemoField.vue': `
       <template>
-        <section class="k-demo-section">
-          <header class="k-section-header">
-            <h2 class="k-headline">Custom section</h2>
-          </header>
-        </section>
+        <div class="k-demo-field">
+          <h2 class="k-headline">Custom field</h2>
+        </div>
       </template>
 
       <script>
@@ -109,7 +172,7 @@ describe('kirbyup build', () => {
       </script>
 
       <style>
-      .k-demo-section {
+      .k-demo-field {
         padding: 20px;
       }
       </style>
@@ -119,10 +182,10 @@ describe('kirbyup build', () => {
     expect(output).toMatchSnapshot()
   })
 
-  it('auto-imports components with glob patterns', async () => {
-    const { output } = await runCli({
+  it('expands kirbyup.import() into a component map', async () => {
+    const { output } = await buildFixture({
       'src/input.js': `
-      import { kirbyup } from '${resolve(currentDir, '../dist/client/plugin.mjs')}'
+      import { kirbyup } from '${resolve(import.meta.dirname, '../src/client/plugin.ts')}'
 
       window.panel.plugin('kirbyup/example', {
         blocks: kirbyup.import('./components/blocks/*.vue')
@@ -132,11 +195,13 @@ describe('kirbyup build', () => {
       'src/components/blocks/Bar.vue': '<template><k-header>Bar</k-header></template>',
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).not.toMatch(/kirbyup\.import\(\s*['"`]/)
+    expect.soft(output).toContain('Foo')
+    expect.soft(output).toContain('Bar')
   })
 
   it('skips kirbyup.import() inside string literals', async () => {
-    const { output } = await runCli({
+    const { output } = await buildFixture({
       'src/input.js': `
       const helpText = "Call kirbyup.import('./blocks/*.vue') to load all blocks"
       window.panel.plugin('kirbyup/example', { help: helpText })
@@ -147,9 +212,37 @@ describe('kirbyup build', () => {
     expect(output).toMatch(/Call kirbyup\.import\(/)
   })
 
-  it('loads config file with object export', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+  it('keeps whitespace when the config turns minify off', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nconst count = ref(1)\nwindow.panel.plugin(\'kirbyup/test\', { count })',
+      'kirbyup.config.js': 'export default { vite: { build: { minify: false } } }',
+    })
+
+    expect(output.trimEnd()).toContain('\n')
+  })
+
+  it('keeps whitespace when the config sets output.minify to false', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nconst count = ref(1)\nwindow.panel.plugin(\'kirbyup/test\', { count })',
+      'kirbyup.config.js': 'export default { vite: { build: { rolldownOptions: { output: { minify: false } } } } }',
+    })
+
+    expect(output.trimEnd()).toContain('\n')
+  })
+
+  it('merges the deprecated rollupOptions from the config', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import { ref } from \'vue\'\nimport foo from \'some-external\'\nwindow.panel.plugin(\'kirbyup/test\', { count: ref(1), foo })',
+      'kirbyup.config.js': 'export default { vite: { build: { rollupOptions: { external: [\'some-external\'] } } } }',
+    })
+
+    expect.soft(output).toMatch(/from\s*["'`]some-external["'`]/)
+    expect.soft(output).toMatch(/from\s*["'`]vue["'`]/)
+  })
+
+  it('applies the alias from a config exporting an object', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
@@ -158,45 +251,33 @@ describe('kirbyup build', () => {
       export default {
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
-        },
-        vite: {
-          build: {
-            lib: {
-              name: 'test'
-            }
-          }
         }
       }
     `,
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('__ALIAS__/foo')
   })
 
-  it('loads config file with function export', async () => {
-    const { output } = await runCli({
-      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nexport default foo',
+  it('applies the alias from a config exporting defineConfig()', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
       'src/foo.js': 'export default \'bar\'',
       'kirbyup.config.js': `
       import { fileURLToPath } from 'node:url'
       import { resolve } from 'path'
-      import { defineConfig } from '${resolve(currentDir, '../dist/client/config.mjs')}'
+      import { defineConfig } from '${resolve(import.meta.dirname, '../src/client/config.ts')}'
       const currentDir = fileURLToPath(new URL('.', import.meta.url))
       export default defineConfig({
         alias: {
           '__ALIAS__/': resolve(currentDir, 'src') + '/'
-        },
-        vite: {
-          build: {
-            lib: {
-              name: 'test'
-            }
-          }
         }
       })
     `,
     })
 
-    expect(output).toMatchSnapshot()
+    expect.soft(output).toMatch(/["'`]bar["'`]/)
+    expect.soft(output).not.toContain('__ALIAS__/foo')
   })
 })
