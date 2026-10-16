@@ -119,8 +119,8 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
           const entryUrl = new URL(entryPath, baseUrl).href
           const pm = detectPackageManager(config.root)
 
-          // Kirby pairs a stylesheet a killed watch build left behind with
-          // `index.dev.js`, next to the styles Vite injects.
+          // A killed watch build leaves `index.dev.css` behind, which Kirby
+          // would load next to the styles Vite injects.
           await fsp.rm(devStylesheetPath, { force: true })
           await fsp.writeFile(devIndexPath, getViteProxyModule(entryUrl, pm))
           markWritten()
