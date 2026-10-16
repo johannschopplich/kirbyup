@@ -1,25 +1,25 @@
-[![kirbyup](./docs/public/og.png)](https://kirbyup.getkirby.com)
+[![kirbyup](./docs/public/og.png)](https://v3.kirbyup.getkirby.com)
 
 # kirbyup
 
 The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 
 - [✨ &nbsp;Release Notes](https://github.com/johannschopplich/kirbyup/releases)
-- [📖 &nbsp;Read the documentation](https://kirbyup.getkirby.com)
+- [📖 &nbsp;Read the documentation](https://v3.kirbyup.getkirby.com)
 
 ## Key Features
 
-- 🔄 [Hot Module Replacement](https://kirbyup.getkirby.com/guide/getting-started.html#development)
-- 🎒 [PostCSS & Sass](https://kirbyup.getkirby.com/guide/postcss)
-- 🧩 [kirbyuse Integration](https://kirbyup.getkirby.com/guide/kirbyuse)
-- 🔌 [Environment Variables](https://kirbyup.getkirby.com/guide/environment-variables)
-- 🦔 [Configuration File](https://kirbyup.getkirby.com/guide/config-file)
-- 🧭 [Path Aliases](https://kirbyup.getkirby.com/guide/path-aliases)
+- 🔄 [Hot Module Replacement](https://v3.kirbyup.getkirby.com/guide/getting-started.html#development)
+- 🎒 [PostCSS & Sass](https://v3.kirbyup.getkirby.com/guide/postcss)
+- 🧩 [kirbyuse Integration](https://v3.kirbyup.getkirby.com/guide/kirbyuse)
+- 🔌 [Environment Variables](https://v3.kirbyup.getkirby.com/guide/environment-variables)
+- 🦔 [Configuration File](https://v3.kirbyup.getkirby.com/guide/config-file)
+- 🧭 [Path Aliases](https://v3.kirbyup.getkirby.com/guide/path-aliases)
 
 ## Requirements
 
 - **Node.js 22 or newer** with pnpm, npm or yarn.
-- **Kirby 4 or newer.** kirbyup 3 builds for the Vue 2 Panel of Kirby 4 and 5.
+- **Kirby 4 or 5.** kirbyup 3 builds for the Vue 2 Panel of Kirby 4 and 5. Plugins for Kirby 6 use kirbyup 4, documented at [kirbyup.getkirby.com](https://kirbyup.getkirby.com).
 
 ## Setup
 

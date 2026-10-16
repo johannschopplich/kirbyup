@@ -42,7 +42,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/johannschopplich/kirbyup/edit/main/docs/:path',
+      pattern: 'https://github.com/johannschopplich/kirbyup/edit/v3/docs/:path',
       text: 'Suggest changes to this page',
     },
 
@@ -92,6 +92,7 @@ function nav(): DefaultTheme.NavItem[] {
       text: `v${version}`,
       items: [
         { text: 'Release Notes', link: releases },
+        { text: 'v4 Docs', link: 'https://kirbyup.getkirby.com' },
       ],
     },
   ]
