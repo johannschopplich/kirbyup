@@ -1,11 +1,17 @@
 import type { Plugin } from 'vite'
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import vm from 'node:vm'
 import { describe, expect, it, vi } from 'vitest'
+import { serve } from '../src/node/index.ts'
 import { kirbyupHmrPlugin } from '../src/node/plugins/hmr.ts'
 import { __HMR_SHIM_CODE__ } from '../src/node/plugins/utils.ts'
+import { useTemporaryDirectories } from './utils.ts'
 
 const SHIM_ID = '\0kirbyup:hmr-shim'
 const VUE_STUB_ID = '\0kirbyup:vue-stub'
+
+const createDirectory = useTemporaryDirectories('kirbyup-hmr-')
 
 async function createPlugin(): Promise<Plugin> {
   const plugin = kirbyupHmrPlugin({
@@ -98,6 +104,29 @@ describe('kirbyupHmrPlugin', () => {
       const entryId = `${process.cwd()}/src/index.ts`
       const code = `import ${JSON.stringify(SHIM_ID)}\nconsole.log('entry')`
       expect(callHook(plugin, 'transform', code, entryId)).toBeUndefined()
+    })
+  })
+
+  describe('dev index', () => {
+    it('removes an index.dev.css a watch build left behind', async () => {
+      const directory = createDirectory({
+        'index.dev.css': '.stale {}',
+        'src/input.js': 'window.panel.plugin(\'kirbyup/test\', {})',
+      })
+      const server = await serve({
+        cwd: directory,
+        entry: 'src/input.js',
+        outDir: directory,
+        port: 5198,
+        watch: false,
+      })
+
+      try {
+        expect(existsSync(resolve(directory, 'index.dev.css'))).toBe(false)
+      }
+      finally {
+        await server.close()
+      }
     })
   })
 })
