@@ -94,7 +94,7 @@ function nav(): DefaultTheme.NavItem[] {
       items: [
         { text: 'Release Notes', link: releases },
         { text: 'Migration to v4', link: '/guide/migration' },
-        { text: 'v3 Docs', link: `${github}/tree/v3.5.0/docs` },
+        { text: 'v3 Docs', link: 'https://v3.kirbyup.getkirby.com' },
       ],
     },
   ]

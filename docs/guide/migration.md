@@ -21,7 +21,7 @@ The rest of this page explains each step.
 
 ## Requirements
 
-kirbyup 4 requires Node.js 24 and Kirby 6.0.0-beta.1 or later. Kirby 4 and 5 stay on kirbyup 3.x, documented at the [last 3.x release](https://github.com/johannschopplich/kirbyup/tree/v3.5.0/docs).
+kirbyup 4 requires Node.js 24 and Kirby 6.0.0-beta.1 or later. Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com).
 
 ## CLI
 
