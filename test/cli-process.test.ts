@@ -148,14 +148,33 @@ describe('watch builds', () => {
     }
   })
 
-  it('ignores its own output when --watch-path covers the plugin root', async () => {
+  it('ignores index.dev.css and node_modules with --watch-path .', async () => {
     const directory = createDirectory(CSS_PLUGIN)
     const watchBuild = startWatchBuild(directory, ['--watch-path', '.'])
 
     try {
-      await vi.waitFor(() => expect(watchBuild.getOutput()).toContain('Watching'), { timeout: 4_000 })
+      await editStylesheetUntilRebuilt(directory)
+      await fsp.mkdir(path.join(directory, 'node_modules'))
+      await fsp.writeFile(path.join(directory, 'node_modules/foo.js'), '')
       await new Promise(resolve => setTimeout(resolve, 500))
-      expect(watchBuild.getOutput()).not.toMatch(/ (?:add|change)$/m)
+
+      const changedFiles = [...watchBuild.getOutput().matchAll(/(\S+) (?:add|change)$/gm)].map(match => match[1]!)
+      expect(changedFiles.filter(file => !file.startsWith('src/'))).toEqual([])
+    }
+    finally {
+      await stopProcess(watchBuild.child)
+    }
+  })
+
+  it('rebuilds a plugin below a node_modules folder', async () => {
+    const root = createDirectory(Object.fromEntries(
+      Object.entries(CSS_PLUGIN).map(([file, content]) => [`node_modules/plugin/${file}`, content]),
+    ))
+    const directory = path.join(root, 'node_modules/plugin')
+    const watchBuild = startWatchBuild(directory)
+
+    try {
+      await editStylesheetUntilRebuilt(directory)
     }
     finally {
       await stopProcess(watchBuild.child)
@@ -173,6 +192,14 @@ function startWatchBuild(cwd: string, args: string[] = ['--watch']): { child: Ch
   child.stdout!.on('data', chunk => output += chunk)
   child.stderr!.on('data', chunk => output += chunk)
   return { child, getOutput: () => output }
+}
+
+/** Rewrites `src/input.css` on every retry, since chokidar may still be scanning. */
+async function editStylesheetUntilRebuilt(directory: string): Promise<void> {
+  await vi.waitFor(async () => {
+    await fsp.writeFile(path.join(directory, 'src/input.css'), '.edited {}')
+    expect(await fsp.readFile(path.join(directory, 'index.dev.css'), 'utf8')).toContain('.edited')
+  }, { timeout: 4_000, interval: 300 })
 }
 
 async function stopProcess(child: ChildProcess): Promise<void> {

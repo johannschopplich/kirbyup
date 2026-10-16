@@ -3,12 +3,12 @@ import type { KirbyupHmrApi } from './plugins/index.ts'
 import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types.ts'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
-import { basename, dirname, resolve } from 'node:path'
+import { basename, dirname, relative, resolve } from 'node:path'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { debounce } from 'perfect-debounce'
 import { CliError, reportFailure } from 'utilful/cli'
-import { build as _build, createLogger, createServer, mergeConfig, normalizePath } from 'vite'
+import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
 import { loadConfig } from './config.ts'
 import * as output from './output.ts'
 import {
@@ -209,13 +209,7 @@ export async function build(options: BuildOptions): Promise<void> {
   }, 100)
 
   const devOutputPaths = [DEV_OUTPUT_FILENAME, DEV_STYLESHEET_FILENAME]
-    .map(filename => resolve(cwd, options.outDir, filename))
-  const ignoredPaths = devOutputPaths.map(normalizePath)
-
-  // chokidar matches a string only as an exact path, never as a glob, and
-  // hands the function an absolute path with forward slashes.
-  const ignored = (file: string) =>
-    /\/(?:\.git|node_modules)(?:\/|$)/.test(file) || ignoredPaths.includes(file)
+    .map(filename => resolve(options.outDir, filename))
 
   const watchPaths = options.watch === true
     ? dirname(options.entry)
@@ -226,7 +220,12 @@ export async function build(options: BuildOptions): Promise<void> {
   const watcher = watch(watchPaths, {
     ignoreInitial: true,
     ignorePermissionErrors: true,
-    ignored,
+    // chokidar matches a string only as an exact path, never as a glob.
+    ignored: [
+      ...devOutputPaths,
+      // Relative to `cwd`, so a plugin below a `node_modules` folder still rebuilds.
+      (filePath: string) => /(?:^|[/\\])(?:\.git|node_modules)(?:[/\\]|$)/.test(relative(cwd, filePath)),
+    ],
     cwd,
   })
 
