@@ -6,10 +6,10 @@ import { mainCommand } from '../src/node/cli.ts'
 
 export { useTemporaryDirectories } from 'utilful/cli/testing'
 
-const harness = createCliHarness(mainCommand, {
-  // The published entry point, so a run covers `bin` and `dist` as a user gets them.
-  entry: path.join(import.meta.dirname, '../bin/kirbyup.mjs'),
-})
+// The published entry point, so a run covers `bin` and `dist` as a user gets them.
+export const CLI_ENTRY_PATH: string = path.join(import.meta.dirname, '../bin/kirbyup.mjs')
+
+const harness = createCliHarness(mainCommand, { entry: CLI_ENTRY_PATH })
 
 export const runCli: CliHarness['runCli'] = harness.runCli
 export const runCliProcess: CliHarness['runCliProcess'] = harness.runCliProcess

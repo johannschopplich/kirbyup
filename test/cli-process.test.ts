@@ -3,9 +3,9 @@ import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import * as fsp from 'node:fs/promises'
 import * as path from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import packageJson from '../package.json' with { type: 'json' }
-import { runCliProcess, useTemporaryDirectories } from './utils.ts'
+import { CLI_ENTRY_PATH, runCliProcess, useTemporaryDirectories } from './utils.ts'
 
 const PLUGIN: Record<string, string> = {
   'package.json': '{ "name": "kirbyup-fixture", "type": "module" }',
@@ -109,107 +109,76 @@ describe('kirbyup CLI as a child process', () => {
 describe('watch builds', () => {
   const CSS_PLUGIN: Record<string, string> = {
     ...PLUGIN,
-    'index.css': '.shipped{}',
     'src/input.js': 'import \'./input.css\'',
     'src/input.css': '.live { color: red; }',
   }
 
-  it('writes imported CSS to index.dev.css, leaving index.css untouched', async () => {
-    const directory = createDirectory(CSS_PLUGIN)
-    const watcher = startWatchBuild(directory)
+  it('writes imported CSS to index.dev.css until SIGINT, leaving index.css untouched', async () => {
+    const directory = createDirectory({ ...CSS_PLUGIN, 'index.css': '.shipped{}' })
+    const watchBuild = startWatchBuild(directory)
 
     try {
-      await waitForFile(path.join(directory, 'index.dev.css'), true)
+      await vi.waitFor(() => expect(existsSync(path.join(directory, 'index.dev.css'))).toBe(true), { timeout: 4_000 })
       expect(await fsp.readFile(path.join(directory, 'index.css'), 'utf8')).toBe('.shipped{}')
+      // kirbyup installs its SIGINT handler right after printing the watched paths.
+      await vi.waitFor(() => expect(watchBuild.getOutput()).toContain('Watching'), { timeout: 4_000 })
     }
     finally {
-      await stopProcess(watcher)
+      await stopProcess(watchBuild.child)
     }
-  })
 
-  it('removes index.dev.js and index.dev.css on SIGINT', async () => {
-    const directory = createDirectory(CSS_PLUGIN)
-    const watcher = startWatchBuild(directory)
-    await waitForWatching(watcher)
-    await stopProcess(watcher)
-
-    expect(existsSync(path.join(directory, 'index.dev.js'))).toBe(false)
     expect(existsSync(path.join(directory, 'index.dev.css'))).toBe(false)
   })
 
   it('removes index.dev.css once the entry stops importing CSS', async () => {
     const directory = createDirectory(CSS_PLUGIN)
-    const watcher = startWatchBuild(directory)
+    const devStylesheetPath = path.join(directory, 'index.dev.css')
+    const watchBuild = startWatchBuild(directory)
 
     try {
-      await waitForWatching(watcher)
-      await fsp.writeFile(path.join(directory, 'src/input.js'), PLUGIN['src/input.js']!)
-      await waitForFile(path.join(directory, 'index.dev.css'), false)
+      await vi.waitFor(() => expect(existsSync(devStylesheetPath)).toBe(true), { timeout: 4_000 })
+      // Rewritten on every retry, since chokidar may still be scanning.
+      await vi.waitFor(async () => {
+        await fsp.writeFile(path.join(directory, 'src/input.js'), PLUGIN['src/input.js']!)
+        expect(existsSync(devStylesheetPath)).toBe(false)
+      }, { timeout: 4_000, interval: 300 })
     }
     finally {
-      await stopProcess(watcher)
+      await stopProcess(watchBuild.child)
     }
   })
 
   it('ignores its own output when --watch-path covers the plugin root', async () => {
     const directory = createDirectory(CSS_PLUGIN)
-    const watcher = startWatchBuild(directory, ['--watch-path', '.'])
+    const watchBuild = startWatchBuild(directory, ['--watch-path', '.'])
 
     try {
-      await waitForWatching(watcher)
+      await vi.waitFor(() => expect(watchBuild.getOutput()).toContain('Watching'), { timeout: 4_000 })
       await new Promise(resolve => setTimeout(resolve, 500))
-      expect(watcher.log).not.toMatch(/ (?:add|change)$/m)
+      expect(watchBuild.getOutput()).not.toMatch(/ (?:add|change)$/m)
     }
     finally {
-      await stopProcess(watcher)
+      await stopProcess(watchBuild.child)
     }
   })
 })
 
-interface WatchProcess extends ChildProcess {
-  log: string
-}
-
-function startWatchBuild(cwd: string, args: string[] = ['--watch']): WatchProcess {
-  const child = spawn(process.execPath, [path.join(import.meta.dirname, '../bin/kirbyup.mjs'), 'src/input.js', ...args], {
+function startWatchBuild(cwd: string, args: string[] = ['--watch']): { child: ChildProcess, getOutput: () => string } {
+  const child = spawn(process.execPath, [CLI_ENTRY_PATH, 'src/input.js', ...args], {
     cwd,
     stdio: ['ignore', 'pipe', 'pipe'],
     env: { ...process.env, NO_COLOR: '1' },
-  }) as WatchProcess
-  child.log = ''
-  child.stdout!.on('data', chunk => child.log += chunk)
-  child.stderr!.on('data', chunk => child.log += chunk)
-  return child
-}
-
-/**
- * Settles once kirbyup has printed the watched paths, which it does right
- * before it installs its exit handlers and starts the watcher.
- */
-async function waitForWatching(child: WatchProcess): Promise<void> {
-  await waitFor(() => child.log.includes('Watching'), 'the watch build to start')
-  // chokidar reports no readiness to the child's output, so its initial scan
-  // gets a moment before a test edits a watched file.
-  await new Promise(resolve => setTimeout(resolve, 200))
+  })
+  let output = ''
+  child.stdout!.on('data', chunk => output += chunk)
+  child.stderr!.on('data', chunk => output += chunk)
+  return { child, getOutput: () => output }
 }
 
 async function stopProcess(child: ChildProcess): Promise<void> {
   if (child.exitCode !== null)
     return
-  const exited = new Promise(resolve => child.once('exit', resolve))
+  const exitPromise = new Promise(resolve => child.once('exit', resolve))
   child.kill('SIGINT')
-  await exited
-}
-
-async function waitForFile(filePath: string, shouldExist: boolean): Promise<void> {
-  await waitFor(() => existsSync(filePath) === shouldExist, `${filePath} to ${shouldExist ? 'appear' : 'disappear'}`)
-}
-
-async function waitFor(condition: () => boolean, description: string): Promise<void> {
-  const deadline = Date.now() + 4_000
-  while (!condition()) {
-    if (Date.now() > deadline)
-      throw new Error(`Timed out waiting for ${description}`)
-    await new Promise(resolve => setTimeout(resolve, 50))
-  }
+  await exitPromise
 }
