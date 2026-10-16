@@ -21,7 +21,7 @@ import {
 import { toArray } from './utils.ts'
 import { resolveOriginFromServerOptions } from './utils/server.ts'
 
-const DEV_OUTPUT_FILENAME = 'index.dev.js'
+const DEV_INDEX_FILENAME = 'index.dev.js'
 const DEV_STYLESHEET_FILENAME = 'index.dev.css'
 // Native custom elements the Panel defines – mirrors `isCustomElement` in Kirby's `panel/vite.config.ts`.
 const PANEL_CUSTOM_ELEMENTS = ['k-input-validator', 'k-validator']
@@ -103,7 +103,7 @@ function getViteConfig(
       lib: {
         entry: resolve(options.cwd, options.entry),
         formats: ['es'],
-        fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
+        fileName: () => options.watch ? DEV_INDEX_FILENAME : 'index.js',
         // Kirby pairs `index.dev.css` with `index.dev.js`, so a watch build
         // leaves the shipped `index.css` alone. Naming the stylesheet also
         // keeps Vite from requiring a `package.json` name.
@@ -210,7 +210,7 @@ export async function build(options: BuildOptions): Promise<void> {
     generate(options, context).catch(reportFailure)
   }, 100)
 
-  const devOutputPaths = [DEV_OUTPUT_FILENAME, DEV_STYLESHEET_FILENAME]
+  const devOutputPaths = [DEV_INDEX_FILENAME, DEV_STYLESHEET_FILENAME]
     .map(filename => resolve(options.outDir, filename))
 
   const watchPaths = options.watch === true
@@ -304,7 +304,7 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
     url: server.config.server.origin
       ?? resolveOriginFromServerOptions(server.config.server, port, 'localhost'),
     outDir: options.outDir,
-    devFilename: DEV_OUTPUT_FILENAME,
+    devFilename: DEV_INDEX_FILENAME,
     watchPaths: options.watch === false ? [] : toArray(options.watch),
     startedAt,
   })
