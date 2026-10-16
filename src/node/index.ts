@@ -103,8 +103,7 @@ function getViteConfig(
         formats: ['es'],
         fileName: () => options.watch ? DEV_INDEX_FILENAME : 'index.js',
         // Kirby pairs `index.dev.css` with `index.dev.js`, so a watch build
-        // leaves the shipped `index.css` alone. Naming the stylesheet also
-        // keeps Vite from requiring a `package.json` name.
+        // leaves the shipped `index.css` alone.
         cssFileName: options.watch ? 'index.dev' : 'index',
       },
       minify: mode === 'production',
