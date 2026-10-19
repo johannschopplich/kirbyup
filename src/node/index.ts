@@ -22,6 +22,8 @@ import { toArray } from './utils.ts'
 import { resolveOriginFromServerOptions } from './utils/server.ts'
 
 const DEV_OUTPUT_FILENAME = 'index.dev.js'
+// Native custom elements the Panel defines – mirrors `isCustomElement` in Kirby's `panel/vite.config.ts`.
+const PANEL_CUSTOM_ELEMENTS = ['k-input-validator', 'k-validator']
 const SUPPRESSED_WARNING = '(!) build.outDir'
 
 const logLevel: LogLevel = 'warn'
@@ -51,8 +53,8 @@ function getViteConfig(
       },
     },
     plugins: [
-      vuePlugin(),
-      vueJsxPlugin(),
+      vuePlugin({ template: { compilerOptions: { isCustomElement } } }),
+      vueJsxPlugin({ isCustomElement }),
       kirbyupGlobImportPlugin(),
     ],
     build: {
@@ -304,6 +306,10 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   })
 
   return server
+}
+
+function isCustomElement(tag: string): boolean {
+  return PANEL_CUSTOM_ELEMENTS.includes(tag)
 }
 
 function createKirbyupLogger(): Logger {

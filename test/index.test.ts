@@ -192,6 +192,26 @@ describe('kirbyup build', () => {
     expect(output).toMatchSnapshot()
   })
 
+  it('compiles k-validator in a single-file component as a custom element', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import DemoField from \'./DemoField.vue\'\nwindow.panel.plugin(\'kirbyup/test\', { fields: { demo: DemoField } })',
+      'src/DemoField.vue': '<template><k-validator :min="1"><div /></k-validator></template>',
+    })
+
+    expect.soft(output).toContain('k-validator')
+    expect.soft(output).not.toContain('resolveComponent')
+  })
+
+  it('compiles k-validator in JSX as a custom element', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import DemoField from \'./DemoField.jsx\'\nwindow.panel.plugin(\'kirbyup/test\', { fields: { demo: DemoField } })',
+      'src/DemoField.jsx': 'export default { render: () => <k-validator min={1}><div /></k-validator> }',
+    })
+
+    expect.soft(output).toContain('k-validator')
+    expect.soft(output).not.toContain('resolveComponent')
+  })
+
   it('expands kirbyup.import() into a component map', async () => {
     const { output } = await buildFixture({
       'src/input.js': `

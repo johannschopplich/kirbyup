@@ -35,7 +35,7 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | Option | kirbyup default | Notes |
 | --- | --- | --- |
 | `resolve.alias` | `~/` and `@/` to the entry file's folder | Extend via `alias` |
-| `plugins` | Vue, Vue JSX, auto-imports | Yours are appended |
+| `plugins` | Vue, Vue JSX, auto-imports | Yours are appended. Vue and Vue JSX treat the Panel's `k-validator` and `k-input-validator` as custom elements. |
 | `envPrefix` | `['VITE_', 'KIRBYUP_']` | See [Env Variables](/guide/environment-variables) |
 | `build.lib` | ES module from the entry file | Fixed |
 | `build.rolldownOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
