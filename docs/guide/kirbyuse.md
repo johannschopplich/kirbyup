@@ -22,7 +22,7 @@ yarn add -D kirbyuse
 
 ## Imports
 
-Kirby 4 and 5 load Vue 2 as a global script without named exports, so `import { ref } from 'vue'` has nothing to resolve to. kirbyuse re-exports the Composition API, so everything comes from one package:
+kirbyuse re-exports the Composition API, so everything comes from one package:
 
 ```js
 import { computed, ref, usePanel, useSection } from 'kirbyuse'
