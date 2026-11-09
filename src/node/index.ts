@@ -3,7 +3,7 @@ import type { KirbyupHmrApi } from './plugins/index.ts'
 import type { BaseOptions, BuildOptions, ServeOptions, UserConfig } from './types.ts'
 import * as fs from 'node:fs'
 import * as fsp from 'node:fs/promises'
-import { basename, dirname, resolve } from 'node:path'
+import { basename, dirname, relative, resolve } from 'node:path'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { debounce } from 'perfect-debounce'
@@ -21,7 +21,8 @@ import {
 import { toArray } from './utils.ts'
 import { resolveOriginFromServerOptions } from './utils/server.ts'
 
-const DEV_OUTPUT_FILENAME = 'index.dev.js'
+const DEV_INDEX_FILENAME = 'index.dev.js'
+const DEV_STYLESHEET_FILENAME = 'index.dev.css'
 // Native custom elements the Panel defines – mirrors `isCustomElement` in Kirby's `panel/vite.config.ts`.
 const PANEL_CUSTOM_ELEMENTS = ['k-input-validator', 'k-validator']
 const SUPPRESSED_WARNING = '(!) build.outDir'
@@ -102,10 +103,10 @@ function getViteConfig(
       lib: {
         entry: resolve(options.cwd, options.entry),
         formats: ['es'],
-        fileName: () => options.watch ? DEV_OUTPUT_FILENAME : 'index.js',
-        // Without it, Vite names the stylesheet after the `package.json` name
-        // and fails the build for a plugin that has none.
-        cssFileName: 'index',
+        fileName: () => options.watch ? DEV_INDEX_FILENAME : 'index.js',
+        // Kirby pairs `index.dev.css` with `index.dev.js`, so a watch build
+        // leaves the shipped `index.css` alone.
+        cssFileName: options.watch ? 'index.dev' : 'index',
       },
       minify: mode === 'production',
       outDir: options.outDir,
@@ -208,11 +209,8 @@ export async function build(options: BuildOptions): Promise<void> {
     generate(options, context).catch(reportFailure)
   }, 100)
 
-  const ignored = [
-    '**/{.git,node_modules}/**',
-    'index.{css,js}',
-    DEV_OUTPUT_FILENAME,
-  ]
+  const devOutputPaths = [DEV_INDEX_FILENAME, DEV_STYLESHEET_FILENAME]
+    .map(filename => resolve(options.outDir, filename))
 
   const watchPaths = options.watch === true
     ? dirname(options.entry)
@@ -223,23 +221,28 @@ export async function build(options: BuildOptions): Promise<void> {
   const watcher = watch(watchPaths, {
     ignoreInitial: true,
     ignorePermissionErrors: true,
-    ignored,
+    // chokidar matches a string only as an exact path, never as a glob.
+    ignored: [
+      ...devOutputPaths,
+      // Relative to `cwd`, so a plugin below a `node_modules` folder still rebuilds.
+      (filePath: string) => /(?:^|[/\\])(?:\.git|node_modules)(?:[/\\]|$)/.test(relative(cwd, filePath)),
+    ],
     cwd,
   })
 
-  const devOutputPath = resolve(options.outDir, DEV_OUTPUT_FILENAME)
-
   const cleanup = async () => {
     await watcher.close().catch(() => {})
-    await fsp.rm(devOutputPath, { force: true }).catch(() => {})
+    await Promise.all(devOutputPaths.map(path => fsp.rm(path, { force: true }).catch(() => {})))
   }
 
   // An `exit` handler cannot await, so `cleanup` is repeated synchronously here.
   process.once('exit', () => {
-    try {
-      fs.rmSync(devOutputPath, { force: true })
+    for (const path of devOutputPaths) {
+      try {
+        fs.rmSync(path, { force: true })
+      }
+      catch {}
     }
-    catch {}
   })
 
   const onShutdown = () => {
@@ -300,7 +303,7 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
     url: server.config.server.origin
       ?? resolveOriginFromServerOptions(server.config.server, port, 'localhost'),
     outDir: options.outDir,
-    devFilename: DEV_OUTPUT_FILENAME,
+    devFilename: DEV_INDEX_FILENAME,
     watchPaths: options.watch === false ? [] : toArray(options.watch),
     startedAt,
   })

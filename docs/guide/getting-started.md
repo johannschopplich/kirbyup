@@ -73,7 +73,7 @@ npm run dev
 
 The dev server writes `index.dev.js` next to your plugin. Kirby loads that file instead of `index.js` and pulls the plugin from the dev server. Edit a component and the Panel updates in place. Changes to PHP files reload the page. Stop the server and the file is removed.
 
-Add `index.dev.js` to `.gitignore`.
+Add `index.dev.*` to `.gitignore`.
 
 ::: details Watch mode without HMR
 When the Panel cannot reach the dev server, for example on a remote host, rebuild on change instead:
@@ -84,7 +84,7 @@ kirbyup src/index.js --watch
 
 <<< @/snippets/watch.ansi
 
-Watch builds write an unminified `index.dev.js`, which Kirby picks up the same way.
+Watch builds write an unminified `index.dev.js` and `index.dev.css`, which Kirby picks up the same way. Your `index.css` stays as the last production build left it.
 :::
 
 ## Production
@@ -95,4 +95,4 @@ npm run build
 
 <<< @/snippets/build.ansi
 
-`index.js` and `index.css` land in the project root, minified. A leftover `index.dev.js` is removed so Kirby uses the production files.
+`index.js` and `index.css` land in the project root, minified. A leftover `index.dev.js` or `index.dev.css` is removed so Kirby uses the production files.

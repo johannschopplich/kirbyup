@@ -1,8 +1,11 @@
+import type { ChildProcess } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
+import * as fsp from 'node:fs/promises'
 import * as path from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import packageJson from '../package.json' with { type: 'json' }
-import { runCliProcess, useTemporaryDirectories } from './utils.ts'
+import { CLI_ENTRY_PATH, runCliProcess, useTemporaryDirectories } from './utils.ts'
 
 const PLUGIN: Record<string, string> = {
   'package.json': '{ "name": "kirbyup-fixture", "type": "module" }',
@@ -102,3 +105,111 @@ describe('kirbyup CLI as a child process', () => {
     expect(exitCode).toBe(1)
   })
 })
+
+describe('watch builds', () => {
+  const CSS_PLUGIN: Record<string, string> = {
+    ...PLUGIN,
+    'src/input.js': 'import \'./input.css\'',
+    'src/input.css': '.live { color: red; }',
+  }
+
+  it('writes imported CSS to index.dev.css until SIGINT, leaving index.css untouched', async () => {
+    const directory = createDirectory({ ...CSS_PLUGIN, 'index.css': '.shipped{}' })
+    const watchBuild = startWatchBuild(directory)
+
+    try {
+      await vi.waitFor(() => expect(existsSync(path.join(directory, 'index.dev.css'))).toBe(true), { timeout: 4_000 })
+      expect(await fsp.readFile(path.join(directory, 'index.css'), 'utf8')).toBe('.shipped{}')
+      // kirbyup installs its SIGINT handler right after printing the watched paths.
+      await vi.waitFor(() => expect(watchBuild.getOutput()).toContain('Watching'), { timeout: 4_000 })
+    }
+    finally {
+      await stopProcess(watchBuild.child)
+    }
+
+    expect(existsSync(path.join(directory, 'index.dev.css'))).toBe(false)
+  })
+
+  it('removes index.dev.css once the entry stops importing CSS', async () => {
+    const directory = createDirectory(CSS_PLUGIN)
+    const devStylesheetPath = path.join(directory, 'index.dev.css')
+    const watchBuild = startWatchBuild(directory)
+
+    try {
+      await vi.waitFor(() => expect(existsSync(devStylesheetPath)).toBe(true), { timeout: 4_000 })
+      await rewriteUntil(path.join(directory, 'src/input.js'), PLUGIN['src/input.js']!, () => {
+        expect(existsSync(devStylesheetPath)).toBe(false)
+      })
+    }
+    finally {
+      await stopProcess(watchBuild.child)
+    }
+  })
+
+  it('ignores index.dev.css and node_modules with --watch-path .', async () => {
+    const directory = createDirectory(CSS_PLUGIN)
+    const watchBuild = startWatchBuild(directory, ['--watch-path', '.'])
+
+    try {
+      await editStylesheetUntilRebuilt(directory)
+      await fsp.mkdir(path.join(directory, 'node_modules'))
+      await fsp.writeFile(path.join(directory, 'node_modules/foo.js'), '')
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      const changedFiles = [...watchBuild.getOutput().matchAll(/(\S+) (?:add|change)$/gm)].map(match => match[1]!)
+      expect(changedFiles.filter(file => !/^src[/\\]/.test(file))).toEqual([])
+    }
+    finally {
+      await stopProcess(watchBuild.child)
+    }
+  })
+
+  it('rebuilds a plugin below a node_modules folder', async () => {
+    const root = createDirectory(Object.fromEntries(
+      Object.entries(CSS_PLUGIN).map(([file, content]) => [`node_modules/plugin/${file}`, content]),
+    ))
+    const directory = path.join(root, 'node_modules/plugin')
+    const watchBuild = startWatchBuild(directory)
+
+    try {
+      await editStylesheetUntilRebuilt(directory)
+    }
+    finally {
+      await stopProcess(watchBuild.child)
+    }
+  })
+})
+
+function startWatchBuild(cwd: string, args: string[] = ['--watch']): { child: ChildProcess, getOutput: () => string } {
+  const child = spawn(process.execPath, [CLI_ENTRY_PATH, 'src/input.js', ...args], {
+    cwd,
+    stdio: ['ignore', 'pipe', 'pipe'],
+    env: { ...process.env, NO_COLOR: '1' },
+  })
+  let output = ''
+  child.stdout!.on('data', chunk => output += chunk)
+  child.stderr!.on('data', chunk => output += chunk)
+  return { child, getOutput: () => output }
+}
+
+async function editStylesheetUntilRebuilt(directory: string): Promise<void> {
+  await rewriteUntil(path.join(directory, 'src/input.css'), '.edited {}', async () => {
+    expect(await fsp.readFile(path.join(directory, 'index.dev.css'), 'utf8')).toContain('.edited')
+  })
+}
+
+/** Rewrites `filePath` on every retry until `assertion` passes, since chokidar may still be scanning. */
+async function rewriteUntil(filePath: string, content: string, assertion: () => void | Promise<void>): Promise<void> {
+  await vi.waitFor(async () => {
+    await fsp.writeFile(filePath, content)
+    await assertion()
+  }, { timeout: 4_000, interval: 300 })
+}
+
+async function stopProcess(child: ChildProcess): Promise<void> {
+  if (child.exitCode !== null)
+    return
+  const exitPromise = new Promise(resolve => child.once('exit', resolve))
+  child.kill('SIGINT')
+  await exitPromise
+}
