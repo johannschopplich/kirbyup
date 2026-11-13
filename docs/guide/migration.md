@@ -16,6 +16,7 @@ The Panel moves from Vue 2 to Vue 3, and fields replace sections. The [Kirby 6 r
 4. Replace `index.dev.mjs` with `index.dev.*` in `.gitignore`.
 5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`.
 6. Replace `extendViteConfig` with `vite` in the config file.
+7. Run the CLI instead of `import { build, serve } from 'kirbyup'`, which is gone.
 
 ## `serve` Is Now `dev`
 
