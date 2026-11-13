@@ -14,7 +14,7 @@ The Panel moves from Vue 2 to Vue 3, and fields replace sections. The [Kirby 6 r
 2. `pnpm add -D kirbyup@next kirbyuse@next`
 3. Rename the `serve` script to `dev`.
 4. Replace `index.dev.mjs` with `index.dev.*` in `.gitignore`.
-5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`.
+5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`, and replace the [kirbyuse 2 removals](#kirbyuse-2-removals).
 6. Replace `extendViteConfig` with `vite` in the config file.
 7. Run the CLI instead of `import { build, serve } from 'kirbyup'`, which is gone.
 
@@ -87,3 +87,16 @@ import { computed, ref, watch } from 'vue' // [!code ++]
 Import `vue` by name or as a namespace (`import * as Vue from 'vue'`). A default import builds but fails to load, as the Panel's Vue has no default export.
 
 kirbyuse 2 drops the re-exports and keeps the Kirby-specific parts. See the [kirbyuse page](/guide/kirbyuse) for what remains.
+
+## kirbyuse 2 Removals
+
+kirbyuse 2 also drops these:
+
+| kirbyuse 1 | kirbyuse 2 |
+| --- | --- |
+| `isKirby4()`, `isKirby5()` | Removed, kirbyuse 2 runs on Kirby 6 only |
+| `useStore()` | `useContent()` |
+| `useSection()` | Removed, Kirby 6 has no sections |
+| `section` from `kirbyuse/props` | `field` |
+| `globalVue` | `import * as Vue from 'vue'` |
+| `kirbyuse/composables` | `kirbyuse` |
