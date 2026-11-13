@@ -39,9 +39,6 @@ Add the two scripts to `package.json`:
   "scripts": {
     "dev": "kirbyup dev src/index.js",
     "build": "kirbyup src/index.js"
-  },
-  "devDependencies": {
-    "kirbyup": "^4.0.0"
   }
 }
 ```
