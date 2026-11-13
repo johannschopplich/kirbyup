@@ -8,7 +8,7 @@ import vuePlugin from '@vitejs/plugin-vue'
 import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import { debounce } from 'perfect-debounce'
 import { CliError, reportFailure } from 'utilful/cli'
-import { build as _build, createLogger, createServer, mergeConfig } from 'vite'
+import { build as _build, createLogger, createServer, mergeAlias, mergeConfig } from 'vite'
 import { loadConfig } from './config.ts'
 import * as output from './output.ts'
 import {
@@ -42,16 +42,15 @@ function getViteConfig(
   { kirbyupConfig, logger }: ConfigContext,
 ): InlineConfig {
   const aliasDir = resolve(options.cwd, dirname(options.entry))
-  const { alias = {}, vite } = kirbyupConfig
+  const { alias, vite } = kirbyupConfig
   const userConfig = vite ?? {}
 
   const sharedConfig: InlineConfig = {
     resolve: {
-      alias: {
+      alias: mergeAlias({
         '~/': `${aliasDir}/`,
         '@/': `${aliasDir}/`,
-        ...alias,
-      },
+      }, alias),
     },
     plugins: [
       vuePlugin({ template: { compilerOptions: { isCustomElement } } }),

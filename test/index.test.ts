@@ -319,4 +319,19 @@ describe('kirbyup build', () => {
     expect.soft(output).toMatch(/["'`]bar["'`]/)
     expect.soft(output).not.toContain('__ALIAS__/foo')
   })
+
+  it('applies an alias array from the config', async () => {
+    const { output } = await buildFixture({
+      'src/input.js': 'import foo from \'__ALIAS__/foo\'\nwindow.panel.plugin(\'kirbyup/test\', { foo })',
+      'src/foo.js': 'export default \'bar\'',
+      'kirbyup.config.js': `
+      import { fileURLToPath } from 'node:url'
+      export default {
+        alias: [{ find: '__ALIAS__', replacement: fileURLToPath(new URL('src', import.meta.url)) }]
+      }
+    `,
+    })
+
+    expect(output).toMatch(/["'`]bar["'`]/)
+  })
 })

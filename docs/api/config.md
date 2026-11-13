@@ -20,7 +20,7 @@ Returns `config` unchanged. It exists for type hints and autocompletion.
 
 - **Type:** [`AliasOptions`](https://vite.dev/config/shared-options.html#resolve-alias) from Vite
 
-Extra import aliases, merged after the built-in `~/` and `@/`. An object maps a prefix to a replacement, an array of `{ find, replacement }` entries allows regular expressions. Entries apply in order, the first match wins. Your own `~/` or `@/` key replaces the built-in one.
+Extra import aliases. An object maps a prefix to a replacement and applies after the built-in `~/` and `@/`, and your own `~/` or `@/` key replaces the built-in one. An array of `{ find, replacement }` entries allows regular expressions and applies before them. Entries apply in order, the first match wins.
 
 Absolute paths resolve on the file system. Relative values are passed through as written, which is rarely what you want.
 
