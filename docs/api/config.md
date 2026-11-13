@@ -38,6 +38,7 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `plugins` | Vue, Vue JSX, auto-imports | Yours are appended. Vue and Vue JSX treat the Panel's `k-validator` and `k-input-validator` as custom elements. |
 | `envPrefix` | `['VITE_', 'KIRBYUP_']` | See [Env Variables](/guide/environment-variables) |
 | `build.lib` | ES module from the entry file | Fixed |
+| `build.outDir` | `--out-dir`, default the working directory | Fixed, use `--out-dir` |
 | `build.rolldownOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
 | `build.rolldownOptions.output.codeSplitting` | `false` | Fixed, Kirby serves no script beside `index.js` or `index.dev.js` |
 | `build.minify` | `true` for production, `false` for watch builds | Production builds also strip whitespace. `'esbuild'` keeps it, and your own `build.rolldownOptions.output.minify` overrides kirbyup's. |
