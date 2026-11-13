@@ -38,7 +38,7 @@ Directory for `index.dev.js`. Defaults to the current working directory.
 
 #### `--watch-path <paths>`
 
-Comma-separated files, folders and glob patterns that reload the page when they change. Defaults to `./**/*.php`.
+Comma-separated files, folders and glob patterns that reload the page when they change. Defaults to `./**/*.php`. Patterns match inside the project root only, files and folders anywhere.
 
 The value replaces the default. Keep the PHP pattern if you still want it: `--watch-path "snippets/*.php,./**/*.php"`.
 

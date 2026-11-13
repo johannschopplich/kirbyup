@@ -2,6 +2,7 @@ import type { ChildProcess } from 'node:child_process'
 import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import * as fsp from 'node:fs/promises'
+import { createServer } from 'node:net'
 import * as path from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
 import packageJson from '../package.json' with { type: 'json' }
@@ -180,8 +181,49 @@ describe('watch builds', () => {
   })
 })
 
+describe('dev server', () => {
+  it('reloads the Panel for a file in a --watch-path folder', async () => {
+    const directory = createDirectory({ ...PLUGIN, 'snippets/card.php': '' })
+    const devServer = await startDevServer(directory, ['--watch-path', 'snippets'])
+
+    try {
+      await rewriteUntil(path.join(directory, 'snippets/card.php'), '<?php', () => {
+        expect(devServer.getOutput()).toContain('snippets/card.php changed')
+      })
+    }
+    finally {
+      await stopProcess(devServer.child)
+    }
+  })
+
+  it('reloads the Panel for a --watch-path file outside the working directory', async () => {
+    const root = createDirectory({
+      'outside.php': '',
+      ...Object.fromEntries(Object.entries(PLUGIN).map(([file, content]) => [`plugin/${file}`, content])),
+    })
+    const devServer = await startDevServer(path.join(root, 'plugin'), ['--watch-path', '../outside.php'])
+
+    try {
+      await rewriteUntil(path.join(root, 'outside.php'), '<?php', () => {
+        expect(devServer.getOutput()).toContain('../outside.php changed')
+      })
+    }
+    finally {
+      await stopProcess(devServer.child)
+    }
+  })
+})
+
 function startWatchBuild(cwd: string, args: string[] = ['--watch']): { child: ChildProcess, getOutput: () => string } {
-  const child = spawn(process.execPath, [CLI_ENTRY_PATH, 'src/input.js', ...args], {
+  return startCli(cwd, ['src/input.js', ...args])
+}
+
+async function startDevServer(cwd: string, args: string[]): Promise<{ child: ChildProcess, getOutput: () => string }> {
+  return startCli(cwd, ['dev', 'src/input.js', '--port', String(await findFreePort()), ...args])
+}
+
+function startCli(cwd: string, args: string[]): { child: ChildProcess, getOutput: () => string } {
+  const child = spawn(process.execPath, [CLI_ENTRY_PATH, ...args], {
     cwd,
     stdio: ['ignore', 'pipe', 'pipe'],
     env: { ...process.env, NO_COLOR: '1' },
@@ -204,6 +246,14 @@ async function rewriteUntil(filePath: string, content: string, assertion: () => 
     await fsp.writeFile(filePath, content)
     await assertion()
   }, { timeout: 4_000, interval: 300 })
+}
+
+async function findFreePort(): Promise<number> {
+  const server = createServer()
+  await new Promise<void>(resolve => server.listen(0, 'localhost', resolve))
+  const { port } = server.address() as { port: number }
+  await new Promise(resolve => server.close(resolve))
+  return port
 }
 
 async function stopProcess(child: ChildProcess): Promise<void> {
