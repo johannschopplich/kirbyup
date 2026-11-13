@@ -65,11 +65,9 @@ window.panel.plugin('my/plugin', {
 })
 ```
 
-Kirby 6 exposes `vue` through an import map, and kirbyup leaves `vue` out of the bundle. At runtime, `vue` resolves to the Panel's own copy. Your plugin and the Panel share one Vue.
+Import from `vue` as usual: kirbyup leaves it out of the bundle, and at runtime it resolves to the Panel's own copy, so your plugin and the Panel share one Vue.
 
-Kirby 6 imports each plugin's `index.js` as its own ES module, and kirbyup builds one. The entry file can use top-level `await` and `export`, though Kirby reads no export.
-
-Kirby loads the plugins one after another, so a top-level `await` holds up the Panel until it settles. Keep slow work like a network request out of it.
+Kirby loads the plugins one after another, so a top-level `await` in the entry file holds up the Panel until it settles. Keep slow work like a network request out of it.
 
 A dynamic `import()` is bundled into `index.js`, as Kirby serves no other script for a plugin.
 

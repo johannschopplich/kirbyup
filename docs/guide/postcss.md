@@ -23,20 +23,6 @@ $primary: #5d5dff;
 </style>
 ```
 
-Shared files load with `@use`:
-
-```vue
-<style lang="scss">
-@use './variables' as *;
-@use './mixins' as *;
-
-.my-component {
-  @include card-shadow;
-  color: $text-color;
-}
-</style>
-```
-
 ## PostCSS
 
 Create `postcss.config.js` in the project root and list the plugins. They apply to every stylesheet in the bundle:

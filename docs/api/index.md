@@ -22,31 +22,9 @@ Comma-separated files and folders to watch instead of the entry file's folder. I
 
 Glob patterns are rejected. Folders are watched recursively, so name the folder instead of a pattern.
 
-### Examples
-
-```bash
-kirbyup src/index.js
-```
-
-<<< @/snippets/build.ansi
-
-```bash
-kirbyup src/index.js --out-dir ../site/plugins/my-plugin
-```
-
-```bash
-kirbyup src/index.js --watch
-```
-
-<<< @/snippets/watch.ansi
-
-```bash
-kirbyup src/index.js --watch-path src,assets
-```
-
 ## `kirbyup dev <file>`
 
-Starts a Vite dev server for `<file>` and writes `index.dev.js`, which tells Kirby to load the plugin from that server. Component edits apply through hot module replacement. The file is removed when the server stops.
+Starts a Vite dev server for `<file>` and writes `index.dev.js`, which tells Kirby to load the plugin from that server. Component edits apply through hot module replacement. The file is removed when the server stops. `kirbyup serve`, the v3 name of this command, still runs and prints a hint to rename the script – see [`serve` Is Now `dev`](/guide/migration#serve-is-now-dev).
 
 ### Options
 
@@ -67,30 +45,6 @@ The value replaces the default. Keep the PHP pattern if you still want it: `--wa
 #### `--no-watch`
 
 Turns page reloads off. Hot module replacement stays on.
-
-### Examples
-
-```bash
-kirbyup dev src/index.js
-```
-
-<<< @/snippets/dev.ansi
-
-```bash
-kirbyup dev src/index.js --port 3000
-```
-
-```bash
-kirbyup dev src/index.js --no-watch
-```
-
-```bash
-kirbyup dev src/index.js --watch-path "snippets/*.php,templates/*.php"
-```
-
-## `kirbyup serve <file>`
-
-The name of `dev` before v4. It takes the same options and prints a hint to rename the script.
 
 ## Output Files
 

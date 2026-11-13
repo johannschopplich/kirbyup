@@ -1,6 +1,6 @@
 # Config
 
-`kirbyup.config.js` in the project root configures both `build` and `dev`. The file is loaded with [c12](https://github.com/unjs/c12), so `.ts`, `.mjs` and `.js` all work. Neither `.kirbyuprc` nor a `package.json` key is read.
+`kirbyup.config.js` (or `.ts`, `.mjs`) in the project root configures both `build` and `dev`.
 
 ```js
 // kirbyup.config.js
@@ -40,7 +40,7 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `build.lib` | ES module from the entry file | Fixed |
 | `build.rolldownOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
 | `build.rolldownOptions.output.codeSplitting` | `false` | Fixed, Kirby serves no script beside `index.js` or `index.dev.js` |
-| `build.minify` | `true` for production, `false` for watch builds | With Vite's own minifier, kirbyup also sets `build.rolldownOptions.output.minify`, which Vite's library mode leaves without whitespace removal. Set it yourself to override. `'esbuild'` keeps the whitespace. |
+| `build.minify` | `true` for production, `false` for watch builds | Production builds also strip whitespace. `'esbuild'` keeps it, and your own `build.rolldownOptions.output.minify` overrides kirbyup's. |
 | `build.target` | The browsers the Kirby Panel supports | Yours replaces it |
 | `server.port` | `--port`, default `5177` | Config wins over the flag |
 | `server.origin` | Derived from `server.host`, `server.https` and the port | The URL written into `index.dev.js` |
