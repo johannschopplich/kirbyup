@@ -27,9 +27,9 @@ describe('resolveOriginFromServerOptions', () => {
     expect(origin).toBe('http://[2001:db8::1]:3000')
   })
 
-  it('resolves host=true to 0.0.0.0', () => {
-    const origin = resolveOriginFromServerOptions({ host: true }, 3000)
-    expect(origin).toBe('http://0.0.0.0:3000')
+  it.each([true, '0.0.0.0', '::'])('resolves host=%s to localhost', (host) => {
+    const origin = resolveOriginFromServerOptions({ host }, 3000)
+    expect(origin).toBe('http://localhost:3000')
   })
 
   it('uses http when https is an empty object', () => {

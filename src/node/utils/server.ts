@@ -3,6 +3,9 @@ import { isIP } from 'node:net'
 
 export type HostValue = string | boolean | undefined
 
+// A browser cannot reach a wildcard address, so the origin names `localhost`, as Vite's own local URL does.
+const WILDCARD_HOSTS = new Set(['0.0.0.0', '::'])
+
 export function resolveOriginFromServerOptions(
   serverOptions: {
     host?: HostValue
@@ -24,10 +27,8 @@ export function resolveOriginFromServerOptions(
 }
 
 function normalizeHost(host?: HostValue): string | undefined {
-  if (host === false || host === undefined)
+  if (typeof host !== 'string' || WILDCARD_HOSTS.has(host))
     return
-  if (host === true)
-    return '0.0.0.0'
   return host
 }
 
