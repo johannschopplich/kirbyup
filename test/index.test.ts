@@ -97,6 +97,15 @@ describe('kirbyup build', () => {
     await expect(getFileContent('index.dev.css')).rejects.toThrow(/ENOENT/)
   })
 
+  it('removes a leftover index.css when the plugin imports no CSS', async () => {
+    const { getFileContent } = await buildFixture({
+      'index.css': '.stale {}',
+      'src/input.js': 'window.panel.plugin(\'kirbyup/test\', {})',
+    })
+
+    await expect(getFileContent('index.css')).rejects.toThrow(/ENOENT/)
+  })
+
   it('keeps light-dark() in index.css', async () => {
     const { getFileContent } = await buildFixture({
       'src/input.js': 'import \'./input.css\'',

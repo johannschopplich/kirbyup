@@ -13,6 +13,7 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
   let config: ResolvedConfig
   let devIndexPath: string
   let devStylesheetPath: string
+  let stylesheetPath: string
 
   return {
     name: 'kirbyup:build-cleanup',
@@ -23,6 +24,7 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
       config = resolvedConfig
       devIndexPath = resolve(config.root, options.outDir, 'index.dev.js')
       devStylesheetPath = resolve(config.root, options.outDir, 'index.dev.css')
+      stylesheetPath = resolve(config.root, options.outDir, 'index.css')
     },
 
     generateBundle(_outputOptions, bundle) {
@@ -33,14 +35,16 @@ export function kirbyupBuildCleanupPlugin(options: BuildOptions): Plugin {
     },
 
     writeBundle(_outputOptions, bundle) {
-      // A watch build without CSS removes the stylesheet an earlier one wrote,
-      // which Kirby would still pair with `index.dev.js`.
+      // A build without CSS removes the stylesheet an earlier one wrote, which
+      // Kirby would still load.
       if (options.watch) {
         if (!('index.dev.css' in bundle))
           fs.rmSync(devStylesheetPath, { force: true })
         return
       }
 
+      if (!('index.css' in bundle))
+        fs.rmSync(stylesheetPath, { force: true })
       fs.rmSync(devIndexPath, { force: true })
       fs.rmSync(devStylesheetPath, { force: true })
     },
