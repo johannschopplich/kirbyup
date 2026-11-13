@@ -9,7 +9,7 @@ The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 
 ## Key Features
 
-- 🔄 [Hot Module Replacement](https://kirbyup.getkirby.com/guide/getting-started.html#development)
+- 🔄 [Hot Module Replacement](https://kirbyup.getkirby.com/guide/getting-started#start-the-dev-server)
 - 🎒 [PostCSS & Sass](https://kirbyup.getkirby.com/guide/postcss)
 - 🧩 [kirbyuse Integration](https://kirbyup.getkirby.com/guide/kirbyuse)
 - 🔌 [Environment Variables](https://kirbyup.getkirby.com/guide/environment-variables)
@@ -19,9 +19,9 @@ The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 ## Requirements
 
 - **Node.js 24 or newer** with pnpm, npm or yarn.
-- **Kirby 6.0.0-beta.1 or newer.** kirbyup 4 builds for the Vue 3 Panel. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com). Upgrading? Read the [migration guide](https://kirbyup.getkirby.com/guide/migration).
+- **Kirby 6.0.0-beta.4 or newer.** kirbyup 4 builds for the Vue 3 Panel. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com). Upgrading? Read the [migration guide](https://kirbyup.getkirby.com/guide/migration).
 
-## Setup
+## Installation
 
 > [!TIP]
 > Skip the setup with one of the starters:
@@ -30,13 +30,13 @@ The official bundler for Kirby Panel plugins. Zero-config, built-in HMR.
 
 ```bash
 # pnpm
-pnpm add -D kirbyup
+pnpm add -D kirbyup@next
 
 # npm
-npm i -D kirbyup
+npm i -D kirbyup@next
 
 # yarn
-yarn add -D kirbyup
+yarn add -D kirbyup@next
 ```
 
 Add the two scripts to `package.json`:
