@@ -30,6 +30,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
   let devIndexPath: string
   let devStylesheetPath: string
   let vueStubCode: string | undefined
+  let isListening = false
 
   let markWritten: () => void
   let markFailed: (error: unknown) => void
@@ -113,6 +114,7 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       }
 
       server.httpServer.once('listening', async () => {
+        isListening = true
         try {
           const entryPath = entry.replace(`${config.root}/`, '')
           const baseUrl = getDevBaseUrl(server, config)
@@ -132,6 +134,10 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
     },
 
     async closeBundle() {
+      // A server that never listened wrote no dev index, so it removes none.
+      if (!isListening)
+        return
+
       // Removing the file before the `listening` handler writes it would leave
       // Kirby loading a dev index that points at a server already gone.
       await devIndexWritten.catch(() => {})

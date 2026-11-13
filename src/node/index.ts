@@ -26,6 +26,8 @@ const DEV_STYLESHEET_FILENAME = 'index.dev.css'
 // Native custom elements the Panel defines – mirrors `isCustomElement` in Kirby's `panel/vite.config.ts`.
 const PANEL_CUSTOM_ELEMENTS = ['k-input-validator', 'k-validator']
 const SUPPRESSED_WARNING = '(!) build.outDir'
+// Vite logs its dependency scan, aborted by `server.close()`, with a stack, though it silences the same error elsewhere.
+const SUPPRESSED_ERROR = 'The server is being restarted or closed'
 
 const logLevel: LogLevel = 'warn'
 
@@ -286,7 +288,13 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
 
   const server = await createServer(getViteConfig('serve', options, context))
 
-  await server.listen()
+  try {
+    await server.listen()
+  }
+  catch (error) {
+    await server.close().catch(() => {})
+    throw new CliError(error instanceof Error ? error.message : String(error), { cause: error })
+  }
 
   // `server.listen()` resolves as soon as the port is bound, which is before
   // the HMR plugin has written `index.dev.js`. Kirby reads that file to decide
@@ -322,6 +330,11 @@ function createKirbyupLogger(): Logger {
       if (msg.includes(SUPPRESSED_WARNING))
         return
       baseLogger.warn(msg, options)
+    },
+    error(msg, options) {
+      if (msg.includes(SUPPRESSED_ERROR))
+        return
+      baseLogger.error(msg, options)
     },
   }
 }

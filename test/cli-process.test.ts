@@ -1,4 +1,5 @@
 import type { ChildProcess } from 'node:child_process'
+import type { AddressInfo, Server } from 'node:net'
 import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import * as fsp from 'node:fs/promises'
@@ -182,6 +183,21 @@ describe('watch builds', () => {
 })
 
 describe('dev server', () => {
+  it('exits with a failure status when the --port is taken', async () => {
+    const blocker = await occupyFreePort()
+    const devServer = startCli(createDirectory(PLUGIN), ['dev', 'src/input.js', '--port', String((blocker.address() as AddressInfo).port)])
+
+    try {
+      await vi.waitFor(() => expect(devServer.child.exitCode).toBe(1), { timeout: 4_000 })
+      expect.soft(devServer.getOutput()).toContain('is already in use')
+      expect.soft(devServer.getOutput()).not.toMatch(/^\s+at /m)
+    }
+    finally {
+      await stopProcess(devServer.child)
+      await new Promise(resolve => blocker.close(resolve))
+    }
+  })
+
   it('reloads the Panel for a file in a --watch-path folder', async () => {
     const directory = createDirectory({ ...PLUGIN, 'snippets/card.php': '' })
     const devServer = await startDevServer(directory, ['--watch-path', 'snippets'])
@@ -248,10 +264,15 @@ async function rewriteUntil(filePath: string, content: string, assertion: () => 
   }, { timeout: 4_000, interval: 300 })
 }
 
-async function findFreePort(): Promise<number> {
+async function occupyFreePort(): Promise<Server> {
   const server = createServer()
   await new Promise<void>(resolve => server.listen(0, 'localhost', resolve))
-  const { port } = server.address() as { port: number }
+  return server
+}
+
+async function findFreePort(): Promise<number> {
+  const server = await occupyFreePort()
+  const { port } = server.address() as AddressInfo
   await new Promise(resolve => server.close(resolve))
   return port
 }
