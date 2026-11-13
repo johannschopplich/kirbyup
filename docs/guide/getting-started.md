@@ -2,12 +2,12 @@
 
 kirbyup bundles a Kirby Panel plugin with Vite. One command builds for production, one starts a dev server with hot module replacement.
 
-Your source lives in `src/`, split into as many files as you like. kirbyup turns it into the `index.js` and `index.css` in the plugin root, which are the two files Kirby loads.
+Your source lives in `src/`, split into as many files as you like. kirbyup turns it into the `index.js` and `index.css` in the project root, which are the two files Kirby loads.
 
 ## Prerequisites
 
 - **Node.js 24 or newer** with pnpm, npm or yarn.
-- **Kirby 6.0.0-beta.1 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com).
+- **Kirby 6.0.0-beta.4 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com).
 
 Upgrading an existing plugin? Read the [migration guide](/guide/migration).
 
@@ -18,17 +18,17 @@ Skip the setup with one of the starters:
 - [`unocss`](https://github.com/johannschopplich/kirbyup/tree/main/examples/unocss): the same, plus [UnoCSS](/guide/unocss) utilities.
 :::
 
-## Installation
+## Install kirbyup
 
 ::: code-group
 ```bash [pnpm]
-pnpm add -D kirbyup
+pnpm add -D kirbyup@next
 ```
 ```bash [npm]
-npm install -D kirbyup
+npm install -D kirbyup@next
 ```
 ```bash [yarn]
-yarn add -D kirbyup
+yarn add -D kirbyup@next
 ```
 :::
 
@@ -46,6 +46,12 @@ Add the two scripts to `package.json`:
 }
 ```
 
+::: details Run Without Installing
+`npx -y kirbyup@next src/index.js` works without a dependency. npx caches versions, so run `npx -y kirbyup@next` when the output looks stale. A dev dependency avoids the issue.
+:::
+
+## Write the Entry File
+
 The entry file registers the plugin as usual:
 
 ```js
@@ -59,11 +65,15 @@ window.panel.plugin('my/plugin', {
 })
 ```
 
-::: details Run without installing
-`npx -y kirbyup src/index.js` works without a dependency. npx caches versions, so run `npx -y kirbyup@latest` when the output looks stale. A dev dependency avoids the issue.
-:::
+Kirby 6 exposes `vue` through an import map, and kirbyup leaves `vue` out of the bundle. At runtime, `vue` resolves to the Panel's own copy. Your plugin and the Panel share one Vue.
 
-## Development
+Kirby 6 imports each plugin's `index.js` as its own ES module, and kirbyup builds one. The entry file can use top-level `await` and `export`, though Kirby reads no export.
+
+Kirby loads the plugins one after another, so a top-level `await` holds up the Panel until it settles. Keep slow work like a network request out of it.
+
+A dynamic `import()` is bundled into `index.js`, as Kirby serves no other script for a plugin.
+
+## Start the Dev Server
 
 ```bash
 npm run dev
@@ -75,7 +85,7 @@ The dev server writes `index.dev.js` next to your plugin. Kirby loads that file 
 
 Add `index.dev.*` to `.gitignore`.
 
-::: details Watch mode without HMR
+::: details Watch Mode Without HMR
 When the Panel cannot reach the dev server, for example on a remote host, rebuild on change instead:
 
 ```bash
@@ -87,7 +97,7 @@ kirbyup src/index.js --watch
 Watch builds write an unminified `index.dev.js` and `index.dev.css`, which Kirby picks up the same way. Your `index.css` stays as the last production build left it.
 :::
 
-## Production
+## Build for Production
 
 ```bash
 npm run build

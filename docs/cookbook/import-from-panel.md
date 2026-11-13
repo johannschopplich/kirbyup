@@ -1,15 +1,15 @@
 # Import From Panel
 
-The [Panel source](https://github.com/getkirby/kirby/tree/main/panel/src) contains components, mixins and helpers you can reuse instead of copying them. An alias that points at a Kirby checkout makes them importable.
+The [Panel source](https://github.com/getkirby/kirby/tree/v6/develop/panel/src) contains components, mixins and helpers you can reuse instead of copying them. An alias that points at a Kirby checkout makes them importable.
 
-The Panel itself uses `@/` for its source root. Using the same alias keeps the Panel's internal imports working.
+The Panel itself uses `@/` for its source root. Using the same alias keeps the Panel's internal imports working. Your own source stays reachable through `~/`.
 
-## Setup
+## Alias the Panel Source
 
-Clone Kirby into the plugin folder:
+Clone the Kirby 6 branch into the project root:
 
 ```bash
-git clone git@github.com:getkirby/kirby.git
+git clone -b v6/develop git@github.com:getkirby/kirby.git
 ```
 
 Point `@/` at the Panel source in `kirbyup.config.js`:
@@ -29,7 +29,7 @@ export default defineConfig({
 })
 ```
 
-## Usage
+## Import a Panel Module
 
 Reuse the base field props in a custom field:
 
@@ -43,5 +43,5 @@ export default {
 ```
 
 ::: info
-Styles of imported Panel components end up in your bundle, duplicating what the Panel already ships. There is no way to exclude them per path.
+Styles of imported Panel components end up in your bundle, duplicating what the Panel already ships. kirbyup has no option to exclude them.
 :::

@@ -1,6 +1,8 @@
 # PostCSS & Sass
 
-Sass works out of the box. PostCSS runs as soon as a config file exists. kirbyup applies no PostCSS plugins of its own, so without a config file the CSS goes through Vite untouched.
+Sass works out of the box. PostCSS runs as soon as a config file exists. kirbyup applies no PostCSS plugins of its own.
+
+For utility-first styling, use [UnoCSS](/guide/unocss). It runs as a Vite plugin without PostCSS and prefixes classes per plugin, which matters because Kirby loads every plugin's stylesheet into the same document.
 
 ## Sass
 
@@ -47,7 +49,3 @@ export default {
 ```
 
 Any format [postcss-load-config](https://github.com/postcss/postcss-load-config) understands works, including a `postcss` key in `package.json`. Without `"type": "module"` in `package.json`, name the file `postcss.config.mjs` so Node loads it as ESM without a warning.
-
-## Utility Classes
-
-For utility-first styling, use [UnoCSS](/guide/unocss). It runs as a Vite plugin without PostCSS and prefixes classes per plugin, which matters because Kirby merges every plugin's CSS into one bundle.

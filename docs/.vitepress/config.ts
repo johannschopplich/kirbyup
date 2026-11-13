@@ -149,7 +149,6 @@ function sidebarApi(): DefaultTheme.SidebarItem[] {
       items: [
         { text: 'CLI', link: '/api/' },
         { text: 'Config', link: '/api/config' },
-        { text: 'Plugin Helpers', link: '/api/plugin' },
       ],
     },
     { text: 'Guide', link: '/guide/getting-started' },

@@ -2,37 +2,30 @@
 
 [kirbyuse](https://github.com/johannschopplich/kirbyuse) adds the Kirby-specific layer on top of Vue: types for `window.panel`, composables for common Panel tasks and prop sets for fields and blocks.
 
-::: info Versions
 kirbyuse 2 pairs with kirbyup 4 and Kirby 6. Kirby 4 and 5 plugins use kirbyuse 1 with kirbyup 3.
-:::
 
 ## Installation
 
 ::: code-group
 ```bash [pnpm]
-pnpm add -D kirbyuse
+pnpm add -D kirbyuse@next
 ```
 ```bash [npm]
-npm install -D kirbyuse
+npm install -D kirbyuse@next
 ```
 ```bash [yarn]
-yarn add -D kirbyuse
+yarn add -D kirbyuse@next
 ```
 :::
 
 ## Imports
 
-Kirby 6 exposes `vue` through an import map, and kirbyup leaves `vue` out of the bundle. The Composition API comes from `vue`, everything Kirby-specific from `kirbyuse`:
-
-<!-- eslint-skip -->
+The Composition API comes from `vue`, everything Kirby-specific from `kirbyuse`:
 
 ```js
-import { computed, ref, usePanel } from 'kirbyuse' // [!code --]
-import { usePanel } from 'kirbyuse' // [!code ++]
-import { computed, ref } from 'vue' // [!code ++]
+import { usePanel } from 'kirbyuse'
+import { computed, ref } from 'vue'
 ```
-
-At runtime, `vue` resolves to the Panel's own copy. Your plugin and the Panel share one Vue.
 
 ## Panel Types
 
@@ -62,9 +55,7 @@ No TypeScript required, the hints work in JavaScript files as well.
 
 ## Composables
 
-### `useContent`
-
-Reactive access to the content of the current view:
+`useContent` gives reactive access to the content of the current view:
 
 ```js
 import { useContent } from 'kirbyuse'
@@ -82,54 +73,7 @@ update({ title: 'New title' })
 
 `currentContent` reflects the editor state including unsaved changes, `contentChanges` holds only the diff and `update` writes into it.
 
-### `useDialog`
-
-Opens Kirby's dialogs and resolves with the result:
-
-```js
-import { useDialog } from 'kirbyuse'
-
-const { openTextDialog, openFieldsDialog } = useDialog()
-
-const confirmed = await openTextDialog('Delete this entry?')
-
-const result = await openFieldsDialog({
-  fields: {
-    email: { type: 'email', label: 'Email' },
-  },
-})
-// result: { email: '...' } or undefined when cancelled
-```
-
-`openFieldsDialog` takes an `onSubmit` handler to validate before the dialog closes. Return `false` to keep it open.
-
-### `useI18n`
-
-Translates the objects Kirby uses for labels:
-
-```js
-import { useI18n } from 'kirbyuse'
-
-const { t } = useI18n()
-
-t({ en: 'Hello', de: 'Hallo' }) // Follows the Panel language
-```
-
-For Kirby's own translation strings, `panel.t()` is the right call.
-
-### All Composables
-
-| Composable | Returns |
-| --- | --- |
-| `usePanel` | The typed `window.panel` |
-| `useApi` | `panel.api` for requests to the backend |
-| `useApp` | `panel.app`, the Vue application instance |
-| `useContent` | `{ content, currentContent, contentChanges, hasChanges, isEditable, update }` |
-| `useDialog` | `{ openTextDialog, openFieldsDialog }` |
-| `useBlock` | `{ field, open, update }` for custom block components |
-| `useI18n` | `{ t }` |
-| `useHelpers` | Kirby's `$helper` utilities |
-| `useLibrary` | Kirby's `$library` bundle, such as dayjs |
+The [kirbyuse API](https://github.com/johannschopplich/kirbyuse#api) documents every composable with an example, and the [README](https://github.com/johannschopplich/kirbyuse) covers loading plugin assets on demand.
 
 ## Prop Sets
 
@@ -143,17 +87,4 @@ defineProps({ ...field })
 
 The individual field props such as `label`, `disabled` and `required` are available as well.
 
-## Plugin Assets
-
-For assets that should load on demand, register them once and resolve them by file name:
-
-| Helper | Purpose |
-| --- | --- |
-| `registerPluginAssets(assets)` | Registers `{ filename, url }` pairs, usually from a PHP-side asset list |
-| `resolvePluginAsset(filename)` | Returns the registered asset |
-| `loadPluginModule(filename)` | Imports a registered JavaScript module, cached |
-
-## Resources
-
-- [kirbyuse on GitHub](https://github.com/johannschopplich/kirbyuse): every composable with examples.
-- [Kirby Minimap](https://github.com/johannschopplich/kirby-minimap), [Kirby Content Translator](https://github.com/kirby-tools/kirby-content-translator) and [Kirby SERP Preview](https://github.com/johannschopplich/kirby-serp-preview): plugins built with kirbyup and kirbyuse.
+[Kirby Minimap](https://github.com/johannschopplich/kirby-minimap), [Kirby Content Translator](https://github.com/kirby-tools/kirby-content-translator) and [Kirby SERP Preview](https://github.com/johannschopplich/kirby-serp-preview) are plugins built with kirbyup and kirbyuse.

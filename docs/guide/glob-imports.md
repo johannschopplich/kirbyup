@@ -21,9 +21,9 @@ window.panel.plugin('my/plugin', {
 })
 ```
 
-The pattern is expanded at build time, so it has to be a string literal. See the [reference](/api/plugin#kirbyup-import-glob) for details.
+The pattern is expanded at build time, so it has to be a string literal, relative to the file that calls it. Every matching file ends up in the bundle, and a dynamic string throws at runtime.
 
-## Trade-offs
+## When to Use Explicit Imports
 
 Explicit imports are the better default for anything beyond a handful of components:
 

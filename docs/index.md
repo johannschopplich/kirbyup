@@ -26,12 +26,12 @@ features:
   - title: Hot Module Replacement
     icon: <span class="i-ri-speed-up-line"></span>
     details: Edit a component and the Panel updates in place. No page reload, no rebuild.
-    link: /guide/getting-started#development
+    link: /guide/getting-started#start-the-dev-server
     linkText: Start the dev server
   - title: Native Vue 3
     icon: <span class="i-ri-vuejs-line"></span>
     details: Import from <code>vue</code> and share the Panel's runtime. Nothing ships twice.
-    link: /guide/kirbyuse#imports
+    link: /guide/getting-started#write-the-entry-file
     linkText: See how imports resolve
   - title: Config File
     icon: <span class="i-ri-file-code-line"></span>

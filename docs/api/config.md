@@ -20,7 +20,7 @@ Returns `config` unchanged. It exists for type hints and autocompletion.
 
 - **Type:** [`AliasOptions`](https://vite.dev/config/shared-options.html#resolve-alias) from Vite
 
-Extra import aliases, merged after the built-in `~/` and `@/`. An object maps a prefix to a replacement, an array of `{ find, replacement }` entries allows regular expressions. Entries apply in order, the first match wins.
+Extra import aliases, merged after the built-in `~/` and `@/`. An object maps a prefix to a replacement, an array of `{ find, replacement }` entries allows regular expressions. Entries apply in order, the first match wins. Your own `~/` or `@/` key replaces the built-in one.
 
 Absolute paths resolve on the file system. Relative values are passed through as written, which is rarely what you want.
 
@@ -48,3 +48,7 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `server.cors` | `true` | The Panel runs on another origin |
 
 Set `server.origin` when the Panel cannot reach the dev server under the derived URL, for example on another host or behind a proxy.
+
+## `vite.config.js`
+
+Vite loads a `vite.config.js` (or `.ts`) in the project root as well, and `vite` in `kirbyup.config.js` overrides it. Set an option kirbyup sets, such as `server.port`, under `vite`.
