@@ -31,8 +31,9 @@ export interface UserConfig {
    * @example
    * export default defineConfig({
    *   vite: {
-   *    define: {
-   *     __TEST__: JSON.stringify(process.env.TEST === 'true'),
+   *     define: {
+   *       __TEST__: JSON.stringify(process.env.TEST === 'true'),
+   *     },
    *   },
    * })
    */
