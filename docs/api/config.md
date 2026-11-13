@@ -41,7 +41,7 @@ kirbyup sets these options. Overriding the ones marked as fixed breaks the outpu
 | `build.outDir` | `--out-dir`, default the working directory | Fixed, use `--out-dir` |
 | `build.rolldownOptions.external` | `['vue']` | Fixed, `vue` comes from the Panel |
 | `build.rolldownOptions.output.codeSplitting` | `false` | Fixed, Kirby serves no script beside `index.js` or `index.dev.js` |
-| `build.minify` | `true` for production, `false` for watch builds | Production builds also strip whitespace. `'esbuild'` keeps it, and your own `build.rolldownOptions.output.minify` overrides kirbyup's. |
+| `build.minify` | `true` for production, `false` for watch builds | Production builds also strip whitespace. `'esbuild'` keeps it and needs `esbuild` installed. Your own `build.rolldownOptions.output.minify` overrides kirbyup's. |
 | `build.target` | The browsers the Kirby Panel supports | Yours replaces it |
 | `server.port` | `--port`, default `5177` | Config wins over the flag |
 | `server.origin` | Derived from `server.host`, `server.https` and the port | The URL written into `index.dev.js` |
