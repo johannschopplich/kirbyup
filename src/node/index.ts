@@ -55,7 +55,11 @@ function getViteConfig(
       }, alias),
     },
     plugins: [
-      vuePlugin({ template: { compilerOptions: { isCustomElement } } }),
+      vuePlugin({
+        template: {
+          compilerOptions: { isCustomElement },
+        },
+      }),
       vueJsxPlugin({ isCustomElement }),
       kirbyupGlobImportPlugin(),
     ],
@@ -99,7 +103,10 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions), kirbyupBuildTargetPlugin()],
+    plugins: [
+      kirbyupBuildCleanupPlugin(options as BuildOptions),
+      kirbyupBuildTargetPlugin(),
+    ],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),
@@ -152,7 +159,9 @@ async function generate(options: BuildOptions, context: ConfigContext): Promise<
   catch (error) {
     // Vite and Rolldown report a broken entry as a plain `Error`, which the
     // boundary would take for a defect and print with its stack.
-    const buildError = new CliError(error instanceof Error ? error.message : String(error), { cause: error })
+    const buildError = new CliError(error instanceof Error
+      ? error.message
+      : String(error), { cause: error })
     if (!options.watch)
       throw buildError
     reportFailure(buildError)
@@ -293,7 +302,9 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
   }
   catch (error) {
     await server.close().catch(() => {})
-    throw new CliError(error instanceof Error ? error.message : String(error), { cause: error })
+    throw new CliError(error instanceof Error
+      ? error.message
+      : String(error), { cause: error })
   }
 
   // `server.listen()` resolves as soon as the port is bound, which is before
@@ -311,7 +322,9 @@ export async function serve(options: ServeOptions): Promise<ViteDevServer> {
       ?? resolveOriginFromServerOptions(server.config.server, port, 'localhost'),
     outDir: options.outDir,
     devFilename: DEV_INDEX_FILENAME,
-    watchPaths: options.watch === false ? [] : toArray(options.watch),
+    watchPaths: options.watch === false
+      ? []
+      : toArray(options.watch),
     startedAt,
   })
 

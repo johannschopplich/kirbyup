@@ -81,7 +81,9 @@ describe('kirbyup CLI as a child process', () => {
   it('refuses a watch pattern chokidar would not expand', async () => {
     const { stderr, exitCode } = await runCliProcess(
       ['src/input.js', '--watch-path', 'src/**/*.js'],
-      { cwd: createDirectory(PLUGIN) },
+      {
+        cwd: createDirectory(PLUGIN),
+      },
     )
 
     expect(stderr).toContain('not patterns')
@@ -158,7 +160,9 @@ describe('watch builds', () => {
       await fsp.writeFile(path.join(directory, 'node_modules/foo.js'), '')
       await new Promise(resolve => setTimeout(resolve, 500))
 
-      const changedFiles = [...watchBuild.getOutput().matchAll(/(\S+) (?:add|change)$/gm)].map(match => match[1]!)
+      const changedFiles = [
+        ...watchBuild.getOutput().matchAll(/(\S+) (?:add|change)$/gm),
+      ].map(match => match[1]!)
       expect(changedFiles.filter(file => !/^src[/\\]/.test(file))).toEqual([])
     }
     finally {
@@ -185,7 +189,12 @@ describe('watch builds', () => {
 describe('dev server', () => {
   it('exits with a failure status when the --port is taken', async () => {
     const blocker = await occupyFreePort()
-    const devServer = startCli(createDirectory(PLUGIN), ['dev', 'src/input.js', '--port', String((blocker.address() as AddressInfo).port)])
+    const devServer = startCli(createDirectory(PLUGIN), [
+      'dev',
+      'src/input.js',
+      '--port',
+      String((blocker.address() as AddressInfo).port),
+    ])
 
     try {
       await vi.waitFor(() => expect(devServer.child.exitCode).toBe(1), { timeout: 4_000 })
@@ -235,7 +244,13 @@ function startWatchBuild(cwd: string, args: string[] = ['--watch']): { child: Ch
 }
 
 async function startDevServer(cwd: string, args: string[]): Promise<{ child: ChildProcess, getOutput: () => string }> {
-  return startCli(cwd, ['dev', 'src/input.js', '--port', String(await findFreePort()), ...args])
+  return startCli(cwd, [
+    'dev',
+    'src/input.js',
+    '--port',
+    String(await findFreePort()),
+    ...args,
+  ])
 }
 
 function startCli(cwd: string, args: string[]): { child: ChildProcess, getOutput: () => string } {
@@ -247,7 +262,10 @@ function startCli(cwd: string, args: string[]): { child: ChildProcess, getOutput
   let output = ''
   child.stdout!.on('data', chunk => output += chunk)
   child.stderr!.on('data', chunk => output += chunk)
-  return { child, getOutput: () => output }
+  return {
+    child,
+    getOutput: () => output,
+  }
 }
 
 async function editStylesheetUntilRebuilt(directory: string): Promise<void> {

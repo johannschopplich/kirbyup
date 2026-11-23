@@ -6,10 +6,30 @@ import { resolveWatchPaths } from './watch-paths.ts'
 
 export const devArgs = {
   'file': { type: 'positional', description: 'Entry file of the plugin', required: true },
-  'out-dir': { type: 'string', alias: 'd', description: 'Output directory', valueHint: 'dir' },
-  'watch': { type: 'boolean', alias: 'w', default: true, description: 'Reload the Panel when a watched file changes' },
-  'watch-path': { type: 'string', default: './**/*.php', description: 'Comma-separated files, folders and globs to watch', valueHint: 'paths' },
-  'port': { type: 'string', alias: 'p', default: '5177', description: 'Port for the development server' },
+  'out-dir': {
+    type: 'string',
+    alias: 'd',
+    description: 'Output directory',
+    valueHint: 'dir',
+  },
+  'watch': {
+    type: 'boolean',
+    alias: 'w',
+    default: true,
+    description: 'Reload the Panel when a watched file changes',
+  },
+  'watch-path': {
+    type: 'string',
+    default: './**/*.php',
+    description: 'Comma-separated files, folders and globs to watch',
+    valueHint: 'paths',
+  },
+  'port': {
+    type: 'string',
+    alias: 'p',
+    default: '5177',
+    description: 'Port for the development server',
+  },
 } as const
 
 async function run({ args }: { args: ParsedArgs<typeof devArgs> }): Promise<void> {
@@ -21,7 +41,9 @@ async function run({ args }: { args: ParsedArgs<typeof devArgs> }): Promise<void
     cwd: process.cwd(),
     entry: args.file,
     outDir: args['out-dir'] ?? process.cwd(),
-    watch: args.watch && paths.length > 0 ? paths : false,
+    watch: args.watch && paths.length > 0
+      ? paths
+      : false,
     port: parsePort(args.port),
   })
 

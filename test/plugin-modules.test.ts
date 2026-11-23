@@ -96,7 +96,10 @@ async function evaluateDeadDevBundle() {
     await server.close()
   }
 
-  return evaluate(root, [devBundlePath, bundlePath(root, 'alpha')])
+  return evaluate(root, [
+    devBundlePath,
+    bundlePath(root, 'alpha'),
+  ])
 }
 
 function createRoot() {
@@ -144,7 +147,10 @@ async function evaluate(root: string, bundlePaths: string[]): Promise<Evaluation
 
   const { stdout, stderr } = await execFileAsync(process.execPath, [runner, ...bundlePaths])
 
-  return { ...JSON.parse(stdout) as Omit<EvaluationResult, 'stderr'>, stderr }
+  return {
+    ...JSON.parse(stdout) as Omit<EvaluationResult, 'stderr'>,
+    stderr,
+  }
 }
 
 async function write(path: string, content: string) {

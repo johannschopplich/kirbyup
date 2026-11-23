@@ -6,7 +6,12 @@ import { resolveWatchPaths } from '../src/node/commands/watch-paths.ts'
 
 describe('build arguments', () => {
   it('accepts a bare --watch in front of another option', () => {
-    const args = parseArgs(['src/index.js', '--watch', '--out-dir', 'out'], buildArgs)
+    const args = parseArgs([
+      'src/index.js',
+      '--watch',
+      '--out-dir',
+      'out',
+    ], buildArgs)
 
     expect(args).toMatchObject({ 'watch': true, 'out-dir': 'out' })
     expect(args._).toEqual(['src/index.js'])

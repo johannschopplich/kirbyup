@@ -18,7 +18,9 @@ export function kirbyupFullReloadPlugin(paths: string | string[]): Plugin {
     configureServer({ watcher, ws, config: { root } }) {
       const resolvedPaths = toArray(paths).map(path => resolve(root, path))
       const matches = createFilter(resolvedPaths.map(path =>
-        fs.statSync(path, { throwIfNoEntry: false })?.isDirectory() ? `${path}/**` : path,
+        fs.statSync(path, { throwIfNoEntry: false })?.isDirectory()
+          ? `${path}/**`
+          : path,
       ))
 
       watcher.add(resolvedPaths)

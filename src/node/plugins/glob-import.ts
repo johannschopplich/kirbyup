@@ -47,7 +47,9 @@ export function kirbyupGlobImportPlugin(): Plugin {
       if (s) {
         return {
           code: s.toString(),
-          map: config.build.sourcemap ? s.generateMap({ hires: true }) : undefined,
+          map: config.build.sourcemap
+            ? s.generateMap({ hires: true })
+            : undefined,
         }
       }
     },

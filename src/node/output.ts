@@ -18,7 +18,13 @@ function colorLevel(stream: NodeJS.WriteStream): 0 | 1 | 2 | 3 {
     return 0
 
   const depth = WriteStream.prototype.getColorDepth.call(stream)
-  return depth >= 24 ? 3 : depth >= 8 ? 2 : depth >= 4 ? 1 : 0
+  return depth >= 24
+    ? 3
+    : depth >= 8
+      ? 2
+      : depth >= 4
+        ? 1
+        : 0
 }
 
 const ansis = new Ansis(colorLevel(process.stderr))
@@ -59,7 +65,9 @@ export function fileWritten(
   const prettyOutDir = `${normalizePath(relative(root, outDir))}/`
   const kibs = content.length / 1024
   const compressedKibs = gzipSync(content).length / 1024
-  const paint = type === 'chunk' ? ansis.cyan : ansis.magenta
+  const paint = type === 'chunk'
+    ? ansis.cyan
+    : ansis.magenta
 
   console.error(
     `${INDENT}${ansis.green(ARROW)}  ${ansis.dim(prettyOutDir)}${ansis.bold(paint(filePath.padEnd(maxLength + 2)))}`
@@ -108,7 +116,9 @@ export function configChanged(file: string): void {
 
 export function elapsed(startedAt: number): string {
   const milliseconds = Math.round(performance.now() - startedAt)
-  return milliseconds < 1000 ? `${milliseconds} ms` : `${(milliseconds / 1000).toFixed(2)} s`
+  return milliseconds < 1000
+    ? `${milliseconds} ms`
+    : `${(milliseconds / 1000).toFixed(2)} s`
 }
 
 function row(label: string, value: string, labelWidth: number): void {

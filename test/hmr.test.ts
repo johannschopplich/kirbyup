@@ -23,7 +23,9 @@ async function createPlugin(): Promise<Plugin> {
 
   await (plugin.configResolved as (config: Record<string, any>) => Promise<void>).call(
     plugin,
-    { root: process.cwd() },
+    {
+      root: process.cwd(),
+    },
   )
 
   return plugin
@@ -35,7 +37,9 @@ function callHook<R>(
   ...args: any[]
 ): R {
   const hook = plugin[name] as any
-  const handler = typeof hook === 'function' ? hook : hook.handler
+  const handler = typeof hook === 'function'
+    ? hook
+    : hook.handler
   return handler.call(plugin, ...args)
 }
 
@@ -169,9 +173,16 @@ describe('__HMR_SHIM_CODE__', () => {
     const originalReload = vi.fn()
     const runtime: ShimRuntime = { reload: originalReload }
     evalShim({
-      window: { panel: { app: {}, plugins: { components: {} } } },
+      window: {
+        panel: {
+          app: {},
+          plugins: { components: {} },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     expect(runtime.reload).not.toBe(originalReload)
@@ -180,16 +191,25 @@ describe('__HMR_SHIM_CODE__', () => {
   it('runs the Kirby helpers in extension → render → mixins order', () => {
     const calls: string[] = []
     const sfc = { __hmrId: 'abc' }
-    const runtime: ShimRuntime = { reload: vi.fn() }
+    const runtime: ShimRuntime = {
+      reload: vi.fn(),
+    }
     evalShim({
-      window: { panel: { app: {}, plugins: {
-        resolveComponentExtension: vi.fn(() => { calls.push('ext') }),
-        resolveComponentRender: vi.fn(() => { calls.push('render') }),
-        resolveComponentMixins: vi.fn(() => { calls.push('mix') }),
-        components: { foo: sfc },
-      } } },
+      window: {
+        panel: {
+          app: {},
+          plugins: {
+            resolveComponentExtension: vi.fn(() => { calls.push('ext') }),
+            resolveComponentRender: vi.fn(() => { calls.push('render') }),
+            resolveComponentMixins: vi.fn(() => { calls.push('mix') }),
+            components: { foo: sfc },
+          },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     runtime.reload('abc', sfc)
@@ -201,14 +221,21 @@ describe('__HMR_SHIM_CODE__', () => {
     const originalReload = vi.fn()
     const runtime: ShimRuntime = { reload: originalReload }
     evalShim({
-      window: { panel: { app: {}, plugins: {
-        resolveComponentExtension: vi.fn(),
-        resolveComponentRender: vi.fn(),
-        resolveComponentMixins: vi.fn(),
-        components: { foo: sfc },
-      } } },
+      window: {
+        panel: {
+          app: {},
+          plugins: {
+            resolveComponentExtension: vi.fn(),
+            resolveComponentRender: vi.fn(),
+            resolveComponentMixins: vi.fn(),
+            components: { foo: sfc },
+          },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     runtime.reload('abc', sfc)
@@ -223,11 +250,25 @@ describe('__HMR_SHIM_CODE__', () => {
     }
     const app = { id: 'panel-app' }
     const newComp = { __hmrId: 'abc' }
-    const runtime: ShimRuntime = { reload: vi.fn() }
+    const runtime: ShimRuntime = {
+      reload: vi.fn(),
+    }
     evalShim({
-      window: { panel: { app, plugins: { ...helpers, components: { 'k-foo': { __hmrId: 'abc' } } } } },
+      window: {
+        panel: {
+          app,
+          plugins: {
+            ...helpers,
+            components: {
+              'k-foo': { __hmrId: 'abc' },
+            },
+          },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     runtime.reload('abc', newComp)
@@ -244,11 +285,23 @@ describe('__HMR_SHIM_CODE__', () => {
     }
     const stale = { __hmrId: 'old-hash', __file: '/src/MyComp.vue' }
     const fresh = { __hmrId: 'new-hash', __file: '/src/MyComp.vue' }
-    const runtime: ShimRuntime = { reload: vi.fn() }
+    const runtime: ShimRuntime = {
+      reload: vi.fn(),
+    }
     evalShim({
-      window: { panel: { app: {}, plugins: { ...helpers, components: { foo: stale } } } },
+      window: {
+        panel: {
+          app: {},
+          plugins: {
+            ...helpers,
+            components: { foo: stale },
+          },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     runtime.reload('new-hash', fresh)
@@ -264,9 +317,21 @@ describe('__HMR_SHIM_CODE__', () => {
     }
     const runtime: ShimRuntime = { reload: originalReload }
     evalShim({
-      window: { panel: { app: {}, plugins: { ...helpers, components: { foo: { __hmrId: 'unrelated', __file: '/foo.vue' } } } } },
+      window: {
+        panel: {
+          app: {},
+          plugins: {
+            ...helpers,
+            components: {
+              foo: { __hmrId: 'unrelated', __file: '/foo.vue' },
+            },
+          },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     const newComp = { __hmrId: 'xyz', __file: '/xyz.vue' }
@@ -280,17 +345,26 @@ describe('__HMR_SHIM_CODE__', () => {
   it('stops walking after the first matching component', () => {
     const ext = vi.fn()
     const sharedSfc = { __hmrId: 'abc' }
-    const runtime: ShimRuntime = { reload: vi.fn() }
+    const runtime: ShimRuntime = {
+      reload: vi.fn(),
+    }
     evalShim({
-      window: { panel: { app: {}, plugins: {
-        resolveComponentExtension: ext,
-        resolveComponentRender: vi.fn(),
-        resolveComponentMixins: vi.fn(),
-        // Same SFC registered under two names – iteration is insertion-ordered.
-        components: { first: sharedSfc, second: sharedSfc },
-      } } },
+      window: {
+        panel: {
+          app: {},
+          plugins: {
+            resolveComponentExtension: ext,
+            resolveComponentRender: vi.fn(),
+            resolveComponentMixins: vi.fn(),
+            // Same SFC registered under two names – iteration is insertion-ordered.
+            components: { first: sharedSfc, second: sharedSfc },
+          },
+        },
+      },
       __VUE_HMR_RUNTIME__: runtime,
-      console: { warn: vi.fn() },
+      console: {
+        warn: vi.fn(),
+      },
     })
 
     runtime.reload('abc', { __hmrId: 'abc' })

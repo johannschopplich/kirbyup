@@ -15,18 +15,54 @@ export default defineConfig({
   title: name,
   description: 'Official Bundler for Kirby Panel Plugins',
   head: [
-    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
-    ['meta', { name: 'author', content: 'Johann Schopplich' }],
-    ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:url', content: ogUrl }],
-    ['meta', { property: 'og:title', content: name }],
-    ['meta', { property: 'og:description', content: description }],
-    ['meta', { property: 'og:image', content: ogImage }],
-    ['meta', { name: 'twitter:title', content: name }],
-    ['meta', { name: 'twitter:description', content: description }],
-    ['meta', { name: 'twitter:image', content: twitterImage }],
-    ['meta', { name: 'twitter:site', content: '@jschopplich' }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    [
+      'link',
+      { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    [
+      'meta',
+      { name: 'author', content: 'Johann Schopplich' },
+    ],
+    [
+      'meta',
+      { property: 'og:type', content: 'website' },
+    ],
+    [
+      'meta',
+      { property: 'og:url', content: ogUrl },
+    ],
+    [
+      'meta',
+      { property: 'og:title', content: name },
+    ],
+    [
+      'meta',
+      { property: 'og:description', content: description },
+    ],
+    [
+      'meta',
+      { property: 'og:image', content: ogImage },
+    ],
+    [
+      'meta',
+      { name: 'twitter:title', content: name },
+    ],
+    [
+      'meta',
+      { name: 'twitter:description', content: description },
+    ],
+    [
+      'meta',
+      { name: 'twitter:image', content: twitterImage },
+    ],
+    [
+      'meta',
+      { name: 'twitter:site', content: '@jschopplich' },
+    ],
+    [
+      'meta',
+      { name: 'twitter:card', content: 'summary_large_image' },
+    ],
   ],
 
   vite: {

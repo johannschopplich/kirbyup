@@ -51,9 +51,13 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
       // a parallel local copy would split `__VUE_HMR_RUNTIME__` and break HMR.
       // `optimizeDeps.exclude` stops the pre-bundler from circumventing the alias.
       return {
-        optimizeDeps: { exclude: ['vue'] },
+        optimizeDeps: {
+          exclude: ['vue'],
+        },
         resolve: {
-          alias: [{ find: /^vue$/, replacement: VUE_STUB_ID }],
+          alias: [
+            { find: /^vue$/, replacement: VUE_STUB_ID },
+          ],
         },
       }
     },
@@ -72,7 +76,9 @@ export function kirbyupHmrPlugin(options: ServeOptions): Plugin {
           // Skip CJS-interop keys like `module.exports` that aren't valid identifiers.
           name => name !== 'default' && /^[A-Z_$][\w$]*$/i.test(name),
         )
-        vueStubCode = namedExports.length > 0 ? buildVueStubCode(namedExports) : undefined
+        vueStubCode = namedExports.length > 0
+          ? buildVueStubCode(namedExports)
+          : undefined
       }
       catch {
         vueStubCode = undefined

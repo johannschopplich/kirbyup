@@ -10,5 +10,7 @@ const execFileAsync = promisify(execFile)
  * import that only a bundler resolves.
  */
 export async function setup(): Promise<void> {
-  await execFileAsync('npx', ['tsdown'], { cwd: import.meta.dirname.replace(/\/test$/, '') })
+  await execFileAsync('npx', ['tsdown'], {
+    cwd: import.meta.dirname.replace(/\/test$/, ''),
+  })
 }

@@ -11,7 +11,9 @@ const config: UserConfig = defineConfig({
   define: {
     'process.env.VITEST': 'undefined',
   },
-  plugins: [UnpluginRaw()],
+  plugins: [
+    UnpluginRaw(),
+  ],
 })
 
 export default config
