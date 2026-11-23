@@ -8,13 +8,13 @@ kirbyuse 2 pairs with kirbyup 4 and Kirby 6. Kirby 4 and 5 plugins use kirbyuse 
 
 ::: code-group
 ```bash [pnpm]
-pnpm add -D kirbyuse@next
+pnpm add -D kirbyuse
 ```
 ```bash [npm]
-npm install -D kirbyuse@next
+npm install -D kirbyuse
 ```
 ```bash [yarn]
-yarn add -D kirbyuse@next
+yarn add -D kirbyuse
 ```
 :::
 

@@ -7,7 +7,7 @@ Your source lives in `src/`, split into as many files as you like. kirbyup turns
 ## Prerequisites
 
 - **Node.js 24 or newer** with pnpm, npm or yarn.
-- **Kirby 6.0.0-beta.4 or newer.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com).
+- **Kirby 6.** Kirby 6 runs the Panel on Vue 3, and kirbyup 4 builds for that runtime. Plugins for Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com).
 
 Upgrading an existing plugin? Read the [migration guide](/guide/migration).
 
@@ -22,13 +22,13 @@ Skip the setup with one of the starters:
 
 ::: code-group
 ```bash [pnpm]
-pnpm add -D kirbyup@next
+pnpm add -D kirbyup
 ```
 ```bash [npm]
-npm install -D kirbyup@next
+npm install -D kirbyup
 ```
 ```bash [yarn]
-yarn add -D kirbyup@next
+yarn add -D kirbyup
 ```
 :::
 
@@ -44,7 +44,7 @@ Add the two scripts to `package.json`:
 ```
 
 ::: details Run Without Installing
-`npx -y kirbyup@next src/index.js` works without a dependency. npx caches versions, so run `npx -y kirbyup@next` when the output looks stale. A dev dependency avoids the issue.
+`npx -y kirbyup src/index.js` works without a dependency. npx caches versions, so run `npx -y kirbyup@latest` when the output looks stale. A dev dependency avoids the issue.
 :::
 
 ## Write the Entry File

@@ -10,8 +10,8 @@ The Panel moves from Vue 2 to Vue 3, and fields replace sections. The [Kirby 6 r
 
 ## Checklist
 
-1. Node.js 24 or newer and Kirby 6.0.0-beta.4 or newer.
-2. `pnpm add -D kirbyup@next kirbyuse@next`
+1. Node.js 24 or newer and Kirby 6.
+2. `pnpm add -D kirbyup@latest kirbyuse@latest`
 3. Rename the `serve` script to `dev`.
 4. Replace `index.dev.mjs` with `index.dev.*` in `.gitignore`.
 5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`, and replace the [kirbyuse 2 removals](#kirbyuse-2-removals).
