@@ -12,7 +12,7 @@ The Panel moves from Vue 2 to Vue 3, and fields replace sections. The [Kirby 6 r
 
 1. Node.js 24 or newer and Kirby 6.
 2. `pnpm add -D kirbyup@latest kirbyuse@latest`
-3. Rename the `serve` script to `dev`.
+3. Switch the `dev` script from `kirbyup serve` to `kirbyup dev`.
 4. Replace `index.dev.mjs` with `index.dev.*` in `.gitignore`.
 5. Import `ref`, `computed` and friends from `vue` instead of `kirbyuse`, and replace the [kirbyuse 2 removals](#kirbyuse-2-removals).
 6. Replace `extendViteConfig` with `vite` in the config file.
@@ -20,7 +20,7 @@ The Panel moves from Vue 2 to Vue 3, and fields replace sections. The [Kirby 6 r
 
 ## `serve` Is Now `dev`
 
-`serve` still runs and prints a hint on every start. Rename the script so the hint goes away:
+`serve` still runs and prints a hint on every start. Switch the script to `dev` so the hint goes away:
 
 ```json
 {
