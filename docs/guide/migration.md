@@ -3,10 +3,8 @@
 kirbyup 4 builds for Kirby 6 and its Vue 3 Panel. This page lists what changes for a plugin that runs on kirbyup 3. Kirby 4 and 5 stay on kirbyup 3.x, documented at [v3.kirbyup.getkirby.com](https://v3.kirbyup.getkirby.com).
 
 ::: info Kirby 6 and Your Components
-The Panel moves from Vue 2 to Vue 3, and fields replace sections. The [Kirby 6 release notes](https://getkirby.com/releases/6) cover what that means for your components.
+The Panel moves from Vue 2 to Vue 3, and fields replace sections. Kirby's [upgrade guide for plugin developers](https://getkirby.com/docs/guide/updates/update-to-v6/plugin-developers) covers what that means for your components.
 :::
-
-<!-- TODO: point the link above at the Kirby 6 Panel migration page once it exists. -->
 
 ## Checklist
 
