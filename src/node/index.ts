@@ -57,7 +57,10 @@ function getViteConfig(
       vuePlugin({ compiler: vueCompilerSfc }),
       vueJsxPlugin(),
       kirbyupGlobImportPlugin(),
-      { ...externalGlobals({ vue: 'Vue' }), enforce: 'post' },
+      {
+        ...externalGlobals({ vue: 'Vue' }),
+        enforce: 'post',
+      },
     ],
     build: {
       copyPublicDir: false,
@@ -102,7 +105,9 @@ function getViteConfig(
 
   const buildConfig: InlineConfig = mergeConfig(sharedConfig, {
     mode,
-    plugins: [kirbyupBuildCleanupPlugin(options as BuildOptions)],
+    plugins: [
+      kirbyupBuildCleanupPlugin(options as BuildOptions),
+    ],
     build: {
       lib: {
         entry: resolve(options.cwd, options.entry),

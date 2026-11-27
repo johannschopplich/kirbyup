@@ -64,7 +64,10 @@ export async function startCli(cwd: string = process.cwd(), argv: string[] = pro
 
   // Filter out unnecessary `default` output for negated options (`\0` acts as the marker).
   cli.help(s =>
-    s.map(msg => ({ ...msg, body: msg.body.replace(' (default: \0)', '') })),
+    s.map(msg => ({
+      ...msg,
+      body: msg.body.replace(' (default: \0)', ''),
+    })),
   )
 
   cli.version(version)

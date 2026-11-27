@@ -31,7 +31,10 @@ export async function runCli(files: Record<string, string>): Promise<CliRunResul
 
   // Get main output and all associated files
   const output = await getFileContent('index.js')
-  const outFiles = await glob('**/*', { cwd: testDir, ignore: ['src'] })
+  const outFiles = await glob('**/*', {
+    cwd: testDir,
+    ignore: ['src'],
+  })
 
   return {
     output,
