@@ -1,30 +1,30 @@
 name: Release
 
-permissions:
-  id-token: write
-  contents: write
-
 on:
   push:
     tags:
       - 'v*'
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+          persist-credentials: false
+      - uses: pnpm/setup@731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1 # v3.2.0
         with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org/
-          cache: pnpm
+          runtime: node@24
+
+      - run: pnpm run build
 
       - name: Publish changelog
-        run: npx changelogithub
+        run: pnpm dlx changelogithub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -33,12 +33,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: pnpm install
-      - run: pnpm run build
-
-      - name: Publish to npm (stable)
-        if: ${{ !contains(github.ref_name, '-') }}
-        run: npm install -g npm@latest && npm publish --access public --tag kirby-5
-      - name: Publish to npm (prerelease)
-        if: ${{ contains(github.ref_name, '-') }}
-        run: npm install -g npm@latest && npm publish --access public --tag next
+      - name: Publish to npm
+        run: pnpm publish --access public --no-git-checks --tag "$NPM_TAG"
+        env:
+          NPM_TAG: ${{ contains(github.ref_name, '-') && 'next' || 'kirby-5' }}
